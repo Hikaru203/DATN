@@ -1,8 +1,8 @@
-package com.example.jparepository;
+package com.fpoly.duantotnghiep.jparepository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.entity.ChungChi;
+import com.fpoly.duantotnghiep.Entity.ChungChi;
 
 public interface ChungChiRepository extends JpaRepository<ChungChi, Integer> {
     // You can add custom query methods here if needed

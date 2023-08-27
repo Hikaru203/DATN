@@ -1,4 +1,4 @@
-package com.example.entity;
+package com.fpoly.duantotnghiep.Entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

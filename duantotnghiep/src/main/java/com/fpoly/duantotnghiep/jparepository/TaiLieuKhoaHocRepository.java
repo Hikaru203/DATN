@@ -1,8 +1,8 @@
-package com.example.jparepository;
+package com.fpoly.duantotnghiep.jparepository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.entity.TaiLieuKhoaHoc;
+import com.fpoly.duantotnghiep.Entity.TaiLieuKhoaHoc;
 
 public interface TaiLieuKhoaHocRepository extends JpaRepository<TaiLieuKhoaHoc, Integer> {
     // You can add custom query methods here if needed
