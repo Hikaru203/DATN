@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="KhoaHoc-ctrl">
+    <table>
+        <thead>
+
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in itemsKhoaHoc">
+                <td></td>
+                <td>{{ $index + 1 }}</td>
+                <td>{{item.id}}</td>
+                <td>{{item.tenKhoaHoc}}</td>
+
+                <td>{{item.duyet}}</td>
+
+                <td>{{item.ngayTao}}</td>
+
+                
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <script src="Admin/js/KhoaHoc-ctrl.js"></script>
+</body>
+</html>
