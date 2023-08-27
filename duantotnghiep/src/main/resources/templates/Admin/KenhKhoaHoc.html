@@ -15,66 +15,70 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
     <!-- Bootstrap CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="Admin/css/bootstrap.min.css">
     <!-- Bootstrap CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="Admin/css/font-awesome.min.css">
     <!-- owl.carousel CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/owl.theme.css">
-    <link rel="stylesheet" href="css/owl.transitions.css">
+    <link rel="stylesheet" href="Admin/css/owl.carousel.css">
+    <link rel="stylesheet" href="Admin/css/owl.theme.css">
+    <link rel="stylesheet" href="Admin/css/owl.transitions.css">
     <!-- animate CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="Admin/css/animate.css">
     <!-- normalize CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="Admin/css/normalize.css">
     <!-- meanmenu icon CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/meanmenu.min.css">
+    <link rel="stylesheet" href="Admin/css/meanmenu.min.css">
     <!-- main CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="Admin/css/main.css">
     <!-- educate icon CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/educate-custon-icon.css">
+    <link rel="stylesheet" href="Admin/css/educate-custon-icon.css">
     <!-- morrisjs CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/morrisjs/morris.css">
+    <link rel="stylesheet" href="Admin/css/morrisjs/morris.css">
     <!-- mCustomScrollbar CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="Admin/css/scrollbar/jquery.mCustomScrollbar.min.css">
     <!-- metisMenu CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
-    <link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
+    <link rel="stylesheet" href="Admin/css/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="Admin/css/metisMenu/metisMenu-vertical.css">
     <!-- calendar CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
-    <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
+    <link rel="stylesheet" href="Admin/css/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="Admin/css/calendar/fullcalendar.print.min.css">
     <!-- x-editor CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/editor/select2.css">
-    <link rel="stylesheet" href="css/editor/datetimepicker.css">
-    <link rel="stylesheet" href="css/editor/bootstrap-editable.css">
-    <link rel="stylesheet" href="css/editor/x-editor-style.css">
+    <link rel="stylesheet" href="Admin/css/editor/select2.css">
+    <link rel="stylesheet" href="Admin/css/editor/datetimepicker.css">
+    <link rel="stylesheet" href="Admin/css/editor/bootstrap-editable.css">
+    <link rel="stylesheet" href="Admin/css/editor/x-editor-style.css">
     <!-- normalize CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/data-table/bootstrap-table.css">
-    <link rel="stylesheet" href="css/data-table/bootstrap-editable.css">
+    <link rel="stylesheet" href="Admin/css/data-table/bootstrap-table.css">
+    <link rel="stylesheet" href="Admin/css/data-table/bootstrap-editable.css">
     <!-- style CSS
 		============================================ -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Admin/css/style.css">
     <!-- responsive CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="Admin/css/responsive.css">
     <!-- modernizr JS
 		============================================ -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="Admin/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
+   
 </head>
 
-<body>
+<body ng-app="myApp" ng-controller="KhoaHoc-ctrl">
     <!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
@@ -82,8 +86,8 @@
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                <strong><a href="index.html"><img src="img/logo/logosn.png" alt="" /></a></strong>
+                <a href="index.html"><img class="main-logo" src="Admin/img/logo/logo.png" alt="" /></a>
+                <strong><a href="index.html"><img src="Admin/img/logo/logosn.png" alt="" /></a></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
@@ -158,7 +162,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                        <a href="index.html"><img class="main-logo" src="Admin/img/logo/logo.png" alt="" /></a>
                     </div>
                 </div>
             </div>
@@ -222,7 +226,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/1.jpg" alt="">
+                                                                        <img src="Admin/img/contact/1.jpg" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -235,7 +239,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/4.jpg" alt="">
+                                                                        <img src="Admin/img/contact/4.jpg" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -248,7 +252,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/3.jpg" alt="">
+                                                                        <img src="Admin/img/contact/3.jpg" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -261,7 +265,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/2.jpg" alt="">
+                                                                        <img src="Admin/img/contact/2.jpg" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -353,7 +357,7 @@
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button"
                                                         aria-expanded="false" class="nav-link dropdown-toggle">
-                                                        <img src="img/product/pro4.jpg" alt="" />
+                                                        <img src="Admin/img/product/pro4.jpg" alt="" />
                                                         <span class="admin-name">Prof.Anderson</span>
                                                         <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
                                                     </a>
@@ -411,7 +415,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg"
+                                                                                            <img src="Admin/img/contact/4.jpg"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -428,7 +432,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg"
+                                                                                            <img src="Admin/img/contact/1.jpg"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -445,7 +449,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg"
+                                                                                            <img src="Admin/img/contact/2.jpg"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -462,7 +466,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg"
+                                                                                            <img src="Admin/img/contact/3.jpg"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -479,7 +483,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg"
+                                                                                            <img src="Admin/img/contact/4.jpg"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -496,7 +500,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg"
+                                                                                            <img src="Admin/img/contact/1.jpg"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -513,7 +517,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg"
+                                                                                            <img src="Admin/img/contact/2.jpg"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -530,7 +534,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg"
+                                                                                            <img src="Admin/img/contact/1.jpg"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -547,7 +551,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg"
+                                                                                            <img src="Admin/img/contact/2.jpg"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -564,7 +568,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg"
+                                                                                            <img src="Admin/img/contact/3.jpg"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -1264,314 +1268,35 @@
                                         data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
                                         <thead>
                                             <tr>
-                                                <th data-field="state" data-checkbox="true"></th>
-                                                <th data-field="id">ID</th>
-                                                <th data-field="name" data-editable="true">Id Khóa Học</th>
-                                                <th data-field="email" data-editable="true">Tên Khóa Học</th>
+                                                <th data-field="state" data-checkbox="true"></th> 
+                                                <th data-field="id" data-editable="true">Id Khóa Học</th>
+                                                <th data-field="tenKhoaHoc" data-editable="true">Tên Khóa Học</th>
 
-                                                <th data-field="phone" data-editable="true">Duyệt</th>
-                                                <th data-field="date" data-editable="true">Ngày Tạo</th>
-
+                                                <th data-field="duyet" data-editable="true">Duyệt</th>
+                                                <th data-field="ngayTao" data-editable="true">Ngày Tạo</th>
 
 
-                                                <th data-field="action">Trạng Thái</th>
+
+                                                <th data-field="trangThai">Trạng Thái</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td>  
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>Web Development</td>
-                                                <td>admin@uttara.com</td>
-
-                                                <td> Đã Duyệt
-                                                </td>
-
-                                                <td>Jul 14, 2017</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
+                                            
+                                                <tr ng-repeat="item in itemsKhoaHoc">
+                                                    <td></td>
+                                                    <td>{{item.id}}</td>
+                                                    <td>{{item.tenKhoaHoc}}</td>
+    
+                                                    <td>{{item.duyet}}</td>
+    
+                                                    <td>{{item.ngayTao  | date:'dd-MM'}}</td>
+    
+                                                    <td class="datatable-ct"><i class="fa fa-check"></i>
+                                                    </td>
+                                                </tr>
+                                            
+                                            
+                                           
                                             <div class="button-ap-list responsive-btn">
                                                 <div class="button-style-four btn-mg-b-10">
                                                     
@@ -1594,71 +1319,74 @@
 
     <!-- jquery
 		============================================ -->
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="Admin/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS
 		============================================ -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="Admin/js/bootstrap.min.js"></script>
     <!-- wow JS
 		============================================ -->
-    <script src="js/wow.min.js"></script>
+    <script src="Admin/js/wow.min.js"></script>
     <!-- price-slider JS
 		============================================ -->
-    <script src="js/jquery-price-slider.js"></script>
+    <script src="Admin/js/jquery-price-slider.js"></script>
     <!-- meanmenu JS
 		============================================ -->
-    <script src="js/jquery.meanmenu.js"></script>
+    <script src="Admin/js/jquery.meanmenu.js"></script>
     <!-- owl.carousel JS
 		============================================ -->
-    <script src="js/owl.carousel.min.js"></script>
+    <script src="Admin/js/owl.carousel.min.js"></script>
     <!-- sticky JS
 		============================================ -->
-    <script src="js/jquery.sticky.js"></script>
+    <script src="Admin/js/jquery.sticky.js"></script>
     <!-- scrollUp JS
 		============================================ -->
-    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="Admin/js/jquery.scrollUp.min.js"></script>
     <!-- mCustomScrollbar JS
 		============================================ -->
-    <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
+    <script src="Admin/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="Admin/js/scrollbar/mCustomScrollbar-active.js"></script>
     <!-- metisMenu JS
 		============================================ -->
-    <script src="js/metisMenu/metisMenu.min.js"></script>
-    <script src="js/metisMenu/metisMenu-active.js"></script>
+    <script src="Admin/js/metisMenu/metisMenu.min.js"></script>
+    <script src="Admin/js/metisMenu/metisMenu-active.js"></script>
     <!-- data table JS
 		============================================ -->
-    <script src="js/data-table/bootstrap-table.js"></script>
-    <script src="js/data-table/tableExport.js"></script>
-    <script src="js/data-table/data-table-active.js"></script>
-    <script src="js/data-table/bootstrap-table-editable.js"></script>
-    <script src="js/data-table/bootstrap-editable.js"></script>
-    <script src="js/data-table/bootstrap-table-resizable.js"></script>
-    <script src="js/data-table/colResizable-1.5.source.js"></script>
-    <script src="js/data-table/bootstrap-table-export.js"></script>
+    <script src="Admin/js/data-table/bootstrap-table.js"></script>
+    <script src="Admin/js/data-table/tableExport.js"></script>
+    <script src="Admin/js/data-table/data-table-active.js"></script>
+    <script src="Admin/js/data-table/bootstrap-table-editable.js"></script>
+    <script src="Admin/js/data-table/bootstrap-editable.js"></script>
+    <script src="Admin/js/data-table/bootstrap-table-resizable.js"></script>
+    <script src="Admin/js/data-table/colResizable-1.5.source.js"></script>
+    <script src="Admin/js/data-table/bootstrap-table-export.js"></script>
     <!--  editable JS
 		============================================ -->
-    <script src="js/editable/jquery.mockjax.js"></script>
-    <script src="js/editable/mock-active.js"></script>
-    <script src="js/editable/select2.js"></script>
-    <script src="js/editable/moment.min.js"></script>
-    <script src="js/editable/bootstrap-datetimepicker.js"></script>
-    <script src="js/editable/bootstrap-editable.js"></script>
-    <script src="js/editable/xediable-active.js"></script>
+    <script src="Admin/js/editable/jquery.mockjax.js"></script>
+    <script src="Admin/js/editable/mock-active.js"></script>
+    <script src="Admin/js/editable/select2.js"></script>
+    <script src="Admin/js/editable/moment.min.js"></script>
+    <script src="Admin/js/editable/bootstrap-datetimepicker.js"></script>
+    <script src="Admin/js/editable/bootstrap-editable.js"></script>
+    <script src="Admin/js/editable/xediable-active.js"></script>
     <!-- Chart JS
 		============================================ -->
-    <script src="js/chart/jquery.peity.min.js"></script>
-    <script src="js/peity/peity-active.js"></script>
+    <script src="Admin/js/chart/jquery.peity.min.js"></script>
+    <script src="Admin/js/peity/peity-active.js"></script>
     <!-- tab JS
 		============================================ -->
-    <script src="js/tab.js"></script>
+    <script src="Admin/js/tab.js"></script>
     <!-- plugins JS
 		============================================ -->
-    <script src="js/plugins.js"></script>
+    <script src="Admin/js/plugins.js"></script>
     <!-- main JS
 		============================================ -->
-    <script src="js/main.js"></script>
+    <script src="Admin/js/main.js"></script>
     <!-- tawk chat JS
 		============================================ -->
-    <script src="js/tawk-chat.js"></script>
+    <script src="Admin/js/tawk-chat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    
+    <script src="Admin/js/KhoaHoc-ctrl.js"></script>
 </body>
 
 </html>
