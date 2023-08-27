@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,14 +22,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class VideoKhoaHoc {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    @Column(name = "id_khoa_hoc")
-    private int idKhoaHoc;
+    @ManyToOne
+    @JoinColumn(name = "id_khoa_hoc")
+    private KhoaHoc khoaHoc;
 
-    @Column(name = "link_video", columnDefinition = "nvarchar(max)")
+    @Column(name = "link_video")
     private String linkVideo;
 
     @Column(name = "thu_tu")

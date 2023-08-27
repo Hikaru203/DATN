@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,15 +22,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoaiKhoaHoc {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
 
-    @Column(name = "IDKhoaHoc")
-    private int idKhoaHoc;
+	@ManyToOne
+	@JoinColumn(name = "IDKhoaHoc")
+	private KhoaHoc khoaHoc;
 
-    @Column(name = "ten_loai_khoa_hoc", length = 100)
-    private String tenLoaiKhoaHoc;
+	@Column(name = "ten_loai_khoa_hoc")
+	private String tenLoaiKhoaHoc;
 
-    // Getters and Setters
 }

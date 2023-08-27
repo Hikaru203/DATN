@@ -1,15 +1,16 @@
 package com.example.entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
-
-
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,15 +24,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CauHoi {
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    @Column(name = "id_khoa_hoc")
-    private int idKhoaHoc;
+    @ManyToOne
+    @JoinColumn(name = "id_khoa_hoc")
+    private KhoaHoc khoaHoc;
 
     @Column(name = "ngay_tao")
-    private LocalDate ngayTao;
+    private Date ngayTao;
 
     @Column(name = "cau_hoi", columnDefinition = "nvarchar(max)")
     private String cauHoi;
@@ -39,9 +42,7 @@ public class CauHoi {
     @Column(name = "cau_tra_loi", columnDefinition = "nvarchar(max)")
     private String cauTraLoi;
 
-    @Column(name = "dap_an", length = 100)
+    @Column(name = "dap_an")
     private String dapAn;
 
-    // Getters and Setters
 }
-

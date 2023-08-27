@@ -1,12 +1,15 @@
 package com.example.entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,24 +23,25 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DangKyKhoaHoc {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    @Column(name = "id_nguoi_dung")
-    private int idNguoiDung;
+	@ManyToOne
+	@JoinColumn(name = "id_nguoi_dung")
+	private NguoiDung nguoiDung;
 
-    @Column(name = "id_khoa_hoc")
-    private int idKhoaHoc;
+	@ManyToOne
+	@JoinColumn(name = "id_khoa_hoc")
+	private KhoaHoc khoaHoc;
 
-    @Column(name = "ngay_dang_ky")
-    private LocalDate ngayDangKy;
+	@Column(name = "ngay_dang_ky")
+	private Date ngayDangKy;
 
-    @Column(name = "tien_do")	
-    private Integer tienDo;
-
-    @Column(name = "trang_thai", length = 50, nullable = false)
+	@Column(name = "tien_do")
+    private int tienDo;
+	
+    @Column(name = "trang_thai")
     private String trangThai;
-
-    // Getters and Setters
+	// Getters and Setters
 }
