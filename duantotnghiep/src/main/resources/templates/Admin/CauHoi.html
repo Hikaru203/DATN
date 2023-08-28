@@ -73,9 +73,38 @@
     <!-- modernizr JS
 		============================================ -->
     <script src="Admin/js/vendor/modernizr-2.8.3.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <!-- Include Angular UI Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.min.js"></script>
+    <style>
+        .form-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group input[type="radio"] {
+            margin-right: 10px;
+        }
+    </style>
+    <style>
+        .text-truncate {
+            max-width: 150px;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            /* Ẩn phần vượt quá */
+            text-overflow: ellipsis;
+            /* Giới hạn chiều rộng */
+            white-space: nowrap;
+        }
+    </style>
 </head>
 
-<body>
+<body ng-app="myApp" ng-controller="CauHoi-ctrl">
     <!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
@@ -91,62 +120,84 @@
                     <ul class="metismenu" id="menu1">
                         <li class="active">
                             <a class="has-arrow" href="index1.html">
-                                   <span class="educate-icon educate-home icon-wrap"></span>
-                                   <span class="mini-click-non">Education</span>
-                                </a>
+                                <span class="educate-icon educate-home icon-wrap"></span>
+                                <span class="mini-click-non">Education</span>
+                            </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Dashboard v.1" href="ThongKe.html"><span class="mini-sub-pro">Thống Kê</span></a></li>
-                                                                                      </ul>
+                                <li><a title="Dashboard v.1" href="ThongKe.html"><span class="mini-sub-pro">Thống
+                                            Kê</span></a></li>
+                            </ul>
                         </li>
-                     
+
                         <li>
-                            <a class="has-arrow" href="all-professors.html" aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span> <span class="mini-click-non">User</span></a>
+                            <a class="has-arrow" href="all-professors.html" aria-expanded="false"><span
+                                    class="educate-icon educate-professor icon-wrap"></span> <span
+                                    class="mini-click-non">User</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                                                                <li><a title="Edit Professor" href="User.html"><span class="mini-sub-pro">Quản lý người dùng</span></a></li>
-                            
+                                <li><a title="Edit Professor" href="User.html"><span class="mini-sub-pro">Quản lý người
+                                            dùng</span></a></li>
+
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="User.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">Sinh Viên</span></a>
+                            <a class="has-arrow" href="User.html" aria-expanded="false"><span
+                                    class="educate-icon educate-student icon-wrap"></span> <span
+                                    class="mini-click-non">Sinh Viên</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Students" href="User.html"><span class="mini-sub-pro"> Quản Lí Sinh Viên</span></a></li>
-                                                     </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="KhoaHoc.html" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Khóa Học</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Courses" href="KhoaHoc.html"><span class="mini-sub-pro">Khóa Học</span></a></li>
-                                <li><a title="Add Courses" href="EditKhoaHoc.html"><span class="mini-sub-pro">Thêm Khóa Học</span></a></li>
-                                <li><a title="Add Courses" href="KenhKhoaHoc.html"><span class="mini-sub-pro">Kênh Khóa Học</span></a></li>
-                                                          <li><a title="Thanh Toan" href="ThanhToan.html"><span class="mini-sub-pro">Thanh Toán</span></a></li>
+                                <li><a title="All Students" href="User.html"><span class="mini-sub-pro"> Quản Lí Sinh
+                                            Viên</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="TaiLieu.html" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Tài Liệu</span></a>
+                            <a class="has-arrow" href="KhoaHoc.html" aria-expanded="false"><span
+                                    class="educate-icon educate-course icon-wrap"></span> <span
+                                    class="mini-click-non">Khóa Học</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Library" href="TaiLieu.html"><span class="mini-sub-pro">Quản Lí Tài Liệu</span></a></li>
-                                <li><a title="All Library" href="CauHoi.html"><span class="mini-sub-pro">Câu Hỏi</span></a></li>
+                                <li><a title="All Courses" href="KhoaHoc.html"><span class="mini-sub-pro">Khóa
+                                            Học</span></a></li>
+                                <li><a title="Add Courses" href="EditKhoaHoc.html"><span class="mini-sub-pro">Thêm Khóa
+                                            Học</span></a></li>
+                                <li><a title="Add Courses" href="KenhKhoaHoc.html"><span class="mini-sub-pro">Kênh Khóa
+                                            Học</span></a></li>
+                                <li><a title="Thanh Toan" href="ThanhToan.html"><span class="mini-sub-pro">Thanh
+                                            Toán</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="ChungChi.html" aria-expanded="false"><span class="educate-icon educate-department icon-wrap"></span> <span class="mini-click-non">Chứng Chỉ</span></a>
+                            <a class="has-arrow" href="TaiLieu.html" aria-expanded="false"><span
+                                    class="educate-icon educate-library icon-wrap"></span> <span
+                                    class="mini-click-non">Tài Liệu</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="ChungChi List" href="ChungChi.html"><span class="mini-sub-pro">Chứng Chỉ</span></a></li>
-                                
+                                <li><a title="All Library" href="TaiLieu.html"><span class="mini-sub-pro">Quản Lí Tài
+                                            Liệu</span></a></li>
+                                <li><a title="All Library" href="CauHoi.html"><span class="mini-sub-pro">Câu
+                                            Hỏi</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="Video.html" aria-expanded="false"><span class="educate-icon educate-message icon-wrap"></span> <span class="mini-click-non">Video</span></a>
+                            <a class="has-arrow" href="ChungChi.html" aria-expanded="false"><span
+                                    class="educate-icon educate-department icon-wrap"></span> <span
+                                    class="mini-click-non">Chứng Chỉ</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="ChungChi List" href="ChungChi.html"><span class="mini-sub-pro">Chứng
+                                            Chỉ</span></a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow" href="Video.html" aria-expanded="false"><span
+                                    class="educate-icon educate-message icon-wrap"></span> <span
+                                    class="mini-click-non">Video</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="Inbox" href="Video.html"><span class="mini-sub-pro">Video</span></a></li>
-                            
+
                             </ul>
                         </li>
-                   
-                     
-                       
-                  
-                       
+
+
+
+
+
                     </ul>
                 </nav>
             </div>
@@ -1246,191 +1297,203 @@
                         <div class="product-payment-inner-st">
                             <ul id="myTabedu1" class="tab-review-design">
                                 <li class="active"><a href="#description">Edit User</a></li>
-                                                        <div id="myTabContent" class="tab-content custom-product-edit">
-                                <div class="product-tab-list tab-pane fade active in" id="description">
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="review-content-section">
-                                                <div id="dropzone1" class="pro-ad">
-                                         
+                                <div id="myTabContent" class="tab-content custom-product-edit">
+                                    <div class="product-tab-list tab-pane fade active in" id="description">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="product-status mg-b-15">
+                                                    <div class="container-fluid">
                                                         <div class="row">
-                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                <div class="form-group">
-                                                                    <input name="number" type="text" class="form-control" placeholder="ID" value="">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="product-status-wrap drp-lst">
+                                                                    <h4>Câu Hỏi</h4>
+                                                                    <div class="asset-inner">
+                                                                        <select class="form-control"
+                                                                            style="width: 100%;"
+                                                                            ng-model="selectedCourse"
+                                                                            ng-change="loadDocuments()">
+                                                                            <option value="">Chọn khóa học
+                                                                            </option>
+                                                                            <option ng-repeat="course in itemsKhoaHoc"
+                                                                                value="{{course.id}}">
+                                                                                {{course.tenKhoaHoc}}
+                                                                            </option>
+                                                                        </select>
+                                                                        <table>
+                                                                            <tr>
+                                                                                <th>idKhoaHoc</th>
+                                                                                <th>CauHoi </th>
+                                                                                <th>DapAn</th>
+                                                                                <th>Tùy chọn</th>
+                                                                            </tr>
+                                                                            <tr ng-repeat="item in displayedItems">
+                                                                                <td> {{ item.khoaHoc.tenKhoaHoc
+                                                                                    }}
+                                                                                <td class="text-truncate">{{
+                                                                                    item.cauHoi }}</td>
+
+
+                                                                                <td class="text-truncate">
+                                                                                    {{item.dapAn}} </td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control" placeholder="idKhoaHoc" value="">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control" placeholder="CauHoi" value="">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control" placeholder="TraLoi1" value="">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control" placeholder="TraLoi2" value="">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control" placeholder="TraLoi3" value="">
-                                                                </div>
-                                                                                                                              <div class="form-group">
-                                                                    <input type="text" class="form-control" placeholder="Dap An" value="">
-                                                                </div>
-                                                                
-                                                           
-                                                    
-                                                        <div class="container mt-4">
-                                                            <!-- Button "Thêm" -->
-                                                            <button class="btn btn-primary mr-2" onclick="addFunction()">Thêm</button>
-                                                    
-                                                            <!-- Button "Sửa" -->
-                                                            <button class="btn btn-warning mr-2" onclick="editFunction()">Sửa</button>
-                                                    
-                                                            <!-- Button "Xóa" -->
-                                                            <button class="btn btn-danger" onclick="deleteFunction()">Xóa</button>
+                                                            </div>
                                                         </div>
-                                                    </form>
+                                                    </div>
+                                                </div>
+                                                <div class="review-content-section">
+                                                    <div id="dropzone1" class="pro-ad">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="idKhoaHoc"
+                                                                        value="{{ selectedCourse }}">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="CauHoi" value="">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input type="radio" name="correctAnswer"
+                                                                        class="answer-radio">
+                                                                    <input type="text" class="form-control "
+                                                                        placeholder="TraLoi1" value="">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input type="radio" name="correctAnswer"
+                                                                        class="answer-radio">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="TraLoi2" value="">
+
+                                                                </div>
+                                                                <div id="dynamicAnswers">
+                                                                    <!-- Here will be dynamically added answer fields -->
+                                                                </div>
+                                                                <button class="btn btn-primary mr-2"
+                                                                    onclick="addAnswerField()">Thêm Trả lời</button>
+                                                                <div class="container mt-4">
+                                                                    <!-- Other buttons and form closing -->
+                                                                </div>
+                                                                <br>
+                                                                <div class="form-group">
+                                                                    <input name="number" type="text"
+                                                                        class="form-control" placeholder="Thứ tự"
+                                                                        min="0" value="0">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <script>
+                                                    let answerCount = 2; // Starting count for dynamic answer fields
+
+                                                    function addAnswerField() {
+                                                        if (answerCount <= 4) { // Limit to 5 dynamic answer fields
+                                                            const dynamicAnswers = document.getElementById('dynamicAnswers');
+                                                            const newAnswerField = document.createElement('div');
+                                                            newAnswerField.classList.add('form-group');
+                                                            newAnswerField.innerHTML = `<input type="radio" name="correctAnswer" class="answer-radio">
+                                                            <input type="text" class="form-control" placeholder="TraLoi${answerCount + 1}" value="">`;
+                                                            dynamicAnswers.appendChild(newAnswerField);
+                                                            answerCount++;
+                                                        }
+                                                    }
+                                                </script>
+                                                <br>
+                                                <div class="container mt-4">
+                                                    <!-- Button "Thêm" -->
+                                                    <button class="btn btn-primary mr-2"
+                                                        onclick="addFunction()">Thêm</button>
+
+                                                    <!-- Button "Sửa" -->
+                                                    <button class="btn btn-warning mr-2"
+                                                        onclick="editFunction()">Sửa</button>
+
+                                                    <!-- Button "Xóa" -->
+                                                    <button class="btn btn-danger"
+                                                        onclick="deleteFunction()">Xóa</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                    <div class="product-status mg-b-15">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="product-status-wrap drp-lst">
-                                                        <h4>Câu Hỏi</h4>
-                                                        <div class="asset-inner">
-                                                            <table>
-                                                                <tr>
-                                                                    <th>No</th>
-                                                                    <th>id</th>
-                                                                    <th>idKhoaHoc</th>
-                                                                    <th>CauHoi </th>
-                                                                    <th>TraLoi1 </th>
-                                                                    <th>TraLoi2 </th>
-                                                                    <th>TraLoi3</th>
-                                                                    <th>TraLoi4</th>
-                                                                    <th>DapAn</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td>@3213</td>
-                                                                    <td> Đăng Đần @ </td>
-                                                                    <td>150</td>
-                                                                    <td>1</td>
-                                                                    <td>@3213</td>
-                                                                    <td> Đăng Đần @ </td>
-                                                                    <td>150</td>
-                                                                    <td> Đăng Đần @ </td>
-
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td>@3213</td>
-                                                                    <td> Đăng Đần @ </td>
-                                                                    <td>150</td>
-                                                                    <td>1</td>
-                                                                    <td>@3213</td>
-                                                                    <td> Đăng Đần @ </td>
-                                                                    <td>150</td>
-                                                                    <td> Đăng Đần @ </td>
-
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td>@3213</td>
-                                                                    <td> Đăng Đần @ </td>
-                                                                    <td>150</td>
-                                                                    <td>1</td>
-                                                                    <td>@3213</td>
-                                                                    <td> Đăng Đần @ </td>
-                                                                    <td>150</td>
-                                                                    <td> Đăng Đần @ </td>
-                                                                </tr>
-
-                                                            </table>
-                                                        </div>
-                                                        <div class="custom-pagination">
-                                                            <nav aria-label="Page navigation example">
-                                                                <ul class="pagination">
-                                                                    <li class="page-item"><a class="page-link"
-                                                                            href="#">Previous</a></li>
-                                                                    <li class="page-item"><a class="page-link"
-                                                                            href="#">1</a></li>
-                                                                    <li class="page-item"><a class="page-link"
-                                                                            href="#">2</a></li>
-                                                                    <li class="page-item"><a class="page-link"
-                                                                            href="#">3</a></li>
-                                                                    <li class="page-item"><a class="page-link"
-                                                                            href="#">Next</a></li>
-                                                                </ul>
-                                                            </nav>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 
 
 
-                                        <!-- jquery
+<!-- jquery
 		============================================ -->
-                                        <script src="Admin/js/vendor/jquery-1.12.4.min.js"></script>
-                                        <!-- bootstrap JS
+<script src="Admin/js/vendor/jquery-1.12.4.min.js"></script>
+<!-- bootstrap JS
 		============================================ -->
-                                        <script src="Admin/js/bootstrap.min.js"></script>
-                                        <!-- wow JS
+<script src="Admin/js/bootstrap.min.js"></script>
+<!-- wow JS
 		============================================ -->
-                                        <script src="Admin/js/wow.min.js"></script>
-                                        <!-- price-slider JS
+<script src="Admin/js/wow.min.js"></script>
+<!-- price-slider JS
 		============================================ -->
-                                        <script src="Admin/js/jquery-price-slider.js"></script>
-                                        <!-- meanmenu JS
+<script src="Admin/js/jquery-price-slider.js"></script>
+<!-- meanmenu JS
 		============================================ -->
-                                        <script src="Admin/js/jquery.meanmenu.js"></script>
-                                        <!-- owl.carousel JS
+<script src="Admin/js/jquery.meanmenu.js"></script>
+<!-- owl.carousel JS
 		============================================ -->
-                                        <script src="Admin/js/owl.carousel.min.js"></script>
-                                        <!-- sticky JS
+<script src="Admin/js/owl.carousel.min.js"></script>
+<!-- sticky JS
 		============================================ -->
-                                        <script src="Admin/js/jquery.sticky.js"></script>
-                                        <!-- scrollUp JS
+<script src="Admin/js/jquery.sticky.js"></script>
+<!-- scrollUp JS
 		============================================ -->
-                                        <script src="Admin/js/jquery.scrollUp.min.js"></script>
-                                        <!-- mCustomScrollbar JS
+<script src="Admin/js/jquery.scrollUp.min.js"></script>
+<!-- mCustomScrollbar JS
 		============================================ -->
-                                        <script src="Admin/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-                                        <script src="Admin/js/scrollbar/mCustomScrollbar-active.js"></script>
-                                        <!-- metisMenu JS
+<script src="Admin/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="Admin/js/scrollbar/mCustomScrollbar-active.js"></script>
+<!-- metisMenu JS
 		============================================ -->
-                                        <script src="Admin/js/metisMenu/metisMenu.min.js"></script>
-                                        <script src="Admin/js/metisMenu/metisMenu-active.js"></script>
-                                        <!-- morrisjs JS
+<script src="Admin/js/metisMenu/metisMenu.min.js"></script>
+<script src="Admin/js/metisMenu/metisMenu-active.js"></script>
+<!-- morrisjs JS
 		============================================ -->
-                                        <script src="Admin/js/sparkline/jquery.sparkline.min.js"></script>
-                                        <script src="Admin/js/sparkline/jquery.charts-sparkline.js"></script>
-                                        <!-- calendar JS
+<script src="Admin/js/sparkline/jquery.sparkline.min.js"></script>
+<script src="Admin/js/sparkline/jquery.charts-sparkline.js"></script>
+<!-- calendar JS
 		============================================ -->
-                                        <script src="Admin/js/calendar/moment.min.js"></script>
-                                        <script src="Admin/js/calendar/fullcalendar.min.js"></script>
-                                        <script src="Admin/js/calendar/fullcalendar-active.js"></script>
-                                        <!-- dropzone JS
+<script src="Admin/js/calendar/moment.min.js"></script>
+<script src="Admin/js/calendar/fullcalendar.min.js"></script>
+<script src="Admin/js/calendar/fullcalendar-active.js"></script>
+<!-- dropzone JS
 		============================================ -->
-                                        <script src="Admin/js/dropzone/dropzone.js"></script>
-                                        <!-- tab JS
+<script src="Admin/js/dropzone/dropzone.js"></script>
+<!-- tab JS
 		============================================ -->
-                                        <script src="Admin/js/tab.js"></script>
-                                        <!-- plugins JS
+<script src="Admin/js/tab.js"></script>
+<!-- plugins JS
 		============================================ -->
-                                        <script src="Admin/js/plugins.js"></script>
-                                        <!-- main JS
+<script src="Admin/js/plugins.js"></script>
+<!-- main JS
 		============================================ -->
-                                        <script src="Admin/js/main.js"></script>
-                                        <!-- tawk chat JS
+<script src="Admin/js/main.js"></script>
+<!-- tawk chat JS
 		============================================ -->
-                                        <script src="Admin/js/tawk-chat.js"></script>
+<script src="Admin/js/tawk-chat.js"></script>
+
+<script src="Admin/js/CauHoi-ctrl.js"></script>
+
 </body>
 
 </html>
