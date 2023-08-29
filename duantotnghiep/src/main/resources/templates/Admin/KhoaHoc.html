@@ -15,56 +15,60 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
     <!-- Bootstrap CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="Admin/css/bootstrap.min.css">
     <!-- Bootstrap CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="Admin/css/font-awesome.min.css">
     <!-- owl.carousel CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/owl.theme.css">
-    <link rel="stylesheet" href="css/owl.transitions.css">
+    <link rel="stylesheet" href="Admin/css/owl.carousel.css">
+    <link rel="stylesheet" href="Admin/css/owl.theme.css">
+    <link rel="stylesheet" href="Admin/css/owl.transitions.css">
     <!-- animate CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="Admin/css/animate.css">
     <!-- normalize CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="Admin/css/normalize.css">
     <!-- meanmenu icon CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/meanmenu.min.css">
+    <link rel="stylesheet" href="Admin/css/meanmenu.min.css">
     <!-- main CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="Admin/css/main.css">
     <!-- educate icon CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/educate-custon-icon.css">
+    <link rel="stylesheet" href="Admin/css/educate-custon-icon.css">
     <!-- morrisjs CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/morrisjs/morris.css">
+    <link rel="stylesheet" href="Admin/css/morrisjs/morris.css">
     <!-- mCustomScrollbar CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="Admin/css/scrollbar/jquery.mCustomScrollbar.min.css">
     <!-- metisMenu CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
-    <link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
+    <link rel="stylesheet" href="Admin/css/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="Admin/css/metisMenu/metisMenu-vertical.css">
     <!-- calendar CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
-    <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
+    <link rel="stylesheet" href="Admin/css/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="Admin/css/calendar/fullcalendar.print.min.css">
     <!-- style CSS
 		============================================ -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Admin/css/style.css">
     <!-- responsive CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="Admin/css/responsive.css">
     <!-- modernizr JS
 		============================================ -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="Admin/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
+   
 </head>
 
-<body>
+<body ng-app="myApp" ng-controller="KhoaHoc-ctrl">
     <!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
@@ -150,7 +154,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                        <a href="index.html"><img class="main-logo" src="Admin/img/logo/logo.png" alt="" /></a>
                     </div>
                 </div>
             </div>
@@ -205,7 +209,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/1.jpg" alt="">
+                                                                        <img src="Admin/img/contact/1.jpg" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -217,7 +221,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/4.jpg" alt="">
+                                                                        <img src="Admin/img/contact/4.jpg" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -229,7 +233,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/3.jpg" alt="">
+                                                                        <img src="Admin/img/contact/3.jpg" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -241,7 +245,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/2.jpg" alt="">
+                                                                        <img src="Admin/img/contact/2.jpg" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -318,7 +322,7 @@
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-															<img src="img/product/pro4.jpg" alt="" />
+															<img src="Admin/img/product/pro4.jpg" alt="" />
 															<span class="admin-name">Prof.Anderson</span>
 															<i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
 														</a>
@@ -360,7 +364,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg" alt="" />
+                                                                                            <img src="Admin/img/contact/4.jpg" alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
                                                                                             <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
@@ -373,7 +377,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg" alt="" />
+                                                                                            <img src="Admin/img/contact/1.jpg" alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
                                                                                             <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
@@ -386,7 +390,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg" alt="" />
+                                                                                            <img src="Admin/img/contact/2.jpg" alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
                                                                                             <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
@@ -399,7 +403,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg" alt="" />
+                                                                                            <img src="Admin/img/contact/3.jpg" alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
                                                                                             <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
@@ -412,7 +416,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg" alt="" />
+                                                                                            <img src="Admin/img/contact/4.jpg" alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
                                                                                             <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
@@ -425,7 +429,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg" alt="" />
+                                                                                            <img src="Admin/img/contact/1.jpg" alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
                                                                                             <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
@@ -438,7 +442,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg" alt="" />
+                                                                                            <img src="Admin/img/contact/2.jpg" alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
                                                                                             <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
@@ -451,7 +455,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg" alt="" />
+                                                                                            <img src="Admin/img/contact/1.jpg" alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
                                                                                             <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
@@ -464,7 +468,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg" alt="" />
+                                                                                            <img src="Admin/img/contact/2.jpg" alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
                                                                                             <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
@@ -477,7 +481,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg" alt="" />
+                                                                                            <img src="Admin/img/contact/3.jpg" alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
                                                                                             <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
@@ -999,11 +1003,11 @@
         <div class="courses-area">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <div class="courses-inner res-mg-b-30">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12"ng-repeat="item in itemsKhoaHoc">
+                        <div class="courses-inner res-mg-b-30" >
                             <div class="courses-title">
-                                <a href="#"><img src="img/courses/1.jpg" alt=""></a>
-                                <h2>Apps Development</h2>
+                                <a href="#"><img src="Admin/img/courses/{{item.hinhAnh}}" alt=""></a>
+                                <h2>{{item.tenKhoaHoc}}</h2>
                             </div>
                             <div class="courses-alaltic">
                                 <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-clock"></i></span> 1 Year</span>
@@ -1012,7 +1016,7 @@
                             </div>
                             <div class="course-des">
                                 <p><span><i class="fa fa-clock"></i></span> <b>Duration:</b> 6 Months</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Professor:</b> Jane Doe</p>
+                                <p><span><i class="fa fa-clock"></i></span> <b>Professor:</b> {{item.nguoiTao.hoTen}}</p>
                                 <p><span><i class="fa fa-clock"></i></span> <b>Students:</b> 100+</p>
                             </div>
                             <div class="product-buttons">
@@ -1020,155 +1024,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <div class="courses-inner">
-                            <div class="courses-title">
-                                <a href="#"><img src="img/courses/2.jpg" alt=""></a>
-                                <h2>Illustrator CC 2018</h2>
-                            </div>
-                            <div class="courses-alaltic">
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-clock"></i></span> 1 Year</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-heart"></i></span> 50</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-dollar"></i></span> 500</span>
-                            </div>
-                            <div class="course-des">
-                                <p><span><i class="fa fa-clock"></i></span> <b>Duration:</b> 6 Months</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Professor:</b> Jane Doe</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Students:</b> 100+</p>
-                            </div>
-                            <div class="product-buttons">
-                                <button type="button" class="button-default cart-btn">Read More</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <div class="courses-inner res-mg-t-30 dk-res-t-pro-30">
-                            <div class="courses-title">
-                                <a href="#"><img src="img/courses/3.jpg" alt=""></a>
-                                <h2>Indesign cs6 2018</h2>
-                            </div>
-                            <div class="courses-alaltic">
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-clock"></i></span> 1 Year</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-heart"></i></span> 50</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-dollar"></i></span> 500</span>
-                            </div>
-                            <div class="course-des">
-                                <p><span><i class="fa fa-clock"></i></span> <b>Duration:</b> 6 Months</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Professor:</b> Jane Doe</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Students:</b> 100+</p>
-                            </div>
-                            <div class="product-buttons">
-                                <button type="button" class="button-default cart-btn">Read More</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <div class="courses-inner res-mg-t-30 dk-res-t-pro-30">
-                            <div class="courses-title">
-                                <a href="#"><img src="img/courses/1.jpg" alt=""></a>
-                                <h2>Web Development</h2>
-                            </div>
-                            <div class="courses-alaltic">
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-clock"></i></span> 1 Year</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-heart"></i></span> 50</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-dollar"></i></span> 500</span>
-                            </div>
-                            <div class="course-des">
-                                <p><span><i class="fa fa-clock"></i></span> <b>Duration:</b> 6 Months</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Professor:</b> Jane Doe</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Students:</b> 100+</p>
-                            </div>
-                            <div class="product-buttons">
-                                <button type="button" class="button-default cart-btn">Read More</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mg-b-15">
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <div class="courses-inner mg-t-30">
-                            <div class="courses-title">
-                                <a href="#"><img src="img/courses/1.jpg" alt=""></a>
-                                <h2>Apps Development</h2>
-                            </div>
-                            <div class="courses-alaltic">
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-clock"></i></span> 1 Year</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-heart"></i></span> 50</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-dollar"></i></span> 500</span>
-                            </div>
-                            <div class="course-des">
-                                <p><span><i class="fa fa-clock"></i></span> <b>Duration:</b> 6 Months</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Professor:</b> Jane Doe</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Students:</b> 100+</p>
-                            </div>
-                            <div class="product-buttons">
-                                <button type="button" class="button-default cart-btn">Read More</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <div class="courses-inner mg-t-30">
-                            <div class="courses-title">
-                                <a href="#"><img src="img/courses/2.jpg" alt=""></a>
-                                <h2>Illustrator CC 2018</h2>
-                            </div>
-                            <div class="courses-alaltic">
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-clock"></i></span> 1 Year</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-heart"></i></span> 50</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-dollar"></i></span> 500</span>
-                            </div>
-                            <div class="course-des">
-                                <p><span><i class="fa fa-clock"></i></span> <b>Duration:</b> 6 Months</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Professor:</b> Jane Doe</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Students:</b> 100+</p>
-                            </div>
-                            <div class="product-buttons">
-                                <button type="button" class="button-default cart-btn">Read More</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <div class="courses-inner mg-t-30">
-                            <div class="courses-title">
-                                <a href="#"><img src="img/courses/3.jpg" alt=""></a>
-                                <h2>Indesign cs6 2018</h2>
-                            </div>
-                            <div class="courses-alaltic">
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-clock"></i></span> 1 Year</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-heart"></i></span> 50</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-dollar"></i></span> 500</span>
-                            </div>
-                            <div class="course-des">
-                                <p><span><i class="fa fa-clock"></i></span> <b>Duration:</b> 6 Months</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Professor:</b> Jane Doe</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Students:</b> 100+</p>
-                            </div>
-                            <div class="product-buttons">
-                                <button type="button" class="button-default cart-btn">Read More</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <div class="courses-inner mg-t-30">
-                            <div class="courses-title">
-                                <a href="#"><img src="img/courses/1.jpg" alt=""></a>
-                                <h2>Web Development</h2>
-                            </div>
-                            <div class="courses-alaltic">
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-clock"></i></span> 1 Year</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-heart"></i></span> 50</span>
-                                <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-dollar"></i></span> 500</span>
-                            </div>
-                            <div class="course-des">
-                                <p><span><i class="fa fa-clock"></i></span> <b>Duration:</b> 6 Months</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Professor:</b> Jane Doe</p>
-                                <p><span><i class="fa fa-clock"></i></span> <b>Students:</b> 100+</p>
-                            </div>
-                            <div class="product-buttons">
-                                <button type="button" class="button-default cart-btn">Read More</button>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -1187,55 +1043,58 @@
 
     <!-- jquery
 		============================================ -->
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="Admin/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS
 		============================================ -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="Admin/js/bootstrap.min.js"></script>
     <!-- wow JS
 		============================================ -->
-    <script src="js/wow.min.js"></script>
+    <script src="Admin/js/wow.min.js"></script>
     <!-- price-slider JS
 		============================================ -->
-    <script src="js/jquery-price-slider.js"></script>
+    <script src="Admin/js/jquery-price-slider.js"></script>
     <!-- meanmenu JS
 		============================================ -->
-    <script src="js/jquery.meanmenu.js"></script>
+    <script src="Admin/js/jquery.meanmenu.js"></script>
     <!-- owl.carousel JS
 		============================================ -->
-    <script src="js/owl.carousel.min.js"></script>
+    <script src="Admin/js/owl.carousel.min.js"></script>
     <!-- sticky JS
 		============================================ -->
-    <script src="js/jquery.sticky.js"></script>
+    <script src="Admin/js/jquery.sticky.js"></script>
     <!-- scrollUp JS
 		============================================ -->
-    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="Admin/js/jquery.scrollUp.min.js"></script>
     <!-- mCustomScrollbar JS
 		============================================ -->
-    <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
+    <script src="Admin/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="Admin/js/scrollbar/mCustomScrollbar-active.js"></script>
     <!-- metisMenu JS
 		============================================ -->
-    <script src="js/metisMenu/metisMenu.min.js"></script>
-    <script src="js/metisMenu/metisMenu-active.js"></script>
+    <script src="Admin/js/metisMenu/metisMenu.min.js"></script>
+    <script src="Admin/js/metisMenu/metisMenu-active.js"></script>
     <!-- morrisjs JS
 		============================================ -->
-    <script src="js/sparkline/jquery.sparkline.min.js"></script>
-    <script src="js/sparkline/jquery.charts-sparkline.js"></script>
-    <script src="js/sparkline/sparkline-active.js"></script>
+    <script src="Admin/js/sparkline/jquery.sparkline.min.js"></script>
+    <script src="Admin/js/sparkline/jquery.charts-sparkline.js"></script>
+    <script src="Admin/js/sparkline/sparkline-active.js"></script>
     <!-- calendar JS
 		============================================ -->
-    <script src="js/calendar/moment.min.js"></script>
-    <script src="js/calendar/fullcalendar.min.js"></script>
-    <script src="js/calendar/fullcalendar-active.js"></script>
+    <script src="Admin/js/calendar/moment.min.js"></script>
+    <script src="Admin/js/calendar/fullcalendar.min.js"></script>
+    <script src="Admin/js/calendar/fullcalendar-active.js"></script>
     <!-- plugins JS
 		============================================ -->
-    <script src="js/plugins.js"></script>
+    <script src="Admin/js/plugins.js"></script>
     <!-- main JS
 		============================================ -->
-    <script src="js/main.js"></script>
+    <script src="Admin/js/main.js"></script>
     <!-- tawk chat JS
 		============================================ -->
-    <script src="js/tawk-chat.js"></script>
+    <script src="Admin/js/tawk-chat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    
+    <script src="Admin/js/KhoaHoc-ctrl.js"></script>
 </body>
 
 </html>
