@@ -34,9 +34,20 @@ public class AdminController {
     public String TaiLieu() {
         return "Admin/TaiLieu";
     }
-     @GetMapping("/CauHoi")
+
+    @GetMapping("/CauHoi")
     public String CauHoi() {
         return "Admin/CauHoi";
+    }
+
+    @GetMapping("/ChungChi")
+    public String ChungChi() {
+        return "Admin/ChungChi";
+    }
+
+    @GetMapping("/ThongKe")
+    public String ThongKe() {
+        return "Admin/ThongKe";
     }
 
 }

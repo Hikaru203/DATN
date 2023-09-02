@@ -1,6 +1,5 @@
 package com.fpoly.duantotnghiep.Entity;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -39,7 +38,8 @@ public class DienDan {
 	    private String noiDung;
 
 	    @Column(name = "nguoi_dang")
-	    private String nguoiDang;
+		@ManyToOne
+	    private int nguoiDang;
 
 	    @Column(name = "ngay_dang")
 	    private Date ngayDang;
