@@ -30,7 +30,8 @@ public class BinhLuan {
     private String noiDung;
 
     @Column(name = "nguoi_binh_luan")
-    private String nguoiBinhLuan;
+    @ManyToOne
+    private int nguoiBinhLuan;
 
     @Column(name = "ngay_binh_luan")
     private Date ngayBinhLuan;
