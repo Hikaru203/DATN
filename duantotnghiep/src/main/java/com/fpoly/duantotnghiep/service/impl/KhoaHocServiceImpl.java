@@ -17,5 +17,11 @@ public class KhoaHocServiceImpl implements KhoaHocService {
     public List<KhoaHoc> findAll() {
         return khoaHocRepository.findAll();
     }
+
+	@Override
+	public KhoaHoc findById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }
