@@ -28,10 +28,10 @@ public class BinhLuan {
 
     @Column(name = "noi_dung", columnDefinition = "nvarchar(max)")
     private String noiDung;
-
-    @Column(name = "nguoi_binh_luan")
+    
     @ManyToOne
-    private int nguoiBinhLuan;
+    @JoinColumn(name = "nguoi_binh_luan")    
+    private NguoiDung nguoiBinhLuan;
 
     @Column(name = "ngay_binh_luan")
     private Date ngayBinhLuan;
