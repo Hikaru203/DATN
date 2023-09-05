@@ -50,4 +50,9 @@ public class AdminController {
         return "Admin/ThongKe";
     }
 
+    @GetMapping("/Video")
+    public String Video() {
+        return "Admin/Video";
+    }
+
 }
