@@ -1093,112 +1093,89 @@
 
                                                         <div class="row">
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-                                                                <select class="form-control" style="width: 100%;"
-                                                                    ng-model="selectedCourse"
-                                                                    ng-change="loadDocuments()">
-                                                                    <option value="">Chọn khóa học
-                                                                    </option>
-                                                                    <option ng-repeat="course in itemsKhoaHoc"
-                                                                        value="{{course.id}}">
-                                                                        {{course.tenKhoaHoc}}
-                                                                    </option>
-                                                                </select>
-                                                                <br>
-                                                                <div class="form-group-inner">
-                                                                    <div class="row">
-
-                                                                        <div
-                                                                            class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                            <div class="file-upload-inner ts-forms">
-                                                                                <div class="input prepend-small-btn">
-                                                                                    <div class="file-button">
-                                                                                        Tải Lên
-                                                                                        <input type="file"
-                                                                                            onchange="document.getElementById('prepend-small-btn').value = this.value;"
-                                                                                            accept=".mp4">
-                                                                                    </div>
-                                                                                    <input type="text"
-                                                                                        id="prepend-small-btn"
-                                                                                        placeholder="Chưa có file or link nào">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <br>
-
+                                                                <form action="/youtube/uploadVideo" method="post"
+                                                                    enctype="multipart/form-data">
                                                                     <div class="form-group">
+                                                                        <label for="title">Tiêu đề:</label>
                                                                         <input type="text" class="form-control"
-                                                                            placeholder="Thu Tu" value="">
+                                                                            id="title" name="title" required>
                                                                     </div>
-
-                                                                    <div class="container mt-4">
-                                                                        <!-- Button "Thêm" -->
-                                                                        <button class="btn btn-primary mr-2"
-                                                                            onclick="addFunction()">Thêm</button>
-
-                                                                        <!-- Button "Sửa" -->
-                                                                        <button class="btn btn-warning mr-2"
-                                                                            onclick="editFunction()">Sửa</button>
-
-                                                                        <!-- Button "Xóa" -->
-                                                                        <button class="btn btn-danger"
-                                                                            onclick="deleteFunction()">Xóa</button>
+                                                                    <div class="form-group">
+                                                                        <label for="description">Mô tả:</label>
+                                                                        <textarea class="form-control" id="description"
+                                                                            name="description" required></textarea>
                                                                     </div>
+                                                                    <div class="form-group">
+                                                                        <label for="privacyStatus">Quyền riêng
+                                                                            tư:</label>
+                                                                        <select class="form-control" id="privacyStatus"
+                                                                            name="privacyStatus" required>
+                                                                            <option value="private">Riêng tư</option>
+                                                                            <option value="public">Công khai</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="file">Chọn video:</label>
+                                                                        <input type="file" class="form-control-file"
+                                                                            id="file" name="file" accept=".mp4"
+                                                                            required>
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-primary">Tải
+                                                                        lên</button>
+                                                                </form>
 
-
-
-                                                                </div>
                                                             </div>
-
-                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                    <iframe width="560" height="315"
+                                                        src="https://www.youtube.com/embed/y576-ONm5II?si=qvm8nK9Z8kIlPsw2"
+                                                        title="YouTube video player" frameborder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                        allowfullscreen></iframe>
+                                                </div>
                                             </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="product-status mg-b-15">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                            <div class="product-status-wrap drp-lst">
+                                                                <h4>Danh Sách User</h4>
 
-                                            </div>
-                                        </div>
-                                        <div class="product-status mg-b-15">
-                                            <div class="container-fluid">
-                                                <div class="row">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="product-status-wrap drp-lst">
-                                                            <h4>Danh Sách User</h4>
+                                                                <div class="asset-inner">
+                                                                    <table>
+                                                                        <tr>
+                                                                            <th>No</th>
+                                                                            <th>ID Khóa Học</th>
+                                                                            <th>Link Video</th>
+                                                                            <th>Thu Tu</th>
+                                                                        </tr>
+                                                                        <tr
+                                                                            ng-repeat="(index, VideoWithTen) in itemsVideo">
+                                                                            <td>{{index + 1}}</td>
+                                                                            <td>{{VideoWithTen.khoaHoc.tenKhoaHoc}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{VideoWithTen.linkVideo}}
+                                                                            </td>
 
-                                                            <div class="asset-inner">
-                                                                <table>
-                                                                    <tr>
-                                                                        <th>No</th>
-                                                                        <th>ID Khóa Học</th>
-                                                                        <th>Link Video</th>
-                                                                        <th>Thu Tu</th>
-                                                                    </tr>
-                                                                    <tr ng-repeat="(index, VideoWithTen) in itemsVideo">
-                                                                        <td>{{index + 1}}</td>
-                                                                        <td>{{VideoWithTen.khoaHoc.tenKhoaHoc}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{VideoWithTen.linkVideo}}
-                                                                        </td>
-
-                                                                        <td>
-                                                                            {{VideoWithTen.thuTu}}
-                                                                        </td>
-                                                                    </tr>
+                                                                            <td>
+                                                                                {{VideoWithTen.thuTu}}
+                                                                            </td>
+                                                                        </tr>
 
 
-                                                                </table>
+                                                                    </table>
+                                                                </div>
+
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                             </ul>
                         </div>
                     </div>

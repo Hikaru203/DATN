@@ -27,10 +27,6 @@ public class LoaiKhoaHoc {
 	@Column(name = "id")
 	private int id;
 
-	@ManyToOne
-	@JoinColumn(name = "IDKhoaHoc")
-	private KhoaHoc khoaHoc;
-
 	@Column(name = "ten_loai_khoa_hoc")
 	private String tenLoaiKhoaHoc;
 

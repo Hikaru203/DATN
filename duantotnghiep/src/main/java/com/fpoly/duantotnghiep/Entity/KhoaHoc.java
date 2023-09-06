@@ -36,6 +36,10 @@ public class KhoaHoc {
     @Column(name = "mo_ta")
     private String moTa;
 
+    @ManyToOne
+    @JoinColumn(name = "loai")
+    private LoaiKhoaHoc loaiKhoaHoc;
+
     @Column(name = "ngay_tao")
     private Date ngayTao;
 
