@@ -17,65 +17,71 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
     <!-- Bootstrap CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="Admin/css/bootstrap.min.css">
     <!-- Bootstrap CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="Admin/css/font-awesome.min.css">
     <!-- owl.carousel CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/owl.theme.css">
-    <link rel="stylesheet" href="css/owl.transitions.css">
+    <link rel="stylesheet" href="Admin/css/owl.carousel.css">
+    <link rel="stylesheet" href="Admin/css/owl.theme.css">
+    <link rel="stylesheet" href="Admin/css/owl.transitions.css">
     <!-- animate CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="Admin/css/animate.css">
     <!-- normalize CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="Admin/css/normalize.css">
     <!-- meanmenu icon CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/meanmenu.min.css">
+    <link rel="stylesheet" href="Admin/css/meanmenu.min.css">
     <!-- main CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="Admin/css/main.css">
     <!-- educate icon CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/educate-custon-icon.css">
+    <link rel="stylesheet" href="Admin/css/educate-custon-icon.css">
     <!-- educate icon CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/educate-custon-icon.css">
+    <link rel="stylesheet" href="Admin/css/educate-custon-icon.css">
     <!-- morrisjs CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/morrisjs/morris.css">
+    <link rel="stylesheet" href="Admin/css/morrisjs/morris.css">
     <!-- mCustomScrollbar CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="Admin/css/scrollbar/jquery.mCustomScrollbar.min.css">
     <!-- metisMenu CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
-    <link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
+    <link rel="stylesheet" href="Admin/css/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="Admin/css/metisMenu/metisMenu-vertical.css">
     <!-- calendar CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
-    <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
+    <link rel="stylesheet" href="Admin/css/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="Admin/css/calendar/fullcalendar.print.min.css">
     <!-- forms CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/form/all-type-forms.css">
+    <link rel="stylesheet" href="Admin/css/form/all-type-forms.css">
     <!-- dropzone CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/dropzone/dropzone.css">
+    <link rel="stylesheet" href="Admin/css/dropzone/dropzone.css">
     <!-- style CSS
 		============================================ -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Admin/css/style.css">
     <!-- responsive CSS
 		============================================ -->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="Admin/css/responsive.css">
     <!-- modernizr JS
 		============================================ -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="Admin/js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <!-- Include Angular UI Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.min.js"></script>
 </head>
 
-<body>
+<body ng-app="myApp" ng-controller="TaiLieu-ctrl">
     <!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
@@ -83,70 +89,92 @@
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                <strong><a href="index.html"><img src="img/logo/logosn.png" alt="" /></a></strong>
+                <a href="index"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                <strong><a href="index"><img src="img/logo/logosn.png" alt="" /></a></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
                         <li class="active">
-                            <a class="has-arrow" href="index1.html">
-                                   <span class="educate-icon educate-home icon-wrap"></span>
-                                   <span class="mini-click-non">Education</span>
-                                </a>
+                            <a class="has-arrow" href="index1">
+                                <span class="educate-icon educate-home icon-wrap"></span>
+                                <span class="mini-click-non">Education</span>
+                            </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Dashboard v.1" href="ThongKe.html"><span class="mini-sub-pro">Thống Kê</span></a></li>
-                                                                                      </ul>
+                                <li><a title="Dashboard v.1" href="ThongKe"><span class="mini-sub-pro">Thống
+                                            Kê</span></a></li>
+                            </ul>
                         </li>
-                     
+
                         <li>
-                            <a class="has-arrow" href="all-professors.html" aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span> <span class="mini-click-non">User</span></a>
+                            <a class="has-arrow" href="all-professors" aria-expanded="false"><span
+                                    class="educate-icon educate-professor icon-wrap"></span> <span
+                                    class="mini-click-non">User</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                                                                <li><a title="Edit Professor" href="User.html"><span class="mini-sub-pro">Quản lý người dùng</span></a></li>
-                            
+                                <li><a title="Edit Professor" href="User"><span class="mini-sub-pro">Quản lý người
+                                            dùng</span></a></li>
+
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="User.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">Sinh Viên</span></a>
+                            <a class="has-arrow" href="User" aria-expanded="false"><span
+                                    class="educate-icon educate-student icon-wrap"></span> <span
+                                    class="mini-click-non">Sinh Viên</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Students" href="User.html"><span class="mini-sub-pro"> Quản Lí Sinh Viên</span></a></li>
-                                                     </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="KhoaHoc.html" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">Khóa Học</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Courses" href="KhoaHoc.html"><span class="mini-sub-pro">Khóa Học</span></a></li>
-                                <li><a title="Add Courses" href="EditKhoaHoc.html"><span class="mini-sub-pro">Thêm Khóa Học</span></a></li>
-                                <li><a title="Add Courses" href="KenhKhoaHoc.html"><span class="mini-sub-pro">Kênh Khóa Học</span></a></li>
-                                                          <li><a title="Thanh Toan" href="ThanhToan.html"><span class="mini-sub-pro">Thanh Toán</span></a></li>
+                                <li><a title="All Students" href="User"><span class="mini-sub-pro"> Quản Lí Sinh
+                                            Viên</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="TaiLieu.html" aria-expanded="false"><span class="educate-icon educate-library icon-wrap"></span> <span class="mini-click-non">Tài Liệu</span></a>
+                            <a class="has-arrow" href="KhoaHoc" aria-expanded="false"><span
+                                    class="educate-icon educate-course icon-wrap"></span> <span
+                                    class="mini-click-non">Khóa Học</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Library" href="TaiLieu.html"><span class="mini-sub-pro">Quản Lí Tài Liệu</span></a></li>
-                                <li><a title="All Library" href="CauHoi.html"><span class="mini-sub-pro">Câu Hỏi</span></a></li>
+                                <li><a title="All Courses" href="KhoaHoc"><span class="mini-sub-pro">Khóa
+                                            Học</span></a></li>
+                                <li><a title="Add Courses" href="EditKhoaHoc"><span class="mini-sub-pro">Thêm Khóa
+                                            Học</span></a></li>
+                                <li><a title="Add Courses" href="KenhKhoaHoc"><span class="mini-sub-pro">Kênh Khóa
+                                            Học</span></a></li>
+                                <li><a title="Thanh Toan" href="ThanhToan"><span class="mini-sub-pro">Thanh
+                                            Toán</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="ChungChi.html" aria-expanded="false"><span class="educate-icon educate-department icon-wrap"></span> <span class="mini-click-non">Chứng Chỉ</span></a>
+                            <a class="has-arrow" href="TaiLieu" aria-expanded="false"><span
+                                    class="educate-icon educate-library icon-wrap"></span> <span
+                                    class="mini-click-non">Tài Liệu</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="ChungChi List" href="ChungChi.html"><span class="mini-sub-pro">Chứng Chỉ</span></a></li>
-                                
+                                <li><a title="All Library" href="TaiLieu"><span class="mini-sub-pro">Quản Lí Tài
+                                            Liệu</span></a></li>
+                                <li><a title="All Library" href="CauHoi"><span class="mini-sub-pro">Câu
+                                            Hỏi</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="Video.html" aria-expanded="false"><span class="educate-icon educate-message icon-wrap"></span> <span class="mini-click-non">Video</span></a>
+                            <a class="has-arrow" href="ChungChi" aria-expanded="false"><span
+                                    class="educate-icon educate-department icon-wrap"></span> <span
+                                    class="mini-click-non">Chứng Chỉ</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Inbox" href="Video.html"><span class="mini-sub-pro">Video</span></a></li>
-                            
+                                <li><a title="ChungChi List" href="ChungChi"><span class="mini-sub-pro">Chứng
+                                            Chỉ</span></a></li>
+
                             </ul>
                         </li>
-                   
-                     
-                       
-                  
-                       
+                        <li>
+                            <a class="has-arrow" href="Video" aria-expanded="false"><span
+                                    class="educate-icon educate-message icon-wrap"></span> <span
+                                    class="mini-click-non">Video</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="Inbox" href="Video"><span class="mini-sub-pro">Video</span></a></li>
+
+                            </ul>
+                        </li>
+
+
+
+
+
                     </ul>
                 </nav>
             </div>
@@ -159,7 +187,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="logo-pro">
-                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                        <a href="index"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
                     </div>
                 </div>
             </div>
@@ -173,9 +201,10 @@
                                 <div class="row">
                                     <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
                                         <div class="menu-switcher-pro">
-                                            <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
-													<i class="educate-icon educate-nav"></i>
-												</button>
+                                            <button type="button" id="sidebarCollapse"
+                                                class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                                <i class="educate-icon educate-nav"></i>
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
@@ -188,7 +217,10 @@
                                                 <li class="nav-item"><a href="#" class="nav-link">Services</a>
                                                 </li>
                                                 <li class="nav-item dropdown res-dis-nn">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Project <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
+                                                    <a href="#" data-toggle="dropdown" role="button"
+                                                        aria-expanded="false" class="nav-link dropdown-toggle">Project
+                                                        <span class="angle-down-topmenu"><i
+                                                                class="fa fa-angle-down"></i></span></a>
                                                     <div role="menu" class="dropdown-menu animated zoomIn">
                                                         <a href="#" class="dropdown-item">Documentation</a>
                                                         <a href="#" class="dropdown-item">Expert Backend</a>
@@ -205,8 +237,13 @@
                                         <div class="header-right-info">
                                             <ul class="nav navbar-nav mai-top-nav header-right-menu">
                                                 <li class="nav-item dropdown">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-message edu-chat-pro" aria-hidden="true"></i><span class="indicator-ms"></span></a>
-                                                    <div role="menu" class="author-message-top dropdown-menu animated zoomIn">
+                                                    <a href="#" data-toggle="dropdown" role="button"
+                                                        aria-expanded="false" class="nav-link dropdown-toggle"><i
+                                                            class="educate-icon educate-message edu-chat-pro"
+                                                            aria-hidden="true"></i><span
+                                                            class="indicator-ms"></span></a>
+                                                    <div role="menu"
+                                                        class="author-message-top dropdown-menu animated zoomIn">
                                                         <div class="message-single-top">
                                                             <h1>Message</h1>
                                                         </div>
@@ -219,7 +256,8 @@
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
                                                                         <h2>Advanda Cro</h2>
-                                                                        <p>Please done this project as soon possible.</p>
+                                                                        <p>Please done this project as soon possible.
+                                                                        </p>
                                                                     </div>
                                                                 </a>
                                                             </li>
@@ -231,7 +269,8 @@
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
                                                                         <h2>Sulaiman din</h2>
-                                                                        <p>Please done this project as soon possible.</p>
+                                                                        <p>Please done this project as soon possible.
+                                                                        </p>
                                                                     </div>
                                                                 </a>
                                                             </li>
@@ -243,7 +282,8 @@
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
                                                                         <h2>Victor Jara</h2>
-                                                                        <p>Please done this project as soon possible.</p>
+                                                                        <p>Please done this project as soon possible.
+                                                                        </p>
                                                                     </div>
                                                                 </a>
                                                             </li>
@@ -255,7 +295,8 @@
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
                                                                         <h2>Victor Jara</h2>
-                                                                        <p>Please done this project as soon possible.</p>
+                                                                        <p>Please done this project as soon possible.
+                                                                        </p>
                                                                     </div>
                                                                 </a>
                                                             </li>
@@ -265,8 +306,13 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-bell" aria-hidden="true"></i><span class="indicator-nt"></span></a>
-                                                    <div role="menu" class="notification-author dropdown-menu animated zoomIn">
+                                                <li class="nav-item"><a href="#" data-toggle="dropdown" role="button"
+                                                        aria-expanded="false" class="nav-link dropdown-toggle"><i
+                                                            class="educate-icon educate-bell"
+                                                            aria-hidden="true"></i><span
+                                                            class="indicator-nt"></span></a>
+                                                    <div role="menu"
+                                                        class="notification-author dropdown-menu animated zoomIn">
                                                         <div class="notification-single-top">
                                                             <h1>Notifications</h1>
                                                         </div>
@@ -274,48 +320,56 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="notification-icon">
-                                                                        <i class="educate-icon educate-checked edu-checked-pro admin-check-pro" aria-hidden="true"></i>
+                                                                        <i class="educate-icon educate-checked edu-checked-pro admin-check-pro"
+                                                                            aria-hidden="true"></i>
                                                                     </div>
                                                                     <div class="notification-content">
                                                                         <span class="notification-date">16 Sept</span>
                                                                         <h2>Advanda Cro</h2>
-                                                                        <p>Please done this project as soon possible.</p>
+                                                                        <p>Please done this project as soon possible.
+                                                                        </p>
                                                                     </div>
                                                                 </a>
                                                             </li>
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="notification-icon">
-                                                                        <i class="fa fa-cloud edu-cloud-computing-down" aria-hidden="true"></i>
+                                                                        <i class="fa fa-cloud edu-cloud-computing-down"
+                                                                            aria-hidden="true"></i>
                                                                     </div>
                                                                     <div class="notification-content">
                                                                         <span class="notification-date">16 Sept</span>
                                                                         <h2>Sulaiman din</h2>
-                                                                        <p>Please done this project as soon possible.</p>
+                                                                        <p>Please done this project as soon possible.
+                                                                        </p>
                                                                     </div>
                                                                 </a>
                                                             </li>
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="notification-icon">
-                                                                        <i class="fa fa-eraser edu-shield" aria-hidden="true"></i>
+                                                                        <i class="fa fa-eraser edu-shield"
+                                                                            aria-hidden="true"></i>
                                                                     </div>
                                                                     <div class="notification-content">
                                                                         <span class="notification-date">16 Sept</span>
                                                                         <h2>Victor Jara</h2>
-                                                                        <p>Please done this project as soon possible.</p>
+                                                                        <p>Please done this project as soon possible.
+                                                                        </p>
                                                                     </div>
                                                                 </a>
                                                             </li>
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="notification-icon">
-                                                                        <i class="fa fa-line-chart edu-analytics-arrow" aria-hidden="true"></i>
+                                                                        <i class="fa fa-line-chart edu-analytics-arrow"
+                                                                            aria-hidden="true"></i>
                                                                     </div>
                                                                     <div class="notification-content">
                                                                         <span class="notification-date">16 Sept</span>
                                                                         <h2>Victor Jara</h2>
-                                                                        <p>Please done this project as soon possible.</p>
+                                                                        <p>Please done this project as soon possible.
+                                                                        </p>
                                                                     </div>
                                                                 </a>
                                                             </li>
@@ -326,29 +380,45 @@
                                                     </div>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-															<img src="img/product/pro4.jpg" alt="" />
-															<span class="admin-name">Prof.Anderson</span>
-															<i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
-														</a>
-                                                    <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                        <li><a href="#"><span class="edu-icon edu-home-admin author-log-ic"></span>My Account</a>
+                                                    <a href="#" data-toggle="dropdown" role="button"
+                                                        aria-expanded="false" class="nav-link dropdown-toggle">
+                                                        <img src="img/product/pro4.jpg" alt="" />
+                                                        <span class="admin-name">Prof.Anderson</span>
+                                                        <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
+                                                    </a>
+                                                    <ul role="menu"
+                                                        class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                        <li><a href="#"><span
+                                                                    class="edu-icon edu-home-admin author-log-ic"></span>My
+                                                                Account</a>
                                                         </li>
-                                                        <li><a href="#"><span class="edu-icon edu-user-rounded author-log-ic"></span>My Profile</a>
+                                                        <li><a href="#"><span
+                                                                    class="edu-icon edu-user-rounded author-log-ic"></span>My
+                                                                Profile</a>
                                                         </li>
-                                                        <li><a href="#"><span class="edu-icon edu-money author-log-ic"></span>User Billing</a>
+                                                        <li><a href="#"><span
+                                                                    class="edu-icon edu-money author-log-ic"></span>User
+                                                                Billing</a>
                                                         </li>
-                                                        <li><a href="#"><span class="edu-icon edu-settings author-log-ic"></span>Settings</a>
+                                                        <li><a href="#"><span
+                                                                    class="edu-icon edu-settings author-log-ic"></span>Settings</a>
                                                         </li>
-                                                        <li><a href="#"><span class="edu-icon edu-locked author-log-ic"></span>Log Out</a>
+                                                        <li><a href="#"><span
+                                                                    class="edu-icon edu-locked author-log-ic"></span>Log
+                                                                Out</a>
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-menu"></i></a>
+                                                <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown"
+                                                        role="button" aria-expanded="false"
+                                                        class="nav-link dropdown-toggle"><i
+                                                            class="educate-icon educate-menu"></i></a>
 
-                                                    <div role="menu" class="admintab-wrap menu-setting-wrap menu-setting-wrap-bg dropdown-menu animated zoomIn">
+                                                    <div role="menu"
+                                                        class="admintab-wrap menu-setting-wrap menu-setting-wrap-bg dropdown-menu animated zoomIn">
                                                         <ul class="nav nav-tabs custon-set-tab">
-                                                            <li class="active"><a data-toggle="tab" href="#Notes">Notes</a>
+                                                            <li class="active"><a data-toggle="tab"
+                                                                    href="#Notes">Notes</a>
                                                             </li>
                                                             <li><a data-toggle="tab" href="#Projects">Projects</a>
                                                             </li>
@@ -360,7 +430,8 @@
                                                             <div id="Notes" class="tab-pane fade in active">
                                                                 <div class="notes-area-wrap">
                                                                     <div class="note-heading-indicate">
-                                                                        <h2><i class="fa fa-comments-o"></i> Latest Notes</h2>
+                                                                        <h2><i class="fa fa-comments-o"></i> Latest
+                                                                            Notes</h2>
                                                                         <p>You have 10 new message.</p>
                                                                     </div>
                                                                     <div class="notes-list-area notes-menu-scrollbar">
@@ -369,11 +440,15 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg" alt="" />
+                                                                                            <img src="img/contact/4.jpg"
+                                                                                                alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more-or-less normal.</p>
+                                                                                            <span>Yesterday 2:45
+                                                                                                pm</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -382,11 +457,15 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg" alt="" />
+                                                                                            <img src="img/contact/1.jpg"
+                                                                                                alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more-or-less normal.</p>
+                                                                                            <span>Yesterday 2:45
+                                                                                                pm</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -395,11 +474,15 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg" alt="" />
+                                                                                            <img src="img/contact/2.jpg"
+                                                                                                alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more-or-less normal.</p>
+                                                                                            <span>Yesterday 2:45
+                                                                                                pm</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -408,11 +491,15 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg" alt="" />
+                                                                                            <img src="img/contact/3.jpg"
+                                                                                                alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more-or-less normal.</p>
+                                                                                            <span>Yesterday 2:45
+                                                                                                pm</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -421,11 +508,15 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg" alt="" />
+                                                                                            <img src="img/contact/4.jpg"
+                                                                                                alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more-or-less normal.</p>
+                                                                                            <span>Yesterday 2:45
+                                                                                                pm</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -434,11 +525,15 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg" alt="" />
+                                                                                            <img src="img/contact/1.jpg"
+                                                                                                alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more-or-less normal.</p>
+                                                                                            <span>Yesterday 2:45
+                                                                                                pm</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -447,11 +542,15 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg" alt="" />
+                                                                                            <img src="img/contact/2.jpg"
+                                                                                                alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more-or-less normal.</p>
+                                                                                            <span>Yesterday 2:45
+                                                                                                pm</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -460,11 +559,15 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg" alt="" />
+                                                                                            <img src="img/contact/1.jpg"
+                                                                                                alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more-or-less normal.</p>
+                                                                                            <span>Yesterday 2:45
+                                                                                                pm</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -473,11 +576,15 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg" alt="" />
+                                                                                            <img src="img/contact/2.jpg"
+                                                                                                alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more-or-less normal.</p>
+                                                                                            <span>Yesterday 2:45
+                                                                                                pm</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -486,11 +593,15 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg" alt="" />
+                                                                                            <img src="img/contact/3.jpg"
+                                                                                                alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more-or-less normal.</p>
-                                                                                            <span>Yesterday 2:45 pm</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more-or-less normal.</p>
+                                                                                            <span>Yesterday 2:45
+                                                                                                pm</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -502,25 +613,37 @@
                                                             <div id="Projects" class="tab-pane fade">
                                                                 <div class="projects-settings-wrap">
                                                                     <div class="note-heading-indicate">
-                                                                        <h2><i class="fa fa-cube"></i> Latest projects</h2>
+                                                                        <h2><i class="fa fa-cube"></i> Latest projects
+                                                                        </h2>
                                                                         <p> You have 20 projects. 5 not completed.</p>
                                                                     </div>
-                                                                    <div class="project-st-list-area project-st-menu-scrollbar">
+                                                                    <div
+                                                                        class="project-st-list-area project-st-menu-scrollbar">
                                                                         <ul class="projects-st-menu-list">
                                                                             <li>
                                                                                 <a href="#">
                                                                                     <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
+                                                                                        <div
+                                                                                            class="projects-st-heading">
                                                                                             <h2>Web Development</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">1 hours ago</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more or less normal.</p>
+                                                                                            <span
+                                                                                                class="project-st-time">1
+                                                                                                hours ago</span>
                                                                                         </div>
-                                                                                        <div class="projects-st-content">
+                                                                                        <div
+                                                                                            class="projects-st-content">
                                                                                             <p>Completion with: 28%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 28%;" class="progress-bar progress-bar-danger hd-tp-1"></div>
+                                                                                            <div
+                                                                                                class="progress progress-mini">
+                                                                                                <div style="width: 28%;"
+                                                                                                    class="progress-bar progress-bar-danger hd-tp-1">
+                                                                                                </div>
                                                                                             </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
+                                                                                            <p>Project end: 4:00 pm -
+                                                                                                12.06.2014</p>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -528,17 +651,28 @@
                                                                             <li>
                                                                                 <a href="#">
                                                                                     <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
-                                                                                            <h2>Software Development</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">2 hours ago</span>
+                                                                                        <div
+                                                                                            class="projects-st-heading">
+                                                                                            <h2>Software Development
+                                                                                            </h2>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more or less normal.</p>
+                                                                                            <span
+                                                                                                class="project-st-time">2
+                                                                                                hours ago</span>
                                                                                         </div>
-                                                                                        <div class="projects-st-content project-rating-cl">
+                                                                                        <div
+                                                                                            class="projects-st-content project-rating-cl">
                                                                                             <p>Completion with: 68%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 68%;" class="progress-bar hd-tp-2"></div>
+                                                                                            <div
+                                                                                                class="progress progress-mini">
+                                                                                                <div style="width: 68%;"
+                                                                                                    class="progress-bar hd-tp-2">
+                                                                                                </div>
                                                                                             </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
+                                                                                            <p>Project end: 4:00 pm -
+                                                                                                12.06.2014</p>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -546,17 +680,27 @@
                                                                             <li>
                                                                                 <a href="#">
                                                                                     <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
+                                                                                        <div
+                                                                                            class="projects-st-heading">
                                                                                             <h2>Graphic Design</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">3 hours ago</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more or less normal.</p>
+                                                                                            <span
+                                                                                                class="project-st-time">3
+                                                                                                hours ago</span>
                                                                                         </div>
-                                                                                        <div class="projects-st-content">
+                                                                                        <div
+                                                                                            class="projects-st-content">
                                                                                             <p>Completion with: 78%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 78%;" class="progress-bar hd-tp-3"></div>
+                                                                                            <div
+                                                                                                class="progress progress-mini">
+                                                                                                <div style="width: 78%;"
+                                                                                                    class="progress-bar hd-tp-3">
+                                                                                                </div>
                                                                                             </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
+                                                                                            <p>Project end: 4:00 pm -
+                                                                                                12.06.2014</p>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -564,17 +708,27 @@
                                                                             <li>
                                                                                 <a href="#">
                                                                                     <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
+                                                                                        <div
+                                                                                            class="projects-st-heading">
                                                                                             <h2>Web Design</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">4 hours ago</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more or less normal.</p>
+                                                                                            <span
+                                                                                                class="project-st-time">4
+                                                                                                hours ago</span>
                                                                                         </div>
-                                                                                        <div class="projects-st-content project-rating-cl2">
+                                                                                        <div
+                                                                                            class="projects-st-content project-rating-cl2">
                                                                                             <p>Completion with: 38%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 38%;" class="progress-bar progress-bar-danger hd-tp-4"></div>
+                                                                                            <div
+                                                                                                class="progress progress-mini">
+                                                                                                <div style="width: 38%;"
+                                                                                                    class="progress-bar progress-bar-danger hd-tp-4">
+                                                                                                </div>
                                                                                             </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
+                                                                                            <p>Project end: 4:00 pm -
+                                                                                                12.06.2014</p>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -582,17 +736,27 @@
                                                                             <li>
                                                                                 <a href="#">
                                                                                     <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
+                                                                                        <div
+                                                                                            class="projects-st-heading">
                                                                                             <h2>Business Card</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">5 hours ago</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more or less normal.</p>
+                                                                                            <span
+                                                                                                class="project-st-time">5
+                                                                                                hours ago</span>
                                                                                         </div>
-                                                                                        <div class="projects-st-content">
+                                                                                        <div
+                                                                                            class="projects-st-content">
                                                                                             <p>Completion with: 28%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 28%;" class="progress-bar progress-bar-danger hd-tp-5"></div>
+                                                                                            <div
+                                                                                                class="progress progress-mini">
+                                                                                                <div style="width: 28%;"
+                                                                                                    class="progress-bar progress-bar-danger hd-tp-5">
+                                                                                                </div>
                                                                                             </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
+                                                                                            <p>Project end: 4:00 pm -
+                                                                                                12.06.2014</p>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -600,17 +764,27 @@
                                                                             <li>
                                                                                 <a href="#">
                                                                                     <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
+                                                                                        <div
+                                                                                            class="projects-st-heading">
                                                                                             <h2>Ecommerce Business</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">6 hours ago</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more or less normal.</p>
+                                                                                            <span
+                                                                                                class="project-st-time">6
+                                                                                                hours ago</span>
                                                                                         </div>
-                                                                                        <div class="projects-st-content project-rating-cl">
+                                                                                        <div
+                                                                                            class="projects-st-content project-rating-cl">
                                                                                             <p>Completion with: 68%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 68%;" class="progress-bar hd-tp-6"></div>
+                                                                                            <div
+                                                                                                class="progress progress-mini">
+                                                                                                <div style="width: 68%;"
+                                                                                                    class="progress-bar hd-tp-6">
+                                                                                                </div>
                                                                                             </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
+                                                                                            <p>Project end: 4:00 pm -
+                                                                                                12.06.2014</p>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -618,17 +792,27 @@
                                                                             <li>
                                                                                 <a href="#">
                                                                                     <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
+                                                                                        <div
+                                                                                            class="projects-st-heading">
                                                                                             <h2>Woocommerce Plugin</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">7 hours ago</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more or less normal.</p>
+                                                                                            <span
+                                                                                                class="project-st-time">7
+                                                                                                hours ago</span>
                                                                                         </div>
-                                                                                        <div class="projects-st-content">
+                                                                                        <div
+                                                                                            class="projects-st-content">
                                                                                             <p>Completion with: 78%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 78%;" class="progress-bar"></div>
+                                                                                            <div
+                                                                                                class="progress progress-mini">
+                                                                                                <div style="width: 78%;"
+                                                                                                    class="progress-bar">
+                                                                                                </div>
                                                                                             </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
+                                                                                            <p>Project end: 4:00 pm -
+                                                                                                12.06.2014</p>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -636,17 +820,27 @@
                                                                             <li>
                                                                                 <a href="#">
                                                                                     <div class="project-list-flow">
-                                                                                        <div class="projects-st-heading">
+                                                                                        <div
+                                                                                            class="projects-st-heading">
                                                                                             <h2>Wordpress Theme</h2>
-                                                                                            <p> The point of using Lorem Ipsum is that it has a more or less normal.</p>
-                                                                                            <span class="project-st-time">9 hours ago</span>
+                                                                                            <p> The point of using Lorem
+                                                                                                Ipsum is that it has a
+                                                                                                more or less normal.</p>
+                                                                                            <span
+                                                                                                class="project-st-time">9
+                                                                                                hours ago</span>
                                                                                         </div>
-                                                                                        <div class="projects-st-content project-rating-cl2">
+                                                                                        <div
+                                                                                            class="projects-st-content project-rating-cl2">
                                                                                             <p>Completion with: 38%</p>
-                                                                                            <div class="progress progress-mini">
-                                                                                                <div style="width: 38%;" class="progress-bar progress-bar-danger"></div>
+                                                                                            <div
+                                                                                                class="progress progress-mini">
+                                                                                                <div style="width: 38%;"
+                                                                                                    class="progress-bar progress-bar-danger">
+                                                                                                </div>
                                                                                             </div>
-                                                                                            <p>Project end: 4:00 pm - 12.06.2014</p>
+                                                                                            <p>Project end: 4:00 pm -
+                                                                                                12.06.2014</p>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -658,7 +852,8 @@
                                                             <div id="Settings" class="tab-pane fade">
                                                                 <div class="setting-panel-area">
                                                                     <div class="note-heading-indicate">
-                                                                        <h2><i class="fa fa-gears"></i> Settings Panel</h2>
+                                                                        <h2><i class="fa fa-gears"></i> Settings Panel
+                                                                        </h2>
                                                                         <p> You have 20 Settings. 5 not completed.</p>
                                                                     </div>
                                                                     <ul class="setting-panel-list">
@@ -668,11 +863,18 @@
                                                                                     <h2>Show notifications</h2>
                                                                                     <div class="ts-custom-check">
                                                                                         <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example">
-                                                                                            <label class="onoffswitch-label" for="example">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
+                                                                                            <input type="checkbox"
+                                                                                                name="collapsemenu"
+                                                                                                class="onoffswitch-checkbox"
+                                                                                                id="example">
+                                                                                            <label
+                                                                                                class="onoffswitch-label"
+                                                                                                for="example">
+                                                                                                <span
+                                                                                                    class="onoffswitch-inner"></span>
+                                                                                                <span
+                                                                                                    class="onoffswitch-switch"></span>
+                                                                                            </label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -684,11 +886,18 @@
                                                                                     <h2>Disable Chat</h2>
                                                                                     <div class="ts-custom-check">
                                                                                         <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example3">
-                                                                                            <label class="onoffswitch-label" for="example3">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
+                                                                                            <input type="checkbox"
+                                                                                                name="collapsemenu"
+                                                                                                class="onoffswitch-checkbox"
+                                                                                                id="example3">
+                                                                                            <label
+                                                                                                class="onoffswitch-label"
+                                                                                                for="example3">
+                                                                                                <span
+                                                                                                    class="onoffswitch-inner"></span>
+                                                                                                <span
+                                                                                                    class="onoffswitch-switch"></span>
+                                                                                            </label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -700,11 +909,18 @@
                                                                                     <h2>Enable history</h2>
                                                                                     <div class="ts-custom-check">
                                                                                         <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example4">
-                                                                                            <label class="onoffswitch-label" for="example4">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
+                                                                                            <input type="checkbox"
+                                                                                                name="collapsemenu"
+                                                                                                class="onoffswitch-checkbox"
+                                                                                                id="example4">
+                                                                                            <label
+                                                                                                class="onoffswitch-label"
+                                                                                                for="example4">
+                                                                                                <span
+                                                                                                    class="onoffswitch-inner"></span>
+                                                                                                <span
+                                                                                                    class="onoffswitch-switch"></span>
+                                                                                            </label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -716,11 +932,18 @@
                                                                                     <h2>Show charts</h2>
                                                                                     <div class="ts-custom-check">
                                                                                         <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example7">
-                                                                                            <label class="onoffswitch-label" for="example7">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
+                                                                                            <input type="checkbox"
+                                                                                                name="collapsemenu"
+                                                                                                class="onoffswitch-checkbox"
+                                                                                                id="example7">
+                                                                                            <label
+                                                                                                class="onoffswitch-label"
+                                                                                                for="example7">
+                                                                                                <span
+                                                                                                    class="onoffswitch-inner"></span>
+                                                                                                <span
+                                                                                                    class="onoffswitch-switch"></span>
+                                                                                            </label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -732,11 +955,19 @@
                                                                                     <h2>Update everyday</h2>
                                                                                     <div class="ts-custom-check">
                                                                                         <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" checked="" class="onoffswitch-checkbox" id="example2">
-                                                                                            <label class="onoffswitch-label" for="example2">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
+                                                                                            <input type="checkbox"
+                                                                                                name="collapsemenu"
+                                                                                                checked=""
+                                                                                                class="onoffswitch-checkbox"
+                                                                                                id="example2">
+                                                                                            <label
+                                                                                                class="onoffswitch-label"
+                                                                                                for="example2">
+                                                                                                <span
+                                                                                                    class="onoffswitch-inner"></span>
+                                                                                                <span
+                                                                                                    class="onoffswitch-switch"></span>
+                                                                                            </label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -748,11 +979,19 @@
                                                                                     <h2>Global search</h2>
                                                                                     <div class="ts-custom-check">
                                                                                         <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" checked="" class="onoffswitch-checkbox" id="example6">
-                                                                                            <label class="onoffswitch-label" for="example6">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
+                                                                                            <input type="checkbox"
+                                                                                                name="collapsemenu"
+                                                                                                checked=""
+                                                                                                class="onoffswitch-checkbox"
+                                                                                                id="example6">
+                                                                                            <label
+                                                                                                class="onoffswitch-label"
+                                                                                                for="example6">
+                                                                                                <span
+                                                                                                    class="onoffswitch-inner"></span>
+                                                                                                <span
+                                                                                                    class="onoffswitch-switch"></span>
+                                                                                            </label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -764,11 +1003,19 @@
                                                                                     <h2>Offline users</h2>
                                                                                     <div class="ts-custom-check">
                                                                                         <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" checked="" class="onoffswitch-checkbox" id="example5">
-                                                                                            <label class="onoffswitch-label" for="example5">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
+                                                                                            <input type="checkbox"
+                                                                                                name="collapsemenu"
+                                                                                                checked=""
+                                                                                                class="onoffswitch-checkbox"
+                                                                                                id="example5">
+                                                                                            <label
+                                                                                                class="onoffswitch-label"
+                                                                                                for="example5">
+                                                                                                <span
+                                                                                                    class="onoffswitch-inner"></span>
+                                                                                                <span
+                                                                                                    class="onoffswitch-switch"></span>
+                                                                                            </label>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -798,174 +1045,187 @@
                             <div class="mobile-menu">
                                 <nav id="dropdown">
                                     <ul class="mobile-menu-nav">
-                                        <li><a data-toggle="collapse" data-target="#Charts" href="#">Home <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#Charts" href="#">Home <span
+                                                    class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul class="collapse dropdown-header-top">
-                                                <li><a href="index.html">Dashboard v.1</a></li>
-                                                <li><a href="index-1.html">Dashboard v.2</a></li>
-                                                <li><a href="index-3.html">Dashboard v.3</a></li>
-                                                <li><a href="analytics.html">Analytics</a></li>
-                                                <li><a href="widgets.html">Widgets</a></li>
+                                                <li><a href="index">Dashboard v.1</a></li>
+                                                <li><a href="index-1">Dashboard v.2</a></li>
+                                                <li><a href="index-3">Dashboard v.3</a></li>
+                                                <li><a href="analytics">Analytics</a></li>
+                                                <li><a href="widgets">Widgets</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="events.html">Event</a></li>
-                                        <li><a data-toggle="collapse" data-target="#demoevent" href="#">Professors <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a href="events">Event</a></li>
+                                        <li><a data-toggle="collapse" data-target="#demoevent" href="#">Professors <span
+                                                    class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="demoevent" class="collapse dropdown-header-top">
-                                                <li><a href="all-professors.html">All Professors</a>
+                                                <li><a href="all-professors">All Professors</a>
                                                 </li>
-                                                <li><a href="add-professor.html">Add Professor</a>
+                                                <li><a href="add-professor">Add Professor</a>
                                                 </li>
-                                                <li><a href="edit-professor.html">Edit Professor</a>
+                                                <li><a href="edit-professor">Edit Professor</a>
                                                 </li>
-                                                <li><a href="professor-profile.html">Professor Profile</a>
+                                                <li><a href="professor-profile">Professor Profile</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#demopro" href="#">Students <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#demopro" href="#">Students <span
+                                                    class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="demopro" class="collapse dropdown-header-top">
-                                                <li><a href="all-students.html">All Students</a>
+                                                <li><a href="all-students">All Students</a>
                                                 </li>
-                                                <li><a href="add-student.html">Add Student</a>
+                                                <li><a href="add-student">Add Student</a>
                                                 </li>
-                                                <li><a href="edit-student.html">Edit Student</a>
+                                                <li><a href="edit-student">Edit Student</a>
                                                 </li>
-                                                <li><a href="student-profile.html">Student Profile</a>
+                                                <li><a href="student-profile">Student Profile</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#democrou" href="#">Courses <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#democrou" href="#">Courses <span
+                                                    class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="democrou" class="collapse dropdown-header-top">
-                                                <li><a href="all-courses.html">All Courses</a>
+                                                <li><a href="all-courses">All Courses</a>
                                                 </li>
-                                                <li><a href="add-course.html">Add Course</a>
+                                                <li><a href="add-course">Add Course</a>
                                                 </li>
-                                                <li><a href="edit-course.html">Edit Course</a>
+                                                <li><a href="edit-course">Edit Course</a>
                                                 </li>
-                                                <li><a href="course-profile.html">Courses Info</a>
+                                                <li><a href="course-profile">Courses Info</a>
                                                 </li>
-                                                <li><a href="course-payment.html">Courses Payment</a>
+                                                <li><a href="course-payment">Courses Payment</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#demolibra" href="#">Library <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#demolibra" href="#">Library <span
+                                                    class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="demolibra" class="collapse dropdown-header-top">
-                                                <li><a href="library-assets.html">Library Assets</a>
+                                                <li><a href="library-assets">Library Assets</a>
                                                 </li>
-                                                <li><a href="add-library-assets.html">Add Library Asset</a>
+                                                <li><a href="add-library-assets">Add Library Asset</a>
                                                 </li>
-                                                <li><a href="edit-library-assets.html">Edit Library Asset</a>
+                                                <li><a href="edit-library-assets">Edit Library Asset</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#demodepart" href="#">Departments <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#demodepart" href="#">Departments
+                                                <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="demodepart" class="collapse dropdown-header-top">
-                                                <li><a href="departments.html">Departments List</a>
+                                                <li><a href="departments">Departments List</a>
                                                 </li>
-                                                <li><a href="add-department.html">Add Departments</a>
+                                                <li><a href="add-department">Add Departments</a>
                                                 </li>
-                                                <li><a href="edit-department.html">Edit Departments</a>
+                                                <li><a href="edit-department">Edit Departments</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#demo" href="#">Mailbox <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#demo" href="#">Mailbox <span
+                                                    class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="demo" class="collapse dropdown-header-top">
-                                                <li><a href="mailbox.html">Inbox</a>
+                                                <li><a href="mailbox">Inbox</a>
                                                 </li>
-                                                <li><a href="mailbox-view.html">View Mail</a>
+                                                <li><a href="mailbox-view">View Mail</a>
                                                 </li>
-                                                <li><a href="mailbox-compose.html">Compose Mail</a>
+                                                <li><a href="mailbox-compose">Compose Mail</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#Miscellaneousmob" href="#">Interface <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#Miscellaneousmob" href="#">Interface
+                                                <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="Miscellaneousmob" class="collapse dropdown-header-top">
-                                                <li><a href="google-map.html">Google Map</a>
+                                                <li><a href="google-map">Google Map</a>
                                                 </li>
-                                                <li><a href="data-maps.html">Data Maps</a>
+                                                <li><a href="data-maps">Data Maps</a>
                                                 </li>
-                                                <li><a href="pdf-viewer.html">Pdf Viewer</a>
+                                                <li><a href="pdf-viewer">Pdf Viewer</a>
                                                 </li>
-                                                <li><a href="x-editable.html">X-Editable</a>
+                                                <li><a href="x-editable">X-Editable</a>
                                                 </li>
-                                                <li><a href="code-editor.html">Code Editor</a>
+                                                <li><a href="code-editor">Code Editor</a>
                                                 </li>
-                                                <li><a href="tree-view.html">Tree View</a>
+                                                <li><a href="tree-view">Tree View</a>
                                                 </li>
-                                                <li><a href="preloader.html">Preloader</a>
+                                                <li><a href="preloader">Preloader</a>
                                                 </li>
-                                                <li><a href="images-cropper.html">Images Cropper</a>
+                                                <li><a href="images-cropper">Images Cropper</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#Chartsmob" href="#">Charts <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#Chartsmob" href="#">Charts <span
+                                                    class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="Chartsmob" class="collapse dropdown-header-top">
-                                                <li><a href="bar-charts.html">Bar Charts</a>
+                                                <li><a href="bar-charts">Bar Charts</a>
                                                 </li>
-                                                <li><a href="line-charts.html">Line Charts</a>
+                                                <li><a href="line-charts">Line Charts</a>
                                                 </li>
-                                                <li><a href="area-charts.html">Area Charts</a>
+                                                <li><a href="area-charts">Area Charts</a>
                                                 </li>
-                                                <li><a href="rounded-chart.html">Rounded Charts</a>
+                                                <li><a href="rounded-chart">Rounded Charts</a>
                                                 </li>
-                                                <li><a href="c3.html">C3 Charts</a>
+                                                <li><a href="c3">C3 Charts</a>
                                                 </li>
-                                                <li><a href="sparkline.html">Sparkline Charts</a>
+                                                <li><a href="sparkline">Sparkline Charts</a>
                                                 </li>
-                                                <li><a href="peity.html">Peity Charts</a>
+                                                <li><a href="peity">Peity Charts</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#Tablesmob" href="#">Tables <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#Tablesmob" href="#">Tables <span
+                                                    class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="Tablesmob" class="collapse dropdown-header-top">
-                                                <li><a href="static-table.html">Static Table</a>
+                                                <li><a href="static-table">Static Table</a>
                                                 </li>
-                                                <li><a href="data-table.html">Data Table</a>
+                                                <li><a href="data-table">Data Table</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#formsmob" href="#">Forms <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#formsmob" href="#">Forms <span
+                                                    class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="formsmob" class="collapse dropdown-header-top">
-                                                <li><a href="basic-form-element.html">Basic Form Elements</a>
+                                                <li><a href="basic-form-element">Basic Form Elements</a>
                                                 </li>
-                                                <li><a href="advance-form-element.html">Advanced Form Elements</a>
+                                                <li><a href="advance-form-element">Advanced Form Elements</a>
                                                 </li>
-                                                <li><a href="password-meter.html">Password Meter</a>
+                                                <li><a href="password-meter">Password Meter</a>
                                                 </li>
-                                                <li><a href="multi-upload.html">Multi Upload</a>
+                                                <li><a href="multi-upload">Multi Upload</a>
                                                 </li>
-                                                <li><a href="tinymc.html">Text Editor</a>
+                                                <li><a href="tinymc">Text Editor</a>
                                                 </li>
-                                                <li><a href="dual-list-box.html">Dual List Box</a>
+                                                <li><a href="dual-list-box">Dual List Box</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#Appviewsmob" href="#">App views <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#Appviewsmob" href="#">App views
+                                                <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="Appviewsmob" class="collapse dropdown-header-top">
-                                                <li><a href="basic-form-element.html">Basic Form Elements</a>
+                                                <li><a href="basic-form-element">Basic Form Elements</a>
                                                 </li>
-                                                <li><a href="advance-form-element.html">Advanced Form Elements</a>
+                                                <li><a href="advance-form-element">Advanced Form Elements</a>
                                                 </li>
-                                                <li><a href="password-meter.html">Password Meter</a>
+                                                <li><a href="password-meter">Password Meter</a>
                                                 </li>
-                                                <li><a href="multi-upload.html">Multi Upload</a>
+                                                <li><a href="multi-upload">Multi Upload</a>
                                                 </li>
-                                                <li><a href="tinymc.html">Text Editor</a>
+                                                <li><a href="tinymc">Text Editor</a>
                                                 </li>
-                                                <li><a href="dual-list-box.html">Dual List Box</a>
+                                                <li><a href="dual-list-box">Dual List Box</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#Pagemob" href="#">Pages <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#Pagemob" href="#">Pages <span
+                                                    class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="Pagemob" class="collapse dropdown-header-top">
-                                                <li><a href="login.html">Login</a>
+                                                <li><a href="login">Login</a>
                                                 </li>
-                                                <li><a href="register.html">Register</a>
+                                                <li><a href="register">Register</a>
                                                 </li>
-                                                <li><a href="lock.html">Lock</a>
+                                                <li><a href="lock">Lock</a>
                                                 </li>
-                                                <li><a href="password-recovery.html">Password Recovery</a>
+                                                <li><a href="password-recovery">Password Recovery</a>
                                                 </li>
-                                                <li><a href="404.html">404 Page</a></li>
-                                                <li><a href="500.html">500 Page</a></li>
+                                                <li><a href="404">404 Page</a></li>
+                                                <li><a href="500">500 Page</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -985,7 +1245,8 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <div class="breadcome-heading">
                                             <form role="search" class="sr-input-func">
-                                                <input type="text" placeholder="Search..." class="search-int form-control">
+                                                <input type="text" placeholder="Search..."
+                                                    class="search-int form-control">
                                                 <a href="#"><i class="fa fa-search"></i></a>
                                             </form>
                                         </div>
@@ -1013,153 +1274,182 @@
                         <div class="product-payment-inner-st">
                             <ul id="myTabedu1" class="tab-review-design">
                                 <li class="active"><a href="#description">Edit Tài Liệu Khóa Học</a></li>
-                                                       </ul>
+                            </ul>
                             <div id="myTabContent" class="tab-content custom-product-edit">
                                 <div class="product-tab-list tab-pane fade active in" id="description">
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="review-content-section">
                                                 <div id="dropzone1" class="pro-ad">
-                                                    <form action="#" class="dropzone dropzone-custom needsclick add-professors" id="demo1-upload">
-                                                        <div class="row">
-                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                <div class="form-group">
-                                                                    <input name="number" type="text" class="form-control" placeholder="id" value="">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control" placeholder="idTaiLieu" value="">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control" placeholder="SlideTaiLieu" value="">
-                                                                </div>
-                                                                <div class="container mt-4">
-                                                                    <!-- Button "Thêm" -->
-                                                                    <button class="btn btn-primary mr-2" onclick="addFunction()">Thêm</button>
-                                                            
-                                                                    <!-- Button "Sửa" -->
-                                                                    <button class="btn btn-warning mr-2" onclick="editFunction()">Sửa</button>
-                                                            
-                                                                    <!-- Button "Xóa" -->
-                                                                    <button class="btn btn-danger" onclick="deleteFunction()">Xóa</button>
-                                                                </div>
-                                                                <div class="product-status mg-b-15">
-                                                                    <div class="container-fluid">
-                                                                        <div class="row">
-                                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                                <div class="product-status-wrap drp-lst">
-                                                                                    <h4>Tài Liệu</h4>
-                                                                                                                                                                   <div class="asset-inner">
-                                                                                        <table>
-                                                                                            <tr>
-                                                                                                <th>No</th>
-                                                                                                <th>id</th>
-                                                                                                <th>ID Tài Liệu</th>
-                                                                                                <th>Silide Tài Liệu </th>
-                                                                                            
-                                                                                          
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td>1</td>
-                                                                                                <td>@3213</td>
-                                                                                                <td> Đăng Đần @           </td>
-                                                                                                <td>150</td>
-                                                                                        
-                                                                                              
-                                                                                              
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td>1</td>
-                                                                                                <td>@3213</td>
-                                                                                                <td> Đăng Đần @           </td>
-                                                                                                <td>150</td>
-                                                                                        
-                                                                                              
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td>1</td>
-                                                                                                <td>@3213</td>
-                                                                                                <td> Đăng Đần @           </td>
-                                                                                                <td>150</td>
-                                                                                        
-                                                                                              
-                                                                                            </tr>
-                                                                                           
-                                                                                        </table>
-                                                                                    </div>
-                                                                                    <div class="custom-pagination">
-                                                                                        <nav aria-label="Page navigation example">
-                                                                                            <ul class="pagination">
-                                                                                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                                                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                                                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                                                                            </ul>
-                                                                                        </nav>
-                                                                                    </div>
-                                                                                </div>
+                                                    <div class="product-status mg-b-15 ">
+                                                        <form action="#"
+                                                            class="dropzone dropzone-custom needsclick add-professors"
+                                                            id="demo1-upload">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    <div
+                                                                        class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                        <div class="product-status-wrap drp-lst">
+                                                                            <div class="asset-inner">
+                                                                                <select class="form-control"
+                                                                                    style="width: 100%;"
+                                                                                    ng-model="selectedCourse"
+                                                                                    ng-change="loadDocuments()">
+                                                                                    <option value="">Chọn khóa học
+                                                                                    </option>
+                                                                                    <option
+                                                                                        ng-repeat="course in itemsKhoaHoc"
+                                                                                        value="{{course.id}}">
+                                                                                        {{course.tenKhoaHoc}}
+                                                                                    </option>
+                                                                                </select>
+
+                                                                                <table>
+                                                                                    <tr>
+                                                                                        <th>ID Tài Liệu</th>
+                                                                                        <th>Silide Tài Liệu</th>
+                                                                                        <th>Tùy chọn</th>
+                                                                                    </tr>
+                                                                                    <tr
+                                                                                        ng-repeat="item in displayedItems">
+                                                                                        <td>{{ item.tenSlide }}</td>
+                                                                                        <td>{{ item.khoaHoc.tenKhoaHoc
+                                                                                            }}
+                                                                                            {{item.thuTu}}</td>
+                                                                                        <td>{{ item.options }}</td>
+                                                                                    </tr>
+                                                                                </table>
                                                                             </div>
+
+                                                                            <button class="btn btn-default"
+                                                                                ng-click="goToFirstPage()"
+                                                                                ng-disabled="currentPage === 1">Đầu</button>
+
+                                                                            <button class="btn btn-default"
+                                                                                ng-click="goToPreviousPage()"
+                                                                                ng-disabled="currentPage === 1">Trước</button>
+
+                                                                            <button class="btn btn-default"
+                                                                                ng-click="goToNextPage()"
+                                                                                ng-disabled="currentPage === totalItems / itemsPerPage">Sau</button>
+
+                                                                            <button class="btn btn-default"
+                                                                                ng-click="goToLastPage()"
+                                                                                ng-disabled="currentPage === totalItems / itemsPerPage">Cuối</button>
+
+
                                                                         </div>
                                                                     </div>
-                                                              
-                               
-       
-    <!-- jquery
+                                                                </div>
+
+                                                            </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="">
+
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Tên tài liệu" value="">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="file" class="form-control" placeholder=""
+                                                                    value="" accept=".pdf">
+                                                            </div>
+                                                            <div class="form-group" ng-if="selectedCourse !== '0'">
+                                                                <input type="number" class="form-control" placeholder=""
+                                                                    value="{{ itemsTaiLieu[0].thuTu+1 }}" min="0">
+                                                            </div>
+                                                            <div class="container mt-4">
+                                                                <!-- Button "Thêm" -->
+                                                                <button class="btn btn-primary mr-2"
+                                                                    onclick="addFunction()">Thêm</button>
+                                                                <!-- Button "Sửa" -->
+                                                                <button class="btn btn-warning mr-2"
+                                                                    onclick="editFunction()">Sửa</button>
+                                                                <!-- Button "Xóa" -->
+                                                                <button class="btn btn-danger"
+                                                                    onclick="deleteFunction()">Xóa</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </form>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+<!-- jquery
 		============================================ -->
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
-    <!-- bootstrap JS
+<script src="Admin/js/vendor/jquery-1.12.4.min.js"></script>
+<!-- bootstrap JS
 		============================================ -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- wow JS
+<script src="Admin/js/bootstrap.min.js"></script>
+<!-- wow JS
 		============================================ -->
-    <script src="js/wow.min.js"></script>
-    <!-- price-slider JS
+<script src="Admin/js/wow.min.js"></script>
+<!-- price-slider JS
 		============================================ -->
-    <script src="js/jquery-price-slider.js"></script>
-    <!-- meanmenu JS
+<script src="Admin/js/jquery-price-slider.js"></script>
+<!-- meanmenu JS
 		============================================ -->
-    <script src="js/jquery.meanmenu.js"></script>
-    <!-- owl.carousel JS
+<script src="Admin/js/jquery.meanmenu.js"></script>
+<!-- owl.carousel JS
 		============================================ -->
-    <script src="js/owl.carousel.min.js"></script>
-    <!-- sticky JS
+<script src="Admin/js/owl.carousel.min.js"></script>
+<!-- sticky JS
 		============================================ -->
-    <script src="js/jquery.sticky.js"></script>
-    <!-- scrollUp JS
+<script src="Admin/js/jquery.sticky.js"></script>
+<!-- scrollUp JS
 		============================================ -->
-    <script src="js/jquery.scrollUp.min.js"></script>
-    <!-- mCustomScrollbar JS
+<script src="Admin/js/jquery.scrollUp.min.js"></script>
+<!-- mCustomScrollbar JS
 		============================================ -->
-    <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
-    <!-- metisMenu JS
+<script src="Admin/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="Admin/js/scrollbar/mCustomScrollbar-active.js"></script>
+<!-- metisMenu JS
 		============================================ -->
-    <script src="js/metisMenu/metisMenu.min.js"></script>
-    <script src="js/metisMenu/metisMenu-active.js"></script>
-    <!-- morrisjs JS
+<script src="Admin/js/metisMenu/metisMenu.min.js"></script>
+<script src="Admin/js/metisMenu/metisMenu-active.js"></script>
+<!-- morrisjs JS
 		============================================ -->
-    <script src="js/sparkline/jquery.sparkline.min.js"></script>
-    <script src="js/sparkline/jquery.charts-sparkline.js"></script>
-    <!-- calendar JS
+<script src="Admin/js/sparkline/jquery.sparkline.min.js"></script>
+<script src="Admin/js/sparkline/jquery.charts-sparkline.js"></script>
+<!-- calendar JS
 		============================================ -->
-    <script src="js/calendar/moment.min.js"></script>
-    <script src="js/calendar/fullcalendar.min.js"></script>
-    <script src="js/calendar/fullcalendar-active.js"></script>
-    <!-- dropzone JS
+<script src="Admin/js/calendar/moment.min.js"></script>
+<script src="Admin/js/calendar/fullcalendar.min.js"></script>
+<script src="Admin/js/calendar/fullcalendar-active.js"></script>
+<!-- dropzone JS
 		============================================ -->
-    <script src="js/dropzone/dropzone.js"></script>
-    <!-- tab JS
+<!-- tab JS
 		============================================ -->
-    <script src="js/tab.js"></script>
-    <!-- plugins JS
+<script src="Admin/js/tab.js"></script>
+<!-- plugins JS
 		============================================ -->
-    <script src="js/plugins.js"></script>
-    <!-- main JS
+<script src="Admin/js/plugins.js"></script>
+<!-- main JS
 		============================================ -->
-    <script src="js/main.js"></script>
-    <!-- tawk chat JS
+<script src="Admin/js/main.js"></script>
+<!-- tawk chat JS
 		============================================ -->
-    <script src="js/tawk-chat.js"></script>
+<script src="Admin/js/tawk-chat.js"></script>
+
+<script src="Admin/js/TaiLieu-ctrl.js"></script>
+
+
+
 </body>
 
 </html>
