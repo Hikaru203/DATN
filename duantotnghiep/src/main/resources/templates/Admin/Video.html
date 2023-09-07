@@ -1095,6 +1095,9 @@
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <form action="/youtube/uploadVideo" method="post"
                                                                     enctype="multipart/form-data">
+                                                                    <input type="hidden" name="${_csrf.parameterName}"
+                                                                        value="${_csrf.token}" />
+
                                                                     <div class="form-group">
                                                                         <label for="title">Tiêu đề:</label>
                                                                         <input type="text" class="form-control"
