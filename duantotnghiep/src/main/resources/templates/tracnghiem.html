@@ -135,21 +135,18 @@
  
      <div class="container mt-5">
         <h1 class="mb-4">Trắc nghiệm câu hỏi</h1>
-        <div class="question" id="question1" ng-repeat="item in itemsCauHoi">
-          <h3>Câu hỏi {{item.id}}: {{item.cauHoi}}</h3>
-          <div class="options">
-            <input type="radio" name="q1" value="a" id="q1a" class="mr-2">
-            <label for="q1a">a) Hyperlinks and Text Markup Language</label><br>
-            <input type="radio" name="q1" value="b" id="q1b" class="mr-2">
-            <label for="q1b">b) Home Tool Markup Language</label><br>
-            <input type="radio" name="q1" value="c" id="q1c" class="mr-2">
-            <label for="q1c">c) Hyper Text Markup Language</label><br>
-          </div>
+        <div ng-repeat="question in questionAnswerArray">
+            <h3>Câu Hỏi: {{question.}} {{question.cauHoi}}</h3>
+            <div ng-repeat="answer in question.cauTraLoi">
+                <input type="radio" ng-model="selectedAnswer[question.$index]" ng-value="answer" name="q{{$index}}" id="q{{$index}}{{$parent.$index}}" class="mr-2">
+                <label for="q{{$index}}{{$parent.$index}}">{{answer}}</label><br>
+            </div>
+        </div>
         </div>
     
        
     
-        <div class="buttons">
+        <div class="buttons" >
           <button onclick="checkAnswers()" class="btn btn-success ml-2">Kiểm tra kết quả</button>
         </div>
     
