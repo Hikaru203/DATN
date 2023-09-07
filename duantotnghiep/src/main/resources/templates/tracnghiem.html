@@ -11,6 +11,7 @@
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -26,7 +27,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body ng-app="myApp" ng-controller="TracNghiem-ctrl">
     <!-- Topbar Start -->
     <div class="container-fluid d-none d-lg-block">
         <div class="row align-items-center py-4 px-xl-5">
@@ -134,8 +135,8 @@
  
      <div class="container mt-5">
         <h1 class="mb-4">Trắc nghiệm câu hỏi</h1>
-        <div class="question" id="question1">
-          <h3>Câu hỏi 1: HTML là viết tắt của gì?</h3>
+        <div class="question" id="question1" ng-repeat="item in itemsCauHoi">
+          <h3>Câu hỏi {{item.id}}: {{item.cauHoi}}</h3>
           <div class="options">
             <input type="radio" name="q1" value="a" id="q1a" class="mr-2">
             <label for="q1a">a) Hyperlinks and Text Markup Language</label><br>
@@ -146,21 +147,9 @@
           </div>
         </div>
     
-        <div class="question" id="question2">
-          <h3>Câu hỏi 2: CSS là viết tắt của gì?</h3>
-          <div class="options">
-            <input type="radio" name="q2" value="a" id="q2a" class="mr-2">
-            <label for="q2a">a) Colorful Style Sheets</label><br>
-            <input type="radio" name="q2" value="b" id="q2b" class="mr-2">
-            <label for="q2b">b) Creative Style Sheets</label><br>
-            <input type="radio" name="q2" value="c" id="q2c" class="mr-2">
-            <label for="q2c">c) Cascading Style Sheets</label><br>
-          </div>
-        </div>
+       
     
         <div class="buttons">
-          <button id="prevBtn" class="btn btn-secondary mr-2" onclick="prevQuestion()">Quay lại</button>
-          <button id="nextBtn" class="btn btn-primary" onclick="nextQuestion()">Next</button>
           <button onclick="checkAnswers()" class="btn btn-success ml-2">Kiểm tra kết quả</button>
         </div>
     
@@ -171,61 +160,6 @@
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-      
-      <script>
-        let currentQuestion = 1;
-        const totalQuestions = document.getElementsByClassName("question").length;
-    
-        function showQuestion(questionNumber) {
-          const questions = document.getElementsByClassName("question");
-          for (let i = 0; i < questions.length; i++) {
-            questions[i].style.display = "none";
-          }
-          document.getElementById("question" + questionNumber).style.display = "block";
-    
-          document.getElementById("prevBtn").disabled = questionNumber === 1;
-          document.getElementById("nextBtn").disabled = questionNumber === totalQuestions;
-        }
-    
-        function prevQuestion() {
-          if (currentQuestion > 1) {
-            currentQuestion--;
-            showQuestion(currentQuestion);
-          }
-        }
-    
-        function nextQuestion() {
-          if (currentQuestion < totalQuestions) {
-            currentQuestion++;
-            showQuestion(currentQuestion);
-          }
-        }
-    
-        function checkAnswers() {
-          let resultDiv = document.getElementById("result");
-          let score = 0;
-    
-          // Kiểm tra câu hỏi 1
-          let q1Answer = document.querySelector('input[name="q1"]:checked');
-          if (q1Answer && q1Answer.value === "c") {
-            score++;
-          }
-    
-          // Kiểm tra câu hỏi 2
-          let q2Answer = document.querySelector('input[name="q2"]:checked');
-          if (q2Answer && q2Answer.value === "c") {
-            score++;
-          }
-    
-          // Hiển thị kết quả
-          resultDiv.innerHTML = "<p>Số điểm của bạn: " + score + "/" + totalQuestions + "</p>";
-        }
-    
-        // Hiển thị câu hỏi đầu tiên khi tải trang
-        showQuestion(currentQuestion);
-      </script>
-    
- 
  
      <!-- Footer Start -->
      <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
@@ -310,9 +244,11 @@
      <!-- Contact Javascript File -->
      <script src="mail/jqBootstrapValidation.min.js"></script>
      <script src="mail/contact.js"></script>
- 
+    
+
      <!-- Template Javascript -->
      <script src="js/main.js"></script>
+     <script src="js/TracNghiem-ctrl.js"></script>
  </body>
  
  </html>
