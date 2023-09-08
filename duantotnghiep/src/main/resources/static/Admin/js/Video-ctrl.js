@@ -13,6 +13,14 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
     $scope.itemsPerPage = 5; // Số hàng trên mỗi trang
     $scope.totalItems = 0; // Tổng số tài liệu
 
+    const accountTokenInput = document.getElementById("accessToken");
+    const authorizationTokenGroup = document.getElementById('authorizationTokenGroup');
+    const accessTokenGroup = document.getElementById('accessTokenGroup');
+    const titleGroup = document.getElementById('form-title');
+    const privacyStatusGroup = document.getElementById('form-privacyStatus');
+    const descriptionGroup = document.getElementById('form-description');
+    const fileGroup = document.getElementById('form-file');
+
     $scope.initialize = function () {
         // load tài liệu
         $http.get("/rest/Videos").then(resp => {
@@ -59,9 +67,47 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
             $scope.itemsKhoaHoc = resp.data;
         });
     };
+
+    $scope.loadDocuments = function () {
+        if ($scope.selectedCourse) {
+            $http.get("/rest/Videos/" + $scope.selectedCourse).then(resp => {
+                $scope.itemsCauHoi = resp.data;
+                $scope.totalItems = $scope.itemsCauHoi.length;
+                $scope.pageChanged(); // Hiển thị trang đầu tiên
+            });
+        } else {
+            $http.get("/rest/Videos").then(resp => {
+                $scope.itemsCauHoi = resp.data;
+                $scope.totalItems = $scope.itemsCauHoi.length;
+                $scope.pageChanged(); // Hiển thị trang đầu tiên
+            });
+        }
+    };
+
     console.log($scope.itemsVideoWithTen);
     console.log($scope.itemsVideo);
 
 
+    $scope.updateUI = function () {
+        if (accountTokenInput===null || accountTokenInput.value === ''||accountTokenInput.value === null) {
+            // Hiển thị các input khi accountToken không tồn tại hoặc trống
+            authorizationTokenGroup.style.display = 'block';
+            accessTokenGroup.style.display = 'block';
+            titleGroup.style.display = 'none';
+            privacyStatusGroup.style.display = 'none';
+            descriptionGroup.style.display = 'none';
+            fileGroup.style.display = 'none';
+        } else {
+            // Ẩn các input khi accountToken có giá trị
+            authorizationTokenGroup.style.display = 'none';
+            accessTokenGroup.style.display = 'none';
+            titleGroup.style.display = 'block';
+            privacyStatusGroup.style.display = 'block';
+            descriptionGroup.style.display = 'block';
+            fileGroup.style.display = 'block';
+        }
+    }
+
+    $scope.updateUI();
     $scope.initialize();
 });
