@@ -73,6 +73,25 @@
     <!-- Include Angular UI Bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.min.js"></script>
+    <style>
+        .product-status-wrap {
+            overflow-x: auto;
+            /* Cho phép cuộn ngang khi bảng quá dài */
+        }
+
+        .form-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            padding-top: 20px;
+            padding-bottom: 80px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            /* Điều chỉnh kích thước tối đa của khung bao */
+            margin: 0 auto;
+            /* Để căn giữa khung bao trên trang */
+        }
+    </style>
 </head>
 
 <body ng-app="myApp" ng-controller="Video-ctrl">
@@ -1085,113 +1104,199 @@
                             <ul id="myTabedu1" class="tab-review-design">
                                 <li class="active"><a href="#description">Edit User</a></li>
                                 <div id="myTabContent" class="tab-content custom-product-edit">
-                                    <div class="product-tab-list tab-pane fade active in" id="description">
+                                    <div class="product-tab-list tab-pane fade active in">
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="review-content-section">
                                                     <div id="dropzone1" class="pro-ad">
-
                                                         <div class="row">
+                                                            <select class="form-control" style="width: 95%;"
+                                                                ng-model="selectedCourse" ng-change="loadDocuments()">
+                                                                <option value="">Chọn khóa học
+                                                                </option>
+                                                                <option ng-repeat="course in itemsKhoaHoc"
+                                                                    value="{{course.id}}">
+                                                                    {{course.tenKhoaHoc}}
+                                                                </option>
+                                                            </select>
+                                                            <br>
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="row">
+                                                                    <div class="form-check col-md-4">
+                                                                        <input type="radio" class="form-check-input"
+                                                                            id="uploadNewVideo" name="videoOption"
+                                                                            value="new" checked>
+                                                                        <label class="form-check-label"
+                                                                            for="uploadNewVideo">Tải lên video
+                                                                            mới</label>
+                                                                    </div>
+                                                                    <div class="form-check col-md-4">
+                                                                        <input type="radio" class="form-check-input"
+                                                                            id="useExistingVideo" name="videoOption"
+                                                                            value="existing">
+                                                                        <label class="form-check-label"
+                                                                            for="useExistingVideo">Sử dụng video
+                                                                            cũ</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="uploadNewVideoSection">
+                                                                    <!-- Phần tải lên video mới -->
+                                                                    <br>
+                                                                    <div class="form-container">
 
-                                                                <select class="form-control" style="width: 100%;"
-                                                                    ng-model="selectedCourse"
-                                                                    ng-change="loadDocuments()">
-                                                                    <option value="">Chọn khóa học
-                                                                    </option>
-                                                                    <option ng-repeat="course in itemsKhoaHoc"
-                                                                        value="{{course.id}}">
-                                                                        {{course.tenKhoaHoc}}
-                                                                    </option>
-                                                                </select>
-                                                                <br>
-                                                                <div class="form-group-inner">
-                                                                    <div class="row">
+                                                                        <form action="/youtube/uploadVideo"
+                                                                            method="post" enctype="multipart/form-data">
+                                                                            <input type="hidden"
+                                                                                name="${_csrf.parameterName}"
+                                                                                value="${_csrf.token}" />
 
-                                                                        <div
-                                                                            class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                            <div class="file-upload-inner ts-forms">
-                                                                                <div class="input prepend-small-btn">
-                                                                                    <div class="file-button">
-                                                                                        Tải Lên
-                                                                                        <input type="file"
-                                                                                            onchange="document.getElementById('prepend-small-btn').value = this.value;"
-                                                                                            accept=".mp4">
+                                                                            <div class="form-group" id="form-title">
+                                                                                <label for="title">Tiêu đề:</label>
+                                                                                <input type="text" class="form-control"
+                                                                                    id="title" name="title" required>
+                                                                            </div>
+                                                                            <div class="form-group"
+                                                                                id="form-description">
+                                                                                <label for="description">Mô tả:</label>
+                                                                                <textarea class="form-control"
+                                                                                    id="description" name="description"
+                                                                                    required></textarea>
+                                                                            </div>
+                                                                            <div class="form-group"
+                                                                                id="form-privacyStatus">
+                                                                                <label for="privacyStatus">Quyền riêng
+                                                                                    tư:</label>
+                                                                                <select class="form-control"
+                                                                                    id="privacyStatus"
+                                                                                    name="privacyStatus" required>
+                                                                                    <option value="private">Riêng tư
+                                                                                    </option>
+                                                                                    <option value="public">Công khai
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+
+                                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                                                                id="form-file">
+                                                                                <div class="file-upload-inner ts-forms">
+                                                                                    <div
+                                                                                        class="input prepend-small-btn">
+                                                                                        <div class="file-button">
+                                                                                            Tải Lên
+                                                                                            <input type="file"
+                                                                                                onchange="document.getElementById('prepend-small-btn').value = this.value;"
+                                                                                                id="file" name="file"
+                                                                                                accept=".mp4">
+
+                                                                                        </div>
+                                                                                        <input type="text" disabled
+                                                                                            id="prepend-small-btn"
+                                                                                            placeholder="Chưa có file or link nào">
                                                                                     </div>
-                                                                                    <input type="text"
-                                                                                        id="prepend-small-btn"
-                                                                                        placeholder="Chưa có file or link nào">
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
+
+                                                                            <div class="form-group"
+                                                                                id="authorizationTokenGroup">
+
+                                                                                <input type="hidden"
+                                                                                    class="form-control"
+                                                                                    id="authorizationUrlInput"
+                                                                                    name="authorizationUrl"
+                                                                                    th:value="${authorizationUrl}">
+                                                                                <!-- Đây là nút dẫn đến URL -->
+                                                                                <div
+                                                                                    style="text-align: center; padding-top: 60px;">
+                                                                                    <a th:href="${authorizationUrl}"
+                                                                                        class="btn btn-primary">Vui lòng
+                                                                                        đăng nhập</a>
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="form-group"
+                                                                                id="accessTokenGroup">
+
+                                                                                <input type="hidden"
+                                                                                    class="form-control"
+                                                                                    id="accessToken" name="accessToken"
+                                                                                    th:value="${accessToken}">
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
-                                                                    <br>
-
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control"
-                                                                            placeholder="Thu Tu" value="">
-                                                                    </div>
-
-                                                                    <div class="container mt-4">
-                                                                        <!-- Button "Thêm" -->
-                                                                        <button class="btn btn-primary mr-2"
-                                                                            onclick="addFunction()">Thêm</button>
-
-                                                                        <!-- Button "Sửa" -->
-                                                                        <button class="btn btn-warning mr-2"
-                                                                            onclick="editFunction()">Sửa</button>
-
-                                                                        <!-- Button "Xóa" -->
-                                                                        <button class="btn btn-danger"
-                                                                            onclick="deleteFunction()">Xóa</button>
-                                                                    </div>
-
-
-
                                                                 </div>
-                                                            </div>
+                                                                <br>
+                                                                <div id="useExistingVideoSection" style="margin: 0 3px;"
+                                                                    class="row">
+                                                                    <!-- Phần nhập liên kết video từ YouTube -->
+                                                                    <div class="form-container">
+                                                                        <div class="form-group col-md-9">
+                                                                            <label for="youtubeLink">Liên kết video từ
+                                                                                YouTube:</label>
+                                                                            <input type="text" class="form-control"
+                                                                                id="youtubeLink" name="youtubeLink">
+                                                                        </div>
+                                                                        <br>
+                                                                        <button type="button" style="margin-top: 6px;"
+                                                                            class="btn btn-primary col-md-3"
+                                                                            id="showYouTubeVideo">Hiển thị
+                                                                            Video</button>
+                                                                    </div>
+                                                                </div>
 
-                                                            </form>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="container mt-4">
+                                                            <!-- Button "Thêm" -->
+                                                            <button class="btn btn-primary mr-2"
+                                                                id="addButton">Thêm</button>
+
+                                                            <!-- Button "Sửa" -->
+                                                            <button class="btn btn-warning mr-2"
+                                                                onclick="editFunction()">Sửa</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <br><br><br><br><br><br>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-
+                                                <iframe id="videoPlayer" width="560" height="315" src=""
+                                                    title="YouTube video player" frameborder="0"
+                                                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                    allowfullscreen></iframe>
                                             </div>
-                                        </div>
-                                        <div class="product-status mg-b-15">
-                                            <div class="container-fluid">
-                                                <div class="row">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="product-status-wrap drp-lst">
-                                                            <h4>Danh Sách User</h4>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="product-status mg-b-15">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div
+                                                                class="col-lg-12 col-md-12 col-sm-12 col-xs-12 product-status-wrap drp-lst">
+                                                                <h4>Danh Sách User</h4>
+                                                                <div class="asset-inner">
+                                                                    <table>
+                                                                        <tr>
+                                                                            <th>No</th>
+                                                                            <th>ID Khóa Học</th>
+                                                                            <th>Link Video</th>
+                                                                            <th>Thu Tu</th>
+                                                                        </tr>
+                                                                        <tr
+                                                                            ng-repeat="(index, VideoWithTen) in itemsVideo">
+                                                                            <td>{{index + 1}}</td>
+                                                                            <td>{{VideoWithTen.khoaHoc.tenKhoaHoc}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{VideoWithTen.linkVideo}}
+                                                                            </td>
 
-                                                            <div class="asset-inner">
-                                                                <table>
-                                                                    <tr>
-                                                                        <th>No</th>
-                                                                        <th>ID Khóa Học</th>
-                                                                        <th>Link Video</th>
-                                                                        <th>Thu Tu</th>
-                                                                    </tr>
-                                                                    <tr ng-repeat="(index, VideoWithTen) in itemsVideo">
-                                                                        <td>{{index + 1}}</td>
-                                                                        <td>{{VideoWithTen.khoaHoc.tenKhoaHoc}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{VideoWithTen.linkVideo}}
-                                                                        </td>
-
-                                                                        <td>
-                                                                            {{VideoWithTen.thuTu}}
-                                                                        </td>
-                                                                    </tr>
-
-
-                                                                </table>
+                                                                            <td>
+                                                                                {{VideoWithTen.thuTu}}
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1206,6 +1311,180 @@
             </div>
         </div>
     </div>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const uploadNewVideoSection = document.getElementById("uploadNewVideoSection");
+            const addButton = document.getElementById("addButton");
+
+            if (!uploadNewVideoSection || !addButton) {
+                console.error("Không thể tìm thấy các phần tử cần thiết.");
+                return;
+            }
+
+            addButton.addEventListener("click", function () {
+
+                if (uploadNewVideoSection.style.display !== "none") {
+                    // Lấy các giá trị từ các trường input
+                    const titleInput = document.getElementById("title");
+                    const descriptionInput = document.getElementById("description");
+                    const privacyStatusInput = document.getElementById("privacyStatus");
+                    const fileInput = document.getElementById("file");
+
+                    // Kiểm tra giá trị của từng trường input
+                    if (!titleInput.value) {
+
+                        alert("Vui lòng nhập tiêu đề.");
+                        return;
+                    }
+
+                    if (!descriptionInput.value) {
+                        alert("Vui lòng nhập mô tả.");
+                        return;
+                    }
+
+                    if (!privacyStatusInput.value) {
+                        alert("Vui lòng chọn quyền riêng tư.");
+                        return;
+                    }
+
+                    if (!fileInput.files[0]) {
+                        alert("Vui lòng chọn tệp video.");
+                        return;
+                    }
+
+                    // Tạo FormData và gửi POST request
+                    const form = new FormData();
+                    form.append("title", titleInput.value);
+                    form.append("description", descriptionInput.value);
+                    form.append("privacyStatus", privacyStatusInput.value);
+                    form.append("file", fileInput.files[0]);
+
+                    fetch("/youtube/uploadVideo", {
+                        method: "POST",
+                        body: form
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                // Xử lý kết quả thành công (response status 200)
+                                alert("Form đã được gửi thành công!");
+                                // Có thể thực hiện các thao tác tiếp theo sau khi gửi form thành công
+                            } else {
+                                // Xử lý lỗi (ví dụ: response status 4xx hoặc 5xx)
+                                alert("Đã xảy ra lỗi khi gửi form.");
+                            }
+                        })
+                        .catch(error => {
+                            // Xử lý lỗi trong quá trình gửi request
+                            console.error("Lỗi: " + error);
+                        });
+                } else {
+                    alert("Phần tải lên video mới không được hiển thị!");
+                }
+            });
+        });
+
+    </script>
+    <script>
+        function addFunction() {
+            alert("Thêm thành công");
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const fileInput = document.getElementById("file");
+            const youtubeLinkInput = document.getElementById("youtubeLink");
+            const showYouTubeVideoButton = document.getElementById("showYouTubeVideo");
+            const youtubeVideoContainer = document.getElementById("youtubeVideoContainer");
+
+            fileInput.addEventListener("change", function () {
+                const selectedFile = fileInput.files[0];
+
+                if (selectedFile) {
+                    // Kiểm tra nếu tệp đã chọn có đúng định dạng .mp4
+                    if (selectedFile.type === "video/mp4") {
+                        const objectURL = URL.createObjectURL(selectedFile);
+                        videoPlayer.src = objectURL;
+                        youtubeVideoContainer.style.display = "none"; // Ẩn video YouTube
+                    } else {
+                        // Hiển thị thông báo lỗi nếu tệp không phải là .mp4
+                        alert("Chỉ hỗ trợ tệp .mp4");
+                        fileInput.value = ""; // Xóa tệp đã chọn
+                    }
+                } else {
+                    // Nếu không có tệp được chọn, hiển thị video từ YouTube
+                    videoPlayer.src = "";
+                }
+            });
+
+            showYouTubeVideoButton.addEventListener("click", function () {
+                const youtubeLink = youtubeLinkInput.value;
+
+                // Kiểm tra xem liên kết có chứa "youtube.com" không
+                if (youtubeLink.includes("youtube.com")) {
+                    // Trích xuất mã video từ liên kết
+                    const videoId = getYoutubeVideoId(youtubeLink);
+
+                    if (videoId) {
+                        // Tạo liên kết nhúng từ mã video
+                        const youtubeEmbedCode = `https://www.youtube.com/embed/${videoId}`;
+                        videoPlayer.src = youtubeEmbedCode;
+                        youtubeVideoContainer.style.display = "block"; // Hiển thị container video YouTube
+                    } else {
+                        // Hiển thị thông báo lỗi nếu không thể trích xuất mã video
+                        alert("Không thể trích xuất mã video từ liên kết");
+                    }
+                } else {
+                    // Hiển thị thông báo lỗi nếu liên kết không hợp lệ
+                    alert("Liên kết YouTube không hợp lệ");
+                }
+            });
+
+            // Hàm để trích xuất mã video từ liên kết YouTube
+            function getYoutubeVideoId(url) {
+                const regex = /[?&]v=([^&#]+)/;
+                const match = url.match(regex);
+                return match && match[1];
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const uploadNewVideoRadio = document.getElementById("uploadNewVideo");
+            const useExistingVideoRadio = document.getElementById("useExistingVideo");
+            const uploadNewVideoSection = document.getElementById("uploadNewVideoSection");
+            const useExistingVideoSection = document.getElementById("useExistingVideoSection");
+            const titleInput = document.getElementById("title");
+            const descriptionInput = document.getElementById("description");
+            const privacyStatusSelect = document.getElementById("privacyStatus");
+            const fileInput = document.getElementById("file");
+            const youtubeLinkInput = document.getElementById("youtubeLink");
+
+            useExistingVideoSection.style.display = "none";
+
+            uploadNewVideoRadio.addEventListener("change", function () {
+                // Hiển thị phần tải lên video mới và ẩn phần nhập liên kết YouTube
+                uploadNewVideoSection.style.display = "block";
+                useExistingVideoSection.style.display = "none";
+                // Xóa hết dữ liệu trong các input
+                privacyStatusSelect.selectedIndex = 0; // Đặt lại select box về option đầu tiên
+                youtubeLinkInput.value = "";
+                titleInput.value = "";
+                descriptionInput.value = "";
+                youtubeLinkInput.value = "";
+            });
+
+            useExistingVideoRadio.addEventListener("change", function () {
+                // Hiển thị phần nhập liên kết YouTube và ẩn phần tải lên video mới
+                uploadNewVideoSection.style.display = "none";
+                useExistingVideoSection.style.display = "block";
+                // Xóa hết dữ liệu trong các input
+                youtubeLinkInput.value = "";
+                titleInput.value = "";
+                descriptionInput.value = "";
+                privacyStatusSelect.selectedIndex = 0; // Đặt lại select box về option đầu tiên
+            });
+        });
+
+    </script>
     <!-- jquery
 		============================================ -->
     <script src="Admin/js/vendor/jquery-1.12.4.min.js"></script>
