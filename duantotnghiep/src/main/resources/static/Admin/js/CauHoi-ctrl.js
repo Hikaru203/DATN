@@ -26,7 +26,6 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
             for (const item of $scope.itemsCauHoi) {
                 if (item.cauTraLoi) {
                     const splitAnswers = item.cauTraLoi.split(',').map(answer => answer.trim());
-
                     // Tạo đối tượng chứa thông tin và đưa vào mảng mới
                     const questionObject = {
                         cauHoi: item.cauHoi,

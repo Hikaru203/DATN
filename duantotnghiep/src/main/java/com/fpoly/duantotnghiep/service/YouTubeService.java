@@ -22,16 +22,16 @@ import java.util.Collections;
 @Service
 public class YouTubeService {
 
-    private static final String CLIENT_ID = "346240861490-ilau2uvnj5drkd6jipa7er1fumkf6cm1.apps.googleusercontent.com"; // Replace
+    private static final String CLIENT_ID = "480630392323-0h8a514jjnut8i74h8622lc3dknru8vt.apps.googleusercontent.com"; // Replace
                                                                                                                         // with
                                                                                                                         // your
                                                                                                                         // Client
                                                                                                                         // ID
-    private static final String CLIENT_SECRET = "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"; // Replace with your Client
+    private static final String CLIENT_SECRET = "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"; // Replace with your Client
                                                                                        // Secret
     private static final String REDIRECT_URI = "http://localhost:8080/oauth2callback"; // Replace with your Redirect URI
 
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance(); 
 
     private YouTube youTube;
     private String authorizationCode;
