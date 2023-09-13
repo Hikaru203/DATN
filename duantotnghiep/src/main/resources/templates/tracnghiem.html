@@ -138,18 +138,18 @@
         <div ng-repeat="question in questionAnswerArray">
             <h3>Câu Hỏi {{$index + 1}}: {{question.cauHoi}}</h3>
             <div ng-repeat="answer in question.cauTraLoi">
-                <input type="radio" ng-model="selectedAnswer[question.$index]" ng-value="answer" name="q{{$index}}" id="q{{$index}}{{$parent.$index}}" class="mr-2">
+                <input type="checkbox" ng-model="selectedAnswers[$index]" ng-true-value="'{{answer}}'" ng-false-value="''" id="q{{$index}}{{$parent.$index}}" class="mr-2">
                 <label for="q{{$index}}{{$parent.$index}}">{{answer}}</label><br>
             </div>
+        </div>
+        <div class="buttons" style="text-align-center" >
+            <button ng-click="checkAnswers()"  class="btn btn-success mx-auto d-block text-center mt-2">Kiểm tra kết quả</button>
         </div>
         </div>
     
        
     
-        <div class="buttons" >
-          <button onclick="checkAnswers()" class="btn btn-success ml-2">Kiểm tra kết quả</button>
-        </div>
-    
+      
         <div class="result mt-3" id="result"></div>
       </div>
     
