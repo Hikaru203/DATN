@@ -41,20 +41,39 @@ app.controller("TracNghiem-ctrl", function($scope, $http, $window) {
     $scope.diemSo = 0; // Bắt đầu với điểm số là 0
     var chonDungItNhatMotCauHoi = false; // Biến flag để kiểm tra người dùng đã chọn đúng ít nhất một câu hỏi
 
+    $scope.ketQuaCauHoi = []; // Mảng để lưu kết quả từng câu hỏi
+
     for (var i = 0; i < $scope.itemsCauHoi.length; i++) {
         var question = $scope.itemsCauHoi[i];
-        var cauTraLoi = question.cauTraLoi.trim(); // Lấy câu trả lời từ question và loại bỏ khoảng trắng
-        var dapAn = question.dapAn.trim(); // Lấy đáp án từ question và loại bỏ khoảng trắng
+        var cauTraLoi = (question.cauTraLoi || '').trim(); // Lấy câu trả lời từ question và loại bỏ khoảng trắng (nếu có)
 
-        // Kiểm tra xem chuỗi `dapAn` có tồn tại trong chuỗi `cauTraLoi` không
-        if (cauTraLoi.includes(dapAn)) {
-            $scope.diemSo++; // Tăng điểm số nếu chuỗi `dapAn` tồn tại trong chuỗi `cauTraLoi`
-            console.log('Câu hỏi số ' + (i + 1) + ': Chọn đúng');
-            chonDungItNhatMotCauHoi = true; // Đánh dấu là người dùng đã chọn đúng ít nhất một câu hỏi
+        var dapAn = [];
+        if (Array.isArray(question.dapAn)) {
+            dapAn = question.dapAn.map(function(answer) {
+                return answer.trim();
+            });
         } else {
-            // Xử lý trường hợp chọn sai ở đây (ví dụ: in ra thông báo)
-            console.log('Câu hỏi số ' + (i + 1) + ': Chọn sai');
+            // Xử lý trường hợp khi dapAn không phải là mảng, ví dụ: thông báo lỗi hoặc gán một giá trị mặc định
+            console.error('Lỗi: dapAn không phải là mảng');
+            // Hoặc gán một giá trị mặc định cho dapAn
+            dapAn = [];
         }
+
+        var ketQuaCauHoi = {
+            cauHoi: question.cauHoi,
+            chonDung: false // Khởi tạo giá trị mặc định là sai
+        };
+
+        if (dapAn.some(function(answer) {
+            return cauTraLoi.includes(answer);
+        })) { // Kiểm tra xem câu trả lời có chứa ít nhất một đáp án không
+            $scope.diemSo++; // Tăng điểm số nếu câu trả lời chứa ít nhất một đáp án
+            ketQuaCauHoi.chonDung = true; // Đánh dấu là câu trả lời đúng
+            chonDungItNhatMotCauHoi = true; // Đánh dấu là người dùng đã chọn đúng ít nhất một câu hỏi
+        }
+
+        $scope.ketQuaCauHoi.push(ketQuaCauHoi); // Thêm kết quả câu hỏi vào mảng
+        console.log('Câu hỏi số ' + (i + 1) + (ketQuaCauHoi.chonDung ? ': Đúng' : ': Sai'));
     }
 
     if (!chonDungItNhatMotCauHoi) {
@@ -62,10 +81,8 @@ app.controller("TracNghiem-ctrl", function($scope, $http, $window) {
         console.log('Không chọn hoặc chọn sai tất cả câu hỏi');
     }
 
-    alert("Điểm số của bạn là: " + $scope.diemSo);
+    console.log("Điểm số của bạn là: " + $scope.diemSo); // Sử dụng console.log để hiển thị điểm số
 }
-
-
 
 
         
