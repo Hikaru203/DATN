@@ -6,6 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.fpoly.duantotnghiep.Entity.ChungChi;
 import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
 
 public interface VideoKhoaHocRepository extends JpaRepository<VideoKhoaHoc, Integer> {
