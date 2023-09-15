@@ -138,7 +138,7 @@
         <div ng-repeat="question in questionAnswerArray">
             <h3>Câu Hỏi {{$index + 1}}: {{question.cauHoi}}</h3>
             <div ng-repeat="answer in question.cauTraLoi">
-                <input type="checkbox" ng-model="selectedAnswers[$index]" ng-true-value="'{{answer}}'" ng-false-value="''" id="q{{$index}}{{$parent.$index}}" class="mr-2">
+                <input type="radio" ng-model="selectedAnswers[$index]" ng-true-value="'{{answer}}'" ng-false-value="''" id="q{{$index}}{{$parent.$index}}" class="mr-2">
                 <label for="q{{$index}}{{$parent.$index}}">{{answer}}</label><br>
             </div>
         </div>
