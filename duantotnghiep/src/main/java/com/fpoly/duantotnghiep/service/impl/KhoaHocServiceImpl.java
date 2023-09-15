@@ -24,6 +24,12 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 		return khoaHocRepository.findById(id).get();
 	}
 
+	@Override
+	public KhoaHoc findById(int id) {
+		// TODO Auto-generated method stub
+		return khoaHocRepository.findById(id).get();
+	}
+
 	
     
 }

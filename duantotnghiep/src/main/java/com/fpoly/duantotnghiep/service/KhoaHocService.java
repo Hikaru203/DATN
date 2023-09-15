@@ -12,5 +12,7 @@ public interface KhoaHocService {
 
 	KhoaHoc findByKhoaHocId(Integer id);
 
+	KhoaHoc findById(int id);
+
 	
 }
