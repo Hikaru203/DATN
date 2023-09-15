@@ -49,6 +49,11 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
             $scope.KhoaHoc = resp.data;
             console.log($scope.KhoaHoc);
             console.log($scope.formTaiLieu.khoaHoc);
+            // Định dạng lại ngày thành "giờ ngày tháng năm"
+            for (var i = 0; i < $scope.itemsTaiLieu.length; i++) {
+                var ngayTao = moment($scope.itemsTaiLieu[i].ngayTao).format("HH:mm DD-MM-YYYY");
+                $scope.itemsTaiLieu[i].ngayTao = ngayTao;
+            }
         }).catch(function (error) {
             console.log("Lỗi tải danh sách tài liệu", error);
         });
@@ -57,11 +62,21 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
                 $scope.itemsTaiLieu = resp.data;
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
                 console.log($scope.itemsTaiLieu);
+                // Định dạng lại ngày thành "giờ ngày tháng năm"
+                for (var i = 0; i < $scope.itemsTaiLieu.length; i++) {
+                    var ngayTao = moment($scope.itemsTaiLieu[i].ngayTao).format("HH:mm DD-MM-YYYY");
+                    $scope.itemsTaiLieu[i].ngayTao = ngayTao;
+                }
             });
         } else {
             $http.get("/rest/TaiLieu").then(function (resp) {
                 $scope.itemsTaiLieu = resp.data;
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
+                // Định dạng lại ngày thành "giờ ngày tháng năm"
+                for (var i = 0; i < $scope.itemsTaiLieu.length; i++) {
+                    var ngayTao = moment($scope.itemsTaiLieu[i].ngayTao).format("HH:mm DD-MM-YYYY");
+                    $scope.itemsTaiLieu[i].ngayTao = ngayTao;
+                }
             });
         }
     };
@@ -141,6 +156,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
                 $http.post(`/rest/TaiLieu`, item).then(function (resp) {
                     $scope.itemsTaiLieu.push(resp.data);
                     alert("Thêm mới thành công");
+                    $scope.reset();
                 }).catch(function (error) {
                     alert("Lỗi thêm mới tài liệu");
                     console.log("Error", error);
