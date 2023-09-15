@@ -23,7 +23,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
 
     $scope.initialize = function () {
         // load tài liệu
-        $http.get("/rest/Videos").then(resp => {
+        $http.get("/Admin/rest/Videos").then(resp => {
             $scope.itemsVideo = resp.data;
             console.log($scope.itemsVideo);
 
@@ -63,20 +63,20 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
             console.error("An error occurred:", error);
         });
 
-        $http.get("/rest/KhoaHoc").then(resp => {
+        $http.get("/Admin/rest/KhoaHoc").then(resp => {
             $scope.itemsKhoaHoc = resp.data;
         });
     };
 
     $scope.loadDocuments = function () {
         if ($scope.selectedCourse) {
-            $http.get("/rest/Videos/" + $scope.selectedCourse).then(resp => {
+            $http.get("/Admin/rest/Videos/" + $scope.selectedCourse).then(resp => {
                 $scope.itemsCauHoi = resp.data;
                 $scope.totalItems = $scope.itemsCauHoi.length;
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
             });
         } else {
-            $http.get("/rest/Videos").then(resp => {
+            $http.get("/Admin/rest/Videos").then(resp => {
                 $scope.itemsCauHoi = resp.data;
                 $scope.totalItems = $scope.itemsCauHoi.length;
                 $scope.pageChanged(); // Hiển thị trang đầu tiên

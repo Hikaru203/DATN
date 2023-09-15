@@ -15,8 +15,8 @@ import com.fpoly.duantotnghiep.service.KhoaHocService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/NguoiDung")
-public class AccountRestController {
+@RequestMapping("/Admin/rest/NguoiDung")
+public class AdminAccountRestController {
     @Autowired
     NguoiDungRepository nguoiDungRepository;
 

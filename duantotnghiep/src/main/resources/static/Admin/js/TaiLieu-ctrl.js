@@ -12,13 +12,13 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
 
     $scope.initialize = function () {
         // load tài liệu
-        $http.get("/rest/TaiLieu").then(resp => {
+        $http.get("/Admin/rest/TaiLieu").then(resp => {
             $scope.itemsTaiLieu = resp.data;
             $scope.totalItems = $scope.itemsTaiLieu.length;
             $scope.pageChanged(); // Hiển thị trang đầu tiên
         });
 
-        $http.get("/rest/KhoaHoc").then(resp => {
+        $http.get("/Admin/rest/KhoaHoc").then(resp => {
             $scope.itemsKhoaHoc = resp.data;
         });
     };
@@ -28,13 +28,13 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
 
     $scope.loadDocuments = function () {
         if ($scope.selectedCourse) {
-            $http.get("/rest/TaiLieu/" + $scope.selectedCourse).then(resp => {
+            $http.get("/Admin/rest/TaiLieu/" + $scope.selectedCourse).then(resp => {
                 $scope.itemsTaiLieu = resp.data;
                 $scope.totalItems = $scope.itemsTaiLieu.length;
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
             });
         } else {
-            $http.get("/rest/TaiLieu").then(resp => {
+            $http.get("/Admin/rest/TaiLieu").then(resp => {
                 $scope.itemsTaiLieu = resp.data;
                 $scope.totalItems = $scope.itemsTaiLieu.length;
                 $scope.pageChanged(); // Hiển thị trang đầu tiên

@@ -13,8 +13,8 @@ import com.fpoly.duantotnghiep.service.KhoaHocService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/KhoaHoc")
-public class KhoaHocRestController {
+@RequestMapping("/Admin/rest/KhoaHoc")
+public class AdminKhoaHocRestController {
     @Autowired
     KhoaHocService khoaHocService;
 

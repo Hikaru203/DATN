@@ -1,9 +1,7 @@
 package com.fpoly.duantotnghiep.API.AdminRest;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,24 +9,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fpoly.duantotnghiep.Entity.ChungChi;
-import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
-import com.fpoly.duantotnghiep.service.VideoService;
+import com.fpoly.duantotnghiep.Entity.CauHoi;
+import com.fpoly.duantotnghiep.Entity.TaiLieuKhoaHoc;
+import com.fpoly.duantotnghiep.service.CauHoiService;
+import com.fpoly.duantotnghiep.service.TaiLieuService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/Videos")
-public class VideoRestController {
+@RequestMapping("/Admin/rest/CauHoi")
+public class AdminCauHoiRestController {
     @Autowired
-    VideoService videoService;
+    CauHoiService cauHoiService;
 
     @GetMapping()
-    public List<VideoKhoaHoc> getAll() {
-        return videoService.findAll();
+    public List<CauHoi> getAll() {
+        return cauHoiService.findAll();
     }
 
     @GetMapping("/{idKhoaHoc}")
-    public List<VideoKhoaHoc> getByKhoaHoc(@PathVariable int idKhoaHoc) {
-        return videoService.findByKhoaHocId(idKhoaHoc);
+    public List<CauHoi> getByKhoaHoc(@PathVariable int idKhoaHoc) {
+        return cauHoiService.findByKhoaHocId(idKhoaHoc);
     }
+
 }

@@ -14,8 +14,8 @@ import com.fpoly.duantotnghiep.service.TaiLieuService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/TaiLieu")
-public class TaiLietRestController {
+@RequestMapping("/Admin/rest/TaiLieu")
+public class AdminTaiLietRestController {
     @Autowired
     TaiLieuService taiLieuService;
 
