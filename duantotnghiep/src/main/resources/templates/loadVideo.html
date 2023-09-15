@@ -10,30 +10,33 @@ You can do whatever you want with the code. However if you love my content, you 
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Video Playlist UI Design Like Udemy | SkillShare</title>
-    <link rel="stylesheet" href="/css/styleloadVideo.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Video Playlist UI Design Like Udemy | SkillShare</title>
+<link rel="stylesheet" href="/css/styleloadVideo.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+
 </head>
 
-<body>
-    <main class="container">
-    
-        <section class="main-video">
-            <video src="/videos/manipulate text background.mp4" controls autoplay muted></video>
-            <h3 class="title">Title of the playing Video.</h3>
-        </section>
+<body ng-app="loadVideo-app" ng-controller="loadVideo-app-ctrl" ng-init="loadvideo()">
+	<main class="container">
 
-        <section class="video-playlist">
-            <h3 class="title">Title of Video Playlist</h3>
-            <p>10 lessions &nbsp; . &nbsp; 50m 48s</p>
-            <div class="videos">
+		<section class="main-video">
+			<video src="/videos/MAKING MY WAY.mp4" controls controlsList="nodownload" autoplay muted></video>
+			<h3 class="title">Title of the playing Video.</h3>
+		</section>
 
-            </div>
-        </section>
-    </main>
-    <script src="/js/scriptLoadVideo.js"></script>
+		<section class="video-playlist">
+			<h3 class="title">Title of Video Playlist</h3>
+			<p>10 lessions &nbsp; . &nbsp; 50m 48s</p>
+			<div class="videos"></div>
+		</section>
+	</main>
+	<script src="/js/scriptLoadVideo.js"></script>
 </body>
 
 </html>
