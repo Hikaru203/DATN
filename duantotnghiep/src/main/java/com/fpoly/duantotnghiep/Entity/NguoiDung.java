@@ -43,6 +43,9 @@ public class NguoiDung {
     @Column(name = "chuc_vu", length = 50)
     private String chucVu;
 
+    @Column(name = "hinh_anh")
+    private String hinhAnh;
+
     @Column(name = "trang_thai", length = 50, nullable = false)
     private String trangThai;
 }

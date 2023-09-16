@@ -25,4 +25,9 @@ public class VideoServiceImpI implements VideoService {
     public List<VideoKhoaHoc> findByKhoaHocId(int idKhoaHoc) {
         return videoKhoaHocRepository.findByKhoaHocIdOrderByAsc(idKhoaHoc);
     }
+
+    @Override
+    public VideoKhoaHoc save(VideoKhoaHoc videoKhoaHoc) {
+        return videoKhoaHocRepository.save(videoKhoaHoc);
+    }
 }

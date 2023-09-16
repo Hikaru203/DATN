@@ -1355,55 +1355,155 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
                                                             </div>
-                                                    </div>
 
-                                                    <div class="row">
-                                                        <div class="">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control"
+                                                                            placeholder="Tên tài liệu"
+                                                                            ng-model="formTaiLieu.tenSlide" value="">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input type="file" class="form-control"
+                                                                            placeholder="" value="" ng-model="file"
+                                                                            accept=".pdf" id="fileInput">
+                                                                    </div>
 
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="Tên tài liệu"
-                                                                    ng-model="formTaiLieu.tenSlide" value="">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <input type="file" class="form-control" placeholder=""
-                                                                    value="" ng-model="file" accept=".pdf"
-                                                                    id="fileInput">
-                                                            </div>
-                                                            <script>
-                                                                // Thêm sự kiện change cho input file
-                                                                document.getElementById('fileInput').addEventListener('change', function (event) {
-                                                                    var file = event.target.files[0]; // Lấy tệp đã chọn
-                                                                    if (file) {
-                                                                        var tenTepPDF = file.name; // Lấy tên của tệp từ input
-                                                                        console.log(tenTepPDF);
+                                                                    <script>
+                                                                        // Thêm sự kiện change cho input file
+                                                                        document.getElementById('fileInput').addEventListener('change', function (event) {
+                                                                            var file = event.target.files[0]; // Lấy tệp đã chọn
+                                                                            if (file) {
+                                                                                var tenTepPDF = file.name; // Lấy tên của tệp từ input
+                                                                                console.log(tenTepPDF);
+                                                                                var pdfViewerContainer = document.getElementById("pdfViewerContainer");
+                                                                                pdfViewerContainer.style.display = "block";
+                                                                            }
+                                                                        });
+
+                                                                    </script>
+                                                                    <div class="form-group"
+                                                                        ng-if="selectedCourse !== '0'">
+                                                                        <input type="number"
+                                                                            ng-model="formTaiLieu.thuTu"
+                                                                            class="form-control" placeholder="" min="0">
+                                                                    </div>
+                                                                    <div class="container mt-4">
+                                                                        <!-- Button "Thêm" -->
+                                                                        <button class="btn btn-primary mr-2"
+                                                                            ng-click="create()">Thêm</button>
+                                                                        <!-- Button "Sửa" -->
+                                                                        <button class="btn btn-warning mr-2"
+                                                                            onclick="editFunction()">Sửa</button>
+                                                                        <!-- Button "Xóa" -->
+                                                                        <button class="btn btn-danger"
+                                                                            onclick="deleteFunction()">Xóa</button>
+                                                                        <button class="btn btn-danger"
+                                                                            ng-click="reset()">Làm
+                                                                            mới</button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div id="pdfViewerContainer">
+                                                                        <div id="pdfScrollContainer">
+                                                                            <canvas id="pdfCanvas"
+                                                                                style="width: 100%;"></canvas>
+                                                                        </div>
+                                                                        <div id="pdfNavButtons">
+                                                                            <a href="#" id="prevPageButton"
+                                                                                style="display: none;">Trang Trước</a>
+                                                                            <a href="#" id="nextPageButton"
+                                                                                style="display: none;">Trang Sau</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <script>
+                                                                    var currentPageNum = 1; // Trang hiện tại
+                                                                    var pdf = null;
+
+                                                                    // Sự kiện change cho input file
+                                                                    document.getElementById('fileInput').addEventListener('change', function (event) {
+                                                                        
+                                                                        var file = event.target.files[0]; // Lấy tệp đã chọn
+                                                                        if (file) {
+                                                                            var fileReader = new FileReader();
+                                                                            fileReader.onload = function (e) {
+                                                                                var fileData = new Uint8Array(e.target.result);
+                                                                                // Gọi hàm để hiển thị toàn bộ nội dung PDF
+                                                                                displayPDF(fileData);
+                                                                            };
+                                                                            fileReader.readAsArrayBuffer(file);
+                                                                        }
+                                                                    });
+
+                                                                    // Xử lý sự kiện khi nhấp vào liên kết "Trang Trước"
+                                                                    document.getElementById('prevPageButton').addEventListener('click', function (e) {
+                                                                        e.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+                                                                        if (currentPageNum > 1) {
+                                                                            currentPageNum--;
+                                                                            renderPage(currentPageNum);
+                                                                        }
+                                                                    });
+
+                                                                    // Xử lý sự kiện khi nhấp vào liên kết "Trang Sau"
+                                                                    document.getElementById('nextPageButton').addEventListener('click', function (e) {
+                                                                        e.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+                                                                        if (currentPageNum < pdf.numPages) {
+                                                                            currentPageNum++;
+                                                                            renderPage(currentPageNum);
+                                                                        }
+                                                                    });
+
+                                                                    function displayPDF(fileData) {
+                                                                        var pdfjsLib = window['pdfjs-dist/build/pdf'];
+                                                                        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.js';
+
+                                                                        var pdfCanvas = document.getElementById('pdfCanvas');
+                                                                        var pdfScrollContainer = document.getElementById('pdfScrollContainer'); // Container cho phần có thể kéo
+
+                                                                        pdfjsLib.getDocument({ data: fileData }).promise.then(function (loadedPdf) {
+                                                                            pdf = loadedPdf;
+                                                                            renderPage(currentPageNum); // Hiển thị trang đầu tiên mặc định
+                                                                            updateNavButtons();
+                                                                        });
                                                                     }
-                                                                });
 
-                                                            </script>
-                                                            <div class="form-group" ng-if="selectedCourse !== '0'">
-                                                                <input type="number" ng-model="formTaiLieu.thuTu"
-                                                                    class="form-control" placeholder="" min="0">
-                                                            </div>
+                                                                    function renderPage(pageNum) {
+                                                                        pdf.getPage(pageNum).then(function (page) {
+                                                                            var pdfCanvas = document.getElementById('pdfCanvas');
+                                                                            var viewport = page.getViewport({ scale: 1.5 });
+                                                                            pdfCanvas.height = viewport.height;
+                                                                            pdfCanvas.width = viewport.width;
+                                                                            var renderContext = {
+                                                                                canvasContext: pdfCanvas.getContext('2d'),
+                                                                                viewport: viewport,
+                                                                            };
+                                                                            page.render(renderContext).promise.then(function () {
+                                                                                pdfScrollContainer.scrollTop = 0; // Đặt vị trí cuộn về đầu trang
+                                                                                updateNavButtons();
+                                                                            });
+                                                                        });
+                                                                    }
 
-                                                            <div class="container mt-4">
-                                                                <!-- Button "Thêm" -->
-                                                                <button class="btn btn-primary mr-2"
-                                                                    ng-click="create()">Thêm</button>
-                                                                <!-- Button "Sửa" -->
-                                                                <button class="btn btn-warning mr-2"
-                                                                    onclick="editFunction()">Sửa</button>
-                                                                <!-- Button "Xóa" -->
-                                                                <button class="btn btn-danger"
-                                                                    onclick="deleteFunction()">Xóa</button>
-                                                                <button class="btn btn-danger" ng-click="reset()">Làm
-                                                                    mới</button>
+                                                                    function updateNavButtons() {
+                                                                        var prevPageButton = document.getElementById('prevPageButton');
+                                                                        var nextPageButton = document.getElementById('nextPageButton');
+                                                                        if (pdf && pdf.numPages > 1) {
+                                                                            prevPageButton.style.display = 'inline-block';
+                                                                            nextPageButton.style.display = 'inline-block';
+                                                                        } else {
+                                                                            prevPageButton.style.display = 'none';
+                                                                            nextPageButton.style.display = 'none';
+                                                                        }
+
+                                                                        prevPageButton.disabled = currentPageNum <= 1;
+                                                                        nextPageButton.disabled = currentPageNum >= (pdf ? pdf.numPages : 1);
+                                                                    }
+                                                                </script>
                                                             </div>
-                                                        </div>
+                                                        </form>
                                                     </div>
-                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -1414,7 +1514,6 @@
                     </div>
                 </div>
             </div>
-        </div>
 </body>
 
 <!-- jquery
@@ -1474,6 +1573,8 @@
 <script src="Admin/js/tawk-chat.js"></script>
 
 <script src="Admin/js/TaiLieu-ctrl.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.js"></script>
+
 
 
 

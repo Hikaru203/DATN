@@ -9,6 +9,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
     $scope.formKhoaHoc = {};
     $scope.KhoaHoc = {};
     var tenTaiLieu = $scope.formTaiLieu.tenSlide;
+    $scope.selectedItem = null; // Biến để lưu trữ item được chọn khi bạn bấm vào nút "Sửa"
 
 
     $scope.currentPage = 1; // Trang hiện tại
@@ -17,7 +18,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
 
     // Hàm tải danh sách khóa học
     function loadKhoaHoc() {
-        $http.get("/rest/KhoaHoc").then(function (resp) {
+        $http.get("/Admin/rest/KhoaHoc").then(function (resp) {
             $scope.itemsKhoaHoc = resp.data;
         }).catch(function (error) {
             console.log("Lỗi tải danh sách khóa học", error);
@@ -25,7 +26,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
     }
 
     function loadTaiLieu() {
-        $http.get("/rest/TaiLieu").then(function (resp) {
+        $http.get("/Admin/rest/TaiLieu").then(function (resp) {
             $scope.itemsTaiLieu = resp.data;
             $scope.totalItems = $scope.itemsTaiLieu.length;
 
@@ -44,21 +45,25 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
 
     // Hàm tải danh sách tài liệu dựa trên khóa học đã chọn
     $scope.loadDocuments = function () {
-        console.log($scope.formTaiLieu.khoaHoc);
-        $http.get("/rest/KhoaHoc/" + $scope.formTaiLieu.khoaHoc).then(function (resp) {
+        if (!$scope.formTaiLieu.khoaHoc) {
+            loadTaiLieu(); // Tải lại danh sách tài liệu nếu không có khóa học được chọn
+            $scope.formTaiLieu.thuTu = "";
+            return; // Thoát khỏi hàm nếu không có khoá học được chọn
+        }
+        $http.get("/Admin/rest/KhoaHoc/" + $scope.formTaiLieu.khoaHoc).then(function (resp) {
             $scope.KhoaHoc = resp.data;
-            console.log($scope.KhoaHoc);
-            console.log($scope.formTaiLieu.khoaHoc);
             // Định dạng lại ngày thành "giờ ngày tháng năm"
             for (var i = 0; i < $scope.itemsTaiLieu.length; i++) {
                 var ngayTao = moment($scope.itemsTaiLieu[i].ngayTao).format("HH:mm DD-MM-YYYY");
                 $scope.itemsTaiLieu[i].ngayTao = ngayTao;
             }
+
+
         }).catch(function (error) {
             console.log("Lỗi tải danh sách tài liệu", error);
         });
         if ($scope.formTaiLieu.khoaHoc) {
-            $http.get("/rest/TaiLieu/" + $scope.formTaiLieu.khoaHoc).then(function (resp) {
+            $http.get("/Admin/rest/TaiLieu/" + $scope.formTaiLieu.khoaHoc).then(function (resp) {
                 $scope.itemsTaiLieu = resp.data;
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
                 console.log($scope.itemsTaiLieu);
@@ -67,9 +72,12 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
                     var ngayTao = moment($scope.itemsTaiLieu[i].ngayTao).format("HH:mm DD-MM-YYYY");
                     $scope.itemsTaiLieu[i].ngayTao = ngayTao;
                 }
+
+                $scope.formTaiLieu.thuTu = $scope.displayedItems.length + 1;
+
             });
         } else {
-            $http.get("/rest/TaiLieu").then(function (resp) {
+            $http.get("/Admin/rest/TaiLieu").then(function (resp) {
                 $scope.itemsTaiLieu = resp.data;
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
                 // Định dạng lại ngày thành "giờ ngày tháng năm"
@@ -77,14 +85,18 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
                     var ngayTao = moment($scope.itemsTaiLieu[i].ngayTao).format("HH:mm DD-MM-YYYY");
                     $scope.itemsTaiLieu[i].ngayTao = ngayTao;
                 }
+                $scope.formTaiLieu.thuTu = "";
             });
+
         }
     };
 
     // Khởi đầu
     $scope.initialize = function () {
+
         loadKhoaHoc(); // Tải danh sách khóa học
         loadTaiLieu(); // Tải danh sách tài liệu
+
     };
 
     $scope.initialize();
@@ -153,7 +165,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
                 console.log(uploadResp.data);
 
                 // Sau khi tải lên tệp tin thành công, gửi thông tin khác lên máy chủ
-                $http.post(`/rest/TaiLieu`, item).then(function (resp) {
+                $http.post(`/Admin/rest/TaiLieu`, item).then(function (resp) {
                     $scope.itemsTaiLieu.push(resp.data);
                     alert("Thêm mới thành công");
                     $scope.reset();
@@ -169,18 +181,54 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
     };
 
     $scope.edit = function (item) {
+        var pdfViewerContainer = document.getElementById("pdfViewerContainer");
+        pdfViewerContainer.style.display = "block";
         $scope.formTaiLieu = angular.copy(item);
         $scope.formTaiLieu.khoaHoc = item.khoaHoc.id;
         $scope.formTaiLieu.tenFile = item.tenFile;
         $scope.formTaiLieu.ngayTao = moment(item.ngayTao).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
         $scope.isEditing = true; // Đặt chế độ chỉnh sửa thành true
         console.log($scope.formTaiLieu);
+        // Lấy tên tệp PDF từ item
+        var tenTepPDF = item.tenFile;
+
+        // Xây dựng đường dẫn đầy đủ đến tệp PDF
+        var duongDanTepPDF = 'pdf/' + tenTepPDF;
+
+        // Gọi hàm để hiển thị tệp PDF
+        displayPDFFromFile(duongDanTepPDF);
     };
     $scope.reset = function () {
         $scope.formTaiLieu = {};
         $scope.isEditing = false;
+        // Ẩn phần tử có id là "pdfViewerContainer" cùng với các phần tử con bên trong
+        var pdfViewerContainer = document.getElementById("pdfViewerContainer");
+        pdfViewerContainer.style.display = "none";
 
+        // Đặt giá trị của trường input type="file" thành chuỗi rỗng
+        var fileInput = document.getElementById("fileInput");
+        fileInput.value = ""; // Đặt giá trị thành chuỗi rỗng
+    };
+
+
+
+
+
+    function displayPDFFromFile(duongDan) {
+        var pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.js';
+
+        var pdfCanvas = document.getElementById('pdfCanvas');
+        var pdfScrollContainer = document.getElementById('pdfScrollContainer'); // Container cho phần có thể kéo
+
+        pdfjsLib.getDocument(duongDan).promise.then(function (loadedPdf) {
+            pdf = loadedPdf;
+            renderPage(currentPageNum); // Hiển thị trang đầu tiên mặc định
+            updateNavButtons();
+        });
     }
+
+
 });
 app.filter('limitWords', function () {
     return function (input, limit) {
@@ -190,4 +238,5 @@ app.filter('limitWords', function () {
         return words.slice(0, limit).join(' ') + '...';
     };
 });
+
 
