@@ -18,14 +18,7 @@ public class ClientController{
     public String index(Model model) {
     	List<KhoaHoc> page = daoHocService.findAll();
     	model.addAttribute("courseOnline", page);
-        
-        for (KhoaHoc khoaHoc : page) {
-            System.out.println("ID: " + khoaHoc.getId());
-            System.out.println("Tên Khóa Học: " + khoaHoc.getTenKhoaHoc());
-            System.out.println("Mô Tả: " + khoaHoc.getMoTa());
-            System.out.println("Ngày Tạo: " + khoaHoc.getHinhAnh());
-            
-        }
+     
         return "index";
     }
     

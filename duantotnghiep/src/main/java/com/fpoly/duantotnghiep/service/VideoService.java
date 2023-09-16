@@ -9,4 +9,6 @@ public interface VideoService {
 
     List<VideoKhoaHoc> findByKhoaHocId(int idKhoaHoc);
 
+    VideoKhoaHoc save(VideoKhoaHoc videoKhoaHoc);
+
 }
