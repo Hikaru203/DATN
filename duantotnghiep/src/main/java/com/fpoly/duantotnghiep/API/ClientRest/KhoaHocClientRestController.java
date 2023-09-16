@@ -1,6 +1,5 @@
 package com.fpoly.duantotnghiep.API.ClientRest;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +29,7 @@ public class KhoaHocClientRestController {
         List<KhoaHoc> khoaHocList = khoaHocService.findAll();
         return new ResponseEntity<>(khoaHocList, HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<KhoaHoc> getKhoaHocById(@PathVariable int id) {
         KhoaHoc khoaHoc = khoaHocService.findById(id);
@@ -39,5 +39,9 @@ public class KhoaHocClientRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-}
+    @GetMapping("/byLoai/{loai}")
+    public List<KhoaHoc> getKhoaHocByLoai(@PathVariable String loai) {
+        return khoaHocService.getKhoaHocByLoai(loai);
+    }
 
+}

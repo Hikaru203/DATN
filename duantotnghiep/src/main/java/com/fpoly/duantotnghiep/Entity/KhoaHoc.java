@@ -29,7 +29,10 @@ public class KhoaHoc {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-
+   
+    @Column(name = "loai")
+    private int loai;
+    
     @Column(name = "ten_khoa_hoc")
     private String tenKhoaHoc;
 
@@ -54,6 +57,8 @@ public class KhoaHoc {
 
     @Column(name = "hinh_anh")
     private String hinhAnh;
+
+	
 
     // Constructors, getters, and setters
 }
