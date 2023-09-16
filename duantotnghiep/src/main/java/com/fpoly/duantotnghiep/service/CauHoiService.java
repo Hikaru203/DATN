@@ -8,4 +8,6 @@ public interface CauHoiService {
     List<CauHoi> findAll();
 
     List<CauHoi> findByKhoaHocId(int idKhoaHoc);
+
+    CauHoi save(CauHoi cauHoi);
 }
