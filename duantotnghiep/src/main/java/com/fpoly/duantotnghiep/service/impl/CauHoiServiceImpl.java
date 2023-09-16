@@ -28,4 +28,9 @@ public class CauHoiServiceImpl implements CauHoiService {
         return cauHoiRepository.findByKhoaHocId(idKhoaHoc);
     }
 
+    @Override
+    public CauHoi save(CauHoi cauHoi) {
+        return cauHoiRepository.save(cauHoi);
+    }
+
 }

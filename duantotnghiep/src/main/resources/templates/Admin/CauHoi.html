@@ -1349,68 +1349,51 @@
                                                     <div id="dropzone1" class="pro-ad">
                                                         <div class="row">
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
                                                                 <div class="form-group">
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="idKhoaHoc"
-                                                                        value="{{ selectedCourse }}">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control"
+                                                                    <input type="text" ng-model="formCauHoi.cauHoi"
+                                                                        class="form-control" id="cauHoi"
                                                                         placeholder="CauHoi" value="">
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <input type="radio" name="correctAnswer"
-                                                                        class="answer-radio">
-                                                                    <input type="text" class="form-control "
-                                                                        placeholder="TraLoi1" value="">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input type="radio" name="correctAnswer"
-                                                                        class="answer-radio">
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="TraLoi2" value="">
 
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control"
+                                                                        id="cauHoiInput" placeholder="" value="">
                                                                 </div>
+
                                                                 <div id="dynamicAnswers">
                                                                     <!-- Here will be dynamically added answer fields -->
                                                                 </div>
+
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control"
+                                                                        id="newAnswer" placeholder="Câu trả lời mới"
+                                                                        value="">
+                                                                </div>
+
+                                                                <!-- Thêm sự kiện "click" vào nút "Thêm Câu Trả Lời" -->
                                                                 <button class="btn btn-primary mr-2"
-                                                                    onclick="addAnswerField()">Thêm Trả lời</button>
+                                                                    ng-click="addNewAnswer()">Thêm Câu Trả Lời</button>
+
+
                                                                 <div class="container mt-4">
                                                                     <!-- Other buttons and form closing -->
                                                                 </div>
                                                                 <br>
-                                                                <div class="form-group">
-                                                                    <input name="number" type="text"
-                                                                        class="form-control" placeholder="Thứ tự"
-                                                                        min="0" value="0">
-                                                                </div>
+
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <script>
-                                                    let answerCount = 2; // Starting count for dynamic answer fields
 
-                                                    function addAnswerField() {
-                                                        if (answerCount <= 4) { // Limit to 5 dynamic answer fields
-                                                            const dynamicAnswers = document.getElementById('dynamicAnswers');
-                                                            const newAnswerField = document.createElement('div');
-                                                            newAnswerField.classList.add('form-group');
-                                                            newAnswerField.innerHTML = `<input type="radio" name="correctAnswer" class="answer-radio">
-                                                            <input type="text" class="form-control" placeholder="TraLoi${answerCount + 1}" value="">`;
-                                                            dynamicAnswers.appendChild(newAnswerField);
-                                                            answerCount++;
-                                                        }
-                                                    }
-                                                </script>
+
+
+
                                                 <br>
                                                 <div class="container mt-4">
                                                     <!-- Button "Thêm" -->
                                                     <button class="btn btn-primary mr-2"
-                                                        onclick="addFunction()">Thêm</button>
+                                                        ng-click="create()">Thêm</button>
 
                                                     <!-- Button "Sửa" -->
                                                     <button class="btn btn-warning mr-2"
