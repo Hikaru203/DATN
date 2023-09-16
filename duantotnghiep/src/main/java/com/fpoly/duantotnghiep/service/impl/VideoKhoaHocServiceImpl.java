@@ -1,4 +1,4 @@
-package com.fpoly.duantotnghiep.service.impl;
+	package com.fpoly.duantotnghiep.service.impl;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class VideoKhoaHocServiceImpl implements VideoKhoaHocService{
 	}
 	@Override
 	public List<VideoKhoaHoc> findByKhoaHocId(Integer khoaHocId) {
-	    return VideoKhoaHocRepository.findByKhoaHocId(khoaHocId);
+	    return VideoKhoaHocRepository.findByKhoaHocIdOrderByAsc(khoaHocId);
 	}
 
 }
