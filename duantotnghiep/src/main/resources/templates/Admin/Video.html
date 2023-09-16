@@ -1357,9 +1357,7 @@
                                                                             <th>Link Video</th>
                                                                             <th>Thu Tu</th>
                                                                         </tr>
-                                                                        <tr
-                                                                            ng-repeat="(index, VideoWithTen) in itemsVideo">
-                                                                            <td>{{index + 1}}</td>
+                                                                        <tr ng-repeat="VideoWithTen in displayedItems">
                                                                             <td>{{VideoWithTen.khoaHoc.tenKhoaHoc}}
                                                                             </td>
                                                                             <td>
@@ -1370,8 +1368,24 @@
                                                                                 {{VideoWithTen.thuTu}}
                                                                             </td>
                                                                         </tr>
+
                                                                     </table>
                                                                 </div>
+                                                                <button class="btn btn-default"
+                                                                    ng-click="goToFirstPage()"
+                                                                    ng-disabled="currentPage === 1">Đầu</button>
+
+                                                                <button class="btn btn-default"
+                                                                    ng-click="goToPreviousPage()"
+                                                                    ng-disabled="currentPage === 1">Trước</button>
+
+                                                                <button class="btn btn-default"
+                                                                    ng-click="goToNextPage()"
+                                                                    ng-disabled="currentPage === totalItems / itemsPerPage">Sau</button>
+
+                                                                <button class="btn btn-default"
+                                                                    ng-click="goToLastPage()"
+                                                                    ng-disabled="currentPage === totalItems / itemsPerPage">Cuối</button>
                                                             </div>
                                                         </div>
                                                     </div>
