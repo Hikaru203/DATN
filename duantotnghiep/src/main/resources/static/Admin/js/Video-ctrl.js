@@ -252,3 +252,100 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
+function addFunction() {
+    alert("Thêm thành công");
+}
+document.addEventListener("DOMContentLoaded", function () {
+    const fileInput = document.getElementById("file");
+    const youtubeLinkInput = document.getElementById("youtubeLink");
+    const showYouTubeVideoButton = document.getElementById("showYouTubeVideo");
+    const youtubeVideoContainer = document.getElementById("youtubeVideoContainer");
+
+    fileInput.addEventListener("change", function () {
+        const selectedFile = fileInput.files[0];
+
+        if (selectedFile) {
+            // Kiểm tra nếu tệp đã chọn có đúng định dạng .mp4
+            if (selectedFile.type === "video/mp4") {
+                const objectURL = URL.createObjectURL(selectedFile);
+                videoPlayer.src = objectURL;
+                youtubeVideoContainer.style.display = "none"; // Ẩn video YouTube
+            } else {
+                // Hiển thị thông báo lỗi nếu tệp không phải là .mp4
+                alert("Chỉ hỗ trợ tệp .mp4");
+                fileInput.value = ""; // Xóa tệp đã chọn
+            }
+        } else {
+            // Nếu không có tệp được chọn, hiển thị video từ YouTube
+            videoPlayer.src = "";
+        }
+    });
+
+    showYouTubeVideoButton.addEventListener("click", function () {
+        const youtubeLink = youtubeLinkInput.value;
+
+        // Kiểm tra xem liên kết có chứa "youtube.com" không
+        if (youtubeLink.includes("youtube.com")) {
+            // Trích xuất mã video từ liên kết
+            const videoId = getYoutubeVideoId(youtubeLink);
+
+            if (videoId) {
+                // Tạo liên kết nhúng từ mã video
+                const youtubeEmbedCode = `https://www.youtube.com/embed/${videoId}`;
+                videoPlayer.src = youtubeEmbedCode;
+                youtubeVideoContainer.style.display = "block"; // Hiển thị container video YouTube
+            } else {
+                // Hiển thị thông báo lỗi nếu không thể trích xuất mã video
+                alert("Không thể trích xuất mã video từ liên kết");
+            }
+        } else {
+            // Hiển thị thông báo lỗi nếu liên kết không hợp lệ
+            alert("Liên kết YouTube không hợp lệ");
+        }
+    });
+
+    // Hàm để trích xuất mã video từ liên kết YouTube
+    function getYoutubeVideoId(url) {
+        const regex = /[?&]v=([^&#]+)/;
+        const match = url.match(regex);
+        return match && match[1];
+    }
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const uploadNewVideoRadio = document.getElementById("uploadNewVideo");
+    const useExistingVideoRadio = document.getElementById("useExistingVideo");
+    const uploadNewVideoSection = document.getElementById("uploadNewVideoSection");
+    const useExistingVideoSection = document.getElementById("useExistingVideoSection");
+    const titleInput = document.getElementById("title");
+    const descriptionInput = document.getElementById("description");
+    const privacyStatusSelect = document.getElementById("privacyStatus");
+    const fileInput = document.getElementById("file");
+    const youtubeLinkInput = document.getElementById("youtubeLink");
+
+    useExistingVideoSection.style.display = "none";
+
+    uploadNewVideoRadio.addEventListener("change", function () {
+        // Hiển thị phần tải lên video mới và ẩn phần nhập liên kết YouTube
+        uploadNewVideoSection.style.display = "block";
+        useExistingVideoSection.style.display = "none";
+        // Xóa hết dữ liệu trong các input
+        privacyStatusSelect.selectedIndex = 0; // Đặt lại select box về option đầu tiên
+        youtubeLinkInput.value = "";
+        titleInput.value = "";
+        descriptionInput.value = "";
+        youtubeLinkInput.value = "";
+    });
+
+    useExistingVideoRadio.addEventListener("change", function () {
+        // Hiển thị phần nhập liên kết YouTube và ẩn phần tải lên video mới
+        uploadNewVideoSection.style.display = "none";
+        useExistingVideoSection.style.display = "block";
+        // Xóa hết dữ liệu trong các input
+        youtubeLinkInput.value = "";
+        titleInput.value = "";
+        descriptionInput.value = "";
+        privacyStatusSelect.selectedIndex = 0; // Đặt lại select box về option đầu tiên
+    });
+});

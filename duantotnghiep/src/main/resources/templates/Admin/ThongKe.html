@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -7,71 +7,73 @@
     <title>Data Table | Kiaalap - Kiaalap Admin Template</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- favicon
-		============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-    <!-- Google Fonts
-		============================================ -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
-    <!-- Bootstrap CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/bootstrap.min.css">
-    <!-- Bootstrap CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/font-awesome.min.css">
-    <!-- owl.carousel CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/owl.carousel.css">
-    <link rel="stylesheet" href="Admin/css/owl.theme.css">
-    <link rel="stylesheet" href="Admin/css/owl.transitions.css">
-    <!-- animate CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/animate.css">
-    <!-- normalize CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/normalize.css">
-    <!-- meanmenu icon CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/meanmenu.min.css">
-    <!-- main CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/main.css">
-    <!-- educate icon CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/educate-custon-icon.css">
-    <!-- morrisjs CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/morrisjs/morris.css">
-    <!-- mCustomScrollbar CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/scrollbar/jquery.mCustomScrollbar.min.css">
-    <!-- metisMenu CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/metisMenu/metisMenu.min.css">
-    <link rel="stylesheet" href="Admin/css/metisMenu/metisMenu-vertical.css">
-    <!-- calendar CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/calendar/fullcalendar.min.css">
-    <link rel="stylesheet" href="Admin/css/calendar/fullcalendar.print.min.css">
-    <!-- x-editor CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/editor/select2.css">
-    <link rel="stylesheet" href="Admin/css/editor/datetimepicker.css">
-    <link rel="stylesheet" href="Admin/css/editor/bootstrap-editable.css">
-    <link rel="stylesheet" href="Admin/css/editor/x-editor-style.css">
-    <!-- normalize CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/data-table/bootstrap-table.css">
-    <link rel="stylesheet" href="Admin/css/data-table/bootstrap-editable.css">
-    <!-- style CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/style.css">
-    <!-- responsive CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/responsive.css">
-    <!-- modernizr JS
-		============================================ -->
-    <script src="Admin/js/vendor/modernizr-2.8.3.min.js"></script>
+
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/Admin/img/favicon.ico}">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/bootstrap.min.css}" />
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/font-awesome.min.css}" />
+
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/owl.carousel.css}" />
+    <link rel="stylesheet" th:href="@{/Admin/css/owl.theme.css}" />
+    <link rel="stylesheet" th:href="@{/Admin/css/owl.transitions.css}" />
+
+    <!-- Animate CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/animate.css}" />
+
+    <!-- Normalize CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/normalize.css}" />
+
+    <!-- Meanmenu Icon CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/meanmenu.min.css}" />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/main.css}" />
+
+    <!-- Educate Icon CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/educate-custon-icon.css}" />
+
+    <!-- Morrisjs CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/morrisjs/morris.css}" />
+
+    <!-- Custom Scrollbar CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/scrollbar/jquery.mCustomScrollbar.min.css}" />
+
+    <!-- MetisMenu CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/metisMenu/metisMenu.min.css}" />
+    <link rel="stylesheet" th:href="@{/Admin/css/metisMenu/metisMenu-vertical.css}" />
+
+    <!-- Calendar CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/calendar/fullcalendar.min.css}" />
+    <link rel="stylesheet" th:href="@{/Admin/css/calendar/fullcalendar.print.min.css}" />
+
+    <!-- X-editor CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/editor/select2.css}" />
+    <link rel="stylesheet" th:href="@{/Admin/css/editor/datetimepicker.css}" />
+    <link rel="stylesheet" th:href="@{/Admin/css/editor/bootstrap-editable.css}" />
+    <link rel="stylesheet" th:href="@{/Admin/css/editor/x-editor-style.css}" />
+
+    <!-- Data Table CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/data-table/bootstrap-table.css}" />
+    <link rel="stylesheet" th:href="@{/Admin/css/data-table/bootstrap-editable.css}" />
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/style.css}" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" th:href="@{/Admin/css/responsive.css}" />
+
+    <!-- Modernizr JS -->
+    <script th:src="@{/Admin/js/vendor/modernizr-2.8.3.min.js}"></script>
+
     <style>
         .tab {
             overflow: hidden;
@@ -115,8 +117,8 @@
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a href="index"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                <strong><a href="index"><img src="img/logo/logosn.png" alt="" /></a></strong>
+                <a href="index"><img class="main-logo" th:src="@{Admin/img/logo/logo.png}" alt="" /></a>
+                <strong><a href="index"><img th:src="@{Admin/img/logo/logosn.png}" alt="" /></a></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
@@ -213,7 +215,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="logo-pro">
-                        <a href="index"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                        <a href="index"><img class="main-logo" th:src="@{Admin/img/logo/logo.png}" alt="" /></a>
                     </div>
                 </div>
             </div>
@@ -277,7 +279,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/1.jpg" alt="">
+                                                                        <img th:src="@{Admin/img/contact/1.jpg}" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -290,7 +292,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/4.jpg" alt="">
+                                                                        <img th:src="@{Admin/img/contact/4.jpg}" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -303,7 +305,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/3.jpg" alt="">
+                                                                        <img th:src="@{Admin/img/contact/3.jpg}" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -316,7 +318,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/2.jpg" alt="">
+                                                                        <img th:src="@{Admin/img/contact/2.jpg}" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -408,7 +410,7 @@
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button"
                                                         aria-expanded="false" class="nav-link dropdown-toggle">
-                                                        <img src="img/product/pro4.jpg" alt="" />
+                                                        <img th:src="@{Admin/img/product/pro4.jpg}" alt="" />
                                                         <span class="admin-name">Prof.Anderson</span>
                                                         <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
                                                     </a>
@@ -466,7 +468,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/4.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -483,7 +485,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/1.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -500,7 +502,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/2.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -517,7 +519,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/3.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -534,7 +536,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/4.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -551,7 +553,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/1.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -568,7 +570,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/2.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -585,7 +587,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/1.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -602,7 +604,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/2.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -619,7 +621,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/3.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -1612,73 +1614,73 @@
 </body>
 <!-- Static Table End -->
 
-<!-- jquery
-		============================================ -->
-<script src="Admin/js/vendor/jquery-1.12.4.min.js"></script>
-<!-- bootstrap JS
-		============================================ -->
-<script src="Admin/js/bootstrap.min.js"></script>
-<!-- wow JS
-		============================================ -->
-<script src="Admin/js/wow.min.js"></script>
-<!-- price-slider JS
-		============================================ -->
-<script src="Admin/js/jquery-price-slider.js"></script>
-<!-- meanmenu JS
-		============================================ -->
-<script src="Admin/js/jquery.meanmenu.js"></script>
-<!-- owl.carousel JS
-		============================================ -->
-<script src="Admin/js/owl.carousel.min.js"></script>
-<!-- sticky JS
-		============================================ -->
-<script src="Admin/js/jquery.sticky.js"></script>
-<!-- scrollUp JS
-		============================================ -->
-<script src="Admin/js/jquery.scrollUp.min.js"></script>
-<!-- mCustomScrollbar JS
-		============================================ -->
-<script src="Admin/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="Admin/js/scrollbar/mCustomScrollbar-active.js"></script>
-<!-- metisMenu JS
-		============================================ -->
-<script src="Admin/js/metisMenu/metisMenu.min.js"></script>
-<script src="Admin/js/metisMenu/metisMenu-active.js"></script>
-<!-- data table JS
-		============================================ -->
-<script src="Admin/js/data-table/bootstrap-table.js"></script>
-<script src="Admin/js/data-table/tableExport.js"></script>
-<script src="Admin/js/data-table/data-table-active.js"></script>
-<script src="Admin/js/data-table/bootstrap-table-editable.js"></script>
-<script src="Admin/js/data-table/bootstrap-editable.js"></script>
-<script src="Admin/js/data-table/bootstrap-table-resizable.js"></script>
-<script src="Admin/js/data-table/colResizable-1.5.source.js"></script>
-<script src="Admin/js/data-table/bootstrap-table-export.js"></script>
-<!--  editable JS
-		============================================ -->
-<script src="Admin/js/editable/jquery.mockjax.js"></script>
-<script src="Admin/js/editable/mock-active.js"></script>
-<script src="Admin/js/editable/select2.js"></script>
-<script src="Admin/js/editable/moment.min.js"></script>
-<script src="Admin/js/editable/bootstrap-datetimepicker.js"></script>
-<script src="Admin/js/editable/bootstrap-editable.js"></script>
-<script src="Admin/js/editable/xediable-active.js"></script>
-<!-- Chart JS
-		============================================ -->
-<script src="Admin/js/chart/jquery.peity.min.js"></script>
-<script src="Admin/js/peity/peity-active.js"></script>
-<!-- tab JS
-		============================================ -->
-<script src="Admin/js/tab.js"></script>
-<!-- plugins JS
-		============================================ -->
-<script src="Admin/js/plugins.js"></script>
-<!-- main JS
-		============================================ -->
-<script src="Admin/js/main.js"></script>
-<!-- tawk chat JS
-		============================================ -->
-<script src="Admin/js/tawk-chat.js"></script>
+<!-- jQuery -->
+<script th:src="@{/Admin/js/vendor/jquery-1.12.4.min.js}"></script>
+
+<!-- Bootstrap JS -->
+<script th:src="@{/Admin/js/bootstrap.min.js}"></script>
+
+<!-- Wow JS -->
+<script th:src="@{/Admin/js/wow.min.js}"></script>
+
+<!-- Price-slider JS -->
+<script th:src="@{/Admin/js/jquery-price-slider.js}"></script>
+
+<!-- Meanmenu JS -->
+<script th:src="@{/Admin/js/jquery.meanmenu.js}"></script>
+
+<!-- Owl.carousel JS -->
+<script th:src="@{/Admin/js/owl.carousel.min.js}"></script>
+
+<!-- Sticky JS -->
+<script th:src="@{/Admin/js/jquery.sticky.js}"></script>
+
+<!-- ScrollUp JS -->
+<script th:src="@{/Admin/js/jquery.scrollUp.min.js}"></script>
+
+<!-- Custom Scrollbar JS -->
+<script th:src="@{/Admin/js/scrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script th:src="@{/Admin/js/scrollbar/mCustomScrollbar-active.js}"></script>
+
+<!-- MetisMenu JS -->
+<script th:src="@{/Admin/js/metisMenu/metisMenu.min.js}"></script>
+<script th:src="@{/Admin/js/metisMenu/metisMenu-active.js}"></script>
+
+<!-- Data Table JS -->
+<script th:src="@{/Admin/js/data-table/bootstrap-table.js}"></script>
+<script th:src="@{/Admin/js/data-table/tableExport.js}"></script>
+<script th:src="@{/Admin/js/data-table/data-table-active.js}"></script>
+<script th:src="@{/Admin/js/data-table/bootstrap-table-editable.js}"></script>
+<script th:src="@{/Admin/js/data-table/bootstrap-editable.js}"></script>
+<script th:src="@{/Admin/js/data-table/bootstrap-table-resizable.js}"></script>
+<script th:src="@{/Admin/js/data-table/colResizable-1.5.source.js}"></script>
+<script th:src="@{/Admin/js/data-table/bootstrap-table-export.js}"></script>
+
+<!-- Editable JS -->
+<script th:src="@{/Admin/js/editable/jquery.mockjax.js}"></script>
+<script th:src="@{/Admin/js/editable/mock-active.js}"></script>
+<script th:src="@{/Admin/js/editable/select2.js}"></script>
+<script th:src="@{/Admin/js/editable/moment.min.js}"></script>
+<script th:src="@{/Admin/js/editable/bootstrap-datetimepicker.js}"></script>
+<script th:src="@{/Admin/js/editable/bootstrap-editable.js}"></script>
+<script th:src="@{/Admin/js/editable/xediable-active.js}"></script>
+
+<!-- Chart JS -->
+<script th:src="@{/Admin/js/chart/jquery.peity.min.js}"></script>
+<script th:src="@{/Admin/js/peity/peity-active.js}"></script>
+
+<!-- Tab JS -->
+<script th:src="@{/Admin/js/tab.js}"></script>
+
+<!-- Plugins JS -->
+<script th:src="@{/Admin/js/plugins.js}"></script>
+
+<!-- Main JS -->
+<script th:src="@{/Admin/js/main.js}"></script>
+
+<!-- Tawk chat JS -->
+<script th:src="@{/Admin/js/tawk-chat.js}"></script>
+
 <script>
     function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
