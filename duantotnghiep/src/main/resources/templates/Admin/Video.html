@@ -1120,6 +1120,8 @@
                                                                 </option>
                                                             </select>
                                                             <br>
+                                                            <div id="myDiv" videoId="someValue"></div>
+
                                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                 <div class="row">
                                                                     <div class="form-check col-md-4">
@@ -1216,12 +1218,14 @@
 
                                                                             <div class="form-group"
                                                                                 id="accessTokenGroup">
-
                                                                                 <input type="hidden"
                                                                                     class="form-control"
                                                                                     id="accessToken" name="accessToken"
                                                                                     th:value="${accessToken}">
                                                                             </div>
+
+
+
                                                                         </form>
                                                                     </div>
                                                                 </div>
@@ -1243,6 +1247,7 @@
                                                                             Video</button>
                                                                     </div>
                                                                 </div>
+                                                                <p>Giá trị order là: {{order}}</p>
 
                                                             </div>
                                                         </div>
@@ -1313,76 +1318,6 @@
     </div>
     <script>
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const uploadNewVideoSection = document.getElementById("uploadNewVideoSection");
-            const addButton = document.getElementById("addButton");
-
-            if (!uploadNewVideoSection || !addButton) {
-                console.error("Không thể tìm thấy các phần tử cần thiết.");
-                return;
-            }
-
-            addButton.addEventListener("click", function () {
-
-                if (uploadNewVideoSection.style.display !== "none") {
-                    // Lấy các giá trị từ các trường input
-                    const titleInput = document.getElementById("title");
-                    const descriptionInput = document.getElementById("description");
-                    const privacyStatusInput = document.getElementById("privacyStatus");
-                    const fileInput = document.getElementById("file");
-
-                    // Kiểm tra giá trị của từng trường input
-                    if (!titleInput.value) {
-
-                        alert("Vui lòng nhập tiêu đề.");
-                        return;
-                    }
-
-                    if (!descriptionInput.value) {
-                        alert("Vui lòng nhập mô tả.");
-                        return;
-                    }
-
-                    if (!privacyStatusInput.value) {
-                        alert("Vui lòng chọn quyền riêng tư.");
-                        return;
-                    }
-
-                    if (!fileInput.files[0]) {
-                        alert("Vui lòng chọn tệp video.");
-                        return;
-                    }
-
-                    // Tạo FormData và gửi POST request
-                    const form = new FormData();
-                    form.append("title", titleInput.value);
-                    form.append("description", descriptionInput.value);
-                    form.append("privacyStatus", privacyStatusInput.value);
-                    form.append("file", fileInput.files[0]);
-
-                    fetch("/youtube/uploadVideo", {
-                        method: "POST",
-                        body: form
-                    })
-                        .then(response => {
-                            if (response.ok) {
-                                // Xử lý kết quả thành công (response status 200)
-                                alert("Form đã được gửi thành công!");
-                                // Có thể thực hiện các thao tác tiếp theo sau khi gửi form thành công
-                            } else {
-                                // Xử lý lỗi (ví dụ: response status 4xx hoặc 5xx)
-                                alert("Đã xảy ra lỗi khi gửi form.");
-                            }
-                        })
-                        .catch(error => {
-                            // Xử lý lỗi trong quá trình gửi request
-                            console.error("Lỗi: " + error);
-                        });
-                } else {
-                    alert("Phần tải lên video mới không được hiển thị!");
-                }
-            });
-        });
 
     </script>
     <script>
@@ -1483,7 +1418,6 @@
                 privacyStatusSelect.selectedIndex = 0; // Đặt lại select box về option đầu tiên
             });
         });
-
     </script>
     <!-- jquery
 		============================================ -->
