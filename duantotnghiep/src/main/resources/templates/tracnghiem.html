@@ -138,9 +138,9 @@
         <div ng-repeat="question in questionAnswerArray">
             <h3>Câu Hỏi {{$index + 1}}: {{question.cauHoi}}</h3>
             <div ng-repeat="answer in question.cauTraLoi">
-                <input type="radio" ng-model="selectedAnswers[$index]" ng-true-value="'{{answer}}'" ng-false-value="''" id="q{{$index}}{{$parent.$index}}" class="mr-2">
+                <input type="radio" ng-model="$parent.selectedAnswer" ng-value="answer" id="q{{$index}}{{$parent.$index}}" class="mr-2">
                 <label for="q{{$index}}{{$parent.$index}}">{{answer}}</label><br>
-            </div>
+            </div>            
         </div>
         <div class="buttons" style="text-align-center" >
             <button ng-click="checkAnswers()"  class="btn btn-success mx-auto d-block text-center mt-2">Kiểm tra kết quả</button>
