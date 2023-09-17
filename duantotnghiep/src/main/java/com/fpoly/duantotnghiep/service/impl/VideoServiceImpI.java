@@ -30,9 +30,4 @@ public class VideoServiceImpI implements VideoService {
     public VideoKhoaHoc save(VideoKhoaHoc videoKhoaHoc) {
         return videoKhoaHocRepository.save(videoKhoaHoc);
     }
-
-    @Override
-    public VideoKhoaHoc save(VideoKhoaHoc videoKhoaHoc) {
-        return videoKhoaHocRepository.save(videoKhoaHoc);
-    }
 }
