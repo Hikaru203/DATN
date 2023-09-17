@@ -15,59 +15,59 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
     <!-- Bootstrap CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{Admin/css/bootstrap.min.css}">
     <!-- Bootstrap CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{Admin/css/font-awesome.min.css}">
     <!-- owl.carousel CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/owl.carousel.css">
-    <link rel="stylesheet" href="Admin/css/owl.theme.css">
-    <link rel="stylesheet" href="Admin/css/owl.transitions.css">
+    <link rel="stylesheet" th:href="@{Admin/css/owl.carousel.css}">
+    <link rel="stylesheet" th:href="@{Admin/css/owl.theme.css}">
+    <link rel="stylesheet" th:href="@{Admin/css/owl.transitions.css}">
     <!-- animate CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/animate.css">
+    <link rel="stylesheet" th:href="@{Admin/css/animate.css}">
     <!-- normalize CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/normalize.css">
-    <!-- meanmenu icon CSS
-		============================================ -->
-    <link rel="stylesheet" href="Admin/css/meanmenu.min.css">
+    <link rel="stylesheet" th:href="@{Admin/css/normalize.css}">
     <!-- main CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/main.css">
+    <link rel="stylesheet" th:href="@{Admin/css/main.css}">
     <!-- educate icon CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/educate-custon-icon.css">
+    <link rel="stylesheet" th:href="@{Admin/css/educate-custon-icon.css}">
+    <!-- meanmenu icon CSS ============================================ -->
+    <link th:href="@{/Admin/css/meanmenu.min.css}" rel="stylesheet">
+
     <!-- morrisjs CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/morrisjs/morris.css">
+    <link rel="stylesheet" th:href="@{Admin/css/morrisjs/morris.css}">
     <!-- mCustomScrollbar CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" th:href="@{Admin/css/scrollbar/jquery.mCustomScrollbar.min.css}">
     <!-- metisMenu CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/metisMenu/metisMenu.min.css">
-    <link rel="stylesheet" href="Admin/css/metisMenu/metisMenu-vertical.css">
+    <link rel="stylesheet" th:href="@{Admin/css/metisMenu/metisMenu.min.css}">
+    <link rel="stylesheet" th:href="@{Admin/css/metisMenu/metisMenu-vertical.css}">
     <!-- calendar CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/calendar/fullcalendar.min.css">
-    <link rel="stylesheet" href="Admin/css/calendar/fullcalendar.print.min.css">
+    <link rel="stylesheet" th:href="@{Admin/css/calendar/fullcalendar.min.css}">
+    <link rel="stylesheet" th:href="@{Admin/css/calendar/fullcalendar.print.min.css}">
     <!-- forms CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/form/all-type-forms.css">
+    <link rel="stylesheet" th:href="@{Admin/css/form/all-type-forms.css}">
     <!-- dropzone CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/dropzone/dropzone.css">
+    <link rel="stylesheet" th:href="@{Admin/css/dropzone/dropzone.css}">
     <!-- style CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/style.css">
+    <link rel="stylesheet" th:href="@{Admin/css/style.css}">
     <!-- responsive CSS
 		============================================ -->
-    <link rel="stylesheet" href="Admin/css/responsive.css">
+    <link rel="stylesheet" th:href="@{Admin/css/responsive.css}">
     <!-- modernizr JS
 		============================================ -->
-    <script src="Admin/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script th:src="@{Admin/js/vendor/modernizr-2.8.3.min.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
     <!-- Include Angular UI Bootstrap -->
@@ -92,6 +92,7 @@
             /* Để căn giữa khung bao trên trang */
         }
     </style>
+
 </head>
 
 <body ng-app="myApp" ng-controller="Video-ctrl">
@@ -103,8 +104,8 @@
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a href="index"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                <strong><a href="index"><img src="img/logo/logosn.png" alt="" /></a></strong>
+                <a href="index"><img class="main-logo" th:src="@{/Admin/img/logo/logo.png}" alt="" /></a>
+                <strong><a href="index"><img th:src="@{/Admin/img/logo/logosn.png}" alt="" /></a></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
@@ -112,7 +113,7 @@
                         <li class="active">
                             <a class="has-arrow" href="index1">
                                 <span class="educate-icon educate-home icon-wrap"></span>
-                                <span class="mini-click-non">Education</span>
+                                <span class="mini-click-non">Dashboard</span>
                             </a>
                             <ul class="submenu-angle" aria-expanded="true">
                                 <li><a title="Dashboard v.1" href="ThongKe"><span class="mini-sub-pro">Thống
@@ -123,7 +124,7 @@
                         <li>
                             <a class="has-arrow" href="all-professors" aria-expanded="false"><span
                                     class="educate-icon educate-professor icon-wrap"></span> <span
-                                    class="mini-click-non">User</span></a>
+                                    class="mini-click-non">Professors</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="Edit Professor" href="User"><span class="mini-sub-pro">Quản lý người
                                             dùng</span></a></li>
@@ -172,7 +173,6 @@
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="ChungChi List" href="ChungChi"><span class="mini-sub-pro">Chứng
                                             Chỉ</span></a></li>
-
                             </ul>
                         </li>
                         <li>
@@ -181,19 +181,86 @@
                                     class="mini-click-non">Video</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="Inbox" href="Video"><span class="mini-sub-pro">Video</span></a></li>
-
                             </ul>
                         </li>
-
-
-
-
-
                     </ul>
                 </nav>
             </div>
         </nav>
     </div>
+
+    <script>
+        // Lấy danh sách tất cả các mục menu có lớp "has-arrow"
+        var menuItems = document.querySelectorAll('.has-arrow');
+
+        // Lặp qua từng mục menu
+        menuItems.forEach(function (item) {
+            // Thêm sự kiện click cho mỗi mục menu
+            item.addEventListener('click', function (event) {
+                // Ngăn chặn hành động mặc định của liên kết
+                event.preventDefault();
+
+                // Tìm thẻ cha li của mục menu
+                var parentLi = item.closest('li');
+
+                // Lặp qua tất cả các mục menu và đóng chúng
+                menuItems.forEach(function (menuItem) {
+                    if (menuItem !== item) {
+                        var parentLiToClose = menuItem.closest('li');
+                        var submenu = parentLiToClose.querySelector('.submenu-angle');
+                        // Đóng mục menu bằng cách ẩn submenu
+                        submenu.style.display = 'none';
+
+                        // Thay đổi biểu tượng thành mũi tên ngang (mở)
+                        var icon = parentLiToClose.querySelector('.icon-wrap');
+                        icon.classList.remove('educate-chevron-down');
+                        icon.classList.add('educate-chevron-right');
+                    }
+                });
+
+                // Mở hoặc đóng mục menu bằng cách hiển thị hoặc ẩn submenu
+                var submenuToToggle = parentLi.querySelector('.submenu-angle');
+                if (submenuToToggle.style.display === 'none' || submenuToToggle.style.display === '') {
+                    submenuToToggle.style.display = 'block';
+
+                    // Thay đổi biểu tượng thành mũi tên xuống (đóng)
+                    var icon = parentLi.querySelector('.icon-wrap');
+                    icon.classList.remove('educate-chevron-right');
+                    icon.classList.add('educate-chevron-down');
+                } else {
+                    submenuToToggle.style.display = 'none';
+
+                    // Thay đổi biểu tượng thành mũi tên ngang (mở)
+                    var icon = parentLi.querySelector('.icon-wrap');
+                    icon.classList.remove('educate-chevron-down');
+                    icon.classList.add('educate-chevron-right');
+                }
+            });
+
+            // Đảm bảo rằng mục "Video" được mở mặc định và có biểu tượng chevron xuống
+            var parentLi = item.closest('li');
+            if (parentLi.querySelector('a').getAttribute('href') === 'Video') {
+                var submenu = parentLi.querySelector('.submenu-angle');
+                submenu.style.display = 'block';
+
+                var icon = parentLi.querySelector('.icon-wrap');
+                icon.classList.remove('educate-chevron-right');
+                icon.classList.add('educate-chevron-down');
+            } else {
+                var submenu = parentLi.querySelector('.submenu-angle');
+                submenu.style.display = 'none';
+
+                var icon = parentLi.querySelector('.icon-wrap');
+                icon.classList.remove('educate-chevron-down');
+                icon.classList.add('educate-chevron-right');
+            }
+        });
+    </script>
+
+
+
+
+
     <!-- End Header menu area -->
     <!-- End Left menu area -->
     <!-- Start Welcome area -->
@@ -202,7 +269,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="logo-pro">
-                        <a href="index"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                        <a href="index"><img class="main-logo" th:src="@{/Admin/img/logo/logo.png}" alt="" /></a>
                     </div>
                 </div>
             </div>
@@ -266,7 +333,8 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/1.jpg" alt="">
+                                                                        <img th:src="@{/Admin/img/contact/1.jpg}"
+                                                                            alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -279,7 +347,8 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/4.jpg" alt="">
+                                                                        <img th:src="@{/Admin/img/contact/4.jpg}"
+                                                                            alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -292,7 +361,8 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/3.jpg" alt="">
+                                                                        <img th:src="@{/Admin/img/contact/3.jpg}"
+                                                                            alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -305,7 +375,8 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/2.jpg" alt="">
+                                                                        <img th:src="@{/Admin/img/contact/2.jpg}"
+                                                                            alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -397,7 +468,7 @@
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button"
                                                         aria-expanded="false" class="nav-link dropdown-toggle">
-                                                        <img src="img/product/pro4.jpg" alt="" />
+                                                        <img th:src="@{/Admin/img/product/pro4.jpg}" alt="" />
                                                         <span class="admin-name">Prof.Anderson</span>
                                                         <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
                                                     </a>
@@ -455,7 +526,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg"
+                                                                                            <img th:src="@{/Admin/img/contact/4.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -472,7 +543,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg"
+                                                                                            <img th:src="@{/Admin/img/contact/1.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -489,7 +560,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg"
+                                                                                            <img th:src="@{/Admin/img/contact/2.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -506,7 +577,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg"
+                                                                                            <img th:src="@{/Admin/img/contact/3.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -523,7 +594,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg"
+                                                                                            <img th:src="@{/Admin/img/contact/4.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -540,7 +611,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg"
+                                                                                            <img th:src="@{/Admin/img/contact/1.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -557,7 +628,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg"
+                                                                                            <img th:src="@{/Admin/img/contact/2.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -574,7 +645,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg"
+                                                                                            <img th:src="@{/Admin/img/contact/1.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -591,7 +662,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg"
+                                                                                            <img th:src="@{/Admin/img/contact/2.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -608,7 +679,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg"
+                                                                                            <img th:src="@{/Admin/img/contact/3.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -1286,9 +1357,7 @@
                                                                             <th>Link Video</th>
                                                                             <th>Thu Tu</th>
                                                                         </tr>
-                                                                        <tr
-                                                                            ng-repeat="(index, VideoWithTen) in itemsVideo">
-                                                                            <td>{{index + 1}}</td>
+                                                                        <tr ng-repeat="VideoWithTen in displayedItems">
                                                                             <td>{{VideoWithTen.khoaHoc.tenKhoaHoc}}
                                                                             </td>
                                                                             <td>
@@ -1299,8 +1368,24 @@
                                                                                 {{VideoWithTen.thuTu}}
                                                                             </td>
                                                                         </tr>
+
                                                                     </table>
                                                                 </div>
+                                                                <button class="btn btn-default"
+                                                                    ng-click="goToFirstPage()"
+                                                                    ng-disabled="currentPage === 1">Đầu</button>
+
+                                                                <button class="btn btn-default"
+                                                                    ng-click="goToPreviousPage()"
+                                                                    ng-disabled="currentPage === 1">Trước</button>
+
+                                                                <button class="btn btn-default"
+                                                                    ng-click="goToNextPage()"
+                                                                    ng-disabled="currentPage === totalItems / itemsPerPage">Sau</button>
+
+                                                                <button class="btn btn-default"
+                                                                    ng-click="goToLastPage()"
+                                                                    ng-disabled="currentPage === totalItems / itemsPerPage">Cuối</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1316,155 +1401,43 @@
             </div>
         </div>
     </div>
-    <script>
 
+    <!-- jquery ============================================ -->
+    <script th:src="@{Admin/js/vendor/jquery-1.12.4.min.js}"></script>
+    <!-- bootstrap JS ============================================ -->
+    <script th:src="@{Admin/js/bootstrap.min.js}"></script>
+    <!-- wow JS ============================================ -->
+    <script th:src="@{Admin/js/wow.min.js}"></script>
+    <!-- price-slider JS ============================================ -->
+    <script th:src="@{Admin/js/jquery-price-slider.js}"></script>
 
-    </script>
-    <script>
-        function addFunction() {
-            alert("Thêm thành công");
-        }
-        document.addEventListener("DOMContentLoaded", function () {
-            const fileInput = document.getElementById("file");
-            const youtubeLinkInput = document.getElementById("youtubeLink");
-            const showYouTubeVideoButton = document.getElementById("showYouTubeVideo");
-            const youtubeVideoContainer = document.getElementById("youtubeVideoContainer");
+    <!-- calendar JS ============================================ -->
+    <script th:src="@{Admin/js/calendar/moment.min.js}"></script>
+    <script th:src="@{Admin/js/calendar/fullcalendar.min.js}"></script>
+    <script th:src="@{Admin/js/calendar/fullcalendar-active.js}"></script>
 
-            fileInput.addEventListener("change", function () {
-                const selectedFile = fileInput.files[0];
+    <!-- maskedinput JS ============================================ -->
+    <script th:src="@{Admin/js/jquery.maskedinput.min.js}"></script>
+    <script th:src="@{Admin/js/masking-active.js}"></script>
+    <!-- datepicker JS ============================================ -->
+    <script th:src="@{Admin/js/datepicker/jquery-ui.min.js}"></script>
+    <script th:src="@{Admin/js/datepicker/datepicker-active.js}"></script>
+    <!-- form validate JS ============================================ -->
+    <script th:src="@{Admin/js/form-validation/jquery.form.min.js}"></script>
+    <script th:src="@{Admin/js/form-validation/jquery.validate.min.js}"></script>
+    <script th:src="@{Admin/js/form-validation/form-active.js}"></script>
+    <!-- dropzone JS ============================================ -->
+    <script th:src="@{Admin/js/dropzone/dropzone.js}"></script>
+    <!-- tab JS ============================================ -->
+    <script th:src="@{Admin/js/tab.js}"></script>
+    <!-- plugins JS ============================================ -->
+    <script th:src="@{Admin/js/plugins.js}"></script>
+    <!-- main JS ============================================ -->
+    <script th:src="@{Admin/js/main.js}"></script>
+    <!-- tawk chat JS ============================================ -->
+    <script th:src="@{Admin/js/tawk-chat.js}"></script>
+    <script th:src="@{Admin/js/Video-ctrl.js}"></script>
 
-                if (selectedFile) {
-                    // Kiểm tra nếu tệp đã chọn có đúng định dạng .mp4
-                    if (selectedFile.type === "video/mp4") {
-                        const objectURL = URL.createObjectURL(selectedFile);
-                        videoPlayer.src = objectURL;
-                        youtubeVideoContainer.style.display = "none"; // Ẩn video YouTube
-                    } else {
-                        // Hiển thị thông báo lỗi nếu tệp không phải là .mp4
-                        alert("Chỉ hỗ trợ tệp .mp4");
-                        fileInput.value = ""; // Xóa tệp đã chọn
-                    }
-                } else {
-                    // Nếu không có tệp được chọn, hiển thị video từ YouTube
-                    videoPlayer.src = "";
-                }
-            });
-
-            showYouTubeVideoButton.addEventListener("click", function () {
-                const youtubeLink = youtubeLinkInput.value;
-
-                // Kiểm tra xem liên kết có chứa "youtube.com" không
-                if (youtubeLink.includes("youtube.com")) {
-                    // Trích xuất mã video từ liên kết
-                    const videoId = getYoutubeVideoId(youtubeLink);
-
-                    if (videoId) {
-                        // Tạo liên kết nhúng từ mã video
-                        const youtubeEmbedCode = `https://www.youtube.com/embed/${videoId}`;
-                        videoPlayer.src = youtubeEmbedCode;
-                        youtubeVideoContainer.style.display = "block"; // Hiển thị container video YouTube
-                    } else {
-                        // Hiển thị thông báo lỗi nếu không thể trích xuất mã video
-                        alert("Không thể trích xuất mã video từ liên kết");
-                    }
-                } else {
-                    // Hiển thị thông báo lỗi nếu liên kết không hợp lệ
-                    alert("Liên kết YouTube không hợp lệ");
-                }
-            });
-
-            // Hàm để trích xuất mã video từ liên kết YouTube
-            function getYoutubeVideoId(url) {
-                const regex = /[?&]v=([^&#]+)/;
-                const match = url.match(regex);
-                return match && match[1];
-            }
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const uploadNewVideoRadio = document.getElementById("uploadNewVideo");
-            const useExistingVideoRadio = document.getElementById("useExistingVideo");
-            const uploadNewVideoSection = document.getElementById("uploadNewVideoSection");
-            const useExistingVideoSection = document.getElementById("useExistingVideoSection");
-            const titleInput = document.getElementById("title");
-            const descriptionInput = document.getElementById("description");
-            const privacyStatusSelect = document.getElementById("privacyStatus");
-            const fileInput = document.getElementById("file");
-            const youtubeLinkInput = document.getElementById("youtubeLink");
-
-            useExistingVideoSection.style.display = "none";
-
-            uploadNewVideoRadio.addEventListener("change", function () {
-                // Hiển thị phần tải lên video mới và ẩn phần nhập liên kết YouTube
-                uploadNewVideoSection.style.display = "block";
-                useExistingVideoSection.style.display = "none";
-                // Xóa hết dữ liệu trong các input
-                privacyStatusSelect.selectedIndex = 0; // Đặt lại select box về option đầu tiên
-                youtubeLinkInput.value = "";
-                titleInput.value = "";
-                descriptionInput.value = "";
-                youtubeLinkInput.value = "";
-            });
-
-            useExistingVideoRadio.addEventListener("change", function () {
-                // Hiển thị phần nhập liên kết YouTube và ẩn phần tải lên video mới
-                uploadNewVideoSection.style.display = "none";
-                useExistingVideoSection.style.display = "block";
-                // Xóa hết dữ liệu trong các input
-                youtubeLinkInput.value = "";
-                titleInput.value = "";
-                descriptionInput.value = "";
-                privacyStatusSelect.selectedIndex = 0; // Đặt lại select box về option đầu tiên
-            });
-        });
-    </script>
-    <!-- jquery
-		============================================ -->
-    <script src="Admin/js/vendor/jquery-1.12.4.min.js"></script>
-    <!-- bootstrap JS
-		============================================ -->
-    <script src="Admin/js/bootstrap.min.js"></script>
-    <!-- wow JS
-		============================================ -->
-    <script src="Admin/js/wow.min.js"></script>
-    <!-- price-slider JS
-		============================================ -->
-    <script src="Admin/js/jquery-price-slider.js"></script>
-    <!-- meanmenu JSID
-		============================================ -->
-    <script src="Admin/js/calendar/moment.min.js"></script>
-    <script src="Admin/js/calendar/fullcalendar.min.js"></script>
-    <script src="Admin/js/calendar/fullcalendar-active.js"></script>
-    <!-- maskedinput JS
-		============================================ -->
-    <script src="Admin/js/jquery.maskedinput.min.js"></script>
-    <script src="Admin/js/masking-active.js"></script>
-    <!-- datepicker JS
-		============================================ -->
-    <script src="Admin/js/datepicker/jquery-ui.min.js"></script>
-    <script src="Admin/js/datepicker/datepicker-active.js"></script>
-    <!-- form validate JS
-		============================================ -->
-    <script src="Admin/js/form-validation/jquery.form.min.js"></script>
-    <script src="Admin/js/form-validation/jquery.validate.min.js"></script>
-    <script src="Admin/js/form-validation/form-active.js"></script>
-    <!-- dropzone JS
-		============================================ -->
-    <script src="Admin/js/dropzone/dropzone.js"></script>
-    <!-- tab JS
-		============================================ -->
-    <script src="Admin/js/tab.js"></script>
-    <!-- plugins JS
-		============================================ -->
-    <script src="Admin/js/plugins.js"></script>
-    <!-- main JS
-		============================================ -->
-    <script src="Admin/js/main.js"></script>
-    <!-- tawk chat JS
-		============================================ -->
-    <script src="Admin/js/tawk-chat.js"></script>
-    <script src="Admin/js/Video-ctrl.js"></script>
 
 </body>
 
