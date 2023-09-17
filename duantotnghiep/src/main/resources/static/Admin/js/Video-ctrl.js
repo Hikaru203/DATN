@@ -3,19 +3,28 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
     $scope.itemsVideoWithTen = []; // Mảng mới chứa tên video và dữ liệu video ban đầu
     $scope.itemsVideo = [];
     $scope.formTaiLieu = {};
-
+    $scope.order = null;
     $scope.itemsKhoaHoc = [];
     $scope.formKhoaHoc = {};
     $scope.inputString = [];
     $scope.itemsNguoiDung = [];
+    $scope.formVideo = {};
 
     $scope.currentPage = 1; // Trang hiện tại
     $scope.itemsPerPage = 5; // Số hàng trên mỗi trang
     $scope.totalItems = 0; // Tổng số tài liệu
 
+    const accountTokenInput = document.getElementById("accessToken");
+    const authorizationTokenGroup = document.getElementById('authorizationTokenGroup');
+    const accessTokenGroup = document.getElementById('accessTokenGroup');
+    const titleGroup = document.getElementById('form-title');
+    const privacyStatusGroup = document.getElementById('form-privacyStatus');
+    const descriptionGroup = document.getElementById('form-description');
+    const fileGroup = document.getElementById('form-file');
+
     $scope.initialize = function () {
         // load tài liệu
-        $http.get("/rest/Videos").then(resp => {
+        $http.get("/Admin/rest/Videos").then(resp => {
             $scope.itemsVideo = resp.data;
             console.log($scope.itemsVideo);
 
@@ -55,13 +64,191 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
             console.error("An error occurred:", error);
         });
 
-        $http.get("/rest/KhoaHoc").then(resp => {
+        $http.get("/Admin/rest/KhoaHoc").then(resp => {
             $scope.itemsKhoaHoc = resp.data;
         });
     };
+
+    $scope.loadDocuments = function () {
+        if ($scope.selectedCourse) {
+            $http.get("/Admin/rest/Videos/" + $scope.selectedCourse).then(resp => {
+                $scope.itemsVideo = resp.data;
+                $scope.totalItems = $scope.itemsVideo.length;
+                $scope.order = $scope.itemsVideo.length
+                console.log($scope.order);
+            });
+        } else {
+            $http.get("/Admin/rest/Videos").then(resp => {
+                $scope.itemsVideo = resp.data;
+                $scope.totalItems = $scope.itemsVideo.length;
+                $scope.order = null; // Đặt giá trị order thành null nếu không có selectedCourse hoặc itemsVideo
+
+            });
+        }
+    };
+
+
     console.log($scope.itemsVideoWithTen);
     console.log($scope.itemsVideo);
 
 
+    $scope.updateUI = function () {
+        if (accountTokenInput === null || accountTokenInput.value === '' || accountTokenInput.value === null) {
+            // Hiển thị các input khi accountToken không tồn tại hoặc trống
+            authorizationTokenGroup.style.display = 'block';
+            accessTokenGroup.style.display = 'block';
+            titleGroup.style.display = 'none';
+            privacyStatusGroup.style.display = 'none';
+            descriptionGroup.style.display = 'none';
+            fileGroup.style.display = 'none';
+        } else {
+            // Ẩn các input khi accountToken có giá trị
+            authorizationTokenGroup.style.display = 'none';
+            accessTokenGroup.style.display = 'none';
+            titleGroup.style.display = 'block';
+            privacyStatusGroup.style.display = 'block';
+            descriptionGroup.style.display = 'block';
+            fileGroup.style.display = 'block';
+        }
+    }
+
+    function getYoutubeVideoId(youtubeLink) {
+        // Biểu thức chính quy để trích xuất ID video từ liên kết YouTube
+        const regExp = /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = youtubeLink.match(regExp);
+
+        if (match && match[1]) {
+            return match[1];
+        } else {
+            return null; // Trả về null nếu không tìm thấy ID video
+        }
+    }
+    $scope.create = function () {
+        const selectedCourseId = $scope.selectedCourse;
+        const youtubeLink = document.getElementById("youtubeLink").value; // Lấy giá trị từ trường nhập liệu
+
+        if (!selectedCourseId) {
+            alert("Vui lòng chọn một khóa học.");
+            return;
+        }
+
+        if (!youtubeLink.trim()) {
+            alert("Vui lòng nhập liên kết video từ YouTube.");
+            return;
+        }
+
+        const videoId = getYoutubeVideoId(youtubeLink); // Lấy ID video từ liên kết
+
+        if (!videoId) {
+            alert("Không thể trích xuất ID video từ liên kết YouTube.");
+            return;
+        }
+
+        // Gọi API GET để lấy thông tin khóa học
+        $http.get(`/Admin/rest/KhoaHoc/${selectedCourseId}`)
+            .then(resp => {
+                // Gán thông tin khóa học cho formVideo
+                $scope.formVideo.khoaHoc = resp.data;
+
+                // Gán ID video từ liên kết vào formVideo
+                $scope.formVideo.linkVideo = videoId;
+
+                $scope.formVideo.thuTu = $scope.order + 1;
+                console.log($scope.formVideo);
+
+                // Sau khi gán xong, tiếp tục với POST request
+                return $http.post(`/Admin/rest/Videos`, $scope.formVideo);
+            })
+            .then(resp => {
+                // Gán lại thông tin khóa học (nếu cần)
+                console.log("Success", resp);
+                console.log($scope.formVideo);
+                alert("Thêm mới thành công");
+                $scope.loadDocuments();
+            })
+            .catch(error => {
+                console.log("Error", error);
+                alert("Thêm mới thất bại");
+            });
+    };
+
+
+
+
+    $scope.updateUI();
     $scope.initialize();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const uploadNewVideoSection = document.getElementById("uploadNewVideoSection");
+    const addButton = document.getElementById("addButton");
+
+    if (!uploadNewVideoSection || !addButton) {
+        console.error("Không thể tìm thấy các phần tử cần thiết.");
+        return;
+    }
+
+    addButton.addEventListener("click", function () {
+        if (uploadNewVideoSection.style.display !== "none") {
+            // Lấy các giá trị từ các trường input
+            const titleInput = document.getElementById("title");
+            const descriptionInput = document.getElementById("description");
+            const privacyStatusInput = document.getElementById("privacyStatus");
+            const fileInput = document.getElementById("file");
+
+            // Kiểm tra giá trị của từng trường input
+            if (!titleInput.value) {
+                alert("Vui lòng nhập tiêu đề.");
+                return;
+            }
+
+            if (!descriptionInput.value) {
+                alert("Vui lòng nhập mô tả.");
+                return;
+            }
+
+            if (!privacyStatusInput.value) {
+                alert("Vui lòng chọn quyền riêng tư.");
+                return;
+            }
+
+            if (!fileInput.files[0]) {
+                alert("Vui lòng chọn tệp video.");
+                return;
+            }
+            // Tạo FormData và gửi POST request
+            const form = new FormData();
+            form.append("title", titleInput.value);
+            form.append("description", descriptionInput.value);
+            form.append("privacyStatus", privacyStatusInput.value);
+            form.append("file", fileInput.files[0]);
+            fetch("/youtube/uploadVideo", {
+                method: "POST",
+                body: form
+            })
+                .then(response => {
+                    if (response.ok) {
+                        const scope = angular.element(document.querySelector('[ng-controller="Video-ctrl"]')).scope();
+                        scope.$apply(function () {
+                            scope.create();
+                        });
+
+                        alert("Đã gửi form thành công.");
+                        return response.json(); // Chuyển đổi phản hồi sang đối tượng JSON
+                    } else {
+                        alert("Đã xảy ra lỗi khi gửi form.");
+                    }
+                })
+
+                .catch(error => {
+                    console.error("Lỗi: " + error);
+                });
+
+        } else {
+            const scope = angular.element(document.querySelector('[ng-controller="Video-ctrl"]')).scope();
+            scope.$apply(function () {
+                scope.create();
+            });
+        }
+    });
 });

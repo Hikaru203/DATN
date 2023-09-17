@@ -1,11 +1,4 @@
-<!-- 
-🎬 Video playlist UI Design like Skillshare With Vanilla JavaScript
-👨🏻‍⚕️ By: Coding Design
-
-You can do whatever you want with the code. However if you love my content, you can subscribed my YouTube Channel
-🌎link: www.youtube.com/codingdesign
- -->
-
+<!-- HTML -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,22 +8,22 @@ You can do whatever you want with the code. However if you love my content, you 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Video Playlist UI Design Like Udemy | SkillShare</title>
     <link rel="stylesheet" href="/css/styleloadVideo.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
 </head>
 
-<body>
+<body ng-app="loadVideo-app" ng-controller="loadVideo-app-ctrl" ng-init="loadvideo()">
     <main class="container">
-    
+
         <section class="main-video">
-            <video src="/videos/manipulate text background.mp4" controls autoplay muted></video>
-            <h3 class="title">Title of the playing Video.</h3>
+            <iframe id="video-iframe" width="888" height="500" src="" frameborder="0" allowfullscreen></iframe>
+            <h3 class="title">Nội dung khóa học.</h3>
         </section>
 
         <section class="video-playlist">
-            <h3 class="title">Title of Video Playlist</h3>
-            <p>10 lessions &nbsp; . &nbsp; 50m 48s</p>
-            <div class="videos">
-
-            </div>
+            <h3 class="title">Nội dung khóa học</h3>
+            <p>10 lessons &nbsp; . &nbsp; 50m 48s</p>
+            <div class="videos"></div>
         </section>
     </main>
     <script src="/js/scriptLoadVideo.js"></script>

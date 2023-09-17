@@ -1,6 +1,6 @@
 package com.fpoly.duantotnghiep.Entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,16 +11,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "tai_lieu_khoa_hoc")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class TaiLieuKhoaHoc {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,4 +34,10 @@ public class TaiLieuKhoaHoc {
 
 	@Column(name = "thu_tu")
 	private int thuTu;
+
+	@Column(name = "ten_file")
+	private String tenFile;
+
+	@Column(name = "ngay_tao")
+	private Date ngayTao;
 }
