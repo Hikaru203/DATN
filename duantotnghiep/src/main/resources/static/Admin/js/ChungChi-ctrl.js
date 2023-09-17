@@ -7,6 +7,8 @@ app.controller("ChungChi-ctrl", function ($scope, $http, $window) {
     $scope.formKhoaHoc = {};
     $scope.inputString = [];
     $scope.itemsNguoiDung = [];
+    $scope.select2ChosenText = ''; // Biến này lưu trữ nội dung của <span class='select2-chosen'>
+
 
     $scope.currentPage = 1; // Trang hiện tại
     $scope.itemsPerPage = 5; // Số hàng trên mỗi trang
@@ -34,16 +36,42 @@ app.controller("ChungChi-ctrl", function ($scope, $http, $window) {
             $scope.itemsNguoiDung = resp.data;
             console.log($scope.itemsNguoiDung);
         });
+
     };
+    $scope.$watch('select2ChosenText', function (newVal, oldVal) {
+        // Xử lý sự kiện khi nội dung của <span class='select2-chosen'> thay đổi
+        if (newVal !== oldVal) {
+            loadDocuments();
+        }
+    });
 
     // Khởi đầu
     $scope.initialize();
 
-    $scope.loadDocuments = function () {
+    $scope.loadDocuments = function (data) {
         var url = "/Admin/rest/ChungChi";
+        console.log(data);
 
-        console.log($scope.selectedCourse);
+        for (var i = 0; i < $scope.itemsNguoiDung.length; i++) { // Sửa điều kiện lặp
+            if ($scope.itemsNguoiDung[i].hoTen == data.text.trim()) {
+                $scope.selectedUser = $scope.itemsNguoiDung[i].id; // Gán selectedUser
+                $scope.selectedCourse = null;
+                console.log($scope.selectedUser);
+                break;
+            } else {
+                $scope.selectedCourse = data.id;
+                $scope.selectedUser = null;
+            }
+        }
+        if ($scope.selectedUser !== null) {
+            $scope.selectedUser = $scope.selectedUser;
+        }
+        if ($scope.selectedCourse !== null) {
+            $scope.selectedCourse = $scope.selectedCourse;
+        }
+
         if ($scope.selectedCourse && $scope.selectedUser) {
+            console.log("1");
             url = "/Admin/rest/ChungChi/" + $scope.selectedCourse + "/" + $scope.selectedUser;
         } else if ($scope.selectedCourse) {
             url = "/Admin/rest/ChungChi/" + $scope.selectedCourse;
@@ -65,6 +93,7 @@ app.controller("ChungChi-ctrl", function ($scope, $http, $window) {
             $scope.totalItems = $scope.itemsChungChi.length;
         });
     };
+
     $scope.itemsChungChi = []; // Danh sách chứng chỉ
     $scope.currentIndex = 0; // Chỉ số hiện tại của chứng chỉ đang hiển thị
 

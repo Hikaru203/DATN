@@ -56,15 +56,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.min.js"></script>
 
-    <script th:src="@{/Admin/js/jquery-1.8.0.min}"></script>
-    <script th:src="@{/Admin/js/select2.js}"></script>
-    <script>
-        $(document).ready(function () {
-            // Mã JavaScript của bạn ở đây
-            $("#selectedCourse").select2();
-            $("#selectedUser").select2();
-        });
-    </script>
+
 </head>
 
 <body ng-app="myApp" ng-controller="ChungChi-ctrl">
@@ -1259,14 +1251,16 @@
             </div>
         </div>
         <div class="pdf-viewer-area mg-b-15 row" style="display: flex; justify-content: space-between;">
-            <select class="form-control" style="width: 45%;" ng-model="selectedCourse" ng-change="loadDocuments()">
+            <select class="form-control" style="width: 45%;" id="selectedCourse" ng-model="selectedCourse"
+                ng-change="loadDocuments()">
                 <option value="">Chọn khóa học</option>
                 <option ng-repeat="course in itemsKhoaHoc" value="{{course.id}}">
                     {{course.tenKhoaHoc}}
                 </option>
             </select>
 
-            <select class="form-control" style="width: 45%;" ng-model="selectedUser" ng-change="loadDocuments()">
+            <select class="form-control" style="width: 45%;" id="selectedUser" ng-model="selectedUser"
+                ng-change="loadDocuments()">
                 <option value="">Chọn người dùng</option>
                 <option ng-repeat="user in itemsNguoiDung" value="{{user.id}}">
                     {{user.hoTen}}
@@ -1394,7 +1388,14 @@
 
         <!-- Your custom JavaScript file -->
         <script th:src="@{/Admin/js/ChungChi-ctrl.js}"></script>
-
+        <script th:src="@{/Admin/js/select2.js}"></script>
+        <script>
+            $(document).ready(function () {
+                // Mã JavaScript của bạn ở đây
+                $("#selectedCourse").select2();
+                $("#selectedUser").select2();
+            });
+        </script>
 
 </body>
 
