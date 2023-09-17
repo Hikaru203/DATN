@@ -42,6 +42,7 @@ app.controller("ChungChi-ctrl", function ($scope, $http, $window) {
     $scope.loadDocuments = function () {
         var url = "/Admin/rest/ChungChi";
 
+        console.log($scope.selectedCourse);
         if ($scope.selectedCourse && $scope.selectedUser) {
             url = "/Admin/rest/ChungChi/" + $scope.selectedCourse + "/" + $scope.selectedUser;
         } else if ($scope.selectedCourse) {
@@ -71,6 +72,6 @@ app.controller("ChungChi-ctrl", function ($scope, $http, $window) {
         $scope.currentIndex += offset;
         $scope.currentIndex = Math.min(Math.max($scope.currentIndex, 0), $scope.itemsChungChi.length - 1);
     };
-    
+
 
 });

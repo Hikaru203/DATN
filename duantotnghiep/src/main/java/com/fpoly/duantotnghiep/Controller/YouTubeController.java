@@ -16,7 +16,7 @@ public class YouTubeController {
     @Autowired
     private YouTubeService youTubeService;
 
-    @GetMapping("/Video")
+    @GetMapping("/Admin/Video")
     public String authenticate(Model model, HttpSession session) {
         String accessToken = (String) session.getAttribute("accessToken");
 
@@ -58,11 +58,11 @@ public class YouTubeController {
                 return "Admin/Video";
 
             } catch (Exception e) {
-                return "redirect:/Video";
+                return "redirect:/Admin/Video";
             }
         } catch (Exception e) {
             // Handle exceptions
-            return "redirect:/Video";
+            return "redirect:/Admin/Video";
         }
 
     }
