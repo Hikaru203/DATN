@@ -135,6 +135,9 @@
  
      <div class="container mt-5">
         <h1 class="mb-4">Trắc nghiệm câu hỏi</h1>
+        <select ng-model="selectedKhoaHoc" ng-init="loadDanhSachKhoaHoc()" ng-options="khoaHoc.tenKhoaHoc for khoaHoc in danhSachKhoaHoc">
+            <option value="">Chọn câu hỏi</option>
+        </select>
         <div ng-repeat="question in questionAnswerArray">
             <h3>Câu Hỏi {{$index + 1}}: {{question.cauHoi}}</h3>
             <div ng-repeat="answer in question.cauTraLoi">
