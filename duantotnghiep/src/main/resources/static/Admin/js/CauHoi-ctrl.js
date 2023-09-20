@@ -116,8 +116,8 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
 
 
 
-    // Đoạn mã JavaScript cũ của bạn
     let answerCount = 2; // Starting count for dynamic answer fields
+    let cauTraLoiString = ""; // Biến để theo dõi chuỗi câu trả lời
 
     $scope.addAnswerField = function () {
         if (answerCount <= 4) { // Limit to 5 dynamic answer fields
@@ -125,13 +125,34 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
             const newAnswerField = document.createElement('div');
             newAnswerField.classList.add('form-group');
             newAnswerField.innerHTML = `<input type="radio" name="correctAnswer" class="answer-radio">
-            <input type="text" class="form-control" placeholder="TraLoi${answerCount + 1}" value="">`;
+        <input type="text" class="form-control" placeholder="TraLoi${answerCount + 1}" value="">`;
             dynamicAnswers.appendChild(newAnswerField);
             answerCount++;
 
             // Gán sự kiện "change" cho radio button mới thêm
             const newRadio = newAnswerField.querySelector('.answer-radio');
             newRadio.addEventListener('change', $scope.showSelectedAnswer);
+
+            // Tạo nút xóa cho input câu trả lời mới
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('btn', 'btn-danger', 'ml-2');
+            deleteButton.textContent = 'Xóa';
+            deleteButton.addEventListener('click', function () {
+                // Xóa input câu trả lời khi nút xóa được nhấn
+                dynamicAnswers.removeChild(newAnswerField);
+                answerCount--;
+
+                // Cập nhật biến chuỗi câu trả lời sau khi xóa
+                const deletedAnswerValue = newAnswerField.querySelector('input[type="text"]').value;
+                cauTraLoiString = cauTraLoiString.replace(deletedAnswerValue, '').trim();
+
+                // Cập nhật giá trị của input nối chuỗi
+                const cauHoiInput = document.getElementById('cauHoiInput');
+                cauHoiInput.value = cauTraLoiString;
+            });
+
+            // Thêm nút xóa vào input câu trả lời mới
+            newAnswerField.appendChild(deleteButton);
         }
     }
 
@@ -147,20 +168,77 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
             answerCount++;
             document.getElementById('newAnswer').value = ""; // Clear the input field
 
-            // Update the 'CauHoi' input with comma-separated answers
-            const cauHoiInput = document.getElementById('cauHoiInput');
-            const currentCauHoi = cauHoiInput.value;
-            if (currentCauHoi === "") {
-                cauHoiInput.value = newAnswer;
+            // Cập nhật biến chuỗi câu trả lời sau khi thêm
+            if (cauTraLoiString === "") {
+                cauTraLoiString = newAnswer;
             } else {
-                cauHoiInput.value = `${currentCauHoi}, ${newAnswer}`;
+                // Thêm dấu ',' vào chuỗi câu trả lời nếu chuỗi hiện tại không kết thúc bằng dấu ','
+                if (!cauTraLoiString.endsWith(',')) {
+                    cauTraLoiString += ',';
+                }
+                cauTraLoiString += newAnswer;
+
+                // Sử dụng regex để xóa các dấu ',' liên tiếp (2 hoặc nhiều dấu ',') và thay thế bằng một dấu ','
+                cauTraLoiString = cauTraLoiString.replace(/,+/g, ',').trim();
             }
+
+            // Cập nhật giá trị của input nối chuỗi
+            const cauHoiInput = document.getElementById('cauHoiInput');
+            cauHoiInput.value = cauTraLoiString;
 
             // Gán sự kiện "change" cho radio button mới thêm
             const newRadio = newAnswerField.querySelector('.answer-radio');
             newRadio.addEventListener('change', $scope.showSelectedAnswer);
+
+            // Tạo nút xóa cho input câu trả lời mới
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('btn', 'btn-danger', 'ml-2');
+            deleteButton.textContent = 'Xóa';
+            deleteButton.addEventListener('click', function () {
+                // Xóa input câu trả lời khi nút xóa được nhấn
+                dynamicAnswers.removeChild(newAnswerField);
+                answerCount--;
+
+                // Cập nhật biến chuỗi câu trả lời sau khi xóa
+                const deletedAnswerValue = newAnswerField.querySelector('input[type="text"]').value;
+                cauTraLoiString = cauTraLoiString.replace(deletedAnswerValue + ',', '').trim();
+
+                // Sử dụng regex để xóa các dấu ',' liên tiếp (2 hoặc nhiều dấu ',') và thay thế bằng một dấu ','
+                cauTraLoiString = cauTraLoiString.replace(/,+/g, ',').trim();
+
+                // Kiểm tra nếu chỉ còn một câu trả lời thì không thực hiện xóa nữa
+                if (cauTraLoiString === newAnswer) {
+                    cauTraLoiString = "";
+                }
+
+                // Cập nhật giá trị của input nối chuỗi
+                cauHoiInput.value = cauTraLoiString;
+            });
+
+            // Thêm nút xóa vào input câu trả lời mới
+            newAnswerField.appendChild(deleteButton);
         }
     }
+
+
+
+    $scope.showSelectedAnswer = function () {
+        const answerRadios = document.querySelectorAll('.answer-radio'); // Lấy tất cả các radio buttons
+
+        answerRadios.forEach(radio => {
+            if (radio.checked) {
+                // Nếu radio được chọn, lấy giá trị của nó
+                selectedAnswer = radio.nextElementSibling.value;
+            }
+        });
+
+        if (selectedAnswer !== "") {
+            alert(`Đáp án đã chọn: ${selectedAnswer}`);
+        } else {
+            alert("Bạn chưa chọn đáp án nào.");
+        }
+    }
+
 
     $scope.showSelectedAnswer = function () {
         const answerRadios = document.querySelectorAll('.answer-radio'); // Lấy tất cả các radio buttons
