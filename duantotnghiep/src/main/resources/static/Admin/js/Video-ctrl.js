@@ -1,5 +1,7 @@
 var app = angular.module("myApp", ['ui.bootstrap']);
 app.controller("Video-ctrl", function ($scope, $http, $window) {
+
+
     $scope.itemsVideoWithTen = [];
     $scope.itemsVideo = [];
     $scope.formTaiLieu = {};
@@ -9,6 +11,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
     $scope.inputString = [];
     $scope.itemsNguoiDung = [];
     $scope.formVideo = {};
+   
 
     $scope.currentPage = 1;
     $scope.itemsPerPage = 5;
@@ -21,6 +24,18 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
     const privacyStatusGroup = document.getElementById('form-privacyStatus');
     const descriptionGroup = document.getElementById('form-description');
     const fileGroup = document.getElementById('form-file');
+
+    function getCookieValue(cookieName) {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith(cookieName + '=')) {
+                console.log(cookie.substring(cookieName.length + 1));
+                return cookie.substring(cookieName.length + 1);
+            }
+        }
+        return null;
+    }
 
     $scope.initialize = function () {
         $http.get("/Admin/rest/Videos").then(resp => {
@@ -65,7 +80,8 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
 
 
 
-    $scope.loadDocuments = function () {
+    $scope.loadDocuments = function (course) {
+        $scope.selectedCourse = course;
         if ($scope.selectedCourse) {
             $http.get("/Admin/rest/Videos/" + $scope.selectedCourse).then(resp => {
                 $scope.itemsVideo = resp.data;
@@ -173,16 +189,18 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
         }
 
         $http.get(`/Admin/rest/KhoaHoc/${selectedCourseId}`)
+
             .then(resp => {
                 $scope.formVideo.khoaHoc = resp.data;
                 $scope.formVideo.linkVideo = videoId;
                 $scope.formVideo.thuTu = $scope.order + 1;
-                console.log($scope.formVideo);
+
                 return $http.post(`/Admin/rest/Videos`, $scope.formVideo);
             })
             .then(resp => {
                 console.log("Success", resp);
-                console.log($scope.formVideo);
+                const usernameCookie = getCookieValue('videoId');
+                console.log(usernameCookie);
                 alert("Thêm mới thành công");
                 $scope.loadDocuments();
             })
@@ -194,6 +212,22 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
 
     $scope.updateUI();
     $scope.initialize();
+
+
+    $scope.itemsKhoaHoc = []; // Danh sách khóa học của bạn
+    $scope.KhoaHocChon = null; // Khởi tạo biến selectedCourse
+    $scope.showAllCourses = function () {
+        $scope.KhoaHocChon = null; // Đặt selectedCourse thành null
+        // Hiển thị tất cả các khóa học bằng cách áp dụng bộ lọc
+        $scope.searchCourse = "";
+        console.log("selectedCourse is null");
+        $scope.loadDocuments();
+    };
+    $scope.selectCourse = function (course) {
+        $scope.KhoaHocChon = course;
+        $scope.loadDocuments(course.id);
+
+    };
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -242,13 +276,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: form
             })
                 .then(response => {
+                    console.log(response);
                     if (response.ok) {
+
                         const scope = angular.element(document.querySelector('[ng-controller="Video-ctrl"]')).scope();
                         scope.$apply(function () {
                             scope.create();
+                            alert("Đã gửi form thành công.");
                         });
 
-                        alert("Đã gửi form thành công.");
                     } else {
                         alert("Đã xảy ra lỗi khi gửi form.");
                     }
@@ -259,10 +295,13 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             const scope = angular.element(document.querySelector('[ng-controller="Video-ctrl"]')).scope();
             scope.$apply(function () {
+
                 scope.create();
             });
         }
     });
+
+
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -344,4 +383,52 @@ document.addEventListener("DOMContentLoaded", function () {
         descriptionInput.value = "";
         privacyStatusSelect.selectedIndex = 0;
     });
+
+
 });
+
+const selected = document.querySelector(".selected");
+const optionsContainer = document.querySelector(".options-container");
+const searchBox = document.querySelector(".search-box input");
+
+const optionsList = document.querySelectorAll(".option");
+
+selected.addEventListener("click", () => {
+    optionsContainer.classList.toggle("active");
+    searchBox.value = "";
+    filterList("");
+
+    if (optionsContainer.classList.contains("active")) {
+        searchBox.focus();
+    }
+});
+
+optionsList.forEach(o => {
+    o.addEventListener("click", () => {
+        selected.innerHTML = o.querySelector("label").innerHTML;
+        optionsContainer.classList.remove("active");
+    });
+});
+
+searchBox.addEventListener("input", function () {
+    if (searchBox.value.length = 0) {
+        filterList("");
+    } else {
+        filterList(searchBox.value);
+    }
+
+});
+
+const filterList = searchTerm => {
+    searchTerm = searchTerm.toLowerCase();
+    optionsList.forEach(option => {
+        let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+        if (label.indexOf(searchTerm) !== -1) {
+            option.style.display = "block";
+        } else {
+            option.style.display = "none";
+        }
+    });
+};
+
+

@@ -14,6 +14,12 @@ app.controller("ChungChi-ctrl", function ($scope, $http, $window) {
     $scope.itemsPerPage = 5; // Số hàng trên mỗi trang
     $scope.totalItems = 0; // Tổng số tài liệu
 
+    $scope.selectedCourse = null; // Khởi tạo biến selectedCourse
+    $scope.selectedUser = null; // Khởi tạo biến selectedUser
+    $scope.itemsChungChi = []; // Danh sách chứng chỉ
+    $scope.currentIndex = 0; // Chỉ số hiện tại của chứng chỉ đang hiển thị
+
+
     $scope.initialize = function () {
 
         // load tài liệu
@@ -48,28 +54,11 @@ app.controller("ChungChi-ctrl", function ($scope, $http, $window) {
     // Khởi đầu
     $scope.initialize();
 
-    $scope.loadDocuments = function (data) {
+
+    $scope.loadDocuments = function (khoaHoc, nguoidung) {
+        $scope.selectedCourse = khoaHoc;
+        $scope.selectedUser = nguoidung;
         var url = "/Admin/rest/ChungChi";
-        console.log(data);
-
-        for (var i = 0; i < $scope.itemsNguoiDung.length; i++) { // Sửa điều kiện lặp
-            if ($scope.itemsNguoiDung[i].hoTen == data.text.trim()) {
-                $scope.selectedUser = $scope.itemsNguoiDung[i].id; // Gán selectedUser
-                $scope.selectedCourse = null;
-                console.log($scope.selectedUser);
-                break;
-            } else {
-                $scope.selectedCourse = data.id;
-                $scope.selectedUser = null;
-            }
-        }
-        if ($scope.selectedUser !== null) {
-            $scope.selectedUser = $scope.selectedUser;
-        }
-        if ($scope.selectedCourse !== null) {
-            $scope.selectedCourse = $scope.selectedCourse;
-        }
-
         if ($scope.selectedCourse && $scope.selectedUser) {
             console.log("1");
             url = "/Admin/rest/ChungChi/" + $scope.selectedCourse + "/" + $scope.selectedUser;
@@ -94,13 +83,96 @@ app.controller("ChungChi-ctrl", function ($scope, $http, $window) {
         });
     };
 
-    $scope.itemsChungChi = []; // Danh sách chứng chỉ
-    $scope.currentIndex = 0; // Chỉ số hiện tại của chứng chỉ đang hiển thị
-
     $scope.changeCertificate = function (offset) {
         $scope.currentIndex += offset;
         $scope.currentIndex = Math.min(Math.max($scope.currentIndex, 0), $scope.itemsChungChi.length - 1);
     };
 
+    $scope.NguoiDungChon = null;
+    $scope.KhoaHocChon = null;
+    $scope.nguoiDungHienThi = null;
+    $scope.khoaHocHienThi = null;
+    $scope.showAllUsers = function () {
+        $scope.nguoiDungHienThi = null; // Đặt selectedCourse thành null
+        // Hiển thị tất cả các khóa học bằng cách áp dụng bộ lọc
+        $scope.searchUser = "";
+        $scope.NguoiDungChon = null;
+        console.log("selectedUser is null");
+        $scope.loadDocuments($scope.KhoaHocChon, $scope.NguoiDungChon);
 
+    };
+    $scope.chonNguoiDung = function (user) {
+        $scope.nguoiDungHienThi = user;
+        $scope.NguoiDungChon = user.id;
+        $scope.loadDocuments($scope.KhoaHocChon, $scope.NguoiDungChon);
+    };
+    $scope.showAllCourses = function () {
+        $scope.khoaHocHienThi = null; // Đặt selectedCourse thành null
+        // Hiển thị tất cả các khóa học bằng cách áp dụng bộ lọc
+        $scope.searchCourse = "";
+        $scope.KhoaHocChon = null;
+        console.log("selectedCourse is null");
+        $scope.loadDocuments($scope.KhoaHocChon, $scope.NguoiDungChon);
+
+    };
+    $scope.ChonKhoaHoc = function (course) {
+        $scope.khoaHocHienThi = course;
+        $scope.KhoaHocChon = course.id;
+        $scope.loadDocuments($scope.KhoaHocChon, $scope.NguoiDungChon);
+    };
+});
+
+// Chọn tất cả các phần tử .selected, .options-container, .search-box input và .option
+const selectedElements = document.querySelectorAll(".selected");
+const optionsContainers = document.querySelectorAll(".options-container");
+const searchBoxes = document.querySelectorAll(".search-box input");
+const optionsLists = document.querySelectorAll(".option");
+
+// Lặp qua từng cặp select và thực hiện xử lý cho mỗi cặp
+selectedElements.forEach((selected, index) => {
+    const optionsContainer = optionsContainers[index];
+    const searchBox = searchBoxes[index];
+    const optionsList = optionsLists[index];
+
+    // Kiểm tra xem tất cả các phần tử đã được tìm thấy trước khi thực hiện xử lý
+    if (selected && optionsContainer && searchBox && optionsList) {
+        selected.addEventListener("click", () => {
+            optionsContainer.classList.toggle("active");
+            searchBox.value = "";
+            filterList("", optionsList);
+
+            if (optionsContainer.classList.contains("active")) {
+                searchBox.focus();
+            }
+        });
+
+        optionsList.addEventListener("click", (e) => {
+            if (e.target.tagName === "LABEL") {
+                selected.innerHTML = e.target.innerHTML;
+                optionsContainer.classList.remove("active");
+            }
+        });
+
+        searchBox.addEventListener("input", function () {
+            if (searchBox.value.length === 0) {
+                filterList("", optionsList);
+            } else {
+                filterList(searchBox.value, optionsList);
+            }
+        });
+
+        const filterList = (searchTerm, list) => {
+            searchTerm = searchTerm.toLowerCase();
+            list.querySelectorAll("label").forEach((label) => {
+                const labelText = label.innerText.toLowerCase();
+                const option = label.parentElement;
+
+                if (labelText.indexOf(searchTerm) !== -1) {
+                    option.style.display = "block";
+                } else {
+                    option.style.display = "none";
+                }
+            });
+        };
+    }
 });

@@ -10,4 +10,6 @@ public interface CauHoiService {
     List<CauHoi> findByKhoaHocId(int idKhoaHoc);
 
     CauHoi save(CauHoi cauHoi);
+
+    void deleteById(int id);
 }

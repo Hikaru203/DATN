@@ -33,4 +33,9 @@ public class CauHoiServiceImpl implements CauHoiService {
         return cauHoiRepository.save(cauHoi);
     }
 
+    @Override
+    public void deleteById(int id) {
+        cauHoiRepository.deleteById(id);
+    }
+
 }

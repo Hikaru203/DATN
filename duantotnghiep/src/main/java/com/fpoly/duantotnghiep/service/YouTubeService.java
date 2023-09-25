@@ -12,6 +12,8 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatus;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,12 +24,12 @@ import java.util.Collections;
 @Service
 public class YouTubeService {
 
-    private static final String CLIENT_ID = "597009837116-ug3512fnngu3uo51nr008dc7npckipif.apps.googleusercontent.com"; // Replace
+    private static final String CLIENT_ID = "727639269543-2k7u76qj75ahvo5pucugb5da3f8h3gna.apps.googleusercontent.com"; // Replace
                                                                                                                         // with
                                                                                                                         // your
                                                                                                                         // Client
                                                                                                                         // ID
-    private static final String CLIENT_SECRET = "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"; // Replace with your Client
+    private static final String CLIENT_SECRET = "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"; // Replace with your Client
                                                                                        // Secret
     private static final String REDIRECT_URI = "http://localhost:8080/oauth2callback"; // Replace with your Redirect URI
 
@@ -35,6 +37,9 @@ public class YouTubeService {
 
     private YouTube youTube;
     private String authorizationCode;
+
+    @Autowired
+    CookieService cookieService;
 
     public YouTubeService() throws GeneralSecurityException, IOException {
         youTube = getYouTubeService();
@@ -114,6 +119,7 @@ public class YouTubeService {
             System.out.println("Video Title: " + response.getSnippet().getTitle());
             System.out.println("Video Description: " + response.getSnippet().getDescription());
             System.out.println("Video Privacy Status: " + response.getStatus().getPrivacyStatus());
+            cookieService.add("videoId", response.getId(), 1);
         } catch (Exception e) {
             // Xử lý các ngoại lệ
             System.out.println(e.getMessage());
