@@ -11,7 +11,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
     $scope.inputString = [];
     $scope.itemsNguoiDung = [];
     $scope.formVideo = {};
-   
+
 
     $scope.currentPage = 1;
     $scope.itemsPerPage = 5;
@@ -36,6 +36,21 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
         }
         return null;
     }
+
+    function deleteCookie(cookieName) {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith(cookieName + '=')) {
+                const cookieParts = cookie.split('=');
+                const name = cookieParts[0];
+                // Đặt thời gian hết hạn của cookie thành ngày quá khứ
+                document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                return;
+            }
+        }
+    }
+
 
     $scope.initialize = function () {
         $http.get("/Admin/rest/Videos").then(resp => {
@@ -199,12 +214,35 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
             })
             .then(resp => {
                 console.log("Success", resp);
-                const usernameCookie = getCookieValue('videoId');
-                console.log(usernameCookie);
                 alert("Thêm mới thành công");
                 $scope.loadDocuments();
             })
             .catch(error => {
+                console.log("Error", error);
+                alert("Thêm mới thất bại");
+            });
+    };
+
+    $scope.createNewVideo = function () {
+        const selectedCourseId = $scope.selectedCourse;
+        if (!selectedCourseId) {
+            alert("Vui lòng chọn khóa học");
+            return;
+        }
+        const usernameCookie = getCookieValue('videoId');
+        console.log(usernameCookie);
+
+        $http.get(`/Admin/rest/KhoaHoc/${selectedCourseId}`)
+            .then(resp => {
+                $scope.formVideo.khoaHoc = resp.data;
+                $scope.formVideo.linkVideo = usernameCookie;
+                $scope.formVideo.thuTu = $scope.order + 1;
+                console.log($scope.formVideo);
+                deleteCookie('videoId');
+                alert("Thêm mới thành công");
+                $scope.loadDocuments();
+                return $http.post(`/Admin/rest/Videos`, $scope.formVideo);
+            }).catch(error => {
                 console.log("Error", error);
                 alert("Thêm mới thất bại");
             });
@@ -281,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         const scope = angular.element(document.querySelector('[ng-controller="Video-ctrl"]')).scope();
                         scope.$apply(function () {
-                            scope.create();
+                            scope.createNewVideo();
                             alert("Đã gửi form thành công.");
                         });
 
