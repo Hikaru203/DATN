@@ -56,85 +56,90 @@
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a href="index"><img class="main-logo" th:src="@{Admin/img/logo/logo.png}" alt="" /></a>
-                <strong><a href="index"><img th:src="@{Admin/img/logo/logosn.png}" alt="" /></a></strong>
+                <a th:href="@{/index}"><img class="main-logo" th:src="@{/Admin/img/logo/logo.png}" alt="" /></a>
+                <strong><a th:href="@{/index}"><img th:src="@{/Admin/img/logo/logosn.png}" alt="" /></a></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
-                        <li class="active">
-                            <a class="has-arrow" href="index1">
+                        <li
+                            th:classappend="${#strings.contains(request.getRequestURI(), '/Admin/index1') ? 'active' : ''}">
+                            <a class="has-arrow" th:href="@{/Admin/index1}">
                                 <span class="educate-icon educate-home icon-wrap"></span>
                                 <span class="mini-click-non">Thống Kê</span>
                             </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Dashboard v.1" href="ThongKe"><span class="mini-sub-pro">Thống
+                                <li><a title="Dashboard v.1" th:href="@{/Admin/ThongKe}"><span
+                                            class="mini-sub-pro">Thống
                                             Kê</span></a></li>
                             </ul>
                         </li>
 
-                        <li>
-                            <a class="has-arrow" href="all-professors" aria-expanded="false"><span
+                        <li
+                            th:classappend="${#strings.contains(request.getRequestURI(), '/Admin/all-professors') ? 'active' : ''}">
+                            <a class="has-arrow" th:href="@{/Admin/all-professors}" aria-expanded="false"><span
                                     class="educate-icon educate-professor icon-wrap"></span> <span
                                     class="mini-click-non">User</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Edit Professor" href="User"><span class="mini-sub-pro">Quản lý người
+                                <li><a title="Edit Professor" th:href="@{/Admin/User}"><span class="mini-sub-pro">Quản
+                                            lý người
                                             dùng</span></a></li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="User" aria-expanded="false"><span
-                                    class="educate-icon educate-student icon-wrap"></span> <span
-                                    class="mini-click-non">Sinh Viên</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Students" href="User"><span class="mini-sub-pro"> Quản Lí Sinh
+                                <li><a title="All Students" th:href="@{/Admin/User}"><span class="mini-sub-pro"> Quản Lí
+                                            Sinh
                                             Viên</span></a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" href="KhoaHoc" aria-expanded="false"><span
+
+                        <li
+                            th:classappend="${#strings.contains(request.getRequestURI(), '/Admin/KhoaHoc') ? 'active' : ''}">
+                            <a class="has-arrow" th:href="@{/Admin/KhoaHoc}" aria-expanded="false"><span
                                     class="educate-icon educate-course icon-wrap"></span> <span
                                     class="mini-click-non">Khóa Học</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Courses" href="KhoaHoc"><span class="mini-sub-pro">Khóa
+                                <li><a title="All Courses" th:href="@{/Admin/KhoaHoc}"><span class="mini-sub-pro">Khóa
                                             Học</span></a></li>
-                                <li><a title="Add Courses" href="EditKhoaHoc"><span class="mini-sub-pro">Thêm Khóa
+                                <li><a title="Add Courses" th:href="@{/Admin/EditKhoaHoc}"><span
+                                            class="mini-sub-pro">Thêm Khóa
                                             Học</span></a></li>
-                                <li><a title="Add Courses" href="KenhKhoaHoc"><span class="mini-sub-pro">Kênh Khóa
+                                <li><a title="Add Courses" th:href="@{/Admin/KenhKhoaHoc}"><span
+                                            class="mini-sub-pro">Kênh Khóa
                                             Học</span></a></li>
-                                <li><a title="Thanh Toan" href="ThanhToan"><span class="mini-sub-pro">Thanh
+                                <li><a title="Thanh Toan" th:href="@{/Admin/ThanhToan}"><span class="mini-sub-pro">Thanh
                                             Toán</span></a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" href="TaiLieu" aria-expanded="false"><span
+                        <li
+                            th:classappend="${#strings.contains(request.getRequestURI(), '/Admin/TaiLieu') ? 'active' : ''}">
+                            <a class="has-arrow" th:href="@{/Admin/TaiLieu}" aria-expanded="false"><span
                                     class="educate-icon educate-library icon-wrap"></span> <span
                                     class="mini-click-non">Tài Liệu</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Library" href="TaiLieu"><span class="mini-sub-pro">Quản Lí Tài
+                                <li><a title="All Library" th:href="@{/Admin/TaiLieu}"><span class="mini-sub-pro">Quản
+                                            Lí Tài
                                             Liệu</span></a></li>
-                                <li><a title="All Library" href="CauHoi"><span class="mini-sub-pro">Câu
+                                <li><a title="All Library" th:href="@{/Admin/CauHoi}"><span class="mini-sub-pro">Câu
                                             Hỏi</span></a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" href="ChungChi" aria-expanded="false"><span
+                        <li
+                            th:classappend="${#strings.contains(request.getRequestURI(), '/Admin/ChungChi') ? 'active' : ''}">
+                            <a class="has-arrow" th:href="@{/Admin/ChungChi}" aria-expanded="false"><span
                                     class="educate-icon educate-department icon-wrap"></span> <span
                                     class="mini-click-non">Chứng Chỉ</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="ChungChi List" href="ChungChi"><span class="mini-sub-pro">Chứng
+                                <li><a title="ChungChi List" th:href="@{/Admin/ChungChi}"><span
+                                            class="mini-sub-pro">Chứng
                                             Chỉ</span></a></li>
-
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" href="Video" aria-expanded="false"> <span
+                        <li
+                            th:classappend="${#strings.contains(request.getRequestURI(), '/Admin/Video') ? 'active' : ''}">
+                            <a class="has-arrow" th:href="@{/Admin/Video}" aria-expanded="false"> <span
                                     class="glyphicon glyphicon-expand"></span> <span
                                     class="mini-click-non">Video</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Inbox" href="Video"><span class="mini-sub-pro">Video</span></a></li>
-
+                                <li><a title="Inbox" th:href="@{/Admin/Video}"><span
+                                            class="mini-sub-pro">Video</span></a></li>
                             </ul>
                         </li>
                     </ul>
@@ -142,6 +147,7 @@
             </div>
         </nav>
     </div>
+
     <!-- End Header menu area -->
     <!-- Start Welcome area -->
     <div class="all-content-wrapper">

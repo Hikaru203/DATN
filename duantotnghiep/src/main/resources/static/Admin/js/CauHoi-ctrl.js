@@ -4,7 +4,7 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
     $scope.itemsCauHoi = [];
     $scope.formTaiLieu = {};
     $scope.formCauHoi = {};
-    $scope.KhoaHoc = {};
+    $scope.KhoaHoc = [];
 
     $scope.itemsKhoaHoc = [];
     $scope.formKhoaHoc = {};
@@ -13,15 +13,28 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
     $scope.currentPage = 1; // Trang hiện tại
     $scope.itemsPerPage = 5; // Số hàng trên mỗi trang
     $scope.totalItems = 0; // Tổng số tài liệu
-    let selectedAnswer = "";
+    $scope.khoaHoc1 = {}; // Khởi tạo mảng khoaHoc trống
+    $scope.soLuongCauHoiTheoKhoaHoc = {}; // Khởi tạo mảng soLuongCauHoiTheoKhoaHoc trống
 
+
+    let selectedAnswer = ""; // Biến để theo dõi đáp án được chọn
+    let answerCount = 2; // Starting count for dynamic answer fields
+    let cauTraLoiString = ""; // Biến để theo dõi chuỗi câu trả lời
+    $scope.editMode = false; // Ban đầu ở chế độ không chỉnh sửa
+
+    // Hàm để chuyển đổi trạng thái editMode
+    $scope.toggleEditMode = function () {
+        $scope.editMode = !$scope.editMode;
+    };
     $scope.initialize = function () {
+        $http.get("/Admin/rest/KhoaHoc").then(function (resp) {
+            $scope.khoaHoc = resp.data;
+        });
         // Load tài liệu
         $http.get("/Admin/rest/CauHoi").then(function (resp) {
             $scope.itemsCauHoi = resp.data;
             $scope.totalItems = $scope.itemsCauHoi.length;
             $scope.pageChanged(); // Hiển thị trang đầu tiên
-            console.log($scope.itemsCauHoi);
 
             // Tạo mảng mới chứa thông tin câu hỏi, câu trả lời và mảng đáp án
             const questionAnswerArray = [];
@@ -41,41 +54,48 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
                     console.log("'cauTraLoi' does not exist or has no value for an item.");
                 }
             }
-
-            console.log("Question and answer array:", questionAnswerArray);
+            $scope.soLuongCauHoiTheoKhoaHoc = {}; // Đặt lại giá trị biến
+            for (const item of $scope.itemsCauHoi) {
+                const khoaHocId = item.khoaHoc.id;
+                if (!$scope.soLuongCauHoiTheoKhoaHoc[khoaHocId]) {
+                    $scope.soLuongCauHoiTheoKhoaHoc[khoaHocId] = 0;
+                }
+                $scope.soLuongCauHoiTheoKhoaHoc[khoaHocId]++;
+                console.log($scope.soLuongCauHoiTheoKhoaHoc);
+            }
         }).catch(function (error) {
             console.error("An error occurred:", error);
         });
 
         $http.get("/Admin/rest/KhoaHoc").then(function (resp) {
             $scope.itemsKhoaHoc = resp.data;
-            console.log($scope.itemsKhoaHoc);
         });
     };
 
     // Khởi đầu
     $scope.initialize();
 
-    $scope.loadDocuments = function () {
-        const selectedCourseId = $scope.selectedCourse;
+    $scope.loadDocuments = function (id) {
+        const selectedCourseId = id;
 
-        if ($scope.selectedCourse) {
-            $http.get("/Admin/rest/CauHoi/" + $scope.selectedCourse).then(function (resp) {
+        if (selectedCourseId === null || selectedCourseId === undefined) {
+            $http.get("/Admin/rest/CauHoi").then(function (resp) {
                 $scope.itemsCauHoi = resp.data;
                 $scope.totalItems = $scope.itemsCauHoi.length;
-                $http.get(`/Admin/rest/KhoaHoc/${selectedCourseId}`)
+                $http.get(`/Admin/rest/KhoaHoc`)
                     .then(function (resp) {
                         $scope.KhoaHoc = resp.data;
                     });
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
             });
-        } else {
-            $http.get("/Admin/rest/CauHoi").then(function (resp) {
+        } else if (selectedCourseId) {
+            $http.get("/Admin/rest/CauHoi/" + selectedCourseId).then(function (resp) {
                 $scope.itemsCauHoi = resp.data;
                 $scope.totalItems = $scope.itemsCauHoi.length;
                 $http.get(`/Admin/rest/KhoaHoc/${selectedCourseId}`)
                     .then(function (resp) {
                         $scope.KhoaHoc = resp.data;
+
                     });
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
             });
@@ -85,9 +105,7 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
     $scope.pageChanged = function () {
         var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage;
         var endIndex = startIndex + $scope.itemsPerPage;
-        $scope.displayedItems = $scope.itemsCauHoi.slice(startIndex, endIndex);
-        console.log($scope.itemsCauHoi);
-        console.log($scope.displayedItems);
+        $scope.displayedItems1 = $scope.itemsCauHoi.slice(startIndex, endIndex);
     };
 
     $scope.goToFirstPage = function () {
@@ -114,24 +132,40 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
         $scope.pageChanged();
     };
 
-
-
-    // Đoạn mã JavaScript cũ của bạn
-    let answerCount = 2; // Starting count for dynamic answer fields
-
     $scope.addAnswerField = function () {
         if (answerCount <= 4) { // Limit to 5 dynamic answer fields
             const dynamicAnswers = document.getElementById('dynamicAnswers');
             const newAnswerField = document.createElement('div');
             newAnswerField.classList.add('form-group');
             newAnswerField.innerHTML = `<input type="radio" name="correctAnswer" class="answer-radio">
-            <input type="text" class="form-control" placeholder="TraLoi${answerCount + 1}" value="">`;
+        <input type="text" class="form-control" placeholder="TraLoi${answerCount + 1}" value="">`;
             dynamicAnswers.appendChild(newAnswerField);
             answerCount++;
 
             // Gán sự kiện "change" cho radio button mới thêm
             const newRadio = newAnswerField.querySelector('.answer-radio');
             newRadio.addEventListener('change', $scope.showSelectedAnswer);
+
+            // Tạo nút xóa cho input câu trả lời mới
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('btn', 'btn-danger', 'ml-2');
+            deleteButton.textContent = 'Xóa';
+            deleteButton.addEventListener('click', function () {
+                // Xóa input câu trả lời khi nút xóa được nhấn
+                dynamicAnswers.removeChild(newAnswerField);
+                answerCount--;
+
+                // Cập nhật biến chuỗi câu trả lời sau khi xóa
+                const deletedAnswerValue = newAnswerField.querySelector('input[type="text"]').value;
+                cauTraLoiString = cauTraLoiString.replace(deletedAnswerValue, '').trim();
+
+                // Cập nhật giá trị của input nối chuỗi
+                const cauHoiInput = document.getElementById('cauHoiInput');
+                cauHoiInput.value = cauTraLoiString;
+            });
+
+            // Thêm nút xóa vào input câu trả lời mới
+            newAnswerField.appendChild(deleteButton);
         }
     }
 
@@ -147,20 +181,77 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
             answerCount++;
             document.getElementById('newAnswer').value = ""; // Clear the input field
 
-            // Update the 'CauHoi' input with comma-separated answers
-            const cauHoiInput = document.getElementById('cauHoiInput');
-            const currentCauHoi = cauHoiInput.value;
-            if (currentCauHoi === "") {
-                cauHoiInput.value = newAnswer;
+            // Cập nhật biến chuỗi câu trả lời sau khi thêm
+            if (cauTraLoiString === "") {
+                cauTraLoiString = newAnswer;
             } else {
-                cauHoiInput.value = `${currentCauHoi}, ${newAnswer}`;
+                // Thêm dấu ',' vào chuỗi câu trả lời nếu chuỗi hiện tại không kết thúc bằng dấu ','
+                if (!cauTraLoiString.endsWith(',')) {
+                    cauTraLoiString += ',';
+                }
+                cauTraLoiString += newAnswer;
+
+                // Sử dụng regex để xóa các dấu ',' liên tiếp (2 hoặc nhiều dấu ',') và thay thế bằng một dấu ','
+                cauTraLoiString = cauTraLoiString.replace(/,+/g, ',').trim();
             }
+
+            // Cập nhật giá trị của input nối chuỗi
+            const cauHoiInput = document.getElementById('cauHoiInput');
+            cauHoiInput.value = cauTraLoiString;
 
             // Gán sự kiện "change" cho radio button mới thêm
             const newRadio = newAnswerField.querySelector('.answer-radio');
             newRadio.addEventListener('change', $scope.showSelectedAnswer);
+
+            // Tạo nút xóa cho input câu trả lời mới
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('btn', 'btn-danger', 'ml-2');
+            deleteButton.textContent = 'Xóa';
+            deleteButton.addEventListener('click', function () {
+                // Xóa input câu trả lời khi nút xóa được nhấn
+                dynamicAnswers.removeChild(newAnswerField);
+                answerCount--;
+
+                // Cập nhật biến chuỗi câu trả lời sau khi xóa
+                const deletedAnswerValue = newAnswerField.querySelector('input[type="text"]').value;
+                cauTraLoiString = cauTraLoiString.replace(deletedAnswerValue + ',', '').trim();
+
+                // Sử dụng regex để xóa các dấu ',' liên tiếp (2 hoặc nhiều dấu ',') và thay thế bằng một dấu ','
+                cauTraLoiString = cauTraLoiString.replace(/,+/g, ',').trim();
+
+                // Kiểm tra nếu chỉ còn một câu trả lời thì không thực hiện xóa nữa
+                if (cauTraLoiString === newAnswer) {
+                    cauTraLoiString = "";
+                }
+
+                // Cập nhật giá trị của input nối chuỗi
+                cauHoiInput.value = cauTraLoiString;
+            });
+
+            // Thêm nút xóa vào input câu trả lời mới
+            newAnswerField.appendChild(deleteButton);
         }
     }
+
+
+
+    $scope.showSelectedAnswer = function () {
+        const answerRadios = document.querySelectorAll('.answer-radio'); // Lấy tất cả các radio buttons
+
+        answerRadios.forEach(radio => {
+            if (radio.checked) {
+                // Nếu radio được chọn, lấy giá trị của nó
+                selectedAnswer = radio.nextElementSibling.value;
+            }
+        });
+
+        if (selectedAnswer !== "") {
+            alert(`Đáp án đã chọn: ${selectedAnswer}`);
+        } else {
+            alert("Bạn chưa chọn đáp án nào.");
+        }
+    }
+
 
     $scope.showSelectedAnswer = function () {
         const answerRadios = document.querySelectorAll('.answer-radio'); // Lấy tất cả các radio buttons
@@ -200,7 +291,6 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
         $scope.formCauHoi.khoaHoc = $scope.KhoaHoc;
         $scope.formCauHoi.ngayTao = new Date();
 
-        console.log($scope.formCauHoi);
 
         $http.post(`/Admin/rest/CauHoi`, $scope.formCauHoi)
             .then(function (resp) {
@@ -219,6 +309,98 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
     $scope.reset = function () {
         $scope.formCauHoi = {};
     }
+    $scope.itemsKhoaHoc = []; // Danh sách khóa học của bạn
+    $scope.selectedCourse = null; // Khởi tạo biến selectedCourse
+    $scope.showAllCourses = function () {
+        $scope.selectedCourse = null; // Đặt selectedCourse thành null
+        // Hiển thị tất cả các khóa học bằng cách áp dụng bộ lọc
+        $scope.searchCourse = "";
+        console.log("selectedCourse is null");
+        $scope.loadDocuments();
+    };
+    $scope.selectCourse = function (course) {
+        $scope.selectedCourse = course;
+        $scope.loadDocuments($scope.selectedCourse.id);
 
+    };
+    $scope.questions = [];
+
+    // Lấy các phần tử theo id
+    var elementsTableOther = document.getElementById("tableother");
+    var elementsTableCourse = document.getElementById("tableCourse");
+
+    // Sử dụng thuộc tính style.display để điều chỉnh hiển thị
+    elementsTableOther.style.display = "none"; // Ẩn phần tử có id "tableother"
+    elementsTableCourse.style.display = "block"; // Hiển thị phần tử có id "tableCourse"
+    // Định nghĩa các hàm $scope.edit và $scope.out (giả sử bạn đang sử dụng AngularJS)
+    $scope.edit = function () {
+        elementsTableOther.style.display = "block"; // Hiển thị phần tử có id "tableother"
+        elementsTableCourse.style.display = "none"; // Ẩn phần tử có id "tableCourse"
+    }
+
+    $scope.out = function () {
+        elementsTableOther.style.display = "none"; // Ẩn phần tử có id "tableother"
+        elementsTableCourse.style.display = "block"; // Hiển thị phần tử có id "tableCourse"
+    }
+
+    $scope.delete = function (item) {
+        var isConfirmed = confirm(`Bạn có chắc chắn muốn xóa tài liệu "${item.cauHoi}"?`);
+        if (isConfirmed) {
+            $http.delete(`/Admin/rest/CauHoi/${item.id}`)
+                .then(function (resp) {
+                    var index = $scope.itemsCauHoi.findIndex(item => item.id == resp.data.id);
+                    $scope.itemsCauHoi.splice(index, 1);
+                    $scope.initialize();
+                    alert("Xóa thành công");
+                    $scope.reset();
+                    $scope.loadDocuments();
+                })
+                .catch(function (err) {
+                    alert("Error: " + err);
+                });
+        }
+    }
+});
+const selected = document.querySelector(".selected");
+const optionsContainer = document.querySelector(".options-container");
+const searchBox = document.querySelector(".search-box input");
+
+const optionsList = document.querySelectorAll(".option");
+
+selected.addEventListener("click", () => {
+    optionsContainer.classList.toggle("active");
+    searchBox.value = "";
+    filterList("");
+
+    if (optionsContainer.classList.contains("active")) {
+        searchBox.focus();
+    }
+});
+
+optionsList.forEach(o => {
+    o.addEventListener("click", () => {
+        selected.innerHTML = o.querySelector("label").innerHTML;
+        optionsContainer.classList.remove("active");
+    });
+});
+
+searchBox.addEventListener("input", function () {
+    if (searchBox.value.length = 0) {
+        filterList("");
+    } else {
+        filterList(searchBox.value);
+    }
 
 });
+
+const filterList = searchTerm => {
+    searchTerm = searchTerm.toLowerCase();
+    optionsList.forEach(option => {
+        let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+        if (label.indexOf(searchTerm) !== -1) {
+            option.style.display = "block";
+        } else {
+            option.style.display = "none";
+        }
+    });
+};

@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -15,59 +15,59 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
     <!-- Bootstrap CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/bootstrap.min.css}">
     <!-- Bootstrap CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/font-awesome.min.css}">
     <!-- owl.carousel CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/owl.carousel.css}">
-    <link rel="stylesheet" th:href="@{Admin/css/owl.theme.css}">
-    <link rel="stylesheet" th:href="@{Admin/css/owl.transitions.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/owl.carousel.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/owl.theme.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/owl.transitions.css}">
     <!-- animate CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/animate.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/animate.css}">
     <!-- normalize CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/normalize.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/normalize.css}">
     <!-- main CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/main.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/main.css}">
     <!-- educate icon CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/educate-custon-icon.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/educate-custon-icon.css}">
     <!-- meanmenu icon CSS ============================================ -->
-    <link th:href="@{/Admin/css/meanmenu.min.css}" rel="stylesheet">
+    <link th:href="@{//Admin/css/meanmenu.min.css}" rel="stylesheet">
 
     <!-- morrisjs CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/morrisjs/morris.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/morrisjs/morris.css}">
     <!-- mCustomScrollbar CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/scrollbar/jquery.mCustomScrollbar.min.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/scrollbar/jquery.mCustomScrollbar.min.css}">
     <!-- metisMenu CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/metisMenu/metisMenu.min.css}">
-    <link rel="stylesheet" th:href="@{Admin/css/metisMenu/metisMenu-vertical.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/metisMenu/metisMenu.min.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/metisMenu/metisMenu-vertical.css}">
     <!-- calendar CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/calendar/fullcalendar.min.css}">
-    <link rel="stylesheet" th:href="@{Admin/css/calendar/fullcalendar.print.min.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/calendar/fullcalendar.min.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/calendar/fullcalendar.print.min.css}">
     <!-- forms CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/form/all-type-forms.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/form/all-type-forms.css}">
     <!-- dropzone CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/dropzone/dropzone.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/dropzone/dropzone.css}">
     <!-- style CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/style.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/style.css}">
     <!-- responsive CSS
 		============================================ -->
-    <link rel="stylesheet" th:href="@{Admin/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/Admin/css/responsive.css}">
     <!-- modernizr JS
 		============================================ -->
-    <script th:src="@{Admin/js/vendor/modernizr-2.8.3.min.js}"></script>
+    <script th:src="@{/Admin/js/vendor/modernizr-2.8.3.min.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
     <!-- Include Angular UI Bootstrap -->
@@ -93,6 +93,136 @@
         }
     </style>
 
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            background: #f7f6ff;
+        }
+
+        h2 {
+            margin: 16px;
+        }
+
+        .container {
+            width: 100%;
+        }
+
+        .select-box {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .select-box .options-container {
+            background: #2f3640;
+            color: #f5f6fa;
+            max-height: 0;
+            width: 100%;
+            opacity: 0;
+            transition: all 0.4s;
+            border-radius: 8px;
+            overflow: hidden;
+
+            order: 1;
+        }
+
+        .selected {
+            background: #2f3640;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            color: #f5f6fa;
+            position: relative;
+
+            order: 0;
+        }
+
+        .selected::after {
+            content: "";
+            background-size: contain;
+            background-repeat: no-repeat;
+
+            position: absolute;
+            height: 100%;
+            width: 32px;
+            right: 10px;
+            top: 5px;
+
+            transition: all 0.4s;
+        }
+
+        .select-box .options-container.active {
+            max-height: 240px;
+            opacity: 1;
+            overflow-y: scroll;
+            margin-top: 54px;
+        }
+
+        .select-box .options-container.active+.selected::after {
+            transform: rotateX(180deg);
+            top: -6px;
+        }
+
+        .select-box .options-container::-webkit-scrollbar {
+            width: 8px;
+            background: #0d141f;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .select-box .options-container::-webkit-scrollbar-thumb {
+            background: #525861;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .select-box .option,
+        .selected {
+            padding: 12px 24px;
+            cursor: pointer;
+        }
+
+        .select-box .option:hover {
+            background: #414b57;
+        }
+
+        .select-box label {
+            cursor: pointer;
+        }
+
+        .select-box .option .radio {
+            display: none;
+        }
+
+        /* Searchbox */
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px;
+            font-family: "Roboto", sans-serif;
+            font-size: 16px;
+            position: absolute;
+            border-radius: 8px 8px 0 0;
+            z-index: 100;
+            border: 8px solid #2f3640;
+
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+        }
+
+        .select-box .options-container.active~.search-box input {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+
 </head>
 
 <body ng-app="myApp" ng-controller="Video-ctrl">
@@ -104,83 +234,85 @@
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a href="index"><img class="main-logo" th:src="@{/Admin/img/logo/logo.png}" alt="" /></a>
-                <strong><a href="index"><img th:src="@{/Admin/img/logo/logosn.png}" alt="" /></a></strong>
+                <a th:href="@{/index}"><img class="main-logo" th:src="@{/Admin/img/logo/logo.png}" alt="" /></a>
+                <strong><a th:href="@{/index}"><img th:src="@{/Admin/img/logo/logosn.png}" alt="" /></a></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
-                        <li class="active">
-                            <a class="has-arrow" href="index1">
+                        <li>
+                            <a class="has-arrow" th:href="@{/Admin/index1}">
                                 <span class="educate-icon educate-home icon-wrap"></span>
                                 <span class="mini-click-non">Dashboard</span>
                             </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Dashboard v.1" href="ThongKe"><span class="mini-sub-pro">Thống
+                                <li><a title="Dashboard v.1" th:href="@{/Admin/ThongKe}"><span
+                                            class="mini-sub-pro">Thống
                                             Kê</span></a></li>
                             </ul>
                         </li>
 
                         <li>
-                            <a class="has-arrow" href="all-professors" aria-expanded="false"><span
+                            <a class="has-arrow" th:href="@{/Admin/all-professors}" aria-expanded="false"><span
                                     class="educate-icon educate-professor icon-wrap"></span> <span
                                     class="mini-click-non">Professors</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Edit Professor" href="User"><span class="mini-sub-pro">Quản lý người
+                                <li><a title="Edit Professor" th:href="@{/Admin/User}"><span class="mini-sub-pro">Quản
+                                            lý người
                                             dùng</span></a></li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="User" aria-expanded="false"><span
-                                    class="educate-icon educate-student icon-wrap"></span> <span
-                                    class="mini-click-non">Sinh Viên</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Students" href="User"><span class="mini-sub-pro"> Quản Lí Sinh
+                                <li><a title="All Students" th:href="@{/Admin/User}"><span class="mini-sub-pro"> Quản Lí
+                                            Sinh
                                             Viên</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="KhoaHoc" aria-expanded="false"><span
+                            <a class="has-arrow" th:href="@{/Admin/KhoaHoc}" aria-expanded="false"><span
                                     class="educate-icon educate-course icon-wrap"></span> <span
                                     class="mini-click-non">Khóa Học</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Courses" href="KhoaHoc"><span class="mini-sub-pro">Khóa Học</span></a>
+                                <li><a title="All Courses" th:href="@{/Admin/KhoaHoc}"><span class="mini-sub-pro">Khóa
+                                            Học</span></a>
                                 </li>
-                                <li><a title="Add Courses" href="EditKhoaHoc"><span class="mini-sub-pro">Thêm Khóa
+                                <li><a title="Add Courses" th:href="@{/Admin/EditKhoaHoc}"><span
+                                            class="mini-sub-pro">Thêm Khóa
                                             Học</span></a></li>
-                                <li><a title="Add Courses" href="KenhKhoaHoc"><span class="mini-sub-pro">Kênh Khóa
+                                <li><a title="Add Courses" th:href="@{/Admin/KenhKhoaHoc}"><span
+                                            class="mini-sub-pro">Kênh Khóa
                                             Học</span></a></li>
-                                <li><a title="Thanh Toan" href="ThanhToan"><span class="mini-sub-pro">Thanh
+                                <li><a title="Thanh Toan" th:href="@{/Admin/ThanhToan}"><span class="mini-sub-pro">Thanh
                                             Toán</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="TaiLieu" aria-expanded="false"><span
+                            <a class="has-arrow" th:href="@{/Admin/TaiLieu}" aria-expanded="false"><span
                                     class="educate-icon educate-library icon-wrap"></span> <span
                                     class="mini-click-non">Tài Liệu</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Library" href="TaiLieu"><span class="mini-sub-pro">Quản Lí Tài
+                                <li><a title="All Library" th:href="@{/Admin/TaiLieu}"><span class="mini-sub-pro">Quản
+                                            Lí Tài
                                             Liệu</span></a></li>
-                                <li><a title="All Library" href="CauHoi"><span class="mini-sub-pro">Câu Hỏi</span></a>
+                                <li><a title="All Library" th:href="@{/Admin/CauHoi}"><span class="mini-sub-pro">Câu
+                                            Hỏi</span></a>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="ChungChi" aria-expanded="false"><span
+                            <a class="has-arrow" th:href="@{/Admin/ChungChi}" aria-expanded="false"><span
                                     class="educate-icon educate-department icon-wrap"></span> <span
                                     class="mini-click-non">Chứng Chỉ</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="ChungChi List" href="ChungChi"><span class="mini-sub-pro">Chứng
+                                <li><a title="ChungChi List" th:href="@{/Admin/ChungChi}"><span
+                                            class="mini-sub-pro">Chứng
                                             Chỉ</span></a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" href="Video" aria-expanded="false"><span
+                        <li class="active">
+                            <a class="has-arrow" th:href="@{/Admin/Video}" aria-expanded="false"><span
                                     class="educate-icon educate-message icon-wrap"></span> <span
                                     class="mini-click-non">Video</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Inbox" href="Video"><span class="mini-sub-pro">Video</span></a></li>
+                                <li><a title="Inbox" th:href="@{/Admin/Video}"><span
+                                            class="mini-sub-pro">Video</span></a></li>
                             </ul>
                         </li>
                     </ul>
@@ -188,6 +320,7 @@
             </div>
         </nav>
     </div>
+
 
     <script>
         // Lấy danh sách tất cả các mục menu có lớp "has-arrow"
@@ -269,7 +402,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="logo-pro">
-                        <a href="index"><img class="main-logo" th:src="@{/Admin/img/logo/logo.png}" alt="" /></a>
+                        <a href="index"><img class="main-logo" th:src="@{//Admin/img/logo/logo.png}" alt="" /></a>
                     </div>
                 </div>
             </div>
@@ -333,7 +466,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img th:src="@{/Admin/img/contact/1.jpg}"
+                                                                        <img th:src="@{//Admin/img/contact/1.jpg}"
                                                                             alt="">
                                                                     </div>
                                                                     <div class="message-content">
@@ -347,7 +480,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img th:src="@{/Admin/img/contact/4.jpg}"
+                                                                        <img th:src="@{//Admin/img/contact/4.jpg}"
                                                                             alt="">
                                                                     </div>
                                                                     <div class="message-content">
@@ -361,7 +494,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img th:src="@{/Admin/img/contact/3.jpg}"
+                                                                        <img th:src="@{//Admin/img/contact/3.jpg}"
                                                                             alt="">
                                                                     </div>
                                                                     <div class="message-content">
@@ -375,7 +508,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img th:src="@{/Admin/img/contact/2.jpg}"
+                                                                        <img th:src="@{//Admin/img/contact/2.jpg}"
                                                                             alt="">
                                                                     </div>
                                                                     <div class="message-content">
@@ -468,7 +601,7 @@
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button"
                                                         aria-expanded="false" class="nav-link dropdown-toggle">
-                                                        <img th:src="@{/Admin/img/product/pro4.jpg}" alt="" />
+                                                        <img th:src="@{//Admin/img/product/pro4.jpg}" alt="" />
                                                         <span class="admin-name">Prof.Anderson</span>
                                                         <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
                                                     </a>
@@ -526,7 +659,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img th:src="@{/Admin/img/contact/4.jpg}"
+                                                                                            <img th:src="@{//Admin/img/contact/4.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -543,7 +676,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img th:src="@{/Admin/img/contact/1.jpg}"
+                                                                                            <img th:src="@{//Admin/img/contact/1.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -560,7 +693,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img th:src="@{/Admin/img/contact/2.jpg}"
+                                                                                            <img th:src="@{//Admin/img/contact/2.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -577,7 +710,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img th:src="@{/Admin/img/contact/3.jpg}"
+                                                                                            <img th:src="@{//Admin/img/contact/3.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -594,7 +727,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img th:src="@{/Admin/img/contact/4.jpg}"
+                                                                                            <img th:src="@{//Admin/img/contact/4.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -611,7 +744,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img th:src="@{/Admin/img/contact/1.jpg}"
+                                                                                            <img th:src="@{//Admin/img/contact/1.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -628,7 +761,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img th:src="@{/Admin/img/contact/2.jpg}"
+                                                                                            <img th:src="@{//Admin/img/contact/2.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -645,7 +778,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img th:src="@{/Admin/img/contact/1.jpg}"
+                                                                                            <img th:src="@{//Admin/img/contact/1.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -662,7 +795,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img th:src="@{/Admin/img/contact/2.jpg}"
+                                                                                            <img th:src="@{//Admin/img/contact/2.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -679,7 +812,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img th:src="@{/Admin/img/contact/3.jpg}"
+                                                                                            <img th:src="@{//Admin/img/contact/3.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -1181,15 +1314,38 @@
                                                 <div class="review-content-section">
                                                     <div id="dropzone1" class="pro-ad">
                                                         <div class="row">
-                                                            <select class="form-control" style="width: 95%;"
-                                                                ng-model="selectedCourse" ng-change="loadDocuments()">
-                                                                <option value="">Chọn khóa học
-                                                                </option>
-                                                                <option ng-repeat="course in itemsKhoaHoc"
-                                                                    value="{{course.id}}">
-                                                                    {{course.tenKhoaHoc}}
-                                                                </option>
-                                                            </select>
+                                                            <div class="container">
+                                                                <div class="select-box">
+                                                                    <div class="options-container">
+                                                                        <div class="option" ng-click="showAllCourses()">
+                                                                            <input type="radio" class="radio"
+                                                                                id="showAll" name="course"
+                                                                                ng-model="KhoaHocChon"
+                                                                                ng-value="null" />
+                                                                            <label for="showAll">Chọn
+                                                                                khóa học</label>
+                                                                        </div>
+                                                                        <div class="option"
+                                                                            ng-repeat="course in itemsKhoaHoc | filter: searchCourse"
+                                                                            ng-click="selectCourse(course)">
+                                                                            <input type="radio" class="radio"
+                                                                                id="{{ course.id }}" name="course"
+                                                                                ng-model="KhoaHocChon"
+                                                                                ng-value="course" />
+                                                                            <label for="{{ course.id }}">{{
+                                                                                course.tenKhoaHoc
+                                                                                }}</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="selected"
+                                                                        ng-bind="KhoaHocChon ? KhoaHocChon.tenKhoaHoc : 'Chọn khóa học'">
+                                                                    </div>
+                                                                    <div class="search-box">
+                                                                        <input type="text" placeholder="Start Typing..."
+                                                                            ng-model="searchCourse" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                             <br>
                                                             <div id="myDiv" videoId="someValue"></div>
 
@@ -1403,40 +1559,40 @@
     </div>
 
     <!-- jquery ============================================ -->
-    <script th:src="@{Admin/js/vendor/jquery-1.12.4.min.js}"></script>
+    <script th:src="@{/Admin/js/vendor/jquery-1.12.4.min.js}"></script>
     <!-- bootstrap JS ============================================ -->
-    <script th:src="@{Admin/js/bootstrap.min.js}"></script>
+    <script th:src="@{/Admin/js/bootstrap.min.js}"></script>
     <!-- wow JS ============================================ -->
-    <script th:src="@{Admin/js/wow.min.js}"></script>
+    <script th:src="@{/Admin/js/wow.min.js}"></script>
     <!-- price-slider JS ============================================ -->
-    <script th:src="@{Admin/js/jquery-price-slider.js}"></script>
+    <script th:src="@{/Admin/js/jquery-price-slider.js}"></script>
 
     <!-- calendar JS ============================================ -->
-    <script th:src="@{Admin/js/calendar/moment.min.js}"></script>
-    <script th:src="@{Admin/js/calendar/fullcalendar.min.js}"></script>
-    <script th:src="@{Admin/js/calendar/fullcalendar-active.js}"></script>
+    <script th:src="@{/Admin/js/calendar/moment.min.js}"></script>
+    <script th:src="@{/Admin/js/calendar/fullcalendar.min.js}"></script>
+    <script th:src="@{/Admin/js/calendar/fullcalendar-active.js}"></script>
 
     <!-- maskedinput JS ============================================ -->
-    <script th:src="@{Admin/js/jquery.maskedinput.min.js}"></script>
-    <script th:src="@{Admin/js/masking-active.js}"></script>
+    <script th:src="@{/Admin/js/jquery.maskedinput.min.js}"></script>
+    <script th:src="@{/Admin/js/masking-active.js}"></script>
     <!-- datepicker JS ============================================ -->
-    <script th:src="@{Admin/js/datepicker/jquery-ui.min.js}"></script>
-    <script th:src="@{Admin/js/datepicker/datepicker-active.js}"></script>
+    <script th:src="@{/Admin/js/datepicker/jquery-ui.min.js}"></script>
+    <script th:src="@{/Admin/js/datepicker/datepicker-active.js}"></script>
     <!-- form validate JS ============================================ -->
-    <script th:src="@{Admin/js/form-validation/jquery.form.min.js}"></script>
-    <script th:src="@{Admin/js/form-validation/jquery.validate.min.js}"></script>
-    <script th:src="@{Admin/js/form-validation/form-active.js}"></script>
+    <script th:src="@{/Admin/js/form-validation/jquery.form.min.js}"></script>
+    <script th:src="@{/Admin/js/form-validation/jquery.validate.min.js}"></script>
+    <script th:src="@{/Admin/js/form-validation/form-active.js}"></script>
     <!-- dropzone JS ============================================ -->
-    <script th:src="@{Admin/js/dropzone/dropzone.js}"></script>
+    <script th:src="@{/Admin/js/dropzone/dropzone.js}"></script>
     <!-- tab JS ============================================ -->
-    <script th:src="@{Admin/js/tab.js}"></script>
+    <script th:src="@{/Admin/js/tab.js}"></script>
     <!-- plugins JS ============================================ -->
-    <script th:src="@{Admin/js/plugins.js}"></script>
+    <script th:src="@{/Admin/js/plugins.js}"></script>
     <!-- main JS ============================================ -->
-    <script th:src="@{Admin/js/main.js}"></script>
+    <script th:src="@{/Admin/js/main.js}"></script>
     <!-- tawk chat JS ============================================ -->
-    <script th:src="@{Admin/js/tawk-chat.js}"></script>
-    <script th:src="@{Admin/js/Video-ctrl.js}"></script>
+    <script th:src="@{/Admin/js/tawk-chat.js}"></script>
+    <script th:src="@{/Admin/js/Video-ctrl.js}"></script>
 
 
 </body>

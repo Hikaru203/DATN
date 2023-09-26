@@ -80,6 +80,135 @@
             white-space: nowrap;
         }
     </style>
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            background: #f7f6ff;
+        }
+
+        h2 {
+            margin: 16px;
+        }
+
+        .container {
+            width: 100%;
+        }
+
+        .select-box {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .select-box .options-container {
+            background: #2f3640;
+            color: #f5f6fa;
+            max-height: 0;
+            width: 100%;
+            opacity: 0;
+            transition: all 0.4s;
+            border-radius: 8px;
+            overflow: hidden;
+
+            order: 1;
+        }
+
+        .selected {
+            background: #2f3640;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            color: #f5f6fa;
+            position: relative;
+
+            order: 0;
+        }
+
+        .selected::after {
+            content: "";
+            background-size: contain;
+            background-repeat: no-repeat;
+
+            position: absolute;
+            height: 100%;
+            width: 32px;
+            right: 10px;
+            top: 5px;
+
+            transition: all 0.4s;
+        }
+
+        .select-box .options-container.active {
+            max-height: 240px;
+            opacity: 1;
+            overflow-y: scroll;
+            margin-top: 54px;
+        }
+
+        .select-box .options-container.active+.selected::after {
+            transform: rotateX(180deg);
+            top: -6px;
+        }
+
+        .select-box .options-container::-webkit-scrollbar {
+            width: 8px;
+            background: #0d141f;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .select-box .options-container::-webkit-scrollbar-thumb {
+            background: #525861;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .select-box .option,
+        .selected {
+            padding: 12px 24px;
+            cursor: pointer;
+        }
+
+        .select-box .option:hover {
+            background: #414b57;
+        }
+
+        .select-box label {
+            cursor: pointer;
+        }
+
+        .select-box .option .radio {
+            display: none;
+        }
+
+        /* Searchbox */
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px;
+            font-family: "Roboto", sans-serif;
+            font-size: 16px;
+            position: absolute;
+            border-radius: 8px 8px 0 0;
+            z-index: 100;
+            border: 8px solid #2f3640;
+
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+        }
+
+        .select-box .options-container.active~.search-box input {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
 </head>
 
 <body ng-app="myApp" ng-controller="CauHoi-ctrl">
@@ -90,97 +219,92 @@
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a href="index"><img class="main-logo" th:src="@{Admin/img/logo/logo.png}" alt="" /></a>
-                <strong><a href="index"><img th:src="@{Admin/img/logo/logosn.png}" alt="" /></a></strong>
+                <a th:href="@{/index}"><img class="main-logo" th:src="@{/Admin/img/logo/logo.png}" alt="" /></a>
+                <strong><a th:href="@{/index}"><img th:src="@{/Admin/img/logo/logosn.png}" alt="" /></a></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
                         <li>
-                            <a class="has-arrow" href="index1">
+                            <a class="has-arrow" th:href="@{/Admin/index1}">
                                 <span class="educate-icon educate-home icon-wrap"></span>
                                 <span class="mini-click-non">Education</span>
                             </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Dashboard v.1" href="ThongKe"><span class="mini-sub-pro">Thống
+                                <li><a title="Dashboard v.1" th:href="@{/Admin/ThongKe}"><span
+                                            class="mini-sub-pro">Thống
                                             Kê</span></a></li>
                             </ul>
                         </li>
 
                         <li>
-                            <a class="has-arrow" href="all-professors" aria-expanded="false"><span
+                            <a class="has-arrow" th:href="@{/Admin/all-professors}" aria-expanded="false"><span
                                     class="educate-icon educate-professor icon-wrap"></span> <span
                                     class="mini-click-non">User</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Edit Professor" href="User"><span class="mini-sub-pro">Quản lý người
+                                <li><a title="Edit Professor" th:href="@{/Admin/User}"><span class="mini-sub-pro">Quản
+                                            lý người
                                             dùng</span></a></li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="User" aria-expanded="false"><span
-                                    class="educate-icon educate-student icon-wrap"></span> <span
-                                    class="mini-click-non">Sinh Viên</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Students" href="User"><span class="mini-sub-pro"> Quản Lí Sinh
+                                <li><a title="All Students" th:href="@{/Admin/User}"><span class="mini-sub-pro"> Quản Lí
+                                            Sinh
                                             Viên</span></a></li>
                             </ul>
                         </li>
+
                         <li>
-                            <a class="has-arrow" href="KhoaHoc" aria-expanded="false"><span
+                            <a class="has-arrow" th:href="@{/Admin/KhoaHoc}" aria-expanded="false"><span
                                     class="educate-icon educate-course icon-wrap"></span> <span
                                     class="mini-click-non">Khóa Học</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Courses" href="KhoaHoc"><span class="mini-sub-pro">Khóa
+                                <li><a title="All Courses" th:href="@{/Admin/KhoaHoc}"><span class="mini-sub-pro">Khóa
                                             Học</span></a></li>
-                                <li><a title="Add Courses" href="EditKhoaHoc"><span class="mini-sub-pro">Thêm Khóa
+                                <li><a title="Add Courses" th:href="@{/Admin/EditKhoaHoc}"><span
+                                            class="mini-sub-pro">Thêm Khóa
                                             Học</span></a></li>
-                                <li><a title="Add Courses" href="KenhKhoaHoc"><span class="mini-sub-pro">Kênh Khóa
+                                <li><a title="Add Courses" th:href="@{/Admin/KenhKhoaHoc}"><span
+                                            class="mini-sub-pro">Kênh Khóa
                                             Học</span></a></li>
-                                <li><a title="Thanh Toan" href="ThanhToan"><span class="mini-sub-pro">Thanh
+                                <li><a title="Thanh Toan" th:href="@{/Admin/ThanhToan}"><span class="mini-sub-pro">Thanh
                                             Toán</span></a></li>
                             </ul>
                         </li>
                         <li class="active">
-                            <a class="has-arrow" href="TaiLieu" aria-expanded="false"><span
+                            <a class="has-arrow" th:href="@{/Admin/TaiLieu}" aria-expanded="false"><span
                                     class="educate-icon educate-library icon-wrap"></span> <span
                                     class="mini-click-non">Tài Liệu</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Library" href="TaiLieu"><span class="mini-sub-pro">Quản Lí Tài
+                                <li><a title="All Library" th:href="@{/Admin/TaiLieu}"><span class="mini-sub-pro">Quản
+                                            Lí Tài
                                             Liệu</span></a></li>
-                                <li><a title="All Library" href="CauHoi"><span class="mini-sub-pro">Câu
+                                <li><a title="All Library" th:href="@{/Admin/CauHoi}"><span class="mini-sub-pro">Câu
                                             Hỏi</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="ChungChi" aria-expanded="false"><span
+                            <a class="has-arrow" th:href="@{/Admin/ChungChi}" aria-expanded="false"><span
                                     class="educate-icon educate-department icon-wrap"></span> <span
                                     class="mini-click-non">Chứng Chỉ</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="ChungChi List" href="ChungChi"><span class="mini-sub-pro">Chứng
+                                <li><a title="ChungChi List" th:href="@{/Admin/ChungChi}"><span
+                                            class="mini-sub-pro">Chứng
                                             Chỉ</span></a></li>
-
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="Video" aria-expanded="false"><span
+                            <a class="has-arrow" th:href="@{/Admin/Video}" aria-expanded="false"><span
                                     class="educate-icon educate-message icon-wrap"></span> <span
                                     class="mini-click-non">Video</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Inbox" href="Video"><span class="mini-sub-pro">Video</span></a></li>
-
+                                <li><a title="Inbox" th:href="@{/Admin/Video}"><span
+                                            class="mini-sub-pro">Video</span></a></li>
                             </ul>
                         </li>
-
-
-
-
-
                     </ul>
                 </nav>
             </div>
         </nav>
     </div>
+
     <!-- End Left menu area -->
     <!-- Start Welcome area -->
     <div class="all-content-wrapper">
@@ -1274,127 +1398,200 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-payment-inner-st">
                             <ul id="myTabedu1" class="tab-review-design">
-                                <li class="active"><a href="#description">Edit User</a></li>
+                                <li class="active"><a href="#description">Câu hỏi</a></li>
                                 <div id="myTabContent" class="tab-content custom-product-edit">
                                     <div class="product-tab-list tab-pane fade active in" id="description">
                                         <div class="row">
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <div class="product-status mg-b-15">
-                                                    <div class="container-fluid">
-                                                        <div class="row">
-                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                <div class="product-status-wrap drp-lst">
-                                                                    <h4>Câu Hỏi</h4>
-                                                                    <div class="asset-inner">
-                                                                        <select class="form-control"
-                                                                            style="width: 100%;"
-                                                                            ng-model="selectedCourse"
-                                                                            ng-change="loadDocuments()">
-                                                                            <option value="">Chọn khóa học
-                                                                            </option>
-                                                                            <option ng-repeat="course in itemsKhoaHoc"
-                                                                                value="{{course.id}}">
-                                                                                {{course.tenKhoaHoc}}
-                                                                            </option>
-                                                                        </select>
-                                                                        <table>
-                                                                            <tr>
-                                                                                <th>idKhoaHoc</th>
-                                                                                <th>CauHoi </th>
-                                                                                <th>DapAn</th>
-                                                                                <th>Tùy chọn</th>
-                                                                            </tr>
-                                                                            <tr ng-repeat="item in displayedItems">
-                                                                                <td> {{ item.khoaHoc.tenKhoaHoc
-                                                                                    }}
-                                                                                <td class="text-truncate">{{
-                                                                                    item.cauHoi }}</td>
-                                                                                <td class="text-truncate">
-                                                                                    {{item.dapAn}} </td>
-                                                                                <td></td>
-                                                                            </tr>
-                                                                        </table>
+                                            <div id="tableother">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="product-status mg-b-15">
+                                                        <div class="container-fluid">
+                                                            <div class="row">
+                                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                    <div class="product-status-wrap drp-lst">
+                                                                        <div class="asset-inner row">
+                                                                            <div class="container">
+                                                                                <div class="select-box">
+                                                                                    <div class="options-container">
+                                                                                        <div class="option"
+                                                                                            ng-click="showAllCourses()">
+                                                                                            <input type="radio"
+                                                                                                class="radio"
+                                                                                                id="showAll"
+                                                                                                name="course"
+                                                                                                ng-model="selectedCourse"
+                                                                                                ng-value="null" />
+                                                                                            <label for="showAll">Chọn
+                                                                                                khóa
+                                                                                                học</label>
+                                                                                        </div>
+                                                                                        <div class="option"
+                                                                                            ng-repeat="course in itemsKhoaHoc | filter: searchCourse"
+                                                                                            ng-click="selectCourse(course)">
+                                                                                            <input type="radio"
+                                                                                                class="radio"
+                                                                                                id="{{ course.id }}"
+                                                                                                name="course"
+                                                                                                ng-model="selectedCourse"
+                                                                                                ng-value="course" />
+                                                                                            <label
+                                                                                                for="{{ course.id }}">{{
+                                                                                                course.tenKhoaHoc
+                                                                                                }}</label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="selected"
+                                                                                        ng-bind="selectedCourse ? selectedCourse.tenKhoaHoc : 'Chọn khóa học'">
+                                                                                    </div>
+                                                                                    <div class="search-box">
+                                                                                        <input type="text"
+                                                                                            placeholder="Start Typing..."
+                                                                                            ng-model="searchCourse" />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <table>
+                                                                                <tr>
+                                                                                    <th>idKhoaHoc</th>
+                                                                                    <th>CauHoi </th>
+                                                                                    <th>DapAn</th>
+                                                                                    <th>Tùy chọn</th>
+                                                                                </tr>
+                                                                                <tr ng-repeat="item in displayedItems1">
+                                                                                    <td> {{ item.khoaHoc.tenKhoaHoc
+                                                                                        }}
+                                                                                    <td class="text-truncate">{{
+                                                                                        item.cauHoi }}</td>
+                                                                                    <td class="text-truncate">
+                                                                                        {{item.dapAn}} </td>
+                                                                                    <td><a class="fa fa-trash-o"
+                                                                                            aria-hidden="true"
+                                                                                            ng-click="delete(item)"></a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </div>
+                                                                        <button class="btn btn-default"
+                                                                            ng-click="goToFirstPage()"
+                                                                            ng-disabled="currentPage === 1">Đầu</button>
+
+                                                                        <button class="btn btn-default"
+                                                                            ng-click="goToPreviousPage()"
+                                                                            ng-disabled="currentPage === 1">Trước</button>
+
+                                                                        <button class="btn btn-default"
+                                                                            ng-click="goToNextPage()"
+                                                                            ng-disabled="currentPage === totalItems / itemsPerPage">Sau</button>
+
+                                                                        <button class="btn btn-default"
+                                                                            ng-click="goToLastPage()"
+                                                                            ng-disabled="currentPage === totalItems / itemsPerPage">Cuối</button>
                                                                     </div>
-                                                                    <button class="btn btn-default"
-                                                                        ng-click="goToFirstPage()"
-                                                                        ng-disabled="currentPage === 1">Đầu</button>
-
-                                                                    <button class="btn btn-default"
-                                                                        ng-click="goToPreviousPage()"
-                                                                        ng-disabled="currentPage === 1">Trước</button>
-
-                                                                    <button class="btn btn-default"
-                                                                        ng-click="goToNextPage()"
-                                                                        ng-disabled="currentPage === totalItems / itemsPerPage">Sau</button>
-
-                                                                    <button class="btn btn-default"
-                                                                        ng-click="goToLastPage()"
-                                                                        ng-disabled="currentPage === totalItems / itemsPerPage">Cuối</button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="review-content-section">
-                                                    <div id="dropzone1" class="pro-ad">
-                                                        <div class="row">
-                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                <div class="form-group">
-                                                                    <input type="text" ng-model="formCauHoi.cauHoi"
-                                                                        class="form-control" id="cauHoi"
-                                                                        placeholder="CauHoi" value="">
+                                                    <div class="review-content-section">
+                                                        <div id="dropzone1" class="pro-ad">
+                                                            <div class="row">
+                                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <input type="text" ng-model="formCauHoi.cauHoi"
+                                                                            class="form-control" id="cauHoi"
+                                                                            placeholder="CauHoi" value="">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control"
+                                                                            id="cauHoiInput" placeholder="" value="">
+                                                                    </div>
+
+                                                                    <div id="dynamicAnswers">
+                                                                        <!-- Here will be dynamically added answer fields -->
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control"
+                                                                            id="newAnswer" placeholder="Câu trả lời mới"
+                                                                            value="">
+                                                                    </div>
+
+                                                                    <!-- Thêm sự kiện "click" vào nút "Thêm Câu Trả Lời" -->
+                                                                    <button class="btn btn-primary mr-2"
+                                                                        ng-click="addNewAnswer()">Thêm Câu Trả
+                                                                        Lời</button>
+
+                                                                    <div class="container mt-4">
+                                                                        <!-- Other buttons and form closing -->
+                                                                    </div>
+                                                                    <br>
                                                                 </div>
-
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control"
-                                                                        id="cauHoiInput" placeholder="" value="">
-                                                                </div>
-
-                                                                <div id="dynamicAnswers">
-                                                                    <!-- Here will be dynamically added answer fields -->
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control"
-                                                                        id="newAnswer" placeholder="Câu trả lời mới"
-                                                                        value="">
-                                                                </div>
-
-                                                                <!-- Thêm sự kiện "click" vào nút "Thêm Câu Trả Lời" -->
-                                                                <button class="btn btn-primary mr-2"
-                                                                    ng-click="addNewAnswer()">Thêm Câu Trả Lời</button>
-
-
-                                                                <div class="container mt-4">
-                                                                    <!-- Other buttons and form closing -->
-                                                                </div>
-                                                                <br>
-
-
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    <br>
+                                                    <div class="container mt-4">
+                                                        <!-- Button "Thêm" -->
+                                                        <button class="btn btn-primary mr-2"
+                                                            ng-click="create()">Thêm</button>
 
-
-
-
-                                                <br>
-                                                <div class="container mt-4">
-                                                    <!-- Button "Thêm" -->
-                                                    <button class="btn btn-primary mr-2"
-                                                        ng-click="create()">Thêm</button>
-
-                                                    <!-- Button "Sửa" -->
-                                                    <button class="btn btn-warning mr-2"
-                                                        onclick="editFunction()">Sửa</button>
-
-                                                    <!-- Button "Xóa" -->
-                                                    <button class="btn btn-danger"
-                                                        onclick="deleteFunction()">Xóa</button>
+                                                        <button class="btn btn-danger" ng-click="out()">Chế độ thống
+                                                            kê</button>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <style>
+                                                /* Tùy chỉnh kiểu dáng cho bảng */
+                                                .custom-table {
+                                                    width: 100%;
+                                                    border-collapse: collapse;
+                                                }
+
+                                                .custom-table th,
+                                                .custom-table td {
+                                                    border: 1px solid #ccc;
+                                                    padding: 8px;
+                                                    text-align: left;
+                                                }
+
+                                                .custom-table th {
+                                                    background-color: #f2f2f2;
+                                                }
+
+                                                /* Tùy chỉnh kiểu dáng cho button-container */
+                                                .button-container {
+                                                    margin-top: 20px;
+                                                    text-align: center;
+                                                }
+
+                                                .button-container button {
+                                                    margin-right: 10px;
+                                                }
+                                            </style>
+
+                                            <div id="tableCourse">
+                                                <br>
+                                                <table class="custom-table">
+                                                    <tr>
+                                                        <th>KhoaHoc</th>
+                                                        <th>Số lượng câu hỏi</th>
+                                                    </tr>
+                                                    <tr ng-repeat="item in itemsKhoaHoc">
+                                                        <td>{{ item.tenKhoaHoc }}</td>
+                                                        <td>
+                                                            {{ soLuongCauHoiTheoKhoaHoc[item.id] || 0 }}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <br>
+                                                <button ng-click="edit()">Chế độ chỉnh sửa</button>
+                                            </div>
                                         </div>
+
+                                        <script>
+
+                                        </script>
+
                                     </div>
                                 </div>
                             </ul>

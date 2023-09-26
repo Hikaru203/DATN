@@ -46,6 +46,8 @@
     <link th:href="@{/Admin/css/responsive.css}" rel="stylesheet">
     <!-- modernizr JS ============================================ -->
     <script th:src="@{/Admin/js/vendor/modernizr-2.8.3.min.js}"></script>
+    <link th:href="@{/Admin/css/demo.css}" rel="stylesheet">
+    <link th:href="@{/Admin/css/select2.css}" rel="stylesheet">
 
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
@@ -53,6 +55,136 @@
     <!-- Include Angular UI Bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            background: #f7f6ff;
+        }
+
+        h2 {
+            margin: 16px;
+        }
+
+        .container {
+            width: 100%;
+        }
+
+        .select-box {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .select-box .options-container {
+            background: #2f3640;
+            color: #f5f6fa;
+            max-height: 0;
+            width: 100%;
+            opacity: 0;
+            transition: all 0.4s;
+            border-radius: 8px;
+            overflow: hidden;
+
+            order: 1;
+        }
+
+        .selected {
+            background: #2f3640;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            color: #f5f6fa;
+            position: relative;
+
+            order: 0;
+        }
+
+        .selected::after {
+            content: "";
+            background-size: contain;
+            background-repeat: no-repeat;
+
+            position: absolute;
+            height: 100%;
+            width: 32px;
+            right: 10px;
+            top: 5px;
+
+            transition: all 0.4s;
+        }
+
+        .select-box .options-container.active {
+            max-height: 240px;
+            opacity: 1;
+            overflow-y: scroll;
+            margin-top: 54px;
+        }
+
+        .select-box .options-container.active+.selected::after {
+            transform: rotateX(180deg);
+            top: -6px;
+        }
+
+        .select-box .options-container::-webkit-scrollbar {
+            width: 8px;
+            background: #0d141f;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .select-box .options-container::-webkit-scrollbar-thumb {
+            background: #525861;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .select-box .option,
+        .selected {
+            padding: 12px 24px;
+            cursor: pointer;
+        }
+
+        .select-box .option:hover {
+            background: #414b57;
+        }
+
+        .select-box label {
+            cursor: pointer;
+        }
+
+        .select-box .option .radio {
+            display: none;
+        }
+
+        /* Searchbox */
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px;
+            font-family: "Roboto", sans-serif;
+            font-size: 16px;
+            position: absolute;
+            border-radius: 8px 8px 0 0;
+            z-index: 100;
+            border: 8px solid #2f3640;
+
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+        }
+
+        .select-box .options-container.active~.search-box input {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
 </head>
 
 <body ng-app="myApp" ng-controller="ChungChi-ctrl">
@@ -63,97 +195,103 @@
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a href="index"><img class="main-logo" th:src="@{Admin/img/logo/logo.png}" alt="" /></a>
-                <strong><a href="index"><img th:src="@{Admin/img/logo/logosn.png}" alt="" /></a></strong>
+                <a th:href="@{/index}">
+                    <img class="main-logo" th:src="@{/Admin/img/logo/logo.png}" alt="" />
+                </a>
+                <strong>
+                    <a th:href="@{/index}">
+                        <img th:src="@{/Admin/img/logo/logosn.png}" alt="" />
+                    </a>
+                </strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
                         <li>
-                            <a class="has-arrow" href="index1">
+                            <a class="has-arrow" th:href="@{/Admin/index1}">
                                 <span class="educate-icon educate-home icon-wrap"></span>
                                 <span class="mini-click-non">Education</span>
                             </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Dashboard v.1" href="ThongKe"><span class="mini-sub-pro">Thống
+                                <li><a title="Dashboard v.1" th:href="@{/Admin/ThongKe}"><span
+                                            class="mini-sub-pro">Thống
                                             Kê</span></a></li>
                             </ul>
                         </li>
 
                         <li>
-                            <a class="has-arrow" href="all-professors" aria-expanded="false"><span
-                                    class="educate-icon educate-professor icon-wrap"></span> <span
-                                    class="mini-click-non">User</span></a>
+                            <a class="has-arrow" th:href="@{/Admin/all-professors}" aria-expanded="false">
+                                <span class="educate-icon educate-professor icon-wrap"></span>
+                                <span class="mini-click-non">User</span>
+                            </a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Edit Professor" href="User"><span class="mini-sub-pro">Quản lý người
+                                <li><a title="Edit Professor" th:href="@{/Admin/User}"><span class="mini-sub-pro">Quản
+                                            lý người
                                             dùng</span></a></li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="User" aria-expanded="false"><span
-                                    class="educate-icon educate-student icon-wrap"></span> <span
-                                    class="mini-click-non">Sinh Viên</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Students" href="User"><span class="mini-sub-pro"> Quản Lí Sinh
+                                <li><a title="All Students" th:href="@{/Admin/User}"><span class="mini-sub-pro"> Quản Lí
+                                            Sinh
                                             Viên</span></a></li>
                             </ul>
                         </li>
+
                         <li>
-                            <a class="has-arrow" href="KhoaHoc" aria-expanded="false"><span
-                                    class="educate-icon educate-course icon-wrap"></span> <span
-                                    class="mini-click-non">Khóa Học</span></a>
+                            <a class="has-arrow" th:href="@{/Admin/KhoaHoc}" aria-expanded="false">
+                                <span class="educate-icon educate-course icon-wrap"></span>
+                                <span class="mini-click-non">Khóa Học</span>
+                            </a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Courses" href="KhoaHoc"><span class="mini-sub-pro">Khóa
+                                <li><a title="All Courses" th:href="@{/Admin/KhoaHoc}"><span class="mini-sub-pro">Khóa
                                             Học</span></a></li>
-                                <li><a title="Add Courses" href="EditKhoaHoc"><span class="mini-sub-pro">Thêm Khóa
+                                <li><a title="Add Courses" th:href="@{/Admin/EditKhoaHoc}"><span
+                                            class="mini-sub-pro">Thêm Khóa
                                             Học</span></a></li>
-                                <li><a title="Add Courses" href="KenhKhoaHoc"><span class="mini-sub-pro">Kênh Khóa
+                                <li><a title="Add Courses" th:href="@{/Admin/KenhKhoaHoc}"><span
+                                            class="mini-sub-pro">Kênh Khóa
                                             Học</span></a></li>
-                                <li><a title="Thanh Toan" href="ThanhToan"><span class="mini-sub-pro">Thanh
+                                <li><a title="Thanh Toan" th:href="@{/Admin/ThanhToan}"><span class="mini-sub-pro">Thanh
                                             Toán</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="TaiLieu" aria-expanded="false"><span
-                                    class="educate-icon educate-library icon-wrap"></span> <span
-                                    class="mini-click-non">Tài Liệu</span></a>
+                            <a class="has-arrow" th:href="@{/Admin/TaiLieu}" aria-expanded="false">
+                                <span class="educate-icon educate-library icon-wrap"></span>
+                                <span class="mini-click-non">Tài Liệu</span>
+                            </a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Library" href="TaiLieu"><span class="mini-sub-pro">Quản Lí Tài
+                                <li><a title="All Library" th:href="@{/Admin/TaiLieu}"><span class="mini-sub-pro">Quản
+                                            Lí Tài
                                             Liệu</span></a></li>
-                                <li><a title="All Library" href="CauHoi"><span class="mini-sub-pro">Câu
+                                <li><a title="All Library" th:href="@{/Admin/CauHoi}"><span class="mini-sub-pro">Câu
                                             Hỏi</span></a></li>
                             </ul>
                         </li>
                         <li class="active">
-                            <a class="has-arrow" href="ChungChi" aria-expanded="false"><span
-                                    class="educate-icon educate-department icon-wrap"></span> <span
-                                    class="mini-click-non">Chứng Chỉ</span></a>
+                            <a class="has-arrow" th:href="@{/Admin/ChungChi}" aria-expanded="false">
+                                <span class="educate-icon educate-department icon-wrap"></span>
+                                <span class="mini-click-non">Chứng Chỉ</span>
+                            </a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="ChungChi List" href="ChungChi"><span class="mini-sub-pro">Chứng
+                                <li><a title="ChungChi List" th:href="@{/Admin/ChungChi}"><span
+                                            class="mini-sub-pro">Chứng
                                             Chỉ</span></a></li>
-
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="Video" aria-expanded="false"><span
-                                    class="educate-icon educate-message icon-wrap"></span> <span
-                                    class="mini-click-non">Video</span></a>
+                            <a class="has-arrow" th:href="@{/Admin/Video}" aria-expanded="false">
+                                <span class="educate-icon educate-message icon-wrap"></span>
+                                <span class="mini-click-non">Video</span>
+                            </a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Inbox" href="Video"><span class="mini-sub-pro">Video</span></a></li>
-
+                                <li><a title="Inbox" th:href="@{/Admin/Video}"><span
+                                            class="mini-sub-pro">Video</span></a></li>
                             </ul>
                         </li>
-
-
-
-
-
                     </ul>
                 </nav>
             </div>
         </nav>
     </div>
+
     <!-- End Left menu area -->
     <!-- Start Welcome area -->
     <div class="all-content-wrapper">
@@ -1240,52 +1378,80 @@
                 </div>
             </div>
         </div>
-        <div class="pdf-viewer-area mg-b-15">
-            <select class="form-control" style="width: 100%;" ng-model="selectedCourse" ng-change="loadDocuments()">
-                <option value="">Chọn khóa học</option>
-                <option ng-repeat="course in itemsKhoaHoc" value="{{course.id}}">
-                    {{course.tenKhoaHoc}}
-                </option>
-            </select>
-            <select class="form-control" style="width: 100%;" ng-model="selectedUser" ng-change="loadDocuments()">
-                <option value="">Chọn người dùng</option>
-                <option ng-repeat="user in itemsNguoiDung" value="{{user.id}}">
-                    {{user.hoTen}}
-                </option>
-            </select>
-            <div class="certificates-container">
-                <div class="navigation-buttons">
-                    <button class="navigation-button" ng-click="changeCertificate(-1)" ng-disabled="currentIndex === 0">
-                        &lt;&lt;
-                    </button>
-                </div>
-
-                <div class="certificate-frame" ng-repeat="certificate in itemsChungChi"
-                    ng-show="currentIndex === $index">
-                    <img class="certificate-image" th:src="@{Admin/img/logo/logo.png}" alt="Certificate Image">
-                    <div class="certificate-details">
-                        <h3>Chứng chỉ học</h3>
-                        <div style="text-align: left;">
-                            <p>Tên chứng chỉ: {{certificate.khoaHoc.tenKhoaHoc}}</p>
-                            <p>Người nhận: {{certificate.nguoiDung.hoTen}}</p>
-                            <p>Loại: {{certificate.bangLoai}}</p>
-                            <p>Ngày hoàn thành: {{certificate.ngayCapFormatted}}</p>
+        <div class="pdf-viewer-area mg-b-15 row" style="display: flex; justify-content: space-between;">
+            <div class="container col-md-6">
+                <div class="select-box">
+                    <div class="options-container">
+                        <div class="option" ng-click="showAllCourses()">
+                            <input type="radio" class="radio" id="showAllCourses" name="course"
+                                ng-model="khoaHocHienThi" ng-value="null" />
+                            <label for="showAllCourses">Chọn khóa học</label>
                         </div>
-                        <!-- Thêm các thông tin khác liên quan đến chứng chỉ học -->
+                        <div class="option" ng-repeat="course in itemsKhoaHoc | filter: searchCourse"
+                            ng-click="ChonKhoaHoc(course)">
+                            <input type="radio" class="radio" id="{{ course.id }}" name="course"
+                                ng-model="khoaHocHienThi" ng-value="course" />
+                            <label for="{{ course.id }}">{{ course.tenKhoaHoc }}</label>
+                        </div>
                     </div>
-                </div>
-
-                <div class="navigation-buttons">
-                    <button class="navigation-button" ng-click="changeCertificate(1)"
-                        ng-disabled="currentIndex === itemsChungChi.length - 1">
-                        &gt;&gt;
-                    </button>
+                    <div class="selected" ng-bind="khoaHocHienThi ? khoaHocHienThi.tenKhoaHoc : 'Chọn khóa học'"></div>
+                    <div class="search-box">
+                        <input type="text" placeholder="Start Typing..." ng-model="searchCourse" />
+                    </div>
                 </div>
             </div>
 
-
+            <div class="container col-md-6">
+                <div class="select-box">
+                    <div class="options-container">
+                        <div class="option" ng-click="showAllUsers()">
+                            <input type="radio" class="radio" id="showAllUsers" name="user" ng-model="nguoiDungHienThi"
+                                ng-value="null" />
+                            <label for="showAllUsers">Chọn người dùng</label>
+                        </div>
+                        <div class="option" ng-repeat="user in itemsNguoiDung | filter: searchUser"
+                            ng-click="chonNguoiDung(user)">
+                            <input type="radio" class="radio" id="{{ user }}" name="user" ng-model="nguoiDungHienThi"
+                                ng-value="user.id" />
+                            <label for="{{ user.id }}">{{ user.hoTen }}</label>
+                        </div>
+                    </div>
+                    <div class="selected" ng-bind="nguoiDungHienThi ? nguoiDungHienThi.hoTen : 'Chọn người dùng'"></div>
+                    <div class="search-box">
+                        <input type="text" placeholder="Start Typing..." ng-model="searchUser" />
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <div class="certificates-container">
+            <div class="navigation-buttons">
+                <button class="navigation-button" ng-click="changeCertificate(-1)" ng-disabled="currentIndex === 0">
+                    &lt;&lt;
+                </button>
+            </div>
+
+            <div class="certificate-frame" ng-repeat="certificate in itemsChungChi" ng-show="currentIndex === $index">
+                <img class="certificate-image" th:src="@{Admin/img/logo/logo.png}" alt="Certificate Image">
+                <div class="certificate-details">
+                    <h3>Chứng chỉ học</h3>
+                    <div style="text-align: left;">
+                        <p>Tên chứng chỉ: {{certificate.khoaHoc.tenKhoaHoc}}</p>
+                        <p>Người nhận: {{certificate.nguoiDung.hoTen}}</p>
+                        <p>Loại: {{certificate.bangLoai}}</p>
+                        <p>Ngày hoàn thành: {{certificate.ngayCapFormatted}}</p>
+                    </div>
+                    <!-- Thêm các thông tin khác liên quan đến chứng chỉ học -->
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button class="navigation-button" ng-click="changeCertificate(1)"
+                    ng-disabled="currentIndex === itemsChungChi.length - 1">
+                    &gt;&gt;
+                </button>
+            </div>
+        </div>
         <style>
             .certificates-container {
                 display: flex;
@@ -1379,6 +1545,7 @@
 
         <!-- Your custom JavaScript file -->
         <script th:src="@{/Admin/js/ChungChi-ctrl.js}"></script>
+
 
 </body>
 

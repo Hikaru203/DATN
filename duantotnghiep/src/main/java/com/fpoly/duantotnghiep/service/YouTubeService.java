@@ -12,6 +12,8 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatus;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,6 +37,9 @@ public class YouTubeService {
 
     private YouTube youTube;
     private String authorizationCode;
+
+    @Autowired
+    CookieService cookieService;
 
     public YouTubeService() throws GeneralSecurityException, IOException {
         youTube = getYouTubeService();
@@ -114,6 +119,7 @@ public class YouTubeService {
             System.out.println("Video Title: " + response.getSnippet().getTitle());
             System.out.println("Video Description: " + response.getSnippet().getDescription());
             System.out.println("Video Privacy Status: " + response.getStatus().getPrivacyStatus());
+            cookieService.add("videoId", response.getId(), 1);
         } catch (Exception e) {
             // Xử lý các ngoại lệ
             System.out.println(e.getMessage());
