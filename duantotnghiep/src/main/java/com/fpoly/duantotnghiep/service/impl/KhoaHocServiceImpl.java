@@ -26,12 +26,9 @@ public class KhoaHocServiceImpl implements KhoaHocService {
         return daoKhoahoc.findById(id);
     }
 
-
-
-    @Override
-    public List<KhoaHoc> getKhoaHocByLoai(String loai) {
-        // Thực hiện truy vấn để lấy danh sách khóa học theo loại (loai)
-        // Trả về danh sách khóa học
-        return daoKhoahoc.findByLoai(loai);
-    }
+	@Override
+	public List<KhoaHoc> getKhoaHocByLoai(String loai) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

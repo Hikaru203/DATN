@@ -15,30 +15,31 @@ app.controller('KhoaHocController', function($scope, $http, $window) {
 	$scope.goToKhoaHocDetail = function(khoaHocId) {
 		$window.location.href = '/detail/' + khoaHocId;
 	};
-	// Khai báo biến categories và products
-        $scope.categories = [];
-        $scope.products = [];
-        $scope.selectedCategory = null;
+	// Định nghĩa hàm loadProductsByCategory và các biến categories, selectedCategory, products ở đây.
+	// Ví dụ:
 
-        // Hàm để load sản phẩm theo Loại
-        $scope.loadProductsByCategory = function (category) {
-            $http.get('/api/products/' + category.loai)
-                .then(function (response) {
-                    $scope.selectedCategory = category;
-                    $scope.products = response.data;
-                });
-        };
+	$scope.categories = [];
+	$scope.products = [];
+	$scope.selectedCategory = null;
 
-        // Hàm để load danh mục sản phẩm ban đầu
-        $scope.loadCategories = function () {
-            $http.get('/api/categories')
-                .then(function (response) {
-                    $scope.categories = response.data;
-                });
-        };
+	$scope.loadProductsByCategory = function(category) {
+		$http.get('/api/products/' + category.loai)
+			.then(function(response) {
+				$scope.selectedCategory = category;
+				$scope.products = response.data;
+			});
+	};
 
-        // Gọi hàm loadCategories khi trang web được tải
-        $scope.loadCategories();
+	// Hàm để load danh mục sản phẩm ban đầu
+	$scope.loadCategories = function() {
+		$http.get('/api/categories')
+			.then(function(response) {
+				$scope.categories = response.data;
+			});
+	};
+
+	// Gọi hàm loadCategories khi trang web được tải
+	$scope.loadCategories();
 });
 app.controller('LoaiController', function($scope, $http) {
 	$scope.loaiList = []; // Khởi tạo mảng rỗng để lưu danh sách Loại sản phẩm
