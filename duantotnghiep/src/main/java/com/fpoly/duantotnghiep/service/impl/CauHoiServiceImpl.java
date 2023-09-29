@@ -25,7 +25,17 @@ public class CauHoiServiceImpl implements CauHoiService {
 
     @Override
     public List<CauHoi> findByKhoaHocId(int idKhoaHoc) {
-        return cauHoiRepository.findByKhoaHocId(idKhoaHoc);
+        return cauHoiRepository.findByMucLuc(idKhoaHoc);
+    }
+
+    @Override
+    public CauHoi save(CauHoi cauHoi) {
+        return cauHoiRepository.save(cauHoi);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        cauHoiRepository.deleteById(id);
     }
 
     @Override
