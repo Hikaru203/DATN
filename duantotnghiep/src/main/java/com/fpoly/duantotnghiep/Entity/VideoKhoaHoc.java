@@ -1,6 +1,7 @@
 package com.fpoly.duantotnghiep.Entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,8 +30,8 @@ public class VideoKhoaHoc {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "id_khoa_hoc")
-    private KhoaHoc khoaHoc;
+    @JoinColumn(name = "id_muc_luc")
+    private MucLuc mucLuc;
 
     @Column(name = "link_video")
     private String linkVideo;
@@ -38,5 +39,14 @@ public class VideoKhoaHoc {
     @Column(name = "thu_tu")
     private int thuTu;
 
+    @Column(name = "ngay_tao")
+    private Date ngayTao;
+
+    @Column(name = "ten_video")
+    private String tenVideo;
+
+    @ManyToOne
+    @JoinColumn(name = "nguoi_tao")
+    private NguoiDung nguoiTao;
     // Getters and Setters
 }

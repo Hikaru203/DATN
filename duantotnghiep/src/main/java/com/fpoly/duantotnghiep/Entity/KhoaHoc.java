@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,23 +22,23 @@ import lombok.Setter;
 @Table(name = "khoa_hoc")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class KhoaHoc {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-   
-    @Column(name = "loai")
-    private int loai;
-    
+
     @Column(name = "ten_khoa_hoc")
     private String tenKhoaHoc;
 
     @Column(name = "mo_ta")
     private String moTa;
+
+    @ManyToOne
+    @JoinColumn(name = "loai")
+    private LoaiKhoaHoc loaiKhoaHoc;
 
     @Column(name = "ngay_tao")
     private Date ngayTao;
@@ -57,8 +58,6 @@ public class KhoaHoc {
 
     @Column(name = "hinh_anh")
     private String hinhAnh;
-
-	
 
     // Constructors, getters, and setters
 }

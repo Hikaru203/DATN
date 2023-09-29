@@ -1,43 +1,30 @@
 package com.fpoly.duantotnghiep.Controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
-import com.fpoly.duantotnghiep.jparepository.KhoaHocRepository;
 import com.fpoly.duantotnghiep.service.KhoaHocService;
 
 @Controller
 public class ClientController {
-	private final KhoaHocService khoaHocService;
-    
-	@Autowired
-	KhoaHocRepository daoKhoahoc;
-	
     @Autowired
-    public ClientController(KhoaHocService khoaHocService) {
-        this.khoaHocService = khoaHocService;
-    }
+    KhoaHocService daoHocService;
 
-    @GetMapping("/index")
-    public String getAllKhoaHoc(Model model) {
-        model.addAttribute("khoaHocList", khoaHocService.findAll());
+    @GetMapping("/courseOnline/index")
+    public String index(Model model) {
+        List<KhoaHoc> page = daoHocService.findAll();
+        model.addAttribute("courseOnline", page);
+
         return "index";
     }
-    @RequestMapping(value = "/detail/{id}")
-	public String detail(Model model, @PathVariable("id") int id) {
-		KhoaHoc item = daoKhoahoc.findById(id);
-		model.addAttribute("itemDetail", item);
-		return "detail";
-	}
 
+    @GetMapping("/tracnghiem")
+    public String tracngiem() {
+        return "tracnghiem";
+    }
 }
