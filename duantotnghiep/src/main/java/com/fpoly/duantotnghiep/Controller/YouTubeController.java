@@ -91,7 +91,6 @@ public class YouTubeController {
         } else {
             try {
                 youTubeService.uploadVideo(title, description, privacyStatus, file, accessToken);
-                cookieService.add("title", title, 1);
                 return "Admin/Video";
             } catch (Exception e) {
                 model.addAttribute("error", e.getMessage());

@@ -24,12 +24,12 @@ import java.util.Collections;
 @Service
 public class YouTubeService {
 
-    private static final String CLIENT_ID = "597009837116-ug3512fnngu3uo51nr008dc7npckipif.apps.googleusercontent.com"; // Replace
+    private static final String CLIENT_ID = "324471727626-jre1didbd4843anl6q1cv9i9fohclqf6.apps.googleusercontent.com"; // Replace
                                                                                                                         // with
                                                                                                                         // your
                                                                                                                         // Client
                                                                                                                         // ID
-    private static final String CLIENT_SECRET = "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"; // Replace with your Client
+    private static final String CLIENT_SECRET = "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"; // Replace with your Client
                                                                                        // Secret
     private static final String REDIRECT_URI = "http://localhost:8080/oauth2callback"; // Replace with your Redirect URI
 

@@ -163,7 +163,6 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
             fileGroup.style.display = 'block';
         }
     };
-
     function getYoutubeVideoId(youtubeLink) {
         const regExp = /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
         const match = youtubeLink.match(regExp);
@@ -173,6 +172,25 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
         } else {
             return null;
         }
+    }
+
+    function getYoutubeVideoTitle(videoId, callback) {
+        // Sử dụng API của YouTube để lấy thông tin video
+        const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=AIzaSyAMbEBUWSt19z0-kaQ-yUEV84r-YONdGh0`;
+
+        $http.get(apiUrl)
+            .then(resp => {
+                if (resp.data.items && resp.data.items.length > 0) {
+                    const videoTitle = resp.data.items[0].snippet.title;
+                    callback(videoTitle);
+                } else {
+                    callback(null);
+                }
+            })
+            .catch(error => {
+                console.log("Error", error);
+                callback(null);
+            });
     }
 
     $scope.create = function () {
@@ -196,13 +214,32 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
             return;
         }
 
-        $http.get(`/Admin/rest/KhoaHoc/${selectedCourseId}`)
+        $http.get("/Admin/rest/MucLuc/" + $scope.selectedMucLuc)
             .then(resp => {
-                $scope.formVideo.khoaHoc = resp.data;
-                $scope.formVideo.linkVideo = videoId;
-                $scope.formVideo.thuTu = $scope.order + 1;
+                $scope.formVideo.mucLuc = resp.data;
+                $http.get("/Admin/rest/NguoiDung/" + 1)
+                    .then(resp => {
+                        $scope.formVideo.nguoiTao = resp.data;
+                        $scope.formVideo.linkVideo = videoId;
+                        $scope.formVideo.thuTu = $scope.order + 1;
 
-                return $http.post(`/Admin/rest/Videos`, $scope.formVideo);
+                        // Lấy ngày và giờ hiện tại
+                        var currentDate = new Date();
+                        $scope.formVideo.ngayTao = currentDate.toISOString(); // Lưu dưới dạng ISO string
+
+                        // Lấy tiêu đề của video
+                        getYoutubeVideoTitle(videoId, function (videoTitle) {
+                            if (videoTitle) {
+                                $scope.formVideo.tenVideo = videoTitle;
+                            } else {
+                                alert("Không thể lấy được tiêu đề của video từ YouTube.");
+                                return;
+                            }
+
+                            // Gửi yêu cầu POST để thêm video mới
+                            return $http.post(`/Admin/rest/Videos`, $scope.formVideo);
+                        });
+                    })
             })
             .then(resp => {
                 console.log("Success", resp);
@@ -215,49 +252,67 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
             });
     };
 
+
+
+
     $scope.createNewVideo = function () {
         const selectedCourseId = $scope.selectedCourse;
         if (!selectedCourseId) {
             alert("Vui lòng chọn khóa học");
             return;
         }
+
         const usernameCookie = getCookieValue('videoId');
+        const videoTitle = getCookieValue('videoTitle');
+
         console.log(usernameCookie);
-
-        const videoTitle = getCookieValue('title');
         console.log(videoTitle);
-        console.log($scope.selectedMucLuc);
 
-        $http.get("/Admin/rest/NguoiDung/" + 1)
+        $http.get("/Admin/rest/MucLuc/" + $scope.selectedMucLuc)
             .then(resp => {
-                $scope.formVideo.nguoiDung = resp.data;
+                $scope.formVideo.mucLuc = resp.data;
 
-                $scope.formVideo.MucLuc = $scope.selectedMucLuc;
-                $scope.formVideo.linkVideo = usernameCookie;
-                $scope.formVideo.tieuDe = videoTitle;
-                $scope.formVideo.thuTu = $scope.order + 1;
+                $http.get("/Admin/rest/NguoiDung/" + 1)
+                    .then(resp => {
+                        $scope.formVideo.nguoiTao = resp.data;
+                        $scope.formVideo.linkVideo = usernameCookie;
+                        $scope.formVideo.tenVideo = videoTitle;
+                        $scope.formVideo.thuTu = $scope.order + 1;
 
-                // Lấy ngày và giờ hiện tại
-                var currentDate = new Date();
-                $scope.formVideo.ngayTao = currentDate.toISOString(); // Lưu dưới dạng ISO string
+                        // Lấy ngày và giờ hiện tại
+                        var currentDate = new Date();
+                        $scope.formVideo.ngayTao = currentDate.toISOString(); // Lưu dưới dạng ISO string
 
-                deleteCookie('videoId');
-                deleteCookie('title');
+                        deleteCookie('videoId');
+                        deleteCookie('videoTitle');
 
-                alert("Thêm mới thành công");
-                $scope.loadDocuments();
+                        alert("Thêm mới thành công");
+                        $scope.loadDocuments();
 
-                // Gửi yêu cầu POST để thêm video mới
-                console.log($scope.formVideo);
+                        // Gửi yêu cầu POST để thêm video mới
+                        console.log($scope.formVideo);
 
-                //return $http.post(`/Admin/rest/Videos`, $scope.formVideo);
+                        $http.post(`/Admin/rest/Videos`, $scope.formVideo)
+                            .then(resp => {
+                                // Xử lý kết quả thành công nếu cần thiết
+                            })
+                            .catch(error => {
+                                console.log("Error", error);
+                                alert("Thêm mới thất bại");
+                            });
 
-            }).catch(error => {
+                    })
+                    .catch(error => {
+                        console.log("Error", error);
+                        alert("Thêm mới thất bại");
+                    });
+            })
+            .catch(error => {
                 console.log("Error", error);
                 alert("Thêm mới thất bại");
             });
-
     };
+
 
     $scope.updateUI();
     $scope.initialize();

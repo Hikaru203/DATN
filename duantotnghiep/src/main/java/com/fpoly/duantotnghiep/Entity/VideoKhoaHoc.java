@@ -1,6 +1,7 @@
 package com.fpoly.duantotnghiep.Entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,7 +40,7 @@ public class VideoKhoaHoc {
     private int thuTu;
 
     @Column(name = "ngay_tao")
-    private LocalDate ngayTao;
+    private Date ngayTao;
 
     @Column(name = "ten_video")
     private String tenVideo;
