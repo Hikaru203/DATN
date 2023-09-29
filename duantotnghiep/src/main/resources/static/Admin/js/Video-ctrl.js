@@ -11,11 +11,14 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
     $scope.inputString = [];
     $scope.itemsNguoiDung = [];
     $scope.formVideo = {};
+    $scope.MucLuc = [];
+    $scope.videoTitles = [];
 
 
     $scope.currentPage = 1;
     $scope.itemsPerPage = 5;
     $scope.totalItems = 0;
+    $scope.selectedMucLuc = ""; // Khởi tạo selectedMucLuc trong $scope
 
     const accountTokenInput = document.getElementById("accessToken");
     const authorizationTokenGroup = document.getElementById('authorizationTokenGroup');
@@ -58,31 +61,6 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
             console.log($scope.itemsVideo);
             $scope.totalItems = $scope.itemsVideo.length;
             $scope.pageChanged(); // Hiển thị trang đầu tiên
-
-            for (let i = 0; i < $scope.itemsVideo.length; i++) {
-                const video = $scope.itemsVideo[i];
-                const url = 'v=' + video.linkVideo;
-                if (url.includes('v=')) {
-                    const videoId = url.split('v=')[1].split('&')[0];
-                    const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet&key=AIzaSyB62JPnQ_NP6xp7pbf5WDb4kVJcP1yMT08`;
-
-                    fetch(apiUrl)
-                        .then(response => response.json())
-                        .then(data => {
-                            const videoTitle = data.items[0].snippet.title;
-                            $scope.itemsVideoWithTen.push({
-                                videoData: video,
-                                videoTitle: videoTitle
-                            });
-                            console.log($scope.itemsVideoWithTen);
-                        })
-                        .catch(error => {
-                            console.error('Lỗi khi lấy thông tin video: ' + error);
-                        });
-                } else {
-                    console.error('Không tìm thấy mã video trong URL.');
-                }
-            }
         }).catch(error => {
             console.error("An error occurred:", error);
         });
@@ -90,13 +68,19 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
         $http.get("/Admin/rest/KhoaHoc").then(resp => {
             $scope.itemsKhoaHoc = resp.data;
         });
-
     };
 
 
 
     $scope.loadDocuments = function (course) {
         $scope.selectedCourse = course;
+
+        $http.get("/Admin/rest/MucLuc/KhoaHoc/" + $scope.selectedCourse).then(resp => {
+            $scope.MucLuc = resp.data;
+            console.log($scope.MucLuc);
+        });
+
+
         if ($scope.selectedCourse) {
             $http.get("/Admin/rest/Videos/" + $scope.selectedCourse).then(resp => {
                 $scope.itemsVideo = resp.data;
@@ -114,7 +98,15 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
                 $scope.order = null;
             });
         }
+
     };
+
+    $scope.getSelectedMucLuc = function (selectedMucLuc) {
+        console.log("Selected Muc Luc ID: " + selectedMucLuc);
+        $scope.selectedMucLuc = selectedMucLuc;
+    };
+
+
 
     // Hàm xử lý phân trang
     $scope.pageChanged = function () {
@@ -124,6 +116,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
         console.log($scope.displayedItems);
         console.log($scope.itemsVideo);
         console.log($scope.totalItems);
+        console.log($scope.MucLuc);
     };
 
     $scope.goToFirstPage = function () {
@@ -204,7 +197,6 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
         }
 
         $http.get(`/Admin/rest/KhoaHoc/${selectedCourseId}`)
-
             .then(resp => {
                 $scope.formVideo.khoaHoc = resp.data;
                 $scope.formVideo.linkVideo = videoId;
@@ -232,20 +224,39 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
         const usernameCookie = getCookieValue('videoId');
         console.log(usernameCookie);
 
-        $http.get(`/Admin/rest/KhoaHoc/${selectedCourseId}`)
+        const videoTitle = getCookieValue('title');
+        console.log(videoTitle);
+        console.log($scope.selectedMucLuc);
+
+        $http.get("/Admin/rest/NguoiDung/" + 1)
             .then(resp => {
-                $scope.formVideo.khoaHoc = resp.data;
+                $scope.formVideo.nguoiDung = resp.data;
+
+                $scope.formVideo.MucLuc = $scope.selectedMucLuc;
                 $scope.formVideo.linkVideo = usernameCookie;
+                $scope.formVideo.tieuDe = videoTitle;
                 $scope.formVideo.thuTu = $scope.order + 1;
-                console.log($scope.formVideo);
+
+                // Lấy ngày và giờ hiện tại
+                var currentDate = new Date();
+                $scope.formVideo.ngayTao = currentDate.toISOString(); // Lưu dưới dạng ISO string
+
                 deleteCookie('videoId');
+                deleteCookie('title');
+
                 alert("Thêm mới thành công");
                 $scope.loadDocuments();
-                return $http.post(`/Admin/rest/Videos`, $scope.formVideo);
+
+                // Gửi yêu cầu POST để thêm video mới
+                console.log($scope.formVideo);
+
+                //return $http.post(`/Admin/rest/Videos`, $scope.formVideo);
+
             }).catch(error => {
                 console.log("Error", error);
                 alert("Thêm mới thất bại");
             });
+
     };
 
     $scope.updateUI();

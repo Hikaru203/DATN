@@ -1346,6 +1346,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                             <br>
                                                             <div id="myDiv" videoId="someValue"></div>
 
@@ -1368,6 +1369,30 @@
                                                                             cũ</label>
                                                                     </div>
                                                                 </div>
+                                                                <br>
+                                                                <div class="form-container" ng-if="selectedCourse"
+                                                                    style="padding-bottom: 20px;">
+                                                                    <div ng-if="selectedCourse && MucLuc.length === 0">
+                                                                        <p>Khóa học chưa có mục lục.</p>
+                                                                    </div>
+
+                                                                    <div ng-if="selectedCourse && MucLuc.length > 0"
+                                                                        style="width: 100%;">
+                                                                        <select style="width: 100%; height: 50px;"
+                                                                            name="mucLucSelect" id="mucLucSelect"
+                                                                            ng-model="selectedMucLuc"
+                                                                            ng-change="getSelectedMucLuc(selectedMucLuc)">
+                                                                            <option value="">Chọn mục lục</option>
+                                                                            <option ng-repeat="mucLuc in MucLuc"
+                                                                                ng-if="mucLuc.id"
+                                                                                value="{{ mucLuc.id }}">{{
+                                                                                mucLuc.tenMucLuc }}</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+
+
                                                                 <div id="uploadNewVideoSection">
                                                                     <!-- Phần tải lên video mới -->
                                                                     <br>
@@ -1508,13 +1533,15 @@
                                                                 <div class="asset-inner">
                                                                     <table>
                                                                         <tr>
-                                                                            <th>No</th>
                                                                             <th>ID Khóa Học</th>
                                                                             <th>Link Video</th>
                                                                             <th>Thu Tu</th>
                                                                         </tr>
                                                                         <tr ng-repeat="VideoWithTen in displayedItems">
-                                                                            <td>{{VideoWithTen.khoaHoc.tenKhoaHoc}}
+                                                                            <td>{{VideoWithTen.mucLuc.khoaHoc.tenKhoaHoc}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{VideoWithTen.mucLuc.tenMucLuc}}
                                                                             </td>
                                                                             <td>
                                                                                 {{VideoWithTen.linkVideo}}

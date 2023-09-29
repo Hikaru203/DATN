@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.ui.Model;
+
+import com.fpoly.duantotnghiep.service.CookieService;
 import com.fpoly.duantotnghiep.service.YouTubeService;
 
 import jakarta.servlet.http.HttpSession;
@@ -16,6 +18,9 @@ public class YouTubeController {
     @Autowired
     private YouTubeService youTubeService;
 
+    @Autowired
+    CookieService cookieService;
+
     @GetMapping("/Admin/Video")
     public String authenticate(Model model, HttpSession session) {
         String accessToken = (String) session.getAttribute("accessToken");
@@ -23,7 +28,6 @@ public class YouTubeController {
         if (accessToken == null) {
             String authorizationUrl = youTubeService.getAuthorizationUrl();
             model.addAttribute("authorizationUrl", authorizationUrl);
-            System.out.println("authorizationUrl: " + authorizationUrl);
             model.addAttribute("accessToken", accessToken);
             model.addAttribute("authorizationUrl", authorizationUrl);
             return "Admin/Video";
@@ -40,7 +44,6 @@ public class YouTubeController {
     public String oauth2callback(@RequestParam("code") String authorizationCode, HttpSession session, Model model) {
         try {
             accessToken = youTubeService.getAccessToken(authorizationCode);
-            System.out.println("accessToken1: " + accessToken);
             session.setAttribute("accessToken", accessToken);
 
             // Trong phương thức khác
@@ -75,16 +78,9 @@ public class YouTubeController {
             @RequestParam("file") MultipartFile file,
             HttpSession session, Model model) {
 
-        System.out.println("title: " + title);
-        System.out.println("description: " + description);
-        System.out.println("privacyStatus: " + privacyStatus);
-        System.out.println("file: " + file);
-        System.out.println("accessToken2: " + accessToken);
-
         if (accessToken == null) {
             String authorizationUrl = youTubeService.getAuthorizationUrl();
             model.addAttribute("authorizationUrl", authorizationUrl);
-            System.out.println("authorizationUrl: " + authorizationUrl);
 
             // Lưu các giá trị vào session
 
@@ -95,6 +91,7 @@ public class YouTubeController {
         } else {
             try {
                 youTubeService.uploadVideo(title, description, privacyStatus, file, accessToken);
+                cookieService.add("title", title, 1);
                 return "Admin/Video";
             } catch (Exception e) {
                 model.addAttribute("error", e.getMessage());

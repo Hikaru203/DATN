@@ -23,7 +23,7 @@ public class VideoKhoaHocServiceImpl implements VideoKhoaHocService {
 
 	@Override
 	public List<VideoKhoaHoc> findByKhoaHocId(Integer khoaHocId) {
-		return VideoKhoaHocRepository.findByKhoaHocIdOrderByAsc(khoaHocId);
+		return VideoKhoaHocRepository.findByMucLucIdOrderByAsc(khoaHocId);
 	}
 
 }

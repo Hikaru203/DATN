@@ -24,12 +24,12 @@ import java.util.Collections;
 @Service
 public class YouTubeService {
 
-    private static final String CLIENT_ID = "727639269543-2k7u76qj75ahvo5pucugb5da3f8h3gna.apps.googleusercontent.com"; // Replace
+    private static final String CLIENT_ID = "597009837116-ug3512fnngu3uo51nr008dc7npckipif.apps.googleusercontent.com"; // Replace
                                                                                                                         // with
                                                                                                                         // your
                                                                                                                         // Client
                                                                                                                         // ID
-    private static final String CLIENT_SECRET = "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"; // Replace with your Client
+    private static final String CLIENT_SECRET = "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"; // Replace with your Client
                                                                                        // Secret
     private static final String REDIRECT_URI = "http://localhost:8080/oauth2callback"; // Replace with your Redirect URI
 
@@ -113,13 +113,9 @@ public class YouTubeService {
 
             YouTube.Videos.Insert request = youTube.videos().insert("snippet,status", video, mediaContent);
             Video response = request.execute();
-            System.out.println("Video uploaded successfully!");
-            System.out.println("Video ID: " + response.getId());
-
-            System.out.println("Video Title: " + response.getSnippet().getTitle());
-            System.out.println("Video Description: " + response.getSnippet().getDescription());
-            System.out.println("Video Privacy Status: " + response.getStatus().getPrivacyStatus());
             cookieService.add("videoId", response.getId(), 1);
+            cookieService.add("videoTitle", response.getSnippet().getTitle(), 1);
+            System.out.println(response);
         } catch (Exception e) {
             // Xử lý các ngoại lệ
             System.out.println(e.getMessage());
