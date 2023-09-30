@@ -9,13 +9,13 @@ app.controller("TracNghiem-ctrl", function($scope, $http, $window) {
     $scope.loadDanhSachKhoaHoc = function() {
         $http.get("/rest/KhoaHoc").then(function(response) {
             $scope.danhSachKhoaHoc = response.data;
-            console.log("Dữ liệu khóa học", $scope.danhSachKhoaHoc);
+            // console.log("Dữ liệu khóa học", $scope.danhSachKhoaHoc);
         });
     };
     $scope.chonKhoaHoc = function (id) {
         $http.get(`/rest/tracnghiem/${id}`).then(resp => {
             $scope.itemsCauHoi = resp.data;
-            console.log("api",resp.data);
+            // console.log("api",resp.data);
               // Tạo mảng mới chứa thông tin câu hỏi, câu trả lời và mảng đáp án
               const questionAnswerArray = [];
 
