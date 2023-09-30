@@ -9,12 +9,12 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
     $scope.itemsKhoaHoc = [];
     $scope.formKhoaHoc = {};
     $scope.inputString = [];
+    $scope.MucLuc = [];
 
     $scope.currentPage = 1; // Trang hiện tại
     $scope.itemsPerPage = 5; // Số hàng trên mỗi trang
     $scope.totalItems = 0; // Tổng số tài liệu
     $scope.khoaHoc1 = {}; // Khởi tạo mảng khoaHoc trống
-    $scope.soLuongCauHoiTheoKhoaHoc = {}; // Khởi tạo mảng soLuongCauHoiTheoKhoaHoc trống
 
 
     let selectedAnswer = ""; // Biến để theo dõi đáp án được chọn
@@ -54,15 +54,7 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
                     console.log("'cauTraLoi' does not exist or has no value for an item.");
                 }
             }
-            $scope.soLuongCauHoiTheoKhoaHoc = {}; // Đặt lại giá trị biến
-            for (const item of $scope.itemsCauHoi) {
-                const khoaHocId = item.khoaHoc.id;
-                if (!$scope.soLuongCauHoiTheoKhoaHoc[khoaHocId]) {
-                    $scope.soLuongCauHoiTheoKhoaHoc[khoaHocId] = 0;
-                }
-                $scope.soLuongCauHoiTheoKhoaHoc[khoaHocId]++;
-                console.log($scope.soLuongCauHoiTheoKhoaHoc);
-            }
+
         }).catch(function (error) {
             console.error("An error occurred:", error);
         });
@@ -78,6 +70,11 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
     $scope.loadDocuments = function (id) {
         const selectedCourseId = id;
 
+        $http.get("/Admin/rest/MucLuc/KhoaHoc/" + $scope.selectedCourse.id).then(resp => {
+            $scope.MucLuc = resp.data;
+            console.log($scope.MucLuc);
+        });
+
         if (selectedCourseId === null || selectedCourseId === undefined) {
             $http.get("/Admin/rest/CauHoi").then(function (resp) {
                 $scope.itemsCauHoi = resp.data;
@@ -85,17 +82,6 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
                 $http.get(`/Admin/rest/KhoaHoc`)
                     .then(function (resp) {
                         $scope.KhoaHoc = resp.data;
-                    });
-                $scope.pageChanged(); // Hiển thị trang đầu tiên
-            });
-        } else if (selectedCourseId) {
-            $http.get("/Admin/rest/CauHoi/" + selectedCourseId).then(function (resp) {
-                $scope.itemsCauHoi = resp.data;
-                $scope.totalItems = $scope.itemsCauHoi.length;
-                $http.get(`/Admin/rest/KhoaHoc/${selectedCourseId}`)
-                    .then(function (resp) {
-                        $scope.KhoaHoc = resp.data;
-
                     });
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
             });
@@ -274,9 +260,6 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
         if ($scope.formCauHoi.cauHoi === "" || $scope.formCauHoi.cauHoi === undefined) {
             alert("Vui lòng nhập câu hỏi.");
             return; // Dừng hàm nếu selectedAnswer không hợp lệ
-        } else if ($scope.KhoaHoc.id === "" || $scope.KhoaHoc.id === undefined || $scope.KhoaHoc.id === null) {
-            alert("Vui lòng chọn khóa học.");
-            return; // Dừng hàm nếu selectedAnswer không hợp lệ
         } else if (document.getElementById('cauHoiInput').value === "") {
             alert("Vui lòng nhập câu trả lời.");
             return; // Dừng hàm nếu cauTraLoi không hợp lệ
@@ -285,24 +268,29 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
             return; // Dừng hàm nếu selectedAnswer không hợp lệ
         }
 
+        $http.get("/Admin/rest/MucLuc/" + $scope.selectedMucLuc).then(function (resp) {
+            $scope.MucLuc = resp.data;
 
-        $scope.formCauHoi.cauTraLoi = document.getElementById('cauHoiInput').value;
-        $scope.formCauHoi.dapAn = selectedAnswer;
-        $scope.formCauHoi.khoaHoc = $scope.KhoaHoc;
-        $scope.formCauHoi.ngayTao = new Date();
+            $scope.formCauHoi.cauTraLoi = document.getElementById('cauHoiInput').value;
+            $scope.formCauHoi.dapAn = selectedAnswer;
+            $scope.formCauHoi.ngayTao = new Date();
+            $scope.formCauHoi.mucLuc = $scope.MucLuc;
+            console.log($scope.formCauHoi);
 
 
-        $http.post(`/Admin/rest/CauHoi`, $scope.formCauHoi)
-            .then(function (resp) {
-                $scope.itemsCauHoi.push(resp.data);
-                $scope.formCauHoi = {};
-                $scope.initialize();
-                alert("Thêm mới thành công");
-                $scope.reset();
-            })
-            .catch(function (err) {
-                alert("Error: " + err);
-            });
+            $http.post(`/Admin/rest/CauHoi`, $scope.formCauHoi)
+                .then(function (resp) {
+                    $scope.itemsCauHoi.push(resp.data);
+                    $scope.formCauHoi = {};
+                    $scope.initialize();
+                    alert("Thêm mới thành công");
+                    $scope.reset();
+                })
+                .catch(function (err) {
+                    alert("Error: " + err);
+                });
+        });
+
     };
 
 
@@ -323,25 +311,10 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
         $scope.loadDocuments($scope.selectedCourse.id);
 
     };
-    $scope.questions = [];
-
-    // Lấy các phần tử theo id
-    var elementsTableOther = document.getElementById("tableother");
-    var elementsTableCourse = document.getElementById("tableCourse");
-
-    // Sử dụng thuộc tính style.display để điều chỉnh hiển thị
-    elementsTableOther.style.display = "none"; // Ẩn phần tử có id "tableother"
-    elementsTableCourse.style.display = "block"; // Hiển thị phần tử có id "tableCourse"
-    // Định nghĩa các hàm $scope.edit và $scope.out (giả sử bạn đang sử dụng AngularJS)
-    $scope.edit = function () {
-        elementsTableOther.style.display = "block"; // Hiển thị phần tử có id "tableother"
-        elementsTableCourse.style.display = "none"; // Ẩn phần tử có id "tableCourse"
-    }
-
-    $scope.out = function () {
-        elementsTableOther.style.display = "none"; // Ẩn phần tử có id "tableother"
-        elementsTableCourse.style.display = "block"; // Hiển thị phần tử có id "tableCourse"
-    }
+    $scope.getSelectedMucLuc = function (selectedMucLuc) {
+        console.log("Selected Muc Luc ID: " + selectedMucLuc);
+        $scope.selectedMucLuc = selectedMucLuc;
+    };
 
     $scope.delete = function (item) {
         var isConfirmed = confirm(`Bạn có chắc chắn muốn xóa tài liệu "${item.cauHoi}"?`);

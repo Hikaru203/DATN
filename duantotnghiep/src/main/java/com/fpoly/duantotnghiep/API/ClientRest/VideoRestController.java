@@ -1,5 +1,6 @@
 package com.fpoly.duantotnghiep.API.ClientRest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fpoly.duantotnghiep.Entity.CauHoi;
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
+import com.fpoly.duantotnghiep.Entity.MucLuc;
 import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
 import com.fpoly.duantotnghiep.service.KhoaHocService;
+import com.fpoly.duantotnghiep.service.MucLucService;
 import com.fpoly.duantotnghiep.service.VideoKhoaHocService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,9 +32,13 @@ import jakarta.servlet.http.HttpSession;
 public class VideoRestController {
 	@Autowired
 	KhoaHocService daoHocService;
-	
+
 	@Autowired
-	VideoKhoaHocService  daoVideoKhoaHocService;
+	MucLucService mucLucService;
+
+	@Autowired
+	VideoKhoaHocService daoVideoKhoaHocService;
+
 	@PostMapping("/store-id-in-session")
 	public ResponseEntity<String> storeIdInSession(@RequestBody String idJson, HttpServletRequest request) {
 		try {
@@ -46,16 +54,17 @@ public class VideoRestController {
 			return ResponseEntity.badRequest().body("Error storing ID in session: " + e.getMessage());
 		}
 	}
-	
+
 	@GetMapping("/get-video-id/{id}")
 	public ResponseEntity<List<VideoKhoaHoc>> findByKhoaHocId(@PathVariable("id") Integer id) {
-	    List<VideoKhoaHoc> videoKhoaHocs = daoVideoKhoaHocService.findByKhoaHocId(id);
-	    
-	    if (!videoKhoaHocs.isEmpty()) {
-	        return ResponseEntity.ok(videoKhoaHocs);
-	    } else {
-	        return ResponseEntity.notFound().build();
-	    }
+
+		List<VideoKhoaHoc> videoKhoaHocs = daoVideoKhoaHocService.findByKhoaHocId(id);
+
+		if (!videoKhoaHocs.isEmpty()) {
+			return ResponseEntity.ok(videoKhoaHocs);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 }
