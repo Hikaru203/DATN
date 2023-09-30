@@ -137,6 +137,7 @@
         <h1 class="mb-4">Trắc nghiệm câu hỏi</h1>
       
         <select  >
+            <option>Chọn khoá học</option>
             <option ng-repeat="c in danhSachKhoaHoc" ng-click="chonKhoaHoc(c.id)">{{c.tenKhoaHoc}}</option>
         </select>
         <div ng-repeat="question in questionAnswerArray">
