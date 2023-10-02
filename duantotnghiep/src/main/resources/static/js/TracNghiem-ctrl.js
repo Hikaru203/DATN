@@ -4,6 +4,8 @@ app.controller("TracNghiem-ctrl", function($scope, $http, $window) {
     $scope.danhSachKhoaHoc = [];
     $scope.questionAnswerArray = [];
     $scope.selectedKhoaHoc = null; // Giá trị mặc định
+    $scope.selectedAnswers = []
+    
 
     // Hàm tải danh sách khóa học từ REST API
     $scope.loadDanhSachKhoaHoc = function() {
@@ -39,6 +41,35 @@ app.controller("TracNghiem-ctrl", function($scope, $http, $window) {
               console.error("An error occurred:", error);
         });
     }
+    $scope.checkAnswers = function() {
+        $scope.soCauDung = 0;
+        $scope.soCauSai = 0;
+        
+        for (const question of $scope.questionAnswerArray) {
+            if(question.selectedAnswer == undefined){             
+                $scope.soCauDung = 0;
+                $scope.soCauSai = 0;
+                $scope.msg='chưa chọn hết';
+              
+            }else{
+            if (question.selectedAnswer === question.dapAn) {
+                $scope.soCauDung++;
+            } else {
+                $scope.soCauSai++;
+            }
+            $scope.msg='';
+        }
+        console.log("A: "+question.selectedAnswer);
+        console.log("B: "+question.dapAn);
+    }
+
+    };
+    
+    $scope.selectAnswer = function(questionIndex, answer) {
+        $scope.selectedAnswers[questionIndex] = answer;
+        console.log(questionIndex);
+        
+    };
     
     
     // Gọi hàm initialize để khởi tạo dữ liệu khi trang được tải
