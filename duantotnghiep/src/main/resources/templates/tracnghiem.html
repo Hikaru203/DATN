@@ -133,23 +133,29 @@
     </div>
     <!-- Navbar End -->
  
-     <div class="container mt-5">
+      <div class="container mt-5">
         <h1 class="mb-4">Trắc nghiệm câu hỏi</h1>
+
+        <select style="width: 1000px; padding: 10px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; background-color: #fff; cursor: pointer;">
+            <option style="padding: 5px; font-size: 19px; cursor: pointer;" value="">Chọn khoá học</option>
+            <option ng-repeat="c in danhSachKhoaHoc" ng-click="chonKhoaHoc(c.id)" style="padding: 5px; font-size: 19px; cursor: pointer;">{{c.tenKhoaHoc}}</option>
+        </select>
+        
         <div ng-repeat="question in questionAnswerArray">
             <h3>Câu Hỏi {{$index + 1}}: {{question.cauHoi}}</h3>
             <div ng-repeat="answer in question.cauTraLoi">
-                <input type="radio" ng-model="$parent.selectedAnswer" ng-value="answer" id="q{{$index}}{{$parent.$index}}" class="mr-2">
-                <label for="q{{$index}}{{$parent.$index}}">{{answer}}</label><br>
-            </div>            
+                <input type="radio" ng-model="question.selectedAnswer" ng-value="answer">
+                <label>{{answer}}</label><br>
+            </div>
         </div>
         <div class="buttons" style="text-align-center" >
             <button ng-click="checkAnswers()"  class="btn btn-success mx-auto d-block text-center mt-2">Kiểm tra kết quả</button>
+            <div class="text-center mt-2">
+                <p>Số câu đúng: {{soCauDung}}</p>
+                <p>Số câu sai: {{soCauSai}}</p>
+                <p class="text-danger" > {{msg}}</p>
+            </div>
         </div>
-        </div>
-    
-       
-    
-      
         <div class="result mt-3" id="result"></div>
       </div>
     
