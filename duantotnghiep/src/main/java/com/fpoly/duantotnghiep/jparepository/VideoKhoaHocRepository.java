@@ -1,5 +1,6 @@
 package com.fpoly.duantotnghiep.jparepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +15,9 @@ import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
 
 public interface VideoKhoaHocRepository extends JpaRepository<VideoKhoaHoc, Integer> {
 
-	@Query("SELECT vkh FROM VideoKhoaHoc vkh JOIN vkh.mucLuc kh WHERE kh.id = :mucLucId ORDER BY vkh.thuTu ASC")
-	List<VideoKhoaHoc> findByMucLucIdOrderByAsc(@Param("mucLucId") Integer khoaHocId);
+	@Query("SELECT vkh FROM VideoKhoaHoc vkh JOIN vkh.mucLuc kh JOIN kh.khoaHoc khoc WHERE khoc.id = :KhoaHocId ORDER BY vkh.thuTu ASC")
+	ArrayList<VideoKhoaHoc> findByMucLucIdOrderByAsc(@Param("KhoaHocId") Integer khoaHocId);
+
+	VideoKhoaHoc findByMucLucId(int idMucLuc);
 
 }
