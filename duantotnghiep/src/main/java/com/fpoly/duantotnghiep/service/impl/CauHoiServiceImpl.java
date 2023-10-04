@@ -37,5 +37,10 @@ public class CauHoiServiceImpl implements CauHoiService {
     public ArrayList<CauHoi> findByMucLuc(int mucLucId) {
         return cauHoiRepository.findByMucLuc(mucLucId);
     }
+
+    @Override
+    public ArrayList<CauHoi> findByKhoaHocId(int khoaHocId) {
+        return cauHoiRepository.findByKhoaHocId(khoaHocId);
+    }
     
 }
