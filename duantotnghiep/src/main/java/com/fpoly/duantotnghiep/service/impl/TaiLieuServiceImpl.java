@@ -24,4 +24,13 @@ public class TaiLieuServiceImpl implements TaiLieuService {
         return taiLieuKhoaHocRepository.findByKhoaHocId(idKhoaHoc);
     }
 
+    @Override
+    public TaiLieuKhoaHoc save(TaiLieuKhoaHoc entity) {
+        return taiLieuKhoaHocRepository.save(entity);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        taiLieuKhoaHocRepository.deleteById(id);
+    }
 }

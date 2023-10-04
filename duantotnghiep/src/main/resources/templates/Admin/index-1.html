@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -7,61 +7,45 @@
     <title>Dashboard V.2 | Kiaalap - Kiaalap Admin Template</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- favicon
-		============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-    <!-- Google Fonts
-		============================================ -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
-    <!-- Bootstrap CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- Bootstrap CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <!-- owl.carousel CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/owl.carousel.css">
-    <link rel="stylesheet" href="css/owl.theme.css">
-    <link rel="stylesheet" href="css/owl.transitions.css">
-    <!-- animate CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/animate.css">
-    <!-- normalize CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/normalize.css">
-    <!-- meanmenu icon CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/meanmenu.min.css">
-    <!-- main CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/main.css">
-    <!-- educate icon CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/educate-custon-icon.css">
-    <!-- morrisjs CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/morrisjs/morris.css">
-    <!-- mCustomScrollbar CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/scrollbar/jquery.mCustomScrollbar.min.css">
-    <!-- metisMenu CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
-    <link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
-    <!-- calendar CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
-    <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
-    <!-- style CSS
-		============================================ -->
-    <link rel="stylesheet" href="style.css">
-    <!-- responsive CSS
-		============================================ -->
-    <link rel="stylesheet" href="css/responsive.css">
-    <!-- modernizr JS
-		============================================ -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/Admin/img/favicon.ico}">
+    <!-- Google Fonts -->
+    <link th:href="@{https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900}" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- owl.carousel CSS -->
+    <link th:href="@{/css/owl.carousel.css}" rel="stylesheet">
+    <link th:href="@{/css/owl.theme.css}" rel="stylesheet">
+    <link th:href="@{/css/owl.transitions.css}" rel="stylesheet">
+    <!-- animate CSS -->
+    <link th:href="@{/css/animate.css}" rel="stylesheet">
+    <!-- normalize CSS -->
+    <link th:href="@{/css/normalize.css}" rel="stylesheet">
+    <!-- meanmenu icon CSS -->
+    <link th:href="@{/css/meanmenu.min.css}" rel="stylesheet">
+    <!-- main CSS -->
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+    <!-- educate icon CSS -->
+    <link th:href="@{/css/educate-custon-icon.css}" rel="stylesheet">
+    <!-- morrisjs CSS -->
+    <link th:href="@{/css/morrisjs/morris.css}" rel="stylesheet">
+    <!-- mCustomScrollbar CSS -->
+    <link th:href="@{/css/scrollbar/jquery.mCustomScrollbar.min.css}" rel="stylesheet">
+    <!-- metisMenu CSS -->
+    <link th:href="@{/css/metisMenu/metisMenu.min.css}" rel="stylesheet">
+    <link th:href="@{/css/metisMenu/metisMenu-vertical.css}" rel="stylesheet">
+    <!-- calendar CSS -->
+    <link th:href="@{/css/calendar/fullcalendar.min.css}" rel="stylesheet">
+    <link th:href="@{/css/calendar/fullcalendar.print.min.css}" rel="stylesheet">
+    <!-- style CSS -->
+    <link th:href="@{/style.css}" rel="stylesheet">
+    <!-- responsive CSS -->
+    <link th:href="@{/css/responsive.css}" rel="stylesheet">
+    <!-- modernizr JS -->
+    <script th:src="@{/js/vendor/modernizr-2.8.3.min.js}"></script>
+
 </head>
 
 <body>
@@ -72,85 +56,90 @@
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a href="index"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-                <strong><a href="index"><img src="img/logo/logosn.png" alt="" /></a></strong>
+                <a th:href="@{/index}"><img class="main-logo" th:src="@{/Admin/img/logo/logo.png}" alt="" /></a>
+                <strong><a th:href="@{/index}"><img th:src="@{/Admin/img/logo/logosn.png}" alt="" /></a></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
-                        <li class="active">
-                            <a class="has-arrow" href="index1">
+                        <li
+                            th:classappend="${#strings.contains(request.getRequestURI(), '/Admin/index1') ? 'active' : ''}">
+                            <a class="has-arrow" th:href="@{/Admin/index1}">
                                 <span class="educate-icon educate-home icon-wrap"></span>
                                 <span class="mini-click-non">Thống Kê</span>
                             </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="Dashboard v.1" href="ThongKe"><span class="mini-sub-pro">Thống
+                                <li><a title="Dashboard v.1" th:href="@{/Admin/ThongKe}"><span
+                                            class="mini-sub-pro">Thống
                                             Kê</span></a></li>
                             </ul>
                         </li>
 
-                        <li>
-                            <a class="has-arrow" href="all-professors" aria-expanded="false"><span
+                        <li
+                            th:classappend="${#strings.contains(request.getRequestURI(), '/Admin/all-professors') ? 'active' : ''}">
+                            <a class="has-arrow" th:href="@{/Admin/all-professors}" aria-expanded="false"><span
                                     class="educate-icon educate-professor icon-wrap"></span> <span
                                     class="mini-click-non">User</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Edit Professor" href="User"><span class="mini-sub-pro">Quản lý người
+                                <li><a title="Edit Professor" th:href="@{/Admin/User}"><span class="mini-sub-pro">Quản
+                                            lý người
                                             dùng</span></a></li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <a class="has-arrow" href="User" aria-expanded="false"><span
-                                    class="educate-icon educate-student icon-wrap"></span> <span
-                                    class="mini-click-non">Sinh Viên</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Students" href="User"><span class="mini-sub-pro"> Quản Lí Sinh
+                                <li><a title="All Students" th:href="@{/Admin/User}"><span class="mini-sub-pro"> Quản Lí
+                                            Sinh
                                             Viên</span></a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" href="KhoaHoc" aria-expanded="false"><span
+
+                        <li
+                            th:classappend="${#strings.contains(request.getRequestURI(), '/Admin/KhoaHoc') ? 'active' : ''}">
+                            <a class="has-arrow" th:href="@{/Admin/KhoaHoc}" aria-expanded="false"><span
                                     class="educate-icon educate-course icon-wrap"></span> <span
                                     class="mini-click-non">Khóa Học</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Courses" href="KhoaHoc"><span class="mini-sub-pro">Khóa
+                                <li><a title="All Courses" th:href="@{/Admin/KhoaHoc}"><span class="mini-sub-pro">Khóa
                                             Học</span></a></li>
-                                <li><a title="Add Courses" href="EditKhoaHoc"><span class="mini-sub-pro">Thêm Khóa
+                                <li><a title="Add Courses" th:href="@{/Admin/EditKhoaHoc}"><span
+                                            class="mini-sub-pro">Thêm Khóa
                                             Học</span></a></li>
-                                <li><a title="Add Courses" href="KenhKhoaHoc"><span class="mini-sub-pro">Kênh Khóa
+                                <li><a title="Add Courses" th:href="@{/Admin/KenhKhoaHoc}"><span
+                                            class="mini-sub-pro">Kênh Khóa
                                             Học</span></a></li>
-                                <li><a title="Thanh Toan" href="ThanhToan"><span class="mini-sub-pro">Thanh
+                                <li><a title="Thanh Toan" th:href="@{/Admin/ThanhToan}"><span class="mini-sub-pro">Thanh
                                             Toán</span></a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" href="TaiLieu" aria-expanded="false"><span
+                        <li
+                            th:classappend="${#strings.contains(request.getRequestURI(), '/Admin/TaiLieu') ? 'active' : ''}">
+                            <a class="has-arrow" th:href="@{/Admin/TaiLieu}" aria-expanded="false"><span
                                     class="educate-icon educate-library icon-wrap"></span> <span
                                     class="mini-click-non">Tài Liệu</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Library" href="TaiLieu"><span class="mini-sub-pro">Quản Lí Tài
+                                <li><a title="All Library" th:href="@{/Admin/TaiLieu}"><span class="mini-sub-pro">Quản
+                                            Lí Tài
                                             Liệu</span></a></li>
-                                <li><a title="All Library" href="CauHoi"><span class="mini-sub-pro">Câu
+                                <li><a title="All Library" th:href="@{/Admin/CauHoi}"><span class="mini-sub-pro">Câu
                                             Hỏi</span></a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" href="ChungChi" aria-expanded="false"><span
+                        <li
+                            th:classappend="${#strings.contains(request.getRequestURI(), '/Admin/ChungChi') ? 'active' : ''}">
+                            <a class="has-arrow" th:href="@{/Admin/ChungChi}" aria-expanded="false"><span
                                     class="educate-icon educate-department icon-wrap"></span> <span
                                     class="mini-click-non">Chứng Chỉ</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="ChungChi List" href="ChungChi"><span class="mini-sub-pro">Chứng
+                                <li><a title="ChungChi List" th:href="@{/Admin/ChungChi}"><span
+                                            class="mini-sub-pro">Chứng
                                             Chỉ</span></a></li>
-
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" href="Video" aria-expanded="false"> <span
+                        <li
+                            th:classappend="${#strings.contains(request.getRequestURI(), '/Admin/Video') ? 'active' : ''}">
+                            <a class="has-arrow" th:href="@{/Admin/Video}" aria-expanded="false"> <span
                                     class="glyphicon glyphicon-expand"></span> <span
                                     class="mini-click-non">Video</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Inbox" href="Video"><span class="mini-sub-pro">Video</span></a></li>
-
+                                <li><a title="Inbox" th:href="@{/Admin/Video}"><span
+                                            class="mini-sub-pro">Video</span></a></li>
                             </ul>
                         </li>
                     </ul>
@@ -158,6 +147,7 @@
             </div>
         </nav>
     </div>
+
     <!-- End Header menu area -->
     <!-- Start Welcome area -->
     <div class="all-content-wrapper">
@@ -165,7 +155,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="logo-pro">
-                        <a href="index"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                        <a href="index"><img class="main-logo" th:src="@{Admin/img/logo/logo.png}" alt="" /></a>
                     </div>
                 </div>
             </div>
@@ -229,7 +219,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/1.jpg" alt="">
+                                                                        <img th:src="@{Admin/img/contact/1.jpg}" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -242,7 +232,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/4.jpg" alt="">
+                                                                        <img th:src="@{Admin/img/contact/4.jpg}" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -255,7 +245,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/3.jpg" alt="">
+                                                                        <img th:src="@{Admin/img/contact/3.jpg}" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -268,7 +258,7 @@
                                                             <li>
                                                                 <a href="#">
                                                                     <div class="message-img">
-                                                                        <img src="img/contact/2.jpg" alt="">
+                                                                        <img th:src="@{Admin/img/contact/2.jpg}" alt="">
                                                                     </div>
                                                                     <div class="message-content">
                                                                         <span class="message-date">16 Sept</span>
@@ -360,7 +350,7 @@
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button"
                                                         aria-expanded="false" class="nav-link dropdown-toggle">
-                                                        <img src="img/product/pro4.jpg" alt="" />
+                                                        <img th:src="@{Admin/img/product/pro4.jpg" alt="" />
                                                         <span class="admin-name">Prof.Anderson</span>
                                                         <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
                                                     </a>
@@ -418,7 +408,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/4.jpg"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -435,7 +425,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/1.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -452,7 +442,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/2.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -469,7 +459,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/3.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -486,7 +476,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/4.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/4.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -503,7 +493,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/1.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -520,7 +510,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/2.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -537,7 +527,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/1.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/1.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -554,7 +544,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/2.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/2.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -571,7 +561,7 @@
                                                                                 <a href="#">
                                                                                     <div class="notes-list-flow">
                                                                                         <div class="notes-img">
-                                                                                            <img src="img/contact/3.jpg"
+                                                                                            <img th:src="@{Admin/img/contact/3.jpg}"
                                                                                                 alt="" />
                                                                                         </div>
                                                                                         <div class="notes-content">
@@ -1083,9 +1073,8 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#demodepart"
-                                                href="ChungChi">Chứng Chỉ <span
-                                                    class="admin-project-icon edu-icon edu-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#demodepart" href="ChungChi">Chứng
+                                                Chỉ <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="demodepart" class="collapse dropdown-header-top">
                                             </ul>
                                         </li>
@@ -1515,67 +1504,51 @@
                 </div>
             </div>
         </div>
-        <!-- jquery
-		============================================ -->
-        <script src="js/vendor/jquery-1.12.4.min.js"></script>
-        <!-- bootstrap JS
-		============================================ -->
-        <script src="js/bootstrap.min.js"></script>
-        <!-- wow JS
-		============================================ -->
-        <script src="js/wow.min.js"></script>
-        <!-- price-slider JS
-		============================================ -->
-        <script src="js/jquery-price-slider.js"></script>
-        <!-- meanmenu JS
-		============================================ -->
-        <script src="js/jquery.meanmenu.js"></script>
-        <!-- owl.carousel JS
-		============================================ -->
-        <script src="js/owl.carousel.min.js"></script>
-        <!-- sticky JS
-		============================================ -->
-        <script src="js/jquery.sticky.js"></script>
-        <!-- scrollUp JS
-		============================================ -->
-        <script src="js/jquery.scrollUp.min.js"></script>
-        <!-- counterup JS
-		============================================ -->
-        <script src="js/counterup/jquery.counterup.min.js"></script>
-        <script src="js/counterup/waypoints.min.js"></script>
-        <script src="js/counterup/counterup-active.js"></script>
-        <!-- mCustomScrollbar JS
-		============================================ -->
-        <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
-        <!-- metisMenu JS
-		============================================ -->
-        <script src="js/metisMenu/metisMenu.min.js"></script>
-        <script src="js/metisMenu/metisMenu-active.js"></script>
-        <!-- morrisjs JS
-		============================================ -->
-        <script src="js/morrisjs/raphael-min.js"></script>
-        <script src="js/morrisjs/morris.js"></script>
-        <script src="js/morrisjs/morris-active.js"></script>
-        <!-- morrisjs JS
-		============================================ -->
-        <script src="js/sparkline/jquery.sparkline.min.js"></script>
-        <script src="js/sparkline/jquery.charts-sparkline.js"></script>
-        <script src="js/sparkline/sparkline-active.js"></script>
-        <!-- calendar JS
-		============================================ -->
-        <script src="js/calendar/moment.min.js"></script>
-        <script src="js/calendar/fullcalendar.min.js"></script>
-        <script src="js/calendar/fullcalendar-active.js"></script>
-        <!-- plugins JS
-		============================================ -->
-        <script src="js/plugins.js"></script>
-        <!-- main JS
-		============================================ -->
-        <script src="js/main.js"></script>
-        <!-- tawk chat JS
-		============================================ -->
-        <script src="js/tawk-chat.js"></script>
+        <!-- jquery -->
+        <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>
+        <!-- bootstrap JS -->
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <!-- wow JS -->
+        <script th:src="@{/js/wow.min.js}"></script>
+        <!-- price-slider JS -->
+        <script th:src="@{/js/jquery-price-slider.js}"></script>
+        <!-- meanmenu JS -->
+        <script th:src="@{/js/jquery.meanmenu.js}"></script>
+        <!-- owl.carousel JS -->
+        <script th:src="@{/js/owl.carousel.min.js}"></script>
+        <!-- sticky JS -->
+        <script th:src="@{/js/jquery.sticky.js}"></script>
+        <!-- scrollUp JS -->
+        <script th:src="@{/js/jquery.scrollUp.min.js}"></script>
+        <!-- counterup JS -->
+        <script th:src="@{/js/counterup/jquery.counterup.min.js}"></script>
+        <script th:src="@{/js/counterup/waypoints.min.js}"></script>
+        <script th:src="@{/js/counterup/counterup-active.js}"></script>
+        <!-- mCustomScrollbar JS -->
+        <script th:src="@{/js/scrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+        <script th:src="@{/js/scrollbar/mCustomScrollbar-active.js}"></script>
+        <!-- metisMenu JS -->
+        <script th:src="@{/js/metisMenu/metisMenu.min.js}"></script>
+        <script th:src="@{/js/metisMenu/metisMenu-active.js}"></script>
+        <!-- morrisjs JS -->
+        <script th:src="@{/js/morrisjs/raphael-min.js}"></script>
+        <script th:src="@{/js/morrisjs/morris.js}"></script>
+        <script th:src="@{/js/morrisjs/morris-active.js}"></script>
+        <!-- sparkline JS -->
+        <script th:src="@{/js/sparkline/jquery.sparkline.min.js}"></script>
+        <script th:src="@{/js/sparkline/jquery.charts-sparkline.js}"></script>
+        <script th:src="@{/js/sparkline/sparkline-active.js}"></script>
+        <!-- calendar JS -->
+        <script th:src="@{/js/calendar/moment.min.js}"></script>
+        <script th:src="@{/js/calendar/fullcalendar.min.js}"></script>
+        <script th:src="@{/js/calendar/fullcalendar-active.js}"></script>
+        <!-- plugins JS -->
+        <script th:src="@{/js/plugins.js}"></script>
+        <!-- main JS -->
+        <script th:src="@{/js/main.js}"></script>
+        <!-- tawk chat JS -->
+        <script th:src="@{/js/tawk-chat.js}"></script>
+
 </body>
 
 </html>

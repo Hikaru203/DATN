@@ -5,11 +5,17 @@
 You can do whatever you want with the code. However if you love my content, you can subscribed my YouTube Channel
 🌎link: www.youtube.com/codingdesign
 */
+/* CSS */
+/* CSS */
+
 
 :root {
-    --primary : linear-gradient(to bottom right, #255,255,255, #3f00ee);
+    --primary : linear-gradient(to bottom right, #FFFFFF, #808080);
     --secondary : gold;
     --text : #black;
+}
+.download-button {
+    display: none;
 }
 
 * {
@@ -45,11 +51,11 @@ body {
     }
 }
 
-.main-video, .video-playlist {
-    width: 100%;
-    height: 30rem;
+.main-video video {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* hoặc "cover" tùy thuộc vào thiết kế của bạn */
 }
-
 .main-video .title {
     margin-top: 1rem;
 }

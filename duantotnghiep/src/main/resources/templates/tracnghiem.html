@@ -136,10 +136,11 @@
       <div class="container mt-5">
         <h1 class="mb-4">Trắc nghiệm câu hỏi</h1>
 
-        <select style="width: 1000px; padding: 10px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; background-color: #fff; cursor: pointer;">
+        <select style="width: 1000px; padding: 10px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; background-color: #fff; cursor: pointer;" ng-model="selectedKhoaHoc" ng-change="chonKhoaHoc(selectedKhoaHoc)">
             <option style="padding: 5px; font-size: 19px; cursor: pointer;" value="">Chọn khoá học</option>
-            <option ng-repeat="c in danhSachKhoaHoc" ng-click="chonKhoaHoc(c.id)" style="padding: 5px; font-size: 19px; cursor: pointer;">{{c.tenKhoaHoc}}</option>
+            <option ng-repeat="c in danhSachKhoaHoc" value="{{c.id}}" style="padding: 5px; font-size: 19px; cursor: pointer;">{{c.tenKhoaHoc}}</option>
         </select>
+        
         
         <div ng-repeat="question in questionAnswerArray">
             <h3>Câu Hỏi {{$index + 1}}: {{question.cauHoi}}</h3>
@@ -148,7 +149,7 @@
                 <label>{{answer}}</label><br>
             </div>
         </div>
-        <div class="buttons" style="text-align-center" >
+        <div class="buttons" >
             <button ng-click="checkAnswers()"  class="btn btn-success mx-auto d-block text-center mt-2">Kiểm tra kết quả</button>
             <div class="text-center mt-2">
                 <p>Số câu đúng: {{soCauDung}}</p>
