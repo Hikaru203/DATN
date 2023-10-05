@@ -6,7 +6,7 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
         // Gọi API để tải dữ liệu câu hỏi từ đường dẫn "/rest/TracNghiem"
         $http.get("/rest/tracnghiem").then(resp => {
             $scope.itemsCauHoi = resp.data;
-            console.log("API Response:", resp.data)
+            //console.log("API Response:", resp.data)
 
             $scope.danhSachKhoaHoc = [];
             $scope.questionAnswerArray = [];
@@ -19,7 +19,7 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
             $scope.loadDanhSachKhoaHoc = function () {
                 $http.get("/Admin/rest/KhoaHoc").then(function (response) {
                     $scope.danhSachKhoaHoc = response.data;
-                    console.log("Dữ liệu khóa học", $scope.danhSachKhoaHoc);
+                    //console.log("Dữ liệu khóa học", $scope.danhSachKhoaHoc);
                 });
             };
 
@@ -44,12 +44,12 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
                                         dapAn: item.dapAn
                                     };
                                     questionAnswerArray.push(questionObject);
-                                    console.log("Question and answer object:", questionObject);
+                                    //console.log("Question and answer object:", questionObject);
                                 } else {
                                     console.log("'cauTraLoi' does not exist or has no value for an item.");
                                 }
                             }
-                            console.log("Question and answer array:", questionAnswerArray);
+                            // console.log("Question and answer array:", questionAnswerArray);
                             $scope.questionAnswerArray = questionAnswerArray;
                         })
                         .catch(function (error) {
@@ -66,10 +66,8 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
                 
                 for (const question of $scope.questionAnswerArray) {
                     if(question.selectedAnswer == undefined){             
-                        $scope.soCauDung = 0;
-                        $scope.soCauSai = 0;
                         $scope.msg='chưa chọn hết';
-                      
+                        return;
                     }else{
                     if (question.selectedAnswer === question.dapAn) {
                         $scope.soCauDung++;
@@ -80,28 +78,16 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
                 }
                 console.log("A: "+question.selectedAnswer);
                 console.log("B: "+question.dapAn);
-            }
-        
+            }   
             };
-            
-            $scope.selectAnswer = function(questionIndex, answer) {
-                $scope.selectedAnswers[questionIndex] = answer;
-                console.log(questionIndex);
-                
-            };
-
             // Gọi hàm initialize để khởi tạo dữ liệu khi trang được tải
             $scope.loadDanhSachKhoaHoc();
-
             $scope.selectAnswer = function (questionIndex, answer) {
                 $scope.selectedAnswers[questionIndex] = answer;
                 console.log(questionIndex);
-
             }
-
         }
         );
     }
     $scope.initialize();
-
 });
