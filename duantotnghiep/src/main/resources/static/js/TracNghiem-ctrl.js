@@ -63,23 +63,29 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
             $scope.checkAnswers = function() {
                 $scope.soCauDung = 0;
                 $scope.soCauSai = 0;
-                
+                $scope.msg = '';
+            
                 for (const question of $scope.questionAnswerArray) {
-                    if(question.selectedAnswer == undefined){             
-                        $scope.msg='chưa chọn hết';
+                    if (question.selectedAnswer === undefined) {
+                        $scope.msg = 'Bạn chưa chọn đáp án cho tất cả các câu hỏi.';
                         return;
-                    }else{
-                    if (question.selectedAnswer === question.dapAn) {
-                        $scope.soCauDung++;
                     } else {
-                        $scope.soCauSai++;
+                        if (question.selectedAnswer === question.dapAn) {
+                            $scope.soCauDung++;
+                        } else {
+                            $scope.soCauSai++;
+                        }
                     }
-                    $scope.msg='';
+                    console.log("A: " + question.selectedAnswer);
+                    console.log("B: " + question.dapAn);
                 }
-                console.log("A: "+question.selectedAnswer);
-                console.log("B: "+question.dapAn);
-            }   
+            
+                // Kiểm tra xem tất cả câu hỏi đã được chọn
+                if ($scope.soCauDung + $scope.soCauSai === $scope.questionAnswerArray.length) {
+                    $scope.msg = ''; // Đặt lại thông báo nếu tất cả câu hỏi đã được chọn
+                }
             };
+            
             // Gọi hàm initialize để khởi tạo dữ liệu khi trang được tải
             $scope.loadDanhSachKhoaHoc();
             $scope.selectAnswer = function (questionIndex, answer) {
