@@ -83,6 +83,7 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
             }
             console.log("A: " + question.selectedAnswer);
             console.log("B: " + question.dapAn);
+            question.isAnswered = true; // Đánh dấu câu hỏi này đã được trả lời
         }
     
         // Kiểm tra xem tất cả câu hỏi đã được chọn
@@ -98,9 +99,7 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
             }
         }
         return false; // Tất cả câu hỏi đã được trả lời
-    };
-    
-    
+    };    
     // Gọi hàm initialize để khởi tạo dữ liệu khi trang được tải
     $scope.loadDanhSachKhoaHoc();
     $scope.selectAnswer = function (questionIndex, answer) {

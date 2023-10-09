@@ -145,16 +145,20 @@
         <div ng-repeat="question in questionAnswerArray">
             <h3>Câu Hỏi {{$index + 1}}: {{question.cauHoi}}</h3>
             <div ng-repeat="answer in question.cauTraLoi">
-                <input type="radio" ng-model="question.selectedAnswer" ng-value="answer" ng-disabled="question.isAnswered || question.selectedAnswer">
-
-                <label>{{answer}}</label><br>
+                <label>
+                    <input type="radio" ng-model="question.selectedAnswer" ng-value="answer" ng-disabled="question.isAnswered">
+                    {{answer}}
+                </label><br>
             </div>
+            
             <!-- Hiển thị thông báo nếu câu hỏi chưa được chọn -->
         <!-- Sử dụng ng-if để chỉ hiển thị thông báo khi có câu hỏi bị bỏ sót -->
         <p ng-if="showErrors && (!question.selectedAnswer || question.selectedAnswer !== question.dapAn)" style="font-weight: bold; color: red;">Bạn chọn đáp án sai hoặc không chọn đáp án.</p>
         </div>
         <div class="buttons" >
-            <button ng-click="checkAnswers(); showErrors = true;"  class="btn btn-success mx-auto d-block text-center mt-2">Kiểm tra kết quả</button>
+<!-- Trong template HTML -->
+<!-- Button ban đầu sẽ bị vô hiệu hóa -->
+<button ng-click="checkAnswers(); showErrors = true" class="btn btn-success mx-auto d-block text-center mt-2" ng-disabled="isResultChecked">Kiểm tra kết quả</button>
             <div class="text-center mt-2">
                 <p>Số câu đúng: {{soCauDung}}</p>
                 <p>Số câu sai: {{soCauSai}}</p>
@@ -238,7 +242,7 @@
          </div>
      </div>
      <!-- Footer End -->
- 
+   
  
      <!-- Back to Top -->
      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
