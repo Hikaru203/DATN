@@ -145,17 +145,16 @@
         <div ng-repeat="question in questionAnswerArray">
             <h3>Câu Hỏi {{$index + 1}}: {{question.cauHoi}}</h3>
             <div ng-repeat="answer in question.cauTraLoi">
-                <input type="radio" ng-model="question.selectedAnswer" ng-value="answer" ng-disabled="question.isAnswered">
+                <input type="radio" ng-model="question.selectedAnswer" ng-value="answer" ng-disabled="question.isAnswered || question.selectedAnswer">
+
                 <label>{{answer}}</label><br>
             </div>
             <!-- Hiển thị thông báo nếu câu hỏi chưa được chọn -->
         <!-- Sử dụng ng-if để chỉ hiển thị thông báo khi có câu hỏi bị bỏ sót -->
-<p ng-if="hasUnansweredQuestions() && !question.isAnswered && question.selectedAnswer === undefined" style="font-weight: bold; color: red;">Bạn chưa chọn đáp án cho câu hỏi này.</p>
-<!-- Hiển thị thông báo khi chọn sai đáp án -->
-<p ng-if="question.selectedAnswer && question.selectedAnswer !== question.dapAn" style="font-weight: bold; color: red;">Bạn chọn đáp án sai.</p>
+        <p ng-if="showErrors && (!question.selectedAnswer || question.selectedAnswer !== question.dapAn)" style="font-weight: bold; color: red;">Bạn chọn đáp án sai hoặc không chọn đáp án.</p>
         </div>
         <div class="buttons" >
-            <button ng-click="checkAnswers()"  class="btn btn-success mx-auto d-block text-center mt-2">Kiểm tra kết quả</button>
+            <button ng-click="checkAnswers(); showErrors = true;"  class="btn btn-success mx-auto d-block text-center mt-2">Kiểm tra kết quả</button>
             <div class="text-center mt-2">
                 <p>Số câu đúng: {{soCauDung}}</p>
                 <p>Số câu sai: {{soCauSai}}</p>
