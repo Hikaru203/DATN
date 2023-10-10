@@ -27,4 +27,8 @@ public class ClientController {
     public String tracngiem() {
         return "tracnghiem";
     }
+     @GetMapping("/courseOnline/uploadKhoaHoc")
+    public String uploadKhoaHoc() {
+        return "uploadKhoaHoc";
+    }
 }
