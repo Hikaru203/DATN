@@ -146,7 +146,7 @@
             <h3>Câu Hỏi {{$index + 1}}: {{question.cauHoi}}</h3>
             <div ng-repeat="answer in question.cauTraLoi">
                 <label>
-                    <input type="radio" ng-model="question.selectedAnswer" ng-value="answer" ng-disabled="question.isAnswered">
+                    <input  type="radio" ng-model="question.selectedAnswer" ng-value="answer" ng-disabled="question.isAnswered">
                     {{answer}}
                 </label><br>
             </div>
@@ -158,7 +158,7 @@
         <div class="buttons" >
 <!-- Trong template HTML -->
 <!-- Button ban đầu sẽ bị vô hiệu hóa -->
-<button ng-click="checkAnswers(); showErrors = true" class="btn btn-success mx-auto d-block text-center mt-2" ng-disabled="isResultChecked">Kiểm tra kết quả</button>
+<button  ng-click="checkAnswers(); showErrors = true" class="btn btn-success mx-auto d-block text-center mt-2" ng-disabled="isResultChecked">Kiểm tra kết quả</button>
             <div class="text-center mt-2">
                 <p>Số câu đúng: {{soCauDung}}</p>
                 <p>Số câu sai: {{soCauSai}}</p>
