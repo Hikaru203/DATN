@@ -14,5 +14,7 @@ public interface CauHoiService {
 
     ArrayList<CauHoi> findByMucLuc(int mucLucId);
 
+    ArrayList<CauHoi> findByKhoaHocId(int khoaHocId);
+
     
 }

@@ -1,7 +1,7 @@
 // JavaScript
 const app = angular.module('loadVideo-app', ['ngCookies']);
 const videoPlaylist = document.querySelector('.video-playlist .videos');
-let player; // Thêm biến player cho YouTube Player API
+let twitchPlayer; // Thêm biến twitchPlayer cho Twitch Player
 
 app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', function($scope, $http, $cookies, $window) {
     $scope.items = [];
@@ -26,36 +26,23 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         // Tìm video phù hợp theo id
         let match_video = $scope.data.find(video => video.id == selected_video.dataset.id);
         if (match_video) {
-            // Kiểm tra xem biến player đã được khởi tạo chưa
-            if (typeof player === 'undefined') {
+            // Kiểm tra xem biến twitchPlayer đã được khởi tạo chưa
+            if (typeof twitchPlayer === 'undefined') {
                 // Nếu chưa khởi tạo, thực hiện khởi tạo
-                player = new YT.Player('video-player', {
-					height: '500',
-					width: '888',
-					playerVars: {
-						autoplay: 1,
-						controls: 0,
-						rel0: 1,
-						showinfo: 0,
-						disablekb: 1,
-					},
-					
-				});
-				console.log(player.playerInfo.apiInterface);
-				
-				
+                let twitchIframe = document.createElement('iframe');
+                twitchIframe.src = `https://clips.twitch.tv/embed?clip=MistyCulturedSkirretWOOP-17m-CI3QyzVFXd-L&parent=www.example.com`;
+                twitchIframe.frameBorder = 0;
+                twitchIframe.allowFullscreen = true;
+                twitchIframe.scrolling = 'no';
+                twitchIframe.height = '378';
+                twitchIframe.width = '620';
+
+                // Thêm iframe vào div có id là 'video-player'
+                document.getElementById('video-player').appendChild(twitchIframe);
+
+                // Lưu trạng thái của twitchPlayer
+                twitchPlayer = true;
             }
-
-            // Dừng trình phát hiện tại nếu có
-            if (player.getPlayerState() === YT.PlayerState.PLAYING) {
-                player.stopVideo();
-            }
-
-            // Phát video YouTube mới
-            player.loadVideoById(match_video.linkVideo);
-
-            // Đặt tiêu đề cho iframe (bạn có thể tùy chỉnh)
-            player.setVideoTitle(match_video.mucLuc.khoaHoc.tenKhoaHoc);
         }
     }
 
@@ -111,11 +98,11 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
     }
 }]);
 
-// Hàm này sẽ được gọi khi YouTube Player API đã sẵn sàng
-function onYouTubeIframeAPIReady() {
-    // Xác định rằng YouTube Player API đã sẵn sàng
-    console.log("YouTube Player API is ready");
+// Hàm này sẽ được gọi khi Twitch Player đã sẵn sàng
+function onTwitchPlayerReady() {
+    // Xác định rằng Twitch Player đã sẵn sàng
+    console.log("Twitch Player is ready");
 }
 
-// Gọi hàm khởi tạo YouTube Player API
-onYouTubeIframeAPIReady();
+// Gọi hàm khởi tạo Twitch Player
+onTwitchPlayerReady();

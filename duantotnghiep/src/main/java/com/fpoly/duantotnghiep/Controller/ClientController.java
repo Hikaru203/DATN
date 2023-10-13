@@ -54,4 +54,6 @@ public class ClientController {
         return "detail";
     }
 
+    
+
 }
