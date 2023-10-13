@@ -26,4 +26,9 @@ public class TracnghiemRestController {
         return cauHoiService.findAll();
     }
 
+    @GetMapping("/{idKhoaHoc}")
+    public List<CauHoi> getById(@PathVariable("idKhoaHoc") Integer id) {
+        return cauHoiService.findByKhoaHocId(id);
+    }
+
 }

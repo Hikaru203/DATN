@@ -13,4 +13,7 @@ public interface CauHoiRepository extends JpaRepository<CauHoi, Integer> {
     @Query("SELECT ch FROM CauHoi ch JOIN ch.mucLuc ml WHERE ml.id = :mucLucId")
     ArrayList<CauHoi> findByMucLuc(Integer mucLucId);
 
+    @Query("SELECT ch FROM CauHoi ch JOIN ch.mucLuc ml JOIN ml.khoaHoc kh WHERE kh.id = :khoaHocId")
+    ArrayList<CauHoi> findByKhoaHocId(int khoaHocId);
+
 }
