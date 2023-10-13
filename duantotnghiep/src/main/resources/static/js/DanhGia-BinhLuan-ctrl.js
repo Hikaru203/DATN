@@ -163,8 +163,8 @@ app.controller('DanhGia-BinhLuan-ctrl', function ($scope, $http, $window) {
                         }
                     }
 
-                    // Sử dụng $q.all để chờ tất cả các promise hoàn thành
-                    $q.all(deletePromises)
+                    // Sử dụng Promise.all để chờ tất cả các promise hoàn thành
+                    Promise.all(deletePromises)
                         .then(function (responses) {
                             console.log(responses); // In ra kết quả của việc xóa bình luận
                         })
