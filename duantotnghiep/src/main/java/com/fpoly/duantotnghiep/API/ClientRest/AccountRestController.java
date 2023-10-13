@@ -15,6 +15,7 @@ public class AccountRestController {
 
     @PostMapping("/nguoidung")
     public NguoiDung createNguoiDung(@RequestBody NguoiDung nguoiDung) {
+        nguoiDung.setTrangThai("flase");
         return nguoiDungRepository.save(nguoiDung);
     }
 

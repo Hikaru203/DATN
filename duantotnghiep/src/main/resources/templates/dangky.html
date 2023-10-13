@@ -10,24 +10,29 @@
     <div class="bg-img">
       <div class="content">
         <header>Đăng ký</header>
-        <form action="#">
+        <form id="signupForm">
           <div class="field">
             <span class="fa fa-user"></span>
-            <input type="text" required placeholder="Họ và tên">
+            <input id="fullName" type="text" required placeholder="Họ và tên">
           </div>
           <br>
           <div class="field">
             <span class="fa fa-user"></span>
-            <input type="text" required placeholder="Tên tài khoản">
+            <input id="username" type="text" required placeholder="Tên tài khoản">
           </div>
           <br>
           <div class="field">
             <span class="fa fa-envelope"></span>
-            <input name="email" class="form-control" placeholder="Nhập vào Email của bạn" type="email">
+            <input id="email" class="form-control" required placeholder="Nhập vào Email của bạn" type="email">
+          </div>
+          <br>
+          <div class="field">
+            <span class="fa fa-phone"></span>
+            <input id="phone" class="form-control" required placeholder="Nhập vào số điện thoại" type="phone">
           </div>
           <div class="field space">
             <span class="fa fa-lock"></span>
-            <input type="password" class="pass-key" required placeholder="Mật khẩu">
+            <input id="password" type="password" class="pass-key" required placeholder="Mật khẩu">
             <span class="show">
               <i class="fas fa-eye"></i>
             </span>            
@@ -50,28 +55,10 @@
         <div class="signup">Bạn đã có tài khoản?
           <a href="#">Đăng nhập</a>
         </div> 
+         <!-- Thêm thông tin người thiết kế -->
+        
       </div>
     </div>
-
-    <script>
-      const pass_field = document.querySelector('.pass-key');
-      const showBtn = document.querySelector('.show');
-    
-      showBtn.addEventListener('click', function () {
-        if (pass_field.type === 'password') {
-          pass_field.type = 'text';
-          showBtn.innerHTML = '<i class="fas fa-eye-slash"></i>';
-          showBtn.style.color = '#3498db';
-        } else {
-          pass_field.type = 'password';
-          showBtn.innerHTML = '<i class="fas fa-eye"></i>';
-          showBtn.style.color = '#222';
-        }
-      });
-    </script>
-    
-    
-
-
+    <script src="../js/signup.js"></script>
   </body>
 </html>
