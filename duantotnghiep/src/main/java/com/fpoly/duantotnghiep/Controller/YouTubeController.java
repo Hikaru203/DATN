@@ -1,44 +1,49 @@
 package com.fpoly.duantotnghiep.Controller;
 
-import com.fpoly.duantotnghiep.service.CookieService;
-import com.fpoly.duantotnghiep.service.TwitchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.ui.Model;
+
+import com.fpoly.duantotnghiep.service.CookieService;
+import com.fpoly.duantotnghiep.service.YouTubeService;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class TwitchController {
-    @Autowired
-    private TwitchService twitchService;
+public class YouTubeController {
+    String accessToken;
 
     @Autowired
-    private CookieService cookieService; // Bổ sung tùy theo cách bạn lưu trạng thái của ứng dụng
+    private YouTubeService youTubeService;
 
-    @GetMapping("/Twitch/Video")
+    @Autowired
+    CookieService cookieService;
+
+    @GetMapping("/Admin/Video")
     public String authenticate(Model model, HttpSession session) {
         String accessToken = (String) session.getAttribute("accessToken");
 
         if (accessToken == null) {
-            String authorizationUrl = twitchService.getAuthorizationUrl();
+            String authorizationUrl = youTubeService.getAuthorizationUrl();
             model.addAttribute("authorizationUrl", authorizationUrl);
             model.addAttribute("accessToken", accessToken);
+            model.addAttribute("authorizationUrl", authorizationUrl);
             return "Admin/Video";
+
         } else {
-            String authorizationUrl = twitchService.getAuthorizationUrl();
+            String authorizationUrl = youTubeService.getAuthorizationUrl();
             model.addAttribute("accessToken", accessToken);
             model.addAttribute("authorizationUrl", authorizationUrl);
             return "Admin/Video";
         }
     }
 
-    @GetMapping("/twitch/oauth2callback")
+    @GetMapping("/oauth2callback")
     public String oauth2callback(@RequestParam("code") String authorizationCode, HttpSession session, Model model) {
         try {
-            String accessToken = twitchService.getAccessToken(authorizationCode);
+            accessToken = youTubeService.getAccessToken(authorizationCode);
             session.setAttribute("accessToken", accessToken);
 
             // Trong phương thức khác
@@ -48,32 +53,33 @@ public class TwitchController {
             MultipartFile file = (MultipartFile) session.getAttribute("file");
 
             try {
-                twitchService.uploadVideo(title, description, privacyStatus, file, accessToken);
+                youTubeService.uploadVideo(title, description, privacyStatus, file, accessToken);
 
-                String authorizationUrl = twitchService.getAuthorizationUrl();
+                String authorizationUrl = youTubeService.getAuthorizationUrl();
                 model.addAttribute("accessToken", accessToken);
                 model.addAttribute("authorizationUrl", authorizationUrl);
                 return "Admin/Video";
+
             } catch (Exception e) {
-                return "redirect:/Twitch/Video";
+                return "redirect:/Admin/Video";
             }
         } catch (Exception e) {
-            // Xử lý các ngoại lệ
-            return "redirect:/Twitch/Video";
+            // Handle exceptions
+            return "redirect:/Admin/Video";
         }
+
     }
 
-    @PostMapping("/twitch/uploadVideo")
+    @PostMapping("/youtube/uploadVideo")
     public String uploadVideo(
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("privacyStatus") String privacyStatus,
             @RequestParam("file") MultipartFile file,
             HttpSession session, Model model) {
-        String accessToken = (String) session.getAttribute("accessToken");
 
         if (accessToken == null) {
-            String authorizationUrl = twitchService.getAuthorizationUrl();
+            String authorizationUrl = youTubeService.getAuthorizationUrl();
             model.addAttribute("authorizationUrl", authorizationUrl);
 
             // Lưu các giá trị vào session
@@ -84,7 +90,7 @@ public class TwitchController {
             return "redirect:" + authorizationUrl;
         } else {
             try {
-                twitchService.uploadVideo(title, description, privacyStatus, file, accessToken);
+                youTubeService.uploadVideo(title, description, privacyStatus, file, accessToken);
                 return "Admin/Video";
             } catch (Exception e) {
                 model.addAttribute("error", e.getMessage());
@@ -92,4 +98,5 @@ public class TwitchController {
             }
         }
     }
+
 }
