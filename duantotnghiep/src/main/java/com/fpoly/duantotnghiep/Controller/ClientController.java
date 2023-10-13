@@ -56,4 +56,8 @@ public class ClientController {
 
     
 
+     @GetMapping("/courseOnline/uploadKhoaHoc")
+    public String uploadKhoaHoc() {
+        return "uploadKhoaHoc";
+    }
 }
