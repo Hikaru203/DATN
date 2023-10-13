@@ -21,10 +21,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 </head>
 
 <body ng-app="myApp" ng-controller="TracNghiem-ctrl">
@@ -145,17 +145,26 @@
         <div ng-repeat="question in questionAnswerArray">
             <h3>Câu Hỏi {{$index + 1}}: {{question.cauHoi}}</h3>
             <div ng-repeat="answer in question.cauTraLoi">
-                <input type="radio" ng-model="question.selectedAnswer" ng-value="answer">
-                <label>{{answer}}</label><br>
+                <label>
+                    <input  type="radio" ng-model="question.selectedAnswer" ng-value="answer" ng-disabled="question.isAnswered">
+                    {{answer}}
+                </label><br>
             </div>
+            
+            <!-- Hiển thị thông báo nếu câu hỏi chưa được chọn -->
+        <!-- Sử dụng ng-if để chỉ hiển thị thông báo khi có câu hỏi bị bỏ sót -->
+        <p ng-if="showErrors && (!question.selectedAnswer || question.selectedAnswer !== question.dapAn)" style="font-weight: bold; color: red;">Bạn chọn đáp án sai hoặc không chọn đáp án.</p>
         </div>
         <div class="buttons" >
-            <button ng-click="checkAnswers()"  class="btn btn-success mx-auto d-block text-center mt-2">Kiểm tra kết quả</button>
+<!-- Trong template HTML -->
+<!-- Button ban đầu sẽ bị vô hiệu hóa -->
+<button  ng-click="checkAnswers(); showErrors = true" class="btn btn-success mx-auto d-block text-center mt-2" ng-disabled="isResultChecked">Kiểm tra kết quả</button>
             <div class="text-center mt-2">
                 <p>Số câu đúng: {{soCauDung}}</p>
                 <p>Số câu sai: {{soCauSai}}</p>
                 <p class="text-danger" > {{msg}}</p>
             </div>
+            
         </div>
         <div class="result mt-3" id="result"></div>
       </div>
@@ -233,7 +242,7 @@
          </div>
      </div>
      <!-- Footer End -->
- 
+   
  
      <!-- Back to Top -->
      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
@@ -242,17 +251,17 @@
      <!-- JavaScript Libraries -->
      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-     <script src="lib/easing/easing.min.js"></script>
-     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+     <script src="../lib/easing/easing.min.js"></script>
+     <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
  
      <!-- Contact Javascript File -->
-     <script src="mail/jqBootstrapValidation.min.js"></script>
-     <script src="mail/contact.js"></script>
+     <script src="../mail/jqBootstrapValidation.min.js"></script>
+     <script src="../mail/contact.js"></script>
     
 
      <!-- Template Javascript -->
-     <script src="js/main.js"></script>
-     <script src="js/TracNghiem-ctrl.js"></script>
+     <script src="../js/main.js"></script>
+     <script src="../js/TracNghiem-ctrl.js"></script>
  </body>
  
  </html>
