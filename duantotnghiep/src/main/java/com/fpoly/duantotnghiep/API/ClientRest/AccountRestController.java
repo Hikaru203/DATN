@@ -24,6 +24,11 @@ public class AccountRestController {
         return nguoiDungRepository.findAll();
     }
 
-    // You can add other CRUD operations as needed
+    @GetMapping("/nguoidung/checkUsername/{username}")
+    public boolean checkIfUsernameExists(@PathVariable String username) {
+        // Kiểm tra xem tên tài khoản đã tồn tại trong cơ sở dữ liệu hay chưa
+        NguoiDung existingUser = nguoiDungRepository.findByTaiKhoan(username);
+        return existingUser != null;
+    }
 
 }
