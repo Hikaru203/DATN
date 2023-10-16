@@ -6,7 +6,13 @@ function checkIfUsernameExists(username) {
       return usernameExists;
     });
 }
-
+function checkIfEmailExists(email) {
+  return fetch(`/api/nguoidung/checkEmail/${email}`)
+    .then(response => response.json())
+    .then(emailExists => {
+      return emailExists;
+    });
+}
 const pass_field = document.querySelector('.pass-key');
 const showBtn = document.querySelector('.show');
 
@@ -45,6 +51,12 @@ signupForm.addEventListener('submit', function (event) {
       if (usernameExists) {
         alert('Tài khoản đã tồn tại. Vui lòng chọn tài khoản khác.');
       } else {
+
+        checkIfEmailExists(email)
+        .then(emailExists => {
+          if (emailExists) {
+            alert('Email đã tồn tại. Vui lòng sử dụng email khác.');
+          } else {
         // Tiếp tục với đăng ký nếu tên tài khoản không tồn tại
         // Gửi dữ liệu đăng ký đến máy chủ hoặc xử lý chúng theo cách bạn muốn.
         fetch('/api/nguoidung', {
@@ -78,8 +90,9 @@ signupForm.addEventListener('submit', function (event) {
         });
       }
     });
+  }
 });
-
+});
 // Hàm kiểm tra số điện thoại
 function isValidPhoneNumber(phone) {
   // Kiểm tra xem chuỗi chỉ chứa các chữ số và có ít nhất 10 ký tự

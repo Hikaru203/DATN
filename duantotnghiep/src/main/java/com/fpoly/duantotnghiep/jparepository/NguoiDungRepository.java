@@ -9,4 +9,6 @@ public interface NguoiDungRepository extends JpaRepository<NguoiDung, Integer> {
     NguoiDung findByHoTen(String hoTen);
 
     NguoiDung findByTaiKhoan(String taiKhoan);
+
+    NguoiDung findByEmail(String email);
 }

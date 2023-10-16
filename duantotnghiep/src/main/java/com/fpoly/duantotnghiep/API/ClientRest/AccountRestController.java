@@ -31,4 +31,11 @@ public class AccountRestController {
         return existingUser != null;
     }
 
+    @GetMapping("/nguoidung/checkEmail/{email}")
+    public boolean checkIfEmailExists(@PathVariable String email) {
+        // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu hay chưa
+        NguoiDung existingUser = nguoiDungRepository.findByEmail(email);
+        return existingUser != null;
+    }
+
 }
