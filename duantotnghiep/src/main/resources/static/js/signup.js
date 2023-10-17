@@ -6,6 +6,9 @@ function checkIfUsernameExists(username) {
       return usernameExists;
     });
 }
+//End Kiểm tra trùng tên tài khoản trước khi đăng ký
+
+//Kiểm tra trùng tài khoản 
 function checkIfEmailExists(email) {
   return fetch(`/api/nguoidung/checkEmail/${email}`)
     .then(response => response.json())
@@ -13,6 +16,8 @@ function checkIfEmailExists(email) {
       return emailExists;
     });
 }
+// End Kiểm tra trùng tài khoản 
+//Bắt hiển thị với ẩn mật khẩu
 const pass_field = document.querySelector('.pass-key');
 const showBtn = document.querySelector('.show');
 
@@ -27,6 +32,7 @@ showBtn.addEventListener('click', function () {
     showBtn.style.color = '#222';
   }
 });
+// End Hiển thị mẩu khẩu
 
 const signupForm = document.getElementById('signupForm');
 signupForm.addEventListener('submit', function (event) {
