@@ -1,6 +1,6 @@
 const app = angular.module('loadVideo-app', ['ngCookies']);
 const videoPlaylist = document.querySelector('.video-playlist .videos');
-let iframe; // Thay đổi tên biến thành iframe
+let videoIframe; // Thay đổi tên biến thành videoIframe
 
 app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', function ($scope, $http, $cookies, $window) {
     $scope.items = [];
@@ -8,40 +8,26 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
     $scope.getid = function (id) {
         $window.sessionStorage.setItem('videoId', id);
         $window.location.href = '/courseOnline/video';
-        // Chuyển đổi số nguyên thành chuỗi JSON
     }
 
     function changeVideo(selected_video, videos, $scope) {
-        // Loại bỏ lớp active và đặt hình ảnh play cho tất cả video
         videos.forEach(video => {
             video.classList.remove('active');
             video.querySelector('img').src = '/img/play.svg';
         });
 
-        // Đánh dấu video được chọn là active và đặt hình ảnh pause
         selected_video.classList.add('active');
         selected_video.querySelector('img').src = '/img/pause.svg';
 
-        // Tìm video phù hợp theo id
         let match_video = $scope.data.find(video => video.id == selected_video.dataset.id);
         if (match_video) {
-            // Kiểm tra xem biến iframe đã được khởi tạo chưa
-            if (typeof iframe === 'undefined') {
-                // Nếu chưa khởi tạo, thực hiện khởi tạo iframe
-                iframe = document.createElement('iframe');
-                iframe.width = '888';
-                iframe.height = '500';
-                iframe.frameborder = 0;
-                iframe.allowfullscreen = 1;
-                document.getElementById('video-container').appendChild(iframe);
-            }
-
-            // Thay đổi đường dẫn video thành www.youtube-nocookie.com
-            const youtubeNocookieURL = match_video.linkVideo.replace('www.youtube.com', 'www.youtube-nocookie.com');
-
-            // Cập nhật src của iframe
-            iframe.src = youtubeNocookieURL;
+            videoIframe.src = 'https://www.youtube-nocookie.com/embed/' + match_video.linkVideo + "?si=2PvjDx-NPvHeAMR3&modestbranding=1&controls=0&disablekb=1";
+            videoIframe.setAttribute("frameborder", "0");
+            videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+            videoIframe.setAttribute("allowfullscreen", "");
+            videoIframe.title = match_video.khoaHoc.tenKhoaHoc;
         }
+
     }
 
     function setupVideoEvents($scope) {
@@ -61,15 +47,15 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         }
     }
 
-    // Trong hàm loadvideo
     $scope.loadvideo = function () {
         var storedId = $window.sessionStorage.getItem('videoId');
         var url = `/rest/loadVideo/get-video-id/${storedId}`;
         $http.get(url).then(response => {
-            $scope.data = response.data; // Dữ liệu từ CSDL
+            $scope.data = response.data;
             console.log($scope.data);
 
-            // Rest of your code for rendering the video playlist
+            videoPlaylist.innerHTML = ''; // Clear the playlist before adding new videos
+
             $scope.data.forEach((video, i) => {
                 console.log(video);
                 let video_element = `
@@ -83,24 +69,17 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             });
 
             let videos = document.querySelectorAll('.video');
-
-            // Gọi hàm setupVideoEvents để gán sự kiện cho video
             setupVideoEvents($scope);
-
-            // Gọi hàm loadFirstVideo để tự động tải video đầu tiên
             loadFirstVideo(videos, $scope);
         }).catch(error => {
-            // Xử lý lỗi (nếu cần)
             console.error(error);
         });
     }
 }]);
 
-// Hàm này sẽ được gọi khi trang web đã sẵn sàng
 function onPageReady() {
-    // Xác định rằng trang web đã sẵn sàng
     console.log("Page is ready");
+    videoIframe = document.getElementById('video-iframe'); // Assign the iframe element
 }
 
-// Gọi hàm onPageReady khi trang web đã sẵn sàng
 onPageReady();
