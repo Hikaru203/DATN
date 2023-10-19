@@ -6,4 +6,7 @@ import com.fpoly.duantotnghiep.Entity.NguoiDung;
 
 public interface NguoiDungRepository extends JpaRepository<NguoiDung, Integer> {
     // You can add custom query methods here if needed
+    NguoiDung findByHoTen(String hoTen);
+
+    
 }

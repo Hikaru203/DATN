@@ -1,49 +1,33 @@
-// JavaScript
 const app = angular.module('loadVideo-app', ['ngCookies']);
 const videoPlaylist = document.querySelector('.video-playlist .videos');
-let twitchPlayer; // Thêm biến twitchPlayer cho Twitch Player
+let videoIframe; // Thay đổi tên biến thành videoIframe
 
-app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', function($scope, $http, $cookies, $window) {
+app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', function ($scope, $http, $cookies, $window) {
     $scope.items = [];
 
-    $scope.getid = function(id) {
+    $scope.getid = function (id) {
         $window.sessionStorage.setItem('videoId', id);
         $window.location.href = '/courseOnline/video';
-        // Chuyển đổi số nguyên thành chuỗi JSON
     }
 
     function changeVideo(selected_video, videos, $scope) {
-        // Loại bỏ lớp active và đặt hình ảnh play cho tất cả video
         videos.forEach(video => {
             video.classList.remove('active');
             video.querySelector('img').src = '/img/play.svg';
         });
 
-        // Đánh dấu video được chọn là active và đặt hình ảnh pause
         selected_video.classList.add('active');
         selected_video.querySelector('img').src = '/img/pause.svg';
 
-        // Tìm video phù hợp theo id
         let match_video = $scope.data.find(video => video.id == selected_video.dataset.id);
         if (match_video) {
-            // Kiểm tra xem biến twitchPlayer đã được khởi tạo chưa
-            if (typeof twitchPlayer === 'undefined') {
-                // Nếu chưa khởi tạo, thực hiện khởi tạo
-                let twitchIframe = document.createElement('iframe');
-                twitchIframe.src = `https://clips.twitch.tv/embed?clip=MistyCulturedSkirretWOOP-17m-CI3QyzVFXd-L&parent=www.example.com`;
-                twitchIframe.frameBorder = 0;
-                twitchIframe.allowFullscreen = true;
-                twitchIframe.scrolling = 'no';
-                twitchIframe.height = '378';
-                twitchIframe.width = '620';
-
-                // Thêm iframe vào div có id là 'video-player'
-                document.getElementById('video-player').appendChild(twitchIframe);
-
-                // Lưu trạng thái của twitchPlayer
-                twitchPlayer = true;
-            }
+            videoIframe.src = 'https://www.youtube-nocookie.com/embed/' + match_video.linkVideo + "?si=2PvjDx-NPvHeAMR3&modestbranding=1&controls=0&disablekb=1";
+            videoIframe.setAttribute("frameborder", "0");
+            videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+            videoIframe.setAttribute("allowfullscreen", "");
+            videoIframe.title = match_video.khoaHoc.tenKhoaHoc;
         }
+
     }
 
     function setupVideoEvents($scope) {
@@ -63,15 +47,15 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         }
     }
 
-    // Trong hàm loadvideo
-    $scope.loadvideo = function() {
+    $scope.loadvideo = function () {
         var storedId = $window.sessionStorage.getItem('videoId');
         var url = `/rest/loadVideo/get-video-id/${storedId}`;
         $http.get(url).then(response => {
-            $scope.data = response.data; // Dữ liệu từ CSDL
+            $scope.data = response.data;
             console.log($scope.data);
 
-            // Rest of your code for rendering the video playlist
+            videoPlaylist.innerHTML = ''; // Clear the playlist before adding new videos
+
             $scope.data.forEach((video, i) => {
                 console.log(video);
                 let video_element = `
@@ -85,24 +69,17 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             });
 
             let videos = document.querySelectorAll('.video');
-
-            // Gọi hàm setupVideoEvents để gán sự kiện cho video
             setupVideoEvents($scope);
-
-            // Gọi hàm loadFirstVideo để tự động tải video đầu tiên
             loadFirstVideo(videos, $scope);
         }).catch(error => {
-            // Xử lý lỗi (nếu cần)
             console.error(error);
         });
     }
 }]);
 
-// Hàm này sẽ được gọi khi Twitch Player đã sẵn sàng
-function onTwitchPlayerReady() {
-    // Xác định rằng Twitch Player đã sẵn sàng
-    console.log("Twitch Player is ready");
+function onPageReady() {
+    console.log("Page is ready");
+    videoIframe = document.getElementById('video-iframe'); // Assign the iframe element
 }
 
-// Gọi hàm khởi tạo Twitch Player
-onTwitchPlayerReady();
+onPageReady();

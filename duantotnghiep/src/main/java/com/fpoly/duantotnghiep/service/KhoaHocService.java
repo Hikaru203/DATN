@@ -14,5 +14,7 @@ public interface KhoaHocService {
 
 	KhoaHoc findById(int id);
 
+	List<KhoaHoc> getKhoaHocByLoai(String loai);
+
 	
 }

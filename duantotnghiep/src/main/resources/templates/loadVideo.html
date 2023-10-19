@@ -1,61 +1,32 @@
+<!-- HTML -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twitch Video with Subtitles</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Video Playlist UI Design Like Udemy | SkillShare</title>
+    <link rel="stylesheet" href="/css/styleloadVideo.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
 </head>
 
-<body>
-    <iframe id="myIframe"
-        src="https://clips.twitch.tv/embed?clip=ColdTriangularMarrowFutureMan-HBToz7_KcHKRu_F-&parent=localhost&controls=false&modestbranding=true"
-        frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+<body ng-app="loadVideo-app" ng-controller="loadVideo-app-ctrl" ng-init="loadvideo()">
+    <main class="container">
 
-    <button id="fullscreenButton">Full Screen</button>
-    <button id="expandButton">Expand</button>
+        <section class="main-video">
+            <iframe id="video-iframe" width="888" height="500" src="" frameborder="0" allowfullscreen></iframe>
+            <h3 class="title">Nội dung khóa học.</h3>
+        </section>
 
-
-    <script>
-        const iframe = document.getElementById('myIframe');
-        const fullscreenButton = document.getElementById('fullscreenButton');
-        const expandButton = document.getElementById('expandButton');
-        const subtitlesDiv = document.getElementById('subtitles');
-        let isExpanded = false;
-
-
-
-        fullscreenButton.addEventListener('click', () => {
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-                isExpanded = true;
-            } else if (iframe.mozRequestFullScreen) {
-                iframe.mozRequestFullScreen();
-                isExpanded = true;
-            } else if (iframe.webkitRequestFullscreen) {
-                iframe.webkitRequestFullscreen();
-                isExpanded = true;
-            } else if (iframe.msRequestFullscreen) {
-                iframe.msRequestFullscreen();
-                isExpanded = true;
-            }
-        });
-
-        expandButton.addEventListener('click', () => {
-            if (isExpanded) {
-                iframe.style.width = '620px';
-                iframe.style.height = '378px';
-                isExpanded = false;
-            } else {
-                iframe.style.width = '100%';
-                iframe.style.height = '650px';
-                isExpanded = true;
-            }
-        });
-
-
-    </script>
+        <section class="video-playlist">
+            <h3 class="title">Nội dung khóa học</h3>
+            <p>10 lessons &nbsp; . &nbsp; 50m 48s</p>
+            <div class="videos"></div>
+        </section>
+    </main>
+    <script src="/js/scriptLoadVideo.js"></script>
 </body>
 
 </html>
