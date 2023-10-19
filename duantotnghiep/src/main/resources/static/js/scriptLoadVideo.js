@@ -1,108 +1,55 @@
-// JavaScript
-const app = angular.module('loadVideo-app', ['ngCookies']);
-const videoPlaylist = document.querySelector('.video-playlist .videos');
-let twitchPlayer; // Thêm biến twitchPlayer cho Twitch Player
+const app = angular.module('loadVideo-app', []);
+app.controller('loadVideo-app-ctrl', function ($scope) {
+    $scope.loadVideo = function () {
+        const videoId = document.getElementById('videoId').value;
+        const videoContainer = document.getElementById('videoContainer');
 
-app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', function($scope, $http, $cookies, $window) {
-    $scope.items = [];
+        // Remove any existing video iframe
+        while (videoContainer.firstChild) {
+            videoContainer.removeChild(videoContainer.firstChild);
+        }
 
-    $scope.getid = function(id) {
-        $window.sessionStorage.setItem('videoId', id);
-        $window.location.href = '/courseOnline/video';
-        // Chuyển đổi số nguyên thành chuỗi JSON
-    }
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://clips.twitch.tv/embed?clip=DeafSuccessfulCourgetteAMPEnergyCherry-43CvIR6Z8t7f6Y7v&parent=localhost&controls=false`;
+        videoContainer.appendChild(iframe);
+    };
 
-    function changeVideo(selected_video, videos, $scope) {
-        // Loại bỏ lớp active và đặt hình ảnh play cho tất cả video
-        videos.forEach(video => {
-            video.classList.remove('active');
-            video.querySelector('img').src = '/img/play.svg';
-        });
+    $scope.init = function () {
+        document.getElementById('loadVideoButton').addEventListener('click', $scope.loadVideo);
 
-        // Đánh dấu video được chọn là active và đặt hình ảnh pause
-        selected_video.classList.add('active');
-        selected_video.querySelector('img').src = '/img/pause.svg';
+        const iframe = document.getElementById('videoContainer').firstChild;
+        const fullscreenButton = document.getElementById('fullscreenButton');
+        const expandButton = document.getElementById('expandButton');
+        
 
-        // Tìm video phù hợp theo id
-        let match_video = $scope.data.find(video => video.id == selected_video.dataset.id);
-        if (match_video) {
-            // Kiểm tra xem biến twitchPlayer đã được khởi tạo chưa
-            if (typeof twitchPlayer === 'undefined') {
-                // Nếu chưa khởi tạo, thực hiện khởi tạo
-                let twitchIframe = document.createElement('iframe');
-                twitchIframe.src = `https://clips.twitch.tv/embed?clip=MistyCulturedSkirretWOOP-17m-CI3QyzVFXd-L&parent=www.example.com`;
-                twitchIframe.frameBorder = 0;
-                twitchIframe.allowFullscreen = true;
-                twitchIframe.scrolling = 'no';
-                twitchIframe.height = '378';
-                twitchIframe.width = '620';
-
-                // Thêm iframe vào div có id là 'video-player'
-                document.getElementById('video-player').appendChild(twitchIframe);
-
-                // Lưu trạng thái của twitchPlayer
-                twitchPlayer = true;
+        fullscreenButton.addEventListener('click', () => {
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+                isExpanded = true;
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+                isExpanded = true;
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+                isExpanded = true;
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+                isExpanded = true;
             }
-        }
-    }
-
-    function setupVideoEvents($scope) {
-        let videos = document.querySelectorAll('.video');
-
-        videos.forEach(selected_video => {
-            selected_video.onclick = () => {
-                changeVideo(selected_video, videos, $scope);
-            };
         });
-    }
 
-    function loadFirstVideo(videos, $scope) {
-        if (videos.length > 0) {
-            let firstVideo = videos[0];
-            changeVideo(firstVideo, videos, $scope);
-        }
-    }
-
-    // Trong hàm loadvideo
-    $scope.loadvideo = function() {
-        var storedId = $window.sessionStorage.getItem('videoId');
-        var url = `/rest/loadVideo/get-video-id/${storedId}`;
-        $http.get(url).then(response => {
-            $scope.data = response.data; // Dữ liệu từ CSDL
-            console.log($scope.data);
-
-            // Rest of your code for rendering the video playlist
-            $scope.data.forEach((video, i) => {
-                console.log(video);
-                let video_element = `
-                    <div class="video" data-id="${video.id}">
-                        <img src="/img/play.svg" alt="">
-                        <p>${i + 1 > 9 ? i + 1 : '0' + (i + 1)}. </p>
-                        <h3 class="title">${video.tenVideo}</h3>
-                    </div>
-                `;
-                videoPlaylist.innerHTML += video_element;
-            });
-
-            let videos = document.querySelectorAll('.video');
-
-            // Gọi hàm setupVideoEvents để gán sự kiện cho video
-            setupVideoEvents($scope);
-
-            // Gọi hàm loadFirstVideo để tự động tải video đầu tiên
-            loadFirstVideo(videos, $scope);
-        }).catch(error => {
-            // Xử lý lỗi (nếu cần)
-            console.error(error);
+        expandButton.addEventListener('click', () => {
+            if (isExpanded) {
+                iframe.style.width = '620px';
+                iframe.style.height = '378px';
+                isExpanded = false;
+            } else {
+                iframe.style.width = '100%';
+                iframe.style.height = '650px';
+                isExpanded = true;
+            }
         });
-    }
-}]);
+    };
 
-// Hàm này sẽ được gọi khi Twitch Player đã sẵn sàng
-function onTwitchPlayerReady() {
-    // Xác định rằng Twitch Player đã sẵn sàng
-    console.log("Twitch Player is ready");
-}
-
-// Gọi hàm khởi tạo Twitch Player
-onTwitchPlayerReady();
+    $scope.init();
+});

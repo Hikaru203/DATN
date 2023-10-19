@@ -1,61 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Twitch Video with Subtitles</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
 
 <body>
-    <iframe id="myIframe"
-        src="https://clips.twitch.tv/embed?clip=ColdTriangularMarrowFutureMan-HBToz7_KcHKRu_F-&parent=localhost&controls=false&modestbranding=true"
-        frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
-
-    <button id="fullscreenButton">Full Screen</button>
-    <button id="expandButton">Expand</button>
-
-
-    <script>
-        const iframe = document.getElementById('myIframe');
-        const fullscreenButton = document.getElementById('fullscreenButton');
-        const expandButton = document.getElementById('expandButton');
-        const subtitlesDiv = document.getElementById('subtitles');
-        let isExpanded = false;
-
-
-
-        fullscreenButton.addEventListener('click', () => {
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-                isExpanded = true;
-            } else if (iframe.mozRequestFullScreen) {
-                iframe.mozRequestFullScreen();
-                isExpanded = true;
-            } else if (iframe.webkitRequestFullscreen) {
-                iframe.webkitRequestFullscreen();
-                isExpanded = true;
-            } else if (iframe.msRequestFullscreen) {
-                iframe.msRequestFullscreen();
-                isExpanded = true;
-            }
-        });
-
-        expandButton.addEventListener('click', () => {
-            if (isExpanded) {
-                iframe.style.width = '620px';
-                iframe.style.height = '378px';
-                isExpanded = false;
-            } else {
-                iframe.style.width = '100%';
-                iframe.style.height = '650px';
-                isExpanded = true;
-            }
-        });
-
-
-    </script>
+    <div ng-app="loadVideo-app" ng-controller="loadVideo-app-ctrl">
+        <input type="text" id="videoId" placeholder="Enter Video ID">
+        <button id="loadVideoButton">Load Video</button>
+        <div id="videoContainer"></div>
+        <button id="fullscreenButton">Full Screen</button>
+        <button id="expandButton">Expand</button>
+    </div>
+    <script th:src="@{/js/scriptLoadVideo.js}"></script>
 </body>
 
 </html>
