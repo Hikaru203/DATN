@@ -1,22 +1,56 @@
+<!-- HTML -->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twitch Video with Subtitles</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Video Playlist UI Design Like Udemy | SkillShare</title>
+    <link rel="stylesheet" href="/css/styleloadVideo.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+    <script src="https://www.youtube.com/player_api"></script>
+    <style>
+        /* Ẩn nút chuột phải */
+        #video-player::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            cursor: not-allowed;
+        }
+
+        /* Ẩn nút chia sẻ */
+        .ytp-share-button-visible .ytp-share-button {
+            display: none;
+        }
+
+        .html5-video-player:not(.ytp-big-mode) .ytp-chrome-top .ytp-share-button {
+            display: none !important;
+        }
+    </style>
+
 </head>
 
-<body>
-    <div ng-app="loadVideo-app" ng-controller="loadVideo-app-ctrl">
-        <input type="text" id="videoId" placeholder="Enter Video ID">
-        <button id="loadVideoButton">Load Video</button>
-        <div id="videoContainer"></div>
-        <button id="fullscreenButton">Full Screen</button>
-        <button id="expandButton">Expand</button>
-    </div>
-    <script th:src="@{/js/scriptLoadVideo.js}"></script>
+<body ng-app="loadVideo-app" ng-controller="loadVideo-app-ctrl" ng-init="loadvideo()">
+    <main class="container">
+        <section class="main-video">
+            <div id="video-player"></div>
+            <h3 class="title">Nội dung khóa học.</h3>
+        </section>
+
+        <section class="video-playlist">
+            <h3 class="title">Nội dung khóa học</h3>
+            <p>10 lessons &nbsp; . &nbsp; 50m 48s</p>
+            <div class="videos"></div>
+        </section>
+    </main>
+    <script src="/js/scriptLoadVideo.js"></script>
 </body>
 
 </html>
