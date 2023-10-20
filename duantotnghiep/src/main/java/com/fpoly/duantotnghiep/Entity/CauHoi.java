@@ -30,8 +30,8 @@ public class CauHoi {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "id_khoa_hoc")
-    private KhoaHoc khoaHoc;
+    @JoinColumn(name = "id_muc_luc")
+    private MucLuc mucLuc;
 
     @Column(name = "ngay_tao")
     private Date ngayTao;
