@@ -20,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class NguoiDung {
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
@@ -46,6 +46,6 @@ public class NguoiDung {
     @Column(name = "hinh_anh")
     private String hinhAnh;
 
-    @Column(name = "trang_thai", length = 50, nullable = false)
+    @Column(name = "trang_thai", length = 50)
     private String trangThai;
 }
