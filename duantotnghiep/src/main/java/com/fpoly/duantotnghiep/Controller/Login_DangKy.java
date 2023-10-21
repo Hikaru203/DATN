@@ -30,4 +30,8 @@ public class Login_DangKy {
         return "dangnhap";
     }
 
+    @RequestMapping("/courseOnline/capnhat")
+    public String capnhatform(Model model) {
+        return "capnhattaikhoan";
+    }
 }
