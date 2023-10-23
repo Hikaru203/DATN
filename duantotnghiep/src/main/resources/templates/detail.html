@@ -162,7 +162,8 @@
                     <!-- Replace the image src with your course thumbnail -->
                     <div class="carousel-inner bg-light">
                         <div class="carousel-item active">
-                            <img class="w-100 h-100" th:src="@{/img/carousel-1.jpg}" alt="Course Thumbnail">
+                            <img class="w-100 h-100" style="border-radius:0px" th:src="@{/img/carousel-1.jpg}"
+                                alt="Course Thumbnail">
                         </div>
                     </div>
                 </div>
@@ -173,17 +174,6 @@
                 <h3>{{ hoc.courseOnline.tenKhoaHoc }}</h3>
 
                 <!-- Course Price -->
-                <h3 class="font-weight-semi-bold mb-4">{{ hoc.courseOnline.chiPhi }}</h3>
-
-                <!-- Course Rating -->
-                <div class="course-rating mb-4">
-                    <span class="text-muted">Đánh giá:</span>
-                    <span class="text-warning"><i class="fa fa-star"></i></span>
-                    <span class="text-warning"><i class="fa fa-star"></i></span>
-                    <span class="text-warning"><i class="fa fa-star"></i></span>
-                    <span class="text-warning"><i class="fa fa-star"></i></span>
-                    <span class="text-muted">(4.0)</span>
-                </div>
 
                 <!-- Course Description -->
                 <p class="mb-4">{{ hoc.courseOnline.moTa }}</p>
@@ -210,7 +200,7 @@
                     <div class="nav nav-tabs mb-4">
                         <!-- Replace the tab title with your actual tab title -->
                         <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Mục lục</a>
-                        <!-- Add additional tabs and their links here -->
+                        <a class="nav-item nav-link text-dark " data-toggle="tab" href="#tab-pane-2">Đánh giá</a>
 
                     </div>
                     <div class="tab-content">
@@ -331,6 +321,191 @@
                                 </div>
                             </div>
                         </div>
+                        <style>
+                            .star-rating {
+                                font-size: 24px;
+                                /* Kích thước ngôi sao */
+                                color: #FFD700;
+                                /* Màu sắc ngôi sao */
+                            }
+
+                            /* CSS cho tab-pane */
+                            .tab-pane {
+                                padding: 20px;
+                            }
+
+                            /* CSS cho danh sách sao và điểm trung bình */
+                            .stars {
+                                font-size: 24px;
+                                color: gold;
+                                margin-bottom: 10px;
+                            }
+
+                            /* CSS cho đánh giá của bạn */
+                            h4 {
+                                font-size: 18px;
+                                margin-bottom: 10px;
+                            }
+
+                            input[type="text"] {
+                                width: 90%;
+                                padding: 10px;
+                                border: 1px solid #ccc;
+                                border-radius: 5px;
+                                margin-bottom: 10px;
+                            }
+
+                            .button {
+                                background-color: #007bff;
+                                color: white;
+                                padding: 10px 20px;
+                                border: none;
+                                border-radius: 5px;
+                                cursor: pointer;
+                            }
+
+                            .button:hover {
+                                background-color: #0056b3;
+                            }
+
+                            /* CSS cho thông tin diễn đàn và bình luận */
+                            .row {
+                                margin-bottom: 20px;
+                            }
+
+                            /* CSS cho hình ảnh người dùng */
+                            img {
+                                width: 50px;
+                                height: 50px;
+                                border-radius: 50%;
+                                overflow: hidden;
+                                object-fit: cover;
+                                /* Để hình ảnh bằng với khung */
+                                margin-right: 10px;
+                            }
+
+                            /* CSS cho ngày đăng và nút "Trả lời" */
+                            p {
+                                margin: 0;
+                                margin-bottom: 5px;
+                            }
+
+                            a {
+                                color: #007bff;
+                                text-decoration: none;
+                                margin-left: 10px;
+                            }
+
+                            a:hover {
+                                text-decoration: underline;
+                            }
+
+                            /* CSS cho biểu tượng "Mở rộng" */
+                            .fa-arrow-up,
+                            .fa-arrow-down {
+                                font-size: 20px;
+                            }
+
+                            /* CSS cho input khi hiển thị trong phần bình luận */
+                            .reply-input {
+                                width: 100%;
+                                padding: 10px;
+                                border: 1px solid #ccc;
+                                border-radius: 5px;
+                                margin-bottom: 10px;
+                                /* Ban đầu ẩn input */
+                            }
+
+                            .inline-buttons {
+                                display: inline-block;
+                                /* Để các phần tử nằm kế bên nhau */
+                            }
+
+                            .reply-button {
+                                margin-right: 10px;
+                                /* Khoảng cách giữa các nút Trả lời và Xóa (tuỳ chỉnh) */
+                            }
+                        </style>
+                        <div class="tab-pane fade" ng-controller="DanhGia-BinhLuan-ctrl" id="tab-pane-2">
+                            <div class="stars">
+                                <span ng-repeat="star in getStarsArray(averageRating) track by $index">
+                                    <i class="fa fa-star" style="color: gold;"></i>
+                                </span>
+                                {{ averageRating }}
+                            </div>
+                            <hr>
+                            <div>
+                                <h4>Đánh giá của bạn</h4>
+                                <input type="text" ng-model="noiDung" placeholder="Bình Luận">
+                                <button class="button" ng-click="createDienDan()">Đăng</button>
+                            </div>
+                            <div ng-repeat="dienDan in DienDan">
+                                <div class="row">
+                                    <!-- Hiển thị thông tin diễn đàn -->
+                                    <div class="col-md-1">
+                                        <img src="/img/cat-1.jpg"
+                                            style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden;"
+                                            alt="avatar">
+                                    </div>
+                                    <div class="col-md-11">
+                                        <strong ng-bind="dienDan.nguoiDang.hoTen"></strong>
+                                        <!-- Viết hoa tên người dùng -->
+                                        <p ng-bind="dienDan.tieuDe"></p>
+                                        <p ng-bind="dienDan.ngayDang | date:'dd/MM/yyyy HH:mm:ss'"></p>
+                                        <p ng-bind="dienDan.noiDung"></p>
+                                        <div class="inline-buttons">
+                                            <a class="reply-button" ng-click="toggleReplyInput(dienDan)">Trả lời</a>
+                                            <div ng-if="dienDan.nguoiDang.id === NguoiDung.id">
+                                                <a class="reply-button" ng-click="deleteDienDan(dienDan)">Xóa</a>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <hr> <!-- Đường kẻ hr dưới mỗi diễn đàn -->
+
+                                <!-- Hiển thị bình luận cho diễn đàn này -->
+                                <div ng-show="dienDan.showReplyInput" class="row">
+                                    <input type="text" ng-model="form.noiDung" placeholder="Trả lời">
+                                    <button class="button" ng-click="createBinhLuan(dienDan.id)">Đăng</button>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-11">
+                                        <div class="row" ng-repeat="binhLuan in BinhLuan"
+                                            ng-if="dienDan.id===binhLuan.baiDang.id">
+
+                                            <div class="col-md-1">
+                                                <img src="/img/cat-1.jpg"
+                                                    style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden;"
+                                                    alt="avatar">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div>
+                                                    <div>
+                                                        <!-- Sử dụng biến số thứ tự để hiển thị số thứ tự -->
+                                                        <strong> {{ binhLuan.nguoiBinhLuan.hoTen
+                                                            }}</strong>
+                                                        <p ng-bind="binhLuan.ngayBinhLuan | date:'dd/MM/yyyy HH:mm:ss'">
+                                                        </p>
+                                                        <!-- Viết hoa tên người dùng -->
+                                                        <p ng-bind="binhLuan.noiDung"></p>
+                                                        <div ng-if="binhLuan.nguoiBinhLuan.id === NguoiDung.id">
+                                                            <a class="reply-button"
+                                                                ng-click="deleteBinhLuan(binhLuan)">Xóa</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Ẩn thông báo nếu không có bình luận -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
 
                         <script>
                             function toggleChapter(button) {
@@ -343,109 +518,133 @@
                                     button.innerHTML = '<i class="fa fa-arrow-down"></i>'; // Biểu tượng "+"
                                 }
                             }
+                            // JavaScript
+                            document.addEventListener("DOMContentLoaded", function () {
+                                // Lấy danh sách tất cả các nút "Trả lời"
+                                var replyButtons = document.querySelectorAll("button.reply-button");
+
+                                // Gán sự kiện click cho mỗi nút "Trả lời"
+                                replyButtons.forEach(function (button) {
+                                    button.addEventListener("click", function () {
+                                        // Tìm input ứng với nút "Trả lời" được bấm và hiển thị nó
+                                        var replyInput = this.parentElement.nextElementSibling.querySelector(".reply-input");
+                                        if (replyInput.style.display === 'none' || replyInput.style.display === '') {
+                                            replyInput.style.display = 'block';
+                                        } else {
+                                            replyInput.style.display = 'none';
+                                        }
+                                    });
+                                });
+                            });
+
+
                         </script>
+
+                        <!-- Add content for additional tabs here -->
+
                     </div>
-
-                    <!-- Add content for additional tabs here -->
-
                 </div>
-            </div>
 
-            <!-- Shop Detail Start -->
-            <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
-                <div class="row pt-5">
-                    <div class="col-lg-7 col-md-12">
-                        <div class="row">
-                            <div class="col-md-6 mb-5">
-                                <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Get In Touch
-                                </h5>
-                                <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
-                                <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
-                                <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
-                                <div class="d-flex justify-content-start mt-4">
-                                    <a class="btn btn-outline-light btn-square mr-2" href="#"><i
-                                            class="fab fa-twitter"></i></a>
-                                    <a class="btn btn-outline-light btn-square mr-2" href="#"><i
-                                            class="fab fa-facebook-f"></i></a>
-                                    <a class="btn btn-outline-light btn-square mr-2" href="#"><i
-                                            class="fab fa-linkedin-in"></i></a>
-                                    <a class="btn btn-outline-light btn-square" href="#"><i
-                                            class="fab fa-instagram"></i></a>
+                <!-- Shop Detail Start -->
+                <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
+                    <div class="row pt-5">
+                        <div class="col-lg-7 col-md-12">
+                            <div class="row">
+                                <div class="col-md-6 mb-5">
+                                    <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Get In
+                                        Touch
+                                    </h5>
+                                    <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
+                                    <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
+                                    <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                                    <div class="d-flex justify-content-start mt-4">
+                                        <a class="btn btn-outline-light btn-square mr-2" href="#"><i
+                                                class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-outline-light btn-square mr-2" href="#"><i
+                                                class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-outline-light btn-square mr-2" href="#"><i
+                                                class="fab fa-linkedin-in"></i></a>
+                                        <a class="btn btn-outline-light btn-square" href="#"><i
+                                                class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-5">
+                                    <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Our
+                                        Courses
+                                    </h5>
+                                    <div class="d-flex flex-column justify-content-start">
+                                        <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Web
+                                            Design</a>
+                                        <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Apps
+                                            Design</a>
+                                        <a class="text-white mb-2" href="#"><i
+                                                class="fa fa-angle-right mr-2"></i>Marketing</a>
+                                        <a class="text-white mb-2" href="#"><i
+                                                class="fa fa-angle-right mr-2"></i>Research</a>
+                                        <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>SEO</a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-5">
-                                <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Our Courses
-                                </h5>
-                                <div class="d-flex flex-column justify-content-start">
-                                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Web
-                                        Design</a>
-                                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Apps
-                                        Design</a>
-                                    <a class="text-white mb-2" href="#"><i
-                                            class="fa fa-angle-right mr-2"></i>Marketing</a>
-                                    <a class="text-white mb-2" href="#"><i
-                                            class="fa fa-angle-right mr-2"></i>Research</a>
-                                    <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>SEO</a>
+                        </div>
+                        <div class="col-lg-5 col-md-12 mb-5">
+                            <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Newsletter</h5>
+                            <p>Rebum labore lorem dolores kasd est, et ipsum amet et at kasd, ipsum sea tempor magna
+                                tempor.
+                                Accu kasd sed ea duo ipsum. Dolor duo eirmod sea justo no lorem est diam</p>
+                            <div class="w-100">
+                                <div class="input-group">
+                                    <input type="text" class="form-control border-light" style="padding: 30px;"
+                                        placeholder="Your Email Address">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary px-4">Sign Up</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 col-md-12 mb-5">
-                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Newsletter</h5>
-                        <p>Rebum labore lorem dolores kasd est, et ipsum amet et at kasd, ipsum sea tempor magna tempor.
-                            Accu kasd sed ea duo ipsum. Dolor duo eirmod sea justo no lorem est diam</p>
-                        <div class="w-100">
-                            <div class="input-group">
-                                <input type="text" class="form-control border-light" style="padding: 30px;"
-                                    placeholder="Your Email Address">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary px-4">Sign Up</button>
-                                </div>
-                            </div>
+                </div>
+                <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5"
+                    style="border-color: rgba(256, 256, 256, .1) !important;">
+                    <div class="row">
+                        <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+                            <p class="m-0 text-white">&copy; <a href="#">Domain Name</a>. All Rights Reserved. Designed
+                                by
+                                <a href="https://htmlcodex.com">HTML Codex</a>
+                            </p>
+                        </div>
+                        <div class="col-lg-6 text-center text-md-right">
+                            <ul class="nav d-inline-flex">
+                                <li class="nav-item">
+                                    <a class="nav-link text-white py-0" href="#">Privacy</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white py-0" href="#">Terms</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white py-0" href="#">FAQs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white py-0" href="#">Contact</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5"
-                style="border-color: rgba(256, 256, 256, .1) !important;">
-                <div class="row">
-                    <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
-                        <p class="m-0 text-white">&copy; <a href="#">Domain Name</a>. All Rights Reserved. Designed by
-                            <a href="https://htmlcodex.com">HTML Codex</a>
-                        </p>
-                    </div>
-                    <div class="col-lg-6 text-center text-md-right">
-                        <ul class="nav d-inline-flex">
-                            <li class="nav-item">
-                                <a class="nav-link text-white py-0" href="#">Privacy</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white py-0" href="#">Terms</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white py-0" href="#">FAQs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white py-0" href="#">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Footer End -->
+                <!-- Footer End -->
 
 
-            <!-- Back to Top Button -->
-            <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+                <!-- Back to Top Button -->
+                <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
-            <!-- JavaScript Libraries -->
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-            <script src="/lib/easing/easing.min.js"></script>
-            <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
-            <!-- Customized Bootstrap Scripts -->
-            <script th:src="@{/js/main.js}"></script>
-            <script th:src="@{/js/hoc.js}"></script>x
+                <!-- JavaScript Libraries -->
+                <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+                <script src="/lib/easing/easing.min.js"></script>
+                <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+                <!-- Customized Bootstrap Scripts -->
+                <script th:src="@{/js/main.js}"></script>
+                <script th:src="@{/js/hoc.js}"></script>
+                <script th:src="@{/js/DanhGia-BinhLuan-ctrl.js}"></script>
 
 </body>
 

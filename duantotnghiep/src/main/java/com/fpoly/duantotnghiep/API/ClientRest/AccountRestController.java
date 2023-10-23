@@ -15,7 +15,6 @@ public class AccountRestController {
 
     @PostMapping("/nguoidung")
     public NguoiDung createNguoiDung(@RequestBody NguoiDung nguoiDung) {
-        nguoiDung.setTrangThai("flase");
         return nguoiDungRepository.save(nguoiDung);
     }
 
@@ -24,18 +23,6 @@ public class AccountRestController {
         return nguoiDungRepository.findAll();
     }
 
-    @GetMapping("/nguoidung/checkUsername/{username}")
-    public boolean checkIfUsernameExists(@PathVariable String username) {
-        // Kiểm tra xem tên tài khoản đã tồn tại trong cơ sở dữ liệu hay chưa
-        NguoiDung existingUser = nguoiDungRepository.findByTaiKhoan(username);
-        return existingUser != null;
-    }
-
-    @GetMapping("/nguoidung/checkEmail/{email}")
-    public boolean checkIfEmailExists(@PathVariable String email) {
-        // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu hay chưa
-        NguoiDung existingUser = nguoiDungRepository.findByEmail(email);
-        return existingUser != null;
-    }
+    // You can add other CRUD operations as needed
 
 }
