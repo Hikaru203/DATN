@@ -1,49 +1,62 @@
+// JavaScript
 const app = angular.module('loadVideo-app', ['ngCookies']);
 const videoPlaylist = document.querySelector('.video-playlist .videos');
-let videoIframe;
+let player; // Thêm biến player cho YouTube Player API
 
-app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', function ($scope, $http, $cookies, $window) {
+app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', function($scope, $http, $cookies, $window) {
     $scope.items = [];
 
-    $scope.getid = function (id) {
+    $scope.getid = function(id) {
         $window.sessionStorage.setItem('videoId', id);
         $window.location.href = '/courseOnline/video';
-    }
-
-    function setupVideoEvents($scope) {
-        // Loại bỏ sự kiện click trên các phần tử video
-        let videos = document.querySelectorAll('.video');
-        videos.forEach(selected_video => {
-            selected_video.onclick = null;
-        });
+        // Chuyển đổi số nguyên thành chuỗi JSON
     }
 
     function changeVideo(selected_video, videos, $scope) {
+        // Loại bỏ lớp active và đặt hình ảnh play cho tất cả video
         videos.forEach(video => {
             video.classList.remove('active');
             video.querySelector('img').src = '/img/play.svg';
         });
 
+        // Đánh dấu video được chọn là active và đặt hình ảnh pause
         selected_video.classList.add('active');
         selected_video.querySelector('img').src = '/img/pause.svg';
 
+        // Tìm video phù hợp theo id
         let match_video = $scope.data.find(video => video.id == selected_video.dataset.id);
         if (match_video) {
-            videoIframe.src = 'https://www.youtube-nocookie.com/embed/' + match_video.linkVideo + "?modestbranding=1&controls=0&disablekb=1&origin=http://localhost:8080";
-            videoIframe.setAttribute("frameborder", "0");
-            // Cấu hình quyền cho iframe
-            videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
-
-            // Ẩn nút copy link bằng cách ẩn phần tử với class hoặc ID cụ thể (ví dụ: class="copy-link-button")
-            var copyLinkButton = videoIframe.contentDocument.querySelector(".ytp-copylink-button");
-            console.log(videoIframe);
-            if (copyLinkButton) {
-                copyLinkButton.style.display = "none";
+            // Kiểm tra xem biến player đã được khởi tạo chưa
+            if (typeof player === 'undefined') {
+                // Nếu chưa khởi tạo, thực hiện khởi tạo
+                player = new YT.Player('video-player', {
+					height: '500',
+					width: '888',
+					playerVars: {
+						autoplay: 1,
+						controls: 0,
+						rel0: 1,
+						showinfo: 0,
+						disablekb: 1,
+					},
+					
+				});
+				console.log(player.playerInfo.apiInterface);
+				
+				
             }
-            videoIframe.setAttribute("allowfullscreen", "");
-            videoIframe.title = match_video.mucLuc.khoaHoc.tenKhoaHoc;
-        }
 
+            // Dừng trình phát hiện tại nếu có
+            if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                player.stopVideo();
+            }
+
+            // Phát video YouTube mới
+            player.loadVideoById(match_video.linkVideo);
+
+            // Đặt tiêu đề cho iframe (bạn có thể tùy chỉnh)
+            player.setVideoTitle(match_video.mucLuc.khoaHoc.tenKhoaHoc);
+        }
     }
 
     function setupVideoEvents($scope) {
@@ -63,19 +76,19 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         }
     }
 
-    $scope.loadvideo = function () {
+    // Trong hàm loadvideo
+    $scope.loadvideo = function() {
         var storedId = $window.sessionStorage.getItem('videoId');
         var url = `/rest/loadVideo/get-video-id/${storedId}`;
         $http.get(url).then(response => {
-            $scope.data = response.data;
+            $scope.data = response.data; // Dữ liệu từ CSDL
             console.log($scope.data);
 
-            videoPlaylist.innerHTML = ''; // Clear the playlist before adding new videos
-
+            // Rest of your code for rendering the video playlist
             $scope.data.forEach((video, i) => {
                 console.log(video);
                 let video_element = `
-                    <div class="video" data-id="${video.id}" data-disabled="true">
+                    <div class="video" data-id="${video.id}">
                         <img src="/img/play.svg" alt="">
                         <p>${i + 1 > 9 ? i + 1 : '0' + (i + 1)}. </p>
                         <h3 class="title">${video.tenVideo}</h3>
@@ -84,58 +97,25 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                 videoPlaylist.innerHTML += video_element;
             });
 
-
             let videos = document.querySelectorAll('.video');
+
+            // Gọi hàm setupVideoEvents để gán sự kiện cho video
             setupVideoEvents($scope);
+
+            // Gọi hàm loadFirstVideo để tự động tải video đầu tiên
             loadFirstVideo(videos, $scope);
         }).catch(error => {
+            // Xử lý lỗi (nếu cần)
             console.error(error);
         });
     }
-
-    const nextVideoButton = document.getElementById('next-video');
-    const prevVideoButton = document.getElementById('prev-video');
-    let currentIndex = 0;
-
-    nextVideoButton.addEventListener('click', function () {
-        currentIndex++;
-        if (currentIndex < $scope.data.length) {
-            loadNextVideo();
-        } else {
-            // Chuyển đến trang trắc nghiệm khi ở video cuối cùng
-            redirectToQuizPage();
-        }
-    });
-
-    prevVideoButton.addEventListener('click', function () {
-        currentIndex--;
-        loadPrevVideo();
-    });
-
-    function loadNextVideo() {
-        if (currentIndex < $scope.data.length) {
-            const videos = document.querySelectorAll('.video');
-            changeVideo(videos[currentIndex], videos, $scope);
-        }
-    }
-
-    function loadPrevVideo() {
-        if (currentIndex >= 0) {
-            const videos = document.querySelectorAll('.video');
-            changeVideo(videos[currentIndex], videos, $scope);
-        }
-    }
-
-    function redirectToQuizPage() {
-        // Thay đổi URL hoặc thực hiện hành động cụ thể để chuyển đến trang trắc nghiệm
-        window.location.href = '/tracnghiem'; // Ví dụ: chuyển đến trang trắc nghiệm
-    }
-
 }]);
 
-function onPageReady() {
-    console.log("Page is ready");
-    videoIframe = document.getElementById('video-iframe');
+// Hàm này sẽ được gọi khi YouTube Player API đã sẵn sàng
+function onYouTubeIframeAPIReady() {
+    // Xác định rằng YouTube Player API đã sẵn sàng
+    console.log("YouTube Player API is ready");
 }
 
-onPageReady();
+// Gọi hàm khởi tạo YouTube Player API
+onYouTubeIframeAPIReady();

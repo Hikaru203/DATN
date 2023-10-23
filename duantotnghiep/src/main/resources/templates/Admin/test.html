@@ -1,21 +1,33 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Tải lên video</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 </head>
+<body ng-app="myApp" ng-controller="KhoaHoc-ctrl">
+    <table>
+        <thead>
 
-<body>
-    <h1>Tải lên video</h1>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in itemsKhoaHoc">
+                <td></td>
+                <td>{{ $index + 1 }}</td>
+                <td>{{item.id}}</td>
+                <td>{{item.tenKhoaHoc}}</td>
 
-    <form action="/upload-video" method="post" enctype="multipart/form-data">
-        <label for="file">Chọn video để tải lên:</label>
-        <input type="file" name="file" id="file" accept=".mp4, .mov, .avi" required>
+                <td>{{item.duyet}}</td>
 
-        <br>
+                <td>{{item.ngayTao}}</td>
 
-        <input type="submit" value="Tải lên">
-    </form>
+                
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <script src="Admin/js/KhoaHoc-ctrl.js"></script>
 </body>
-
 </html>

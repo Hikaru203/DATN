@@ -43,7 +43,7 @@ public class ClientController {
         return "index";
     }
 
-    @GetMapping("/tracnghiem")
+    @GetMapping("/courseOnline/tracnghiem")
     public String tracngiem() {
         return "tracnghiem";
     }
@@ -54,10 +54,4 @@ public class ClientController {
         return "detail";
     }
 
-    
-
-     @GetMapping("/courseOnline/uploadKhoaHoc")
-    public String uploadKhoaHoc() {
-        return "uploadKhoaHoc";
-    }
 }

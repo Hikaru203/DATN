@@ -31,6 +31,9 @@ public class DienDan {
 	@JoinColumn(name = "id_khoa_hoc")
 	private KhoaHoc khoaHoc;
 
+	@Column(name = "tieu_de", length = 100)
+	private String tieuDe;
+
 	@Column(name = "noi_dung", columnDefinition = "nvarchar(max)")
 	private String noiDung;
 
