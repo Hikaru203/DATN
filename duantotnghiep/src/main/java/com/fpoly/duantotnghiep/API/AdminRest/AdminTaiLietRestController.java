@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import com.fpoly.duantotnghiep.Entity.FileMoveRequest;
 import com.fpoly.duantotnghiep.Entity.TaiLieuKhoaHoc;
 import com.fpoly.duantotnghiep.service.TaiLieuService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @CrossOrigin("*")
@@ -63,4 +65,14 @@ public class AdminTaiLietRestController {
         }
     }
 
+    @PutMapping({ "/{id}" })
+    public TaiLieuKhoaHoc updateTaiLieu(@PathVariable int id, @RequestBody TaiLieuKhoaHoc entity) {
+        this.taiLieuService.save(entity);
+        return entity;
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTaiLieu(@PathVariable int id) {
+        this.taiLieuService.deleteById(id);
+    }
 }

@@ -1,5 +1,6 @@
 package com.fpoly.duantotnghiep.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,17 @@ public class VideoServiceImpI implements VideoService {
 
     @Override
     public List<VideoKhoaHoc> findByKhoaHocId(int idKhoaHoc) {
-        return videoKhoaHocRepository.findByKhoaHocIdOrderByAsc(idKhoaHoc);
+        return videoKhoaHocRepository.findByMucLucIdOrderByAsc(idKhoaHoc);
     }
 
     @Override
     public VideoKhoaHoc save(VideoKhoaHoc videoKhoaHoc) {
         return videoKhoaHocRepository.save(videoKhoaHoc);
     }
+
+    @Override
+    public ArrayList<VideoKhoaHoc> findByMuHocId(int idMucLuc) {
+        return videoKhoaHocRepository.findByMucLucIdOrderByAsc(idMucLuc);
+    }
+
 }
