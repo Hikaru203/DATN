@@ -29,19 +29,16 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
         let match_video = $scope.data.find(video => video.id == selected_video.dataset.id);
         if (match_video) {
-            videoIframe.src = 'https://www.youtube-nocookie.com/embed/' + match_video.linkVideo + "?modestbranding=1&controls=0&disablekb=1&origin=http://localhost:8080";
+            videoIframe.src = 'https://www.youtube-nocookie.com/embed/' + match_video.linkVideo + "?modestbranding=1&disablekb=1&origin=http://localhost:8080";
             videoIframe.setAttribute("frameborder", "0");
             // Cấu hình quyền cho iframe
             videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
 
-            // Ẩn nút copy link bằng cách ẩn phần tử với class hoặc ID cụ thể (ví dụ: class="copy-link-button")
-            var copyLinkButton = videoIframe.contentDocument.querySelector(".ytp-copylink-button");
-            console.log(videoIframe);
-            if (copyLinkButton) {
-                copyLinkButton.style.display = "none";
-            }
+
             videoIframe.setAttribute("allowfullscreen", "");
             videoIframe.title = match_video.mucLuc.khoaHoc.tenKhoaHoc;
+            onVideoChange(match_video.linkVideo);
+
         }
 
     }
@@ -93,6 +90,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         });
     }
 
+
     const nextVideoButton = document.getElementById('next-video');
     const prevVideoButton = document.getElementById('prev-video');
     let currentIndex = 0;
@@ -139,3 +137,34 @@ function onPageReady() {
 }
 
 onPageReady();
+
+// Trích xuất tổng thời gian của video và hiển thị nó
+function extractVideoDuration(videoId) {
+    const videoUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=AIzaSyAMbEBUWSt19z0-kaQ-yUEV84r-YONdGh0&part=contentDetails`;
+
+    fetch(videoUrl)
+        .then(response => response.json())
+        .then(data => {
+            const duration = data.items[0].contentDetails.duration;
+            const durationInSeconds = parseISO8601DurationToSeconds(duration);
+            console.log(`Tổng thời gian của video (giây): ${durationInSeconds}`);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+
+// Hàm chuyển đổi định dạng ISO 8601 sang giây
+function parseISO8601DurationToSeconds(duration) {
+    const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+    const hours = (parseInt(match[1], 10) || 0);
+    const minutes = (parseInt(match[2], 10) || 0);
+    const seconds = (parseInt(match[3], 10) || 0);
+    return hours * 3600 + minutes * 60 + seconds;
+}
+
+// Gọi hàm này khi thay đổi video
+function onVideoChange(videoId) {
+    extractVideoDuration(videoId);
+}
