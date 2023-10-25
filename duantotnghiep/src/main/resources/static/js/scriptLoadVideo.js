@@ -19,6 +19,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
     }
 
     function changeVideo(selected_video, videos, $scope) {
+        let time_elapsed = 0;
         videos.forEach(video => {
             video.classList.remove('active');
             video.querySelector('img').src = '/img/play.svg';
@@ -29,19 +30,40 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
         let match_video = $scope.data.find(video => video.id == selected_video.dataset.id);
         if (match_video) {
-            videoIframe.src = 'https://www.youtube-nocookie.com/embed/' + match_video.linkVideo + "?modestbranding=1&disablekb=1&origin=http://localhost:8080";
-            videoIframe.setAttribute("frameborder", "0");
-            // Cấu hình quyền cho iframe
-            videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
-
-
+            videoIframe.src = 'https://www.youtube-nocookie.com/embed/' + match_video.linkVideo + "?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1";
+            videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
             videoIframe.setAttribute("allowfullscreen", "");
             videoIframe.title = match_video.mucLuc.khoaHoc.tenKhoaHoc;
-            onVideoChange(match_video.linkVideo);
+            let player;
+            videoIframe.onload = function () {
+                player = new YT.Player(videoIframe, {
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+
+                });
+            }
+
+            function onPlayerReady(event) {
+                event.target.playVideo();
+            }
+
+            function onPlayerStateChange(event) {
+                if (event.data == YT.PlayerState.PLAYING) {
+                    setInterval(function () {
+                        time_elapsed = player.getCurrentTime();
+                        console.log(`Time elapsed: ${time_elapsed}`);
+                        console.log(`Duration: ${player.getDuration()}`);
+                        console.log(`Percent: ${time_elapsed / player.getDuration() * 100}%`);
+                    }, 1000);
+                }
+            }
+
 
         }
-
     }
+
 
     function setupVideoEvents($scope) {
         let videos = document.querySelectorAll('.video');
@@ -128,6 +150,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         // Thay đổi URL hoặc thực hiện hành động cụ thể để chuyển đến trang trắc nghiệm
         window.location.href = '/tracnghiem'; // Ví dụ: chuyển đến trang trắc nghiệm
     }
+
 
 }]);
 
