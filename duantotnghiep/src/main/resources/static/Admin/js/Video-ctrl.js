@@ -259,7 +259,11 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
         }
 
         const usernameCookie = getCookieValue('videoId');
-        const videoTitle = getCookieValue('videoTitle');
+        // Lấy đối tượng input theo id "title"
+        var inputElement = document.getElementById("title");
+        var videoTitle;
+        // Lấy giá trị từ input khi người dùng nhấn nút "Lấy giá trị"
+        videoTitle = inputElement.value;
 
         console.log(usernameCookie);
         console.log(videoTitle);
