@@ -36,9 +36,6 @@ public class DanhGia {
     @JoinColumn(name = "id_nguoi_dung")
     private NguoiDung nguoiDung;
 
-    @Column(name = "noi_dung")
-    private String noiDung;
-
     @Column(name = "so_diem_danh_gia")
     private int soDiemDanhGia;
 

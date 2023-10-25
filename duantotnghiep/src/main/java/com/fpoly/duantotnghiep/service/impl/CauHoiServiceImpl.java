@@ -1,5 +1,6 @@
 package com.fpoly.duantotnghiep.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import com.fpoly.duantotnghiep.service.CauHoiService;
 import com.fpoly.duantotnghiep.service.TaiLieuService;
 
 @Service
-
 public class CauHoiServiceImpl implements CauHoiService {
     @Autowired
     CauHoiRepository cauHoiRepository;
@@ -21,11 +21,6 @@ public class CauHoiServiceImpl implements CauHoiService {
     @Override
     public List<CauHoi> findAll() {
         return cauHoiRepository.findAll();
-    }
-
-    @Override
-    public List<CauHoi> findByKhoaHocId(int idKhoaHoc) {
-        return cauHoiRepository.findByMucLuc(idKhoaHoc);
     }
 
     @Override
@@ -38,4 +33,14 @@ public class CauHoiServiceImpl implements CauHoiService {
         cauHoiRepository.deleteById(id);
     }
 
+    @Override
+    public ArrayList<CauHoi> findByMucLuc(int mucLucId) {
+        return cauHoiRepository.findByMucLuc(mucLucId);
+    }
+
+    @Override
+    public ArrayList<CauHoi> findByKhoaHocId(int khoaHocId) {
+        return cauHoiRepository.findByKhoaHocId(khoaHocId);
+    }
+    
 }

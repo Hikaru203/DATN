@@ -113,10 +113,6 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
         var startIndex = ($scope.currentPage - 1) * $scope.itemsPerPage;
         var endIndex = startIndex + $scope.itemsPerPage;
         $scope.displayedItems = $scope.itemsVideo.slice(startIndex, endIndex);
-        console.log($scope.displayedItems);
-        console.log($scope.itemsVideo);
-        console.log($scope.totalItems);
-        console.log($scope.MucLuc);
     };
 
     $scope.goToFirstPage = function () {

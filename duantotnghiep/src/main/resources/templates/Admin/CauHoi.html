@@ -1458,7 +1458,8 @@
                                                                                     <th>Tùy chọn</th>
                                                                                 </tr>
                                                                                 <tr ng-repeat="item in displayedItems1">
-                                                                                    <td> {{ item.khoaHoc.tenKhoaHoc
+                                                                                    <td> {{
+                                                                                        item.mucLuc.khoaHoc.tenKhoaHoc
                                                                                         }}
                                                                                     <td class="text-truncate">{{
                                                                                         item.cauHoi }}</td>
@@ -1495,6 +1496,28 @@
                                                         <div id="dropzone1" class="pro-ad">
                                                             <div class="row">
                                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                                                    <div class="form-group"
+                                                                        style="padding-bottom: 20px;">
+                                                                        <div
+                                                                            ng-if="selectedCourse && MucLuc.length === 0">
+                                                                            <p>Khóa học chưa có mục lục.</p>
+                                                                        </div>
+
+                                                                        <div style="width: 100%;">
+                                                                            <select style="width: 100%; height: 50px;"
+                                                                                name="mucLucSelect" id="mucLucSelect"
+                                                                                ng-model="selectedMucLuc"
+                                                                                ng-change="getSelectedMucLuc(selectedMucLuc)">
+                                                                                <option value="">Chọn mục lục</option>
+                                                                                <option ng-repeat="mucLuc in MucLuc"
+                                                                                    ng-if="mucLuc.id"
+                                                                                    value="{{ mucLuc.id }}">{{
+                                                                                    mucLuc.tenMucLuc }}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
                                                                     <div class="form-group">
                                                                         <input type="text" ng-model="formCauHoi.cauHoi"
                                                                             class="form-control" id="cauHoi"
@@ -1534,58 +1557,10 @@
                                                         <!-- Button "Thêm" -->
                                                         <button class="btn btn-primary mr-2"
                                                             ng-click="create()">Thêm</button>
-
-                                                        <button class="btn btn-danger" ng-click="out()">Chế độ thống
-                                                            kê</button>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <style>
-                                                /* Tùy chỉnh kiểu dáng cho bảng */
-                                                .custom-table {
-                                                    width: 100%;
-                                                    border-collapse: collapse;
-                                                }
 
-                                                .custom-table th,
-                                                .custom-table td {
-                                                    border: 1px solid #ccc;
-                                                    padding: 8px;
-                                                    text-align: left;
-                                                }
-
-                                                .custom-table th {
-                                                    background-color: #f2f2f2;
-                                                }
-
-                                                /* Tùy chỉnh kiểu dáng cho button-container */
-                                                .button-container {
-                                                    margin-top: 20px;
-                                                    text-align: center;
-                                                }
-
-                                                .button-container button {
-                                                    margin-right: 10px;
-                                                }
-                                            </style>
-
-                                            <div id="tableCourse">
-                                                <br>
-                                                <table class="custom-table">
-                                                    <tr>
-                                                        <th>KhoaHoc</th>
-                                                        <th>Số lượng câu hỏi</th>
-                                                    </tr>
-                                                    <tr ng-repeat="item in itemsKhoaHoc">
-                                                        <td>{{ item.tenKhoaHoc }}</td>
-                                                        <td>
-                                                            {{ soLuongCauHoiTheoKhoaHoc[item.id] || 0 }}
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <br>
-                                                <button ng-click="edit()">Chế độ chỉnh sửa</button>
-                                            </div>
                                         </div>
 
                                         <script>

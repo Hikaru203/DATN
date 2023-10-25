@@ -29,11 +29,6 @@ public class AdminCauHoiRestController {
         return cauHoiService.findAll();
     }
 
-    @GetMapping("/{idKhoaHoc}")
-    public List<CauHoi> getByKhoaHoc(@PathVariable int idKhoaHoc) {
-        return cauHoiService.findByKhoaHocId(idKhoaHoc);
-    }
-
     @PostMapping()
     public CauHoi save(@RequestBody CauHoi cauHoi) {
         return cauHoiService.save(cauHoi);
