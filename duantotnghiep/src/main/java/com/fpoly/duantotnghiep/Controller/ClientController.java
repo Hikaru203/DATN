@@ -42,7 +42,10 @@ public class ClientController {
         model.addAttribute("courseOnline", page);
         return "index";
     }
-
+      @GetMapping("/courseOnline/course")
+    public String course(){
+        return "course";
+    }
     @GetMapping("/courseOnline/tracnghiem")
     public String tracngiem() {
         return "tracnghiem";
@@ -60,4 +63,22 @@ public class ClientController {
     public String uploadKhoaHoc() {
         return "uploadKhoaHoc";
     }
+
+    @GetMapping("/courseOnline/about")
+    public String about(){
+        return "about";
+    }
+    @GetMapping("/courseOnline/contact")
+    public String contact(){
+        return "contact";
+    }
+    @GetMapping("/courseOnline/cart")
+    public String cart(){
+        return "cart";
+    }
+     @GetMapping("/courseOnline/checkout")
+    public String checkout(){
+        return "checkout";
+    }
+    
 }
