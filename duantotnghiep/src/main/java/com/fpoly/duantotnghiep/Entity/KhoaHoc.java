@@ -59,5 +59,7 @@ public class KhoaHoc {
     @Column(name = "hinh_anh")
     private String hinhAnh;
 
+    
+
     // Constructors, getters, and setters
 }

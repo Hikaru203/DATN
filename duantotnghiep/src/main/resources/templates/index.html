@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8">
-<title>PolyAcademy</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="Free HTML Templates" name="keywords">
-<meta content="Free HTML Templates" name="description">
+	<meta charset="utf-8">
+	<title>PolyAcademy</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="Free HTML Templates" name="keywords">
+	<meta content="Free HTML Templates" name="description">
 
 	<!-- Favicon -->
 	<link href="img/favicon.ico" rel="icon">
@@ -88,17 +88,15 @@
 							<a href="#" class="nav-link" data-toggle="dropdown">Thiết kế
 								trang Web<i class="fa fa-angle-down float-right mt-1"></i>
 							</a>
-							<div
-								class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-								<a href="deltai.html" class="dropdown-item">HTML</a> <a
-									href="deltai.html" class="dropdown-item">CSS</a> <a
-									href="deltai.html" class="dropdown-item">JavaScript</a>
+							<div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+								<a href="deltai.html" class="dropdown-item">HTML</a> <a href="deltai.html"
+									class="dropdown-item">CSS</a> <a href="deltai.html"
+									class="dropdown-item">JavaScript</a>
 							</div>
 						</div>
 						<a href="deltai.html" class="nav-item nav-link active">Phát
-							triển phần mềm</a> <a href="deltai.html"
-							class="nav-item nav-link active">Kỹ năng học tập</a> <a
-							href="deltai.html" class="nav-item nav-link active">Pháp luật</a>
+							triển phần mềm</a> <a href="deltai.html" class="nav-item nav-link active">Kỹ năng học
+							tập</a> <a href="deltai.html" class="nav-item nav-link active">Pháp luật</a>
 						<a href="deltai.html" class="nav-item nav-link active">Tiếng
 							Anh</a>
 					</div>
@@ -119,49 +117,56 @@
 							<a href="index.html" class="nav-item nav-link active ">Trang
 								chủ</a> <a href="course.html" class="nav-item nav-link ">Khoá
 								học</a> <a href="deltai.html" class="nav-item nav-link ">Chi
-								tiết khoá học</a> <a href="about.html"
-								class="nav-item nav-link ">Đăng ký học thử</a>
+								tiết khoá học</a> <a href="about.html" class="nav-item nav-link ">Đăng ký học thử</a>
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
 								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-									<a href="contact.html" class="dropdown-item">Liên hệ</a> <a
-										href="about.html" class="dropdown-item">Yêu thích khoá học</a>
-										<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
-									<a href="cart.html" class="dropdown-item">Giỏ hàng</a> <a
-										href="checkout.html" class="dropdown-item">Thanh toán</a> <a
-										href="tracnghiem.html" class="dropdown-item">Trắc nghiệm</a>
+									<a href="contact.html" class="dropdown-item">Liên hệ</a> <a href="about.html"
+										class="dropdown-item">Yêu thích khoá học</a>
+									<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
+									<a href="cart.html" class="dropdown-item">Giỏ hàng</a> <a href="checkout.html"
+										class="dropdown-item">Thanh toán</a> <a href="tracnghiem.html"
+										class="dropdown-item">Trắc nghiệm</a>
 								</div>
 							</div>
 						</div>
 						<ul class="navbar-nav">
-							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangnhap">Đăng nhập</a></li>
-							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangky">Đăng ký</a></li>
+							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
+									href="/courseOnline/dangnhap">Đăng nhập</a></li>
+							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
+									href="/courseOnline/dangky">Đăng ký</a></li>
 						</ul>
 						<div class="nav-item dropdown" th:if="${session.user != null}">
 							<style>
 								/* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
 								.dropdown-menu {
 									position: absolute;
-									background-color: #ff6600; /* Màu nền */
-									border: 1px solid #ff6600; /* Viền */
-									width: 200px; /* Độ rộng */
-									box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+									background-color: #ff6600;
+									/* Màu nền */
+									border: 1px solid #ff6600;
+									/* Viền */
+									width: 200px;
+									/* Độ rộng */
+									box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+									/* Hiệu ứng bóng đổ */
 								}
-						
+
 								.dropdown-item {
-									color: #fff; /* Màu chữ */
+									color: #fff;
+									/* Màu chữ */
 									font-size: 14px;
 									padding: 10px 20px;
 								}
 							</style>
-							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
+							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+								style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
 							<div class="dropdown-menu">
 								<a href="cart.html" class="dropdown-item">Cập nhật tài khoản</a>
 								<a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
-								<a href="/logoff"  class="dropdown-item">Đăng xuất</a>
+								<a href="/logoff" class="dropdown-item">Đăng xuất</a>
 							</div>
 						</div>
-											
+
 					</div>
 				</nav>
 			</div>
@@ -181,15 +186,13 @@
 				<div class="carousel-item active" style="min-height: 300px;">
 					<img class="position-relative w-100" src="/img/carousel-1.jpg"
 						style="min-height: 300px; object-fit: cover;">
-						<div
-						class="carousel-caption d-flex align-items-center justify-content-center">
+					<div class="carousel-caption d-flex align-items-center justify-content-center">
 						<div class="p-5" style="width: 100%; max-width: 900px;">
 							<h5 class="text-white text-uppercase mb-md-3">Các khóa học
 								trực tuyến tốt nhất</h5>
 							<h1 class="display-3 text-white mb-md-4">Được sản xuất bởi
 								đội ngũ PolyAcademy</h1>
-							<a href="course.html"
-								class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
+							<a href="course.html" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
 								hiểu thêm</a>
 						</div>
 					</div>
@@ -197,15 +200,13 @@
 				<div class="carousel-item" style="min-height: 300px;">
 					<img class="position-relative w-100" src="/img/carousel-2.jpg"
 						style="min-height: 300px; object-fit: cover;">
-						<div
-						class="carousel-caption d-flex align-items-center justify-content-center">
+					<div class="carousel-caption d-flex align-items-center justify-content-center">
 						<div class="p-5" style="width: 100%; max-width: 900px;">
 							<h5 class="text-white text-uppercase mb-md-3">Năng lực cốt
 								lỗi</h5>
 							<h1 class="display-3 text-white mb-md-4">Làm nên sự khác
 								biệt của chính bạn</h1>
-							<a href="course.html"
-								class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
+							<a href="course.html" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
 								hiểu thêm</a>
 						</div>
 					</div>
@@ -213,15 +214,13 @@
 				<div class="carousel-item" style="min-height: 300px;">
 					<img class="position-relative w-100" src="/img/carousel-3.jpg"
 						style="min-height: 300px; object-fit: cover;">
-						<div
-						class="carousel-caption d-flex align-items-center justify-content-center">
+					<div class="carousel-caption d-flex align-items-center justify-content-center">
 						<div class="p-5" style="width: 100%; max-width: 900px;">
 							<h5 class="text-white text-uppercase mb-md-3">Kiến thức thực
 								tế</h5>
 							<h1 class="display-3 text-white mb-md-4">Xây dựng tương lai
 							</h1>
-							<a href="course.html"
-								class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
+							<a href="course.html" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
 								hiểu thêm</a>
 						</div>
 					</div>
@@ -240,16 +239,15 @@
 				</div>
 				<div class="col-lg-7">
 					<div class="text-left mb-4">
-						<h5 class="text-primary text-uppercase mb-3"
-							style="letter-spacing: 5px;">PHƯƠNG CHÂM ĐÀO TẠO CỦA CHÚNG
+						<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">PHƯƠNG CHÂM ĐÀO TẠO
+							CỦA CHÚNG
 							TÔI</h5>
 						<h1>"LẤY NGƯỜI HỌC LÀM CHẤT LƯỢNG"</h1>
 					</div>
 					<p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp
 						giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh,
 						sinh viên trên cả nước với chất lượng tốt nhất!</p>
-					<a href="about.html"
-						class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
+					<a href="about.html" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
 						hiểu thêm</a>
 				</div>
 			</div>
@@ -346,24 +344,34 @@
 	<div class="container-fluid py-5">
 		<div class="container py-5">
 			<div class="text-center mb-5">
-				<h5 class="text-primary text-uppercase mb-3"
-					style="letter-spacing: 5px;">Các khoá học thịnh hành</h5>
+				<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khoá học thịnh hành</h5>
 
 			</div>
 			<div class="row" ng-app="loadVideo-app" ng-controller="loadVideo-app-ctrl">
-				<div class="col-lg-4 col-md-6 mb-4" th:each="item : ${courseOnline}">
-					<div class="rounded overflow-hidden mb-2">
+				<div class="col-lg-4 col-md-6 mb-4" th:each="item, stat : ${courseOnline}">
+					<div class="rounded overflow-hidden mb-2" style="height: 250px;">
 						<img class="img-fluid" th:src="@{|/img/${item.hinhAnh}|}" alt="">
-						<div class="bg-secondary p-4">
+						<div class="bg-secondary p-4" style="height: 250px;">
 							<div class="d-flex justify-content-between mb-3">
-								<small class="m-0"><i class="fa fa-users text-primary mr-2"></i>25 Students</small>
-								<small class="m-0"><i class="far fa-clock text-primary mr-2"></i>01h
-									30m</small>
+								<small class="m-0">
+									<i class="fa fa-users text-primary mr-2"></i>
+									<span th:text="${list[stat.index][0]} + ' Student'"></span>
+									<!-- Lấy số lượng người học từ courseCountList -->
+								</small>
 							</div>
-							<a class="h5" th:href="@{'/courseOnline/detail/' + ${item.id}}"
-								th:text="${item.tenKhoaHoc}"></a>
-
-
+							<style>
+								.course-name {
+									display: -webkit-box;
+									-webkit-line-clamp: 2;
+									-webkit-box-orient: vertical;
+									overflow: hidden;
+									text-overflow: ellipsis;
+								}
+							</style>
+							<div style="height: 50px;">
+								<a class="h5 course-name" th:href="@{'/courseOnline/detail/' + ${item.id}}"
+									th:text="${item.tenKhoaHoc}"></a>
+							</div>
 							<div class="border-top mt-4 pt-4">
 								<div class="d-flex justify-content-between">
 									<h6 class="m-0">
@@ -376,7 +384,9 @@
 					</div>
 				</div>
 
+
 			</div>
+
 		</div>
 	</div>
 	<!-- Courses End -->
@@ -407,8 +417,7 @@
 				<div class="col-lg-5">
 					<div class="card border-0">
 						<div class="card-body rounded-bottom bg-primary p-5">
-							<button class="btn btn-dark btn-block border-0 py-3"
-								type="submit">Đăng ký ngay</button>
+							<button class="btn btn-dark btn-block border-0 py-3" type="submit">Đăng ký ngay</button>
 						</div>
 
 					</div>
@@ -423,8 +432,7 @@
 			<div class="col-lg-7 col-md-12">
 				<div class="row">
 					<div class="col-md-6 mb-5">
-						<h5 class="text-primary text-uppercase mb-4"
-							style="letter-spacing: 5px;">Liên hệ</h5>
+						<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Liên hệ</h5>
 						<p>
 							<i class="fa fa-map-marker-alt mr-2"></i>22 Thường Thạnh, Khu dân
 							cư Hoàng Quân, Q. Cái Răng, TP. Cần Thơ
@@ -444,33 +452,28 @@
 						</div>
 					</div>
 					<div class="col-md-6 mb-5">
-						<h5 class="text-primary text-uppercase mb-4"
-							style="letter-spacing: 5px;">Khoá học của chúng tôi</h5>
+						<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Khoá học của chúng tôi
+						</h5>
 						<div class="d-flex flex-column justify-content-start">
-							<a class="text-white mb-2" href="#"><i
-								class="fa fa-angle-right mr-2"></i>Thiết kế trang Web</a> <a
-								class="text-white mb-2" href="#"><i
-								class="fa fa-angle-right mr-2"></i>Phát triển phần mềm</a> <a
-								class="text-white mb-2" href="#"><i
-								class="fa fa-angle-right mr-2"></i>Kỹ năng học tập</a> <a
-								class="text-white mb-2" href="#"><i
-								class="fa fa-angle-right mr-2"></i>Pháp luật</a> <a
-								class="text-white" href="#"><i
-								class="fa fa-angle-right mr-2"></i>Tiếng Anh</a>
+							<a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Thiết kế trang
+								Web</a> <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Phát
+								triển phần mềm</a> <a class="text-white mb-2" href="#"><i
+									class="fa fa-angle-right mr-2"></i>Kỹ năng học tập</a> <a class="text-white mb-2"
+								href="#"><i class="fa fa-angle-right mr-2"></i>Pháp luật</a> <a class="text-white"
+								href="#"><i class="fa fa-angle-right mr-2"></i>Tiếng Anh</a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-5 col-md-12 mb-5">
-				<h5 class="text-primary text-uppercase mb-4"
-					style="letter-spacing: 5px;">PolyAcademy</h5>
+				<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">PolyAcademy</h5>
 				<p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp
 					giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh,
 					sinh viên trên cả nước với chất lượng tốt nhất!</p>
 				<div class="w-100">
 					<div class="input-group">
-						<input type="text" class="form-control border-light"
-							style="padding: 30px;" placeholder="Hãy gửi Email cho chúng tôi">
+						<input type="text" class="form-control border-light" style="padding: 30px;"
+							placeholder="Hãy gửi Email cho chúng tôi">
 						<div class="input-group-append">
 							<button class="btn btn-primary px-4">Đăng ký</button>
 						</div>

@@ -19,13 +19,11 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
     }
 
     let intervalIds = {}; // Đối tượng lưu trữ intervalId cho từng video
-
     function changeVideo(selected_video, videos, $scope) {
         // Xóa thông tin video cũ
         videos.forEach(video => {
             video.classList.remove('active');
             video.querySelector('img').src = '/img/play.svg';
-            clearInterval(intervalIds[video.dataset.id]); // Xóa intervalId của video cũ
         });
         time_elapsed = 0;
         // Hiển thị video mới
@@ -45,7 +43,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                         },
                         'onReady': function (event) {
                             event.target.playVideo();
-                        }
+                        },
                     }
                 });
             }
@@ -53,28 +51,25 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
     }
 
     function onPlayerStateChange(event, videoId, player) {
+
         if (event.data == YT.PlayerState.PLAYING) {
             clearInterval(intervalIds[videoId]); // Xóa intervalId cũ của video
             intervalIds[videoId] = setInterval(function () {
                 let time_elapsed = Math.floor(player.getCurrentTime()); // Sử dụng hàm Math.floor để làm tròn thời gian xuống số nguyên gần nhất
-                // Hiển thị thông tin video đang phát
                 const videoInfo = document.getElementById('video-info');
                 videoInfo.innerHTML = `Time elapsed: ${time_elapsed}`;
                 let time = time_elapsed / player.getDuration() * 100;
-                console.log(time);
                 if (time >= 90) {
-                    console.log("Đã xem hết video");
                     document.getElementById('next-video').disabled = false; // Kích hoạt nút Next
                     document.getElementById('next-video').setAttribute("style", "background-color: #007bff; color: #fff; border-color: #007bff;");
                     if (time == 100) {
                         document.getElementById('next-video').click(); // Tự động chuyển sang video tiếp theo
                     }
                 } else {
-                    console.log("Chưa xem hết video");
                     document.getElementById('next-video').disabled = true; // Vô hiệu hóa nút Next
                     document.getElementById('next-video').setAttribute("style", "background-color: #6c757d; color: #fff; border-color: #6c757d;");
                 }
-            }); 
+            });
         } else {
             clearInterval(intervalIds[videoId]); // Xóa intervalId khi video dừng phát
         }
