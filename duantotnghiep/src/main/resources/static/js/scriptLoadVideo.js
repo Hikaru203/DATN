@@ -41,7 +41,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                 let player = new YT.Player(videoIframe, {
                     events: {
                         'onStateChange': function (event) {
-                            onPlayerStateChange(event, match_video.id, player); // Truyền id của video vào hàm onPlayerStateChange
+                            onPlayerStateChange(event, match_video.linkVideo, player); // Truyền id của video vào hàm onPlayerStateChange
                         },
                         'onReady': function (event) {
                             event.target.playVideo();
