@@ -18,13 +18,17 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         });
     }
 
+    let intervalIds = {}; // Đối tượng lưu trữ intervalId cho từng video
+
     function changeVideo(selected_video, videos, $scope) {
-        let time_elapsed = 0;
+        // Xóa thông tin video cũ
         videos.forEach(video => {
             video.classList.remove('active');
             video.querySelector('img').src = '/img/play.svg';
+            clearInterval(intervalIds[video.dataset.id]); // Xóa intervalId của video cũ
         });
-
+        time_elapsed = 0;
+        // Hiển thị video mới
         selected_video.classList.add('active');
         selected_video.querySelector('img').src = '/img/pause.svg';
 
@@ -33,37 +37,48 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             videoIframe.src = 'https://www.youtube-nocookie.com/embed/' + match_video.linkVideo + "?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1";
             videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
             videoIframe.setAttribute("allowfullscreen", "");
-            videoIframe.title = match_video.mucLuc.khoaHoc.tenKhoaHoc;
-            let player;
             videoIframe.onload = function () {
-                player = new YT.Player(videoIframe, {
+                let player = new YT.Player(videoIframe, {
                     events: {
-                        'onReady': onPlayerReady,
-                        'onStateChange': onPlayerStateChange
+                        'onStateChange': function (event) {
+                            onPlayerStateChange(event, match_video.id, player); // Truyền id của video vào hàm onPlayerStateChange
+                        },
+                        'onReady': function (event) {
+                            event.target.playVideo();
+                        }
                     }
-
                 });
             }
-
-            function onPlayerReady(event) {
-                event.target.playVideo();
-            }
-
-            function onPlayerStateChange(event) {
-                if (event.data == YT.PlayerState.PLAYING) {
-                    setInterval(function () {
-                        time_elapsed = player.getCurrentTime();
-                        console.log(`Time elapsed: ${time_elapsed}`);
-                        console.log(`Duration: ${player.getDuration()}`);
-                        console.log(`Percent: ${time_elapsed / player.getDuration() * 100}%`);
-                    }, 1000);
-                }
-            }
-
-
         }
     }
 
+    function onPlayerStateChange(event, videoId, player) {
+        if (event.data == YT.PlayerState.PLAYING) {
+            clearInterval(intervalIds[videoId]); // Xóa intervalId cũ của video
+            intervalIds[videoId] = setInterval(function () {
+                let time_elapsed = Math.floor(player.getCurrentTime()); // Sử dụng hàm Math.floor để làm tròn thời gian xuống số nguyên gần nhất
+                // Hiển thị thông tin video đang phát
+                const videoInfo = document.getElementById('video-info');
+                videoInfo.innerHTML = `Time elapsed: ${time_elapsed}`;
+                let time = time_elapsed / player.getDuration() * 100;
+                console.log(time);
+                if (time >= 90) {
+                    console.log("Đã xem hết video");
+                    document.getElementById('next-video').disabled = false; // Kích hoạt nút Next
+                    document.getElementById('next-video').setAttribute("style", "background-color: #007bff; color: #fff; border-color: #007bff;");
+                    if (time == 100) {
+                        document.getElementById('next-video').click(); // Tự động chuyển sang video tiếp theo
+                    }
+                } else {
+                    console.log("Chưa xem hết video");
+                    document.getElementById('next-video').disabled = true; // Vô hiệu hóa nút Next
+                    document.getElementById('next-video').setAttribute("style", "background-color: #6c757d; color: #fff; border-color: #6c757d;");
+                }
+            }); 
+        } else {
+            clearInterval(intervalIds[videoId]); // Xóa intervalId khi video dừng phát
+        }
+    }
 
     function setupVideoEvents($scope) {
         let videos = document.querySelectorAll('.video');

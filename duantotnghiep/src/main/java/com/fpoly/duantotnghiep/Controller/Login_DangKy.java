@@ -25,6 +25,7 @@ public class Login_DangKy {
 
     @GetMapping("/courseOnline/dangnhap")
     public String dangnhap() {
+        System.out.println(httpSession.getAttribute("user"));
         httpSession.removeAttribute("user");
         httpSession.removeAttribute("admin");
         return "dangnhap";

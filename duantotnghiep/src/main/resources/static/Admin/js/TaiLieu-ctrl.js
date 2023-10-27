@@ -20,7 +20,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
 
     // Hàm tải danh sách khóa học
     function loadKhoaHoc() {
-        $http.get("/Admin/rest/KhoaHoc").then(function (resp) {
+        $http.get("/rest/admin/KhoaHoc").then(function (resp) {
             $scope.itemsKhoaHoc = resp.data;
         }).catch(function (error) {
             console.log("Lỗi tải danh sách khóa học", error);
@@ -28,7 +28,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
     }
 
     function loadTaiLieu() {
-        $http.get("/Admin/rest/TaiLieu").then(function (resp) {
+        $http.get("/rest/admin/TaiLieu").then(function (resp) {
             $scope.itemsTaiLieu = resp.data;
             $scope.totalItems = $scope.itemsTaiLieu.length;
 
@@ -55,7 +55,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
             $scope.formTaiLieu.thuTu = "";
             return; // Thoát khỏi hàm nếu không có khoá học được chọn
         }
-        $http.get("/Admin/rest/KhoaHoc/" + $scope.formTaiLieu.khoaHoc).then(function (resp) {
+        $http.get("/rest/admin/KhoaHoc/" + $scope.formTaiLieu.khoaHoc).then(function (resp) {
             $scope.KhoaHoc = resp.data;
             // Định dạng lại ngày thành "giờ ngày tháng năm"
             for (var i = 0; i < $scope.itemsTaiLieu.length; i++) {
@@ -68,7 +68,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
             console.log("Lỗi tải danh sách tài liệu", error);
         });
         if ($scope.formTaiLieu.khoaHoc) {
-            $http.get("/Admin/rest/TaiLieu/" + $scope.formTaiLieu.khoaHoc).then(function (resp) {
+            $http.get("/rest/admin/TaiLieu/" + $scope.formTaiLieu.khoaHoc).then(function (resp) {
                 $scope.itemsTaiLieu = resp.data;
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
                 console.log($scope.itemsTaiLieu);
@@ -82,7 +82,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
 
             });
         } else {
-            $http.get("/Admin/rest/TaiLieu").then(function (resp) {
+            $http.get("/rest/admin/TaiLieu").then(function (resp) {
                 $scope.itemsTaiLieu = resp.data;
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
                 // Định dạng lại ngày thành "giờ ngày tháng năm"
@@ -193,7 +193,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
         }).then(function (uploadResp) {
             console.log(uploadResp.data);
 
-            $http.post(`/Admin/rest/TaiLieu`, item).then(function (resp) {
+            $http.post(`/rest/admin/TaiLieu`, item).then(function (resp) {
                 $scope.itemsTaiLieu.push(resp.data);
                 alert("Thêm mới thành công");
                 $scope.reset();
@@ -231,7 +231,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
         // Gọi hàm để hiển thị tệp PDF
         displayPDFFromFile(duongDanTepPDF);
 
-        $http.get("/Admin/rest/KhoaHoc/" + $scope.formTaiLieu.khoaHoc).then(function (resp) {
+        $http.get("/rest/admin/KhoaHoc/" + $scope.formTaiLieu.khoaHoc).then(function (resp) {
             $scope.KhoaHoc = resp.data;
         })
     };
@@ -271,7 +271,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
                 headers: { 'Content-Type': undefined }
             }).then(function (uploadResp) {
                 item.khoaHoc = $scope.KhoaHoc;
-                $http.put(`/Admin/rest/TaiLieu/${item.id}`, item).then(function (resp) {
+                $http.put(`/rest/admin/TaiLieu/${item.id}`, item).then(function (resp) {
                     var index = $scope.itemsTaiLieu.findIndex(p => p.id == item.id);
                     $scope.itemsTaiLieu[index] = item;
                     alert("Cập nhật thành công");
@@ -289,7 +289,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
             item.khoaHoc = $scope.KhoaHoc;
             var ngayGioHienTai = moment().format("YYYY-MM-DDTHH:mm:ss.SSSZ");
             item.ngayTao = ngayGioHienTai;
-            $http.put(`/Admin/rest/TaiLieu/${item.id}`, item).then(function (resp) {
+            $http.put(`/rest/admin/TaiLieu/${item.id}`, item).then(function (resp) {
                 var index = $scope.itemsTaiLieu.findIndex(p => p.id == item.id);
                 $scope.itemsTaiLieu[index] = item;
                 alert("Cập nhật thành công");
@@ -329,7 +329,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
         }
         var isConfirmed = confirm(`Bạn có chắc chắn muốn xóa tài liệu "${item.tenSlide}"?`);
         if (isConfirmed) {
-            $http.delete(`/Admin/rest/TaiLieu/${item.id}`).then(function (resp) {
+            $http.delete(`/rest/admin/TaiLieu/${item.id}`).then(function (resp) {
                 var index = $scope.itemsTaiLieu.findIndex(p => p.id == item.id);
                 $scope.itemsTaiLieu.splice(index, 1);
                 alert("Xóa thành công");
