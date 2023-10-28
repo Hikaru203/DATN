@@ -18,32 +18,61 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         });
     }
 
+    let intervalIds = {}; // Đối tượng lưu trữ intervalId cho từng video
     function changeVideo(selected_video, videos, $scope) {
+        // Xóa thông tin video cũ
         videos.forEach(video => {
             video.classList.remove('active');
             video.querySelector('img').src = '/img/play.svg';
         });
-
+        time_elapsed = 0;
+        // Hiển thị video mới
         selected_video.classList.add('active');
         selected_video.querySelector('img').src = '/img/pause.svg';
 
         let match_video = $scope.data.find(video => video.id == selected_video.dataset.id);
         if (match_video) {
-            videoIframe.src = 'https://www.youtube-nocookie.com/embed/' + match_video.linkVideo + "?modestbranding=1&controls=0&disablekb=1&origin=http://localhost:8080";
-            videoIframe.setAttribute("frameborder", "0");
-            // Cấu hình quyền cho iframe
-            videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
-
-            // Ẩn nút copy link bằng cách ẩn phần tử với class hoặc ID cụ thể (ví dụ: class="copy-link-button")
-            var copyLinkButton = videoIframe.contentDocument.querySelector(".ytp-copylink-button");
-            console.log(videoIframe);
-            if (copyLinkButton) {
-                copyLinkButton.style.display = "none";
-            }
+            videoIframe.src = 'https://www.youtube-nocookie.com/embed/' + match_video.linkVideo + "?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1";
+            videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
             videoIframe.setAttribute("allowfullscreen", "");
-            videoIframe.title = match_video.mucLuc.khoaHoc.tenKhoaHoc;
+            videoIframe.onload = function () {
+                let player = new YT.Player(videoIframe, {
+                    events: {
+                        'onStateChange': function (event) {
+                            onPlayerStateChange(event, match_video.linkVideo, player); // Truyền id của video vào hàm onPlayerStateChange
+                        },
+                        'onReady': function (event) {
+                            event.target.playVideo();
+                        },
+                    }
+                });
+            }
         }
+    }
 
+    function onPlayerStateChange(event, videoId, player) {
+
+        if (event.data == YT.PlayerState.PLAYING) {
+            clearInterval(intervalIds[videoId]); // Xóa intervalId cũ của video
+            intervalIds[videoId] = setInterval(function () {
+                let time_elapsed = Math.floor(player.getCurrentTime()); // Sử dụng hàm Math.floor để làm tròn thời gian xuống số nguyên gần nhất
+                const videoInfo = document.getElementById('video-info');
+                videoInfo.innerHTML = `Time elapsed: ${time_elapsed}`;
+                let time = time_elapsed / player.getDuration() * 100;
+                if (time >= 90) {
+                    document.getElementById('next-video').disabled = false; // Kích hoạt nút Next
+                    document.getElementById('next-video').setAttribute("style", "background-color: #007bff; color: #fff; border-color: #007bff;");
+                    if (time == 100) {
+                        document.getElementById('next-video').click(); // Tự động chuyển sang video tiếp theo
+                    }
+                } else {
+                    document.getElementById('next-video').disabled = true; // Vô hiệu hóa nút Next
+                    document.getElementById('next-video').setAttribute("style", "background-color: #6c757d; color: #fff; border-color: #6c757d;");
+                }
+            });
+        } else {
+            clearInterval(intervalIds[videoId]); // Xóa intervalId khi video dừng phát
+        }
     }
 
     function setupVideoEvents($scope) {
@@ -93,6 +122,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         });
     }
 
+
     const nextVideoButton = document.getElementById('next-video');
     const prevVideoButton = document.getElementById('prev-video');
     let currentIndex = 0;
@@ -131,6 +161,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         window.location.href = '/tracnghiem'; // Ví dụ: chuyển đến trang trắc nghiệm
     }
 
+
 }]);
 
 function onPageReady() {
@@ -139,3 +170,34 @@ function onPageReady() {
 }
 
 onPageReady();
+
+// Trích xuất tổng thời gian của video và hiển thị nó
+function extractVideoDuration(videoId) {
+    const videoUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=AIzaSyAMbEBUWSt19z0-kaQ-yUEV84r-YONdGh0&part=contentDetails`;
+
+    fetch(videoUrl)
+        .then(response => response.json())
+        .then(data => {
+            const duration = data.items[0].contentDetails.duration;
+            const durationInSeconds = parseISO8601DurationToSeconds(duration);
+            console.log(`Tổng thời gian của video (giây): ${durationInSeconds}`);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+
+// Hàm chuyển đổi định dạng ISO 8601 sang giây
+function parseISO8601DurationToSeconds(duration) {
+    const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+    const hours = (parseInt(match[1], 10) || 0);
+    const minutes = (parseInt(match[2], 10) || 0);
+    const seconds = (parseInt(match[3], 10) || 0);
+    return hours * 3600 + minutes * 60 + seconds;
+}
+
+// Gọi hàm này khi thay đổi video
+function onVideoChange(videoId) {
+    extractVideoDuration(videoId);
+}

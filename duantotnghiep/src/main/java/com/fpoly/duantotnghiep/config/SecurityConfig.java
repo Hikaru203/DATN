@@ -1,0 +1,65 @@
+package com.fpoly.duantotnghiep.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+import com.fpoly.duantotnghiep.Entity.NguoiDung;
+import com.fpoly.duantotnghiep.jparepository.NguoiDungRepository;
+
+import jakarta.servlet.http.HttpSession;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    @Autowired
+    NguoiDungRepository nguoiDungRepository;
+    @Autowired
+    HttpSession session;
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    // authentication
+    public UserDetailsService userDetailsService(PasswordEncoder pe) {
+        return new UserDetailsService() {
+
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                NguoiDung userInfo = nguoiDungRepository.findByTaiKhoan(username);
+                String password = userInfo.getMatKhau();
+                String roles = userInfo.getChucVu();
+                session.setAttribute("user", userInfo);
+                if (userInfo.getChucVu().equals("true")) {
+                    session.setAttribute("admin", userInfo);
+                }
+                session.setAttribute("userlogin", userInfo);
+                return User.withUsername(username).password(pe.encode(password)).roles(roles).build();
+            }
+        };
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.csrf().disable().authorizeHttpRequests().requestMatchers("/Admin/**").hasRole("true")
+                .and().authorizeHttpRequests().requestMatchers("/cart/**", "/checkout/**").authenticated().and()
+                .authorizeHttpRequests().requestMatchers("/REST/**").permitAll().and()
+                .authorizeHttpRequests().anyRequest().permitAll().and().exceptionHandling()
+                .accessDeniedPage("/courseOnline/index").and().formLogin().loginPage("/courseOnline/dangnhap")
+                .loginProcessingUrl("/login").defaultSuccessUrl("/courseOnline/index", true)
+                .and().logout().logoutUrl("/logoff").logoutSuccessUrl("/courseOnline/dangnhap").and().build();
+    }
+
+}

@@ -14,7 +14,7 @@ import com.fpoly.duantotnghiep.service.KhoaHocService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/Admin/rest/KhoaHoc")
+@RequestMapping("/rest/admin/KhoaHoc")
 public class AdminKhoaHocRestController {
     @Autowired
     KhoaHocService khoaHocService;

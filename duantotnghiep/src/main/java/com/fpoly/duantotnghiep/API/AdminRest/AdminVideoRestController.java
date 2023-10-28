@@ -19,7 +19,7 @@ import com.fpoly.duantotnghiep.service.VideoService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/Admin/rest/Videos")
+@RequestMapping("/rest/admin/Videos")
 public class AdminVideoRestController {
     @Autowired
     VideoService videoService;

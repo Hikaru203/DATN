@@ -9,6 +9,7 @@
     <title>Video Playlist UI Design Like Udemy | SkillShare</title>
     <link rel="stylesheet" href="/css/styleloadVideo.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
     <style>
         /* Resetting default margin and padding */
@@ -169,14 +170,22 @@
     <main class="container">
         <section class="main-video">
             <div class="video-frame-container">
-                <iframe id="video-iframe" width="888" height="500" src="" frameborder="0" allowfullscreen></iframe>
+                <iframe id="video-iframe" width="560" height="315" src="" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+
+
+
             </div>
 
             <div class="video-controls">
                 <button id="prev-video" class="button">Prev</button>
                 <button id="next-video" class="button">Next</button>
                 <button id="full-screen" class="button">Full Screen</button>
+                <div id="video-info"></div>
+
             </div>
+
         </section>
         <section class="video-playlist">
             <h3 class="title">Các bài học</h3>
@@ -205,6 +214,8 @@
 
 
     </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <script src="/js/scriptLoadVideo.js"></script>
 </body>
 

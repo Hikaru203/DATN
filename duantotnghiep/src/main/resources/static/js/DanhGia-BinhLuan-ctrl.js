@@ -13,7 +13,19 @@ app.controller('DanhGia-BinhLuan-ctrl', function ($scope, $http, $window) {
     $scope.BinhLuanThem = {};
     $scope.form = {};
 
+    // Lấy phần tử input bằng ID
+    var inputElement = document.getElementById('idLogin');
 
+
+
+    if (inputElement == null || inputElement == "") {
+        value = 0;
+    }
+    else {
+        // Lấy giá trị của input
+        var value = inputElement.value;
+        value = inputElement.value;
+    }
     function getCookieValue(name) {
         var value = "; " + document.cookie;
         var parts = value.split("; " + name + "=");
@@ -48,10 +60,12 @@ app.controller('DanhGia-BinhLuan-ctrl', function ($scope, $http, $window) {
 
 
     $scope.init = function () {
-        $http.get('/Admin/rest/NguoiDung/1')
+        $http.get('/rest/admin/NguoiDung/' + value)
             .then(function (response) {
-                $scope.NguoiDung = response.data;
+                $scope.nguoiDang = response.data;
+                console.log($scope.nguoiDang);
             });
+
 
         $http.get('/api/danhgia')
             .then(function (response) {
@@ -97,53 +111,62 @@ app.controller('DanhGia-BinhLuan-ctrl', function ($scope, $http, $window) {
 
 
     $scope.createDienDan = function () {
-        // Lấy thông tin khóa học
-        $http.get('/Admin/rest/KhoaHoc/' + id)
-            .then(function (response) {
-                $scope.DienDanThem.khoaHoc = response.data;
+        if (value === 0) {
+            console.log("Bạn chưa đăng nhập");
+            window.location.href = 'http://localhost:8080/courseOnline/dangnhap';
+        } else {
+            // Lấy thông tin khóa học
+            $http.get('/rest/admin/KhoaHoc' + id)
+                .then(function (response) {
+                    $scope.DienDanThem.khoaHoc = response.data;
 
-                // Lấy thông tin người dùng với ID 1 (có thể cần thay đổi ID này)
-                $http.get('/Admin/rest/NguoiDung/1')
-                    .then(function (response) {
-                        $scope.DienDanThem.noiDung = $scope.noiDung;
-                        $scope.DienDanThem.nguoiDang = response.data;
-                        $scope.DienDanThem.ngayDang = new Date();
-                        console.log($scope.DienDanThem);
+                    // Lấy thông tin người dùng với ID 1 (có thể cần thay đổi ID này)
+                    $http.get('/rest/admin/NguoiDung/' + value)
+                        .then(function (response) {
+                            $scope.DienDanThem.noiDung = $scope.noiDung;
+                            $scope.DienDanThem.nguoiDang = response.data;
+                            $scope.DienDanThem.ngayDang = new Date();
+                            console.log($scope.DienDanThem);
 
-                        // Gửi dữ liệu lên server
-                        $http.post('/api/diendan', $scope.DienDanThem)
-                            .then(function (response) {
-                                console.log(response);
-                                $scope.reset();
-                                $scope.init();
-                            });
-                    });
-            });
+                            // Gửi dữ liệu lên server
+                            $http.post('/api/diendan', $scope.DienDanThem)
+                                .then(function (response) {
+                                    console.log(response);
+                                    $scope.reset();
+                                    $scope.init();
+                                });
+                        });
+                });
+        }
     }
 
     $scope.createBinhLuan = function (id) {
-        // Lấy thông tin bài đăng
-        $http.get('/api/diendan/' + id)
-            .then(function (response) {
-                dienDan = response.data;
-                console.log(dienDan);
-                $http.get('/Admin/rest/NguoiDung/1')
-                    .then(function (response) {
-                        $scope.BinhLuanThem.nguoiBinhLuan = response.data;
-                        $scope.BinhLuanThem.noiDung = $scope.form.noiDung;
-                        $scope.BinhLuanThem.baiDang = dienDan;
-                        $scope.BinhLuanThem.ngayBinhLuan = new Date();
-                        console.log($scope.BinhLuanThem);
-                        $http.post('/api/binhluan', $scope.BinhLuanThem)
-                            .then(function (response) {
-                                console.log(response);
-                                $scope.reset();
-                                $scope.init();
-                            });
-                    });
-            });
-        // Lấy thông tin người dùng với ID 1 (có thể cần thay đổi ID này)
-
+        if (value === 0) {
+            console.log("Bạn chưa đăng nhập");
+            window.location.href = 'http://localhost:8080/courseOnline/dangnhap';
+        } else {
+            // Lấy thông tin bài đăng
+            $http.get('/api/diendan/' + id)
+                .then(function (response) {
+                    dienDan = response.data;
+                    console.log(dienDan);
+                    $http.get('/rest/admin/NguoiDung/' + value)
+                        .then(function (response) {
+                            $scope.BinhLuanThem.nguoiBinhLuan = response.data;
+                            $scope.BinhLuanThem.noiDung = $scope.form.noiDung;
+                            $scope.BinhLuanThem.baiDang = dienDan;
+                            $scope.BinhLuanThem.ngayBinhLuan = new Date();
+                            console.log($scope.BinhLuanThem);
+                            $http.post('/api/binhluan', $scope.BinhLuanThem)
+                                .then(function (response) {
+                                    console.log(response);
+                                    $scope.reset();
+                                    $scope.init();
+                                });
+                        });
+                });
+            // Lấy thông tin người dùng với ID 1 (có thể cần thay đổi ID này)
+        }
     }
 
     $scope.deleteDienDan = function (dienDan) {
@@ -182,12 +205,6 @@ app.controller('DanhGia-BinhLuan-ctrl', function ($scope, $http, $window) {
                 });
         }
     }
-
-
-
-
-
-
     $scope.deleteBinhLuan = function (binhLuan) {
         if (confirm("Bạn có chắc chắn muốn xóa bình luận này?")) {
             $http.delete('/api/binhluan/' + binhLuan.id)
