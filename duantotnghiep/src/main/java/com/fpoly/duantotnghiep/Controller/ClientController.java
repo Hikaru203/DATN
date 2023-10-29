@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.fpoly.duantotnghiep.Entity.CauHoi;
 import com.fpoly.duantotnghiep.Entity.DangKyKhoaHoc;
+import com.fpoly.duantotnghiep.Entity.DanhGia;
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 import com.fpoly.duantotnghiep.Entity.MucLuc;
 import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
 import com.fpoly.duantotnghiep.service.CauHoiService;
 import com.fpoly.duantotnghiep.service.CookieService;
 import com.fpoly.duantotnghiep.service.DangKyKhoaHocService;
+import com.fpoly.duantotnghiep.service.DanhGiaService;
 import com.fpoly.duantotnghiep.service.KhoaHocService;
 import com.fpoly.duantotnghiep.service.MucLucService;
 import com.fpoly.duantotnghiep.service.VideoService;
@@ -43,26 +45,56 @@ public class ClientController {
     @Autowired
     DangKyKhoaHocService dangKyKhoaHocService;
 
+    @Autowired
+    DanhGiaService danhGiaService;
+
     @GetMapping("/courseOnline/index")
     public String index(Model model) {
         List<KhoaHoc> page = daoHocService.findAll();
         List<DangKyKhoaHoc> list = dangKyKhoaHocService.findAll();
+        List<DanhGia> list2 = danhGiaService.findAll();
 
         // Tạo một Map để lưu trữ count cho mỗi khóa học
         Map<Long, Integer> courseCountMap = new HashMap<>();
+        Map<Long, Integer> danhGiaMap = new HashMap<>();
+        Map<Long, Double> DiemDanhGiaMap = new HashMap<>();
 
         for (DangKyKhoaHoc dangKyKhoaHoc : list) {
             KhoaHoc khoaHoc = dangKyKhoaHoc.getKhoaHoc();
             long khoaHocId = khoaHoc.getId();
 
-            // Kiểm tra xem khóa học đã có trong Map chưa, nếu chưa thì thêm vào với count
-            // bằng 1, nếu có rồi thì tăng count lên 1
             if (courseCountMap.containsKey(khoaHocId)) {
                 int count = courseCountMap.get(khoaHocId);
                 count++;
                 courseCountMap.put(khoaHocId, count);
             } else {
                 courseCountMap.put(khoaHocId, 1);
+            }
+        }
+        int count1 = 0;
+        for (DanhGia danhGia : list2) {
+            KhoaHoc khoaHoc = danhGia.getKhoaHoc();
+            long khoaHocId = khoaHoc.getId();
+
+            if (danhGiaMap.containsKey(khoaHocId)) {
+                count1 = danhGiaMap.get(khoaHocId);
+                count1++;
+                danhGiaMap.put(khoaHocId, count1);
+            } else {
+                danhGiaMap.put(khoaHocId, 1);
+            }
+        }
+
+        for (DanhGia danhGia : list2) {
+            KhoaHoc khoaHoc = danhGia.getKhoaHoc();
+            long khoaHocId = khoaHoc.getId();
+
+            if (DiemDanhGiaMap.containsKey(khoaHocId)) {
+                double count = DiemDanhGiaMap.get(khoaHocId);
+                count += danhGia.getSoDiemDanhGia();
+                DiemDanhGiaMap.put(khoaHocId, count / count1);
+            } else {
+                DiemDanhGiaMap.put(khoaHocId, Double.valueOf(danhGia.getSoDiemDanhGia()));
             }
         }
 
@@ -75,8 +107,24 @@ public class ClientController {
             courseCountList.add(item);
         }
 
-        System.out.println(courseCountList);
+        List<Object[]> danhGiaList = new ArrayList<>();
+        List<Object[]> danhGiaList2 = new ArrayList<>();
+        for (KhoaHoc khoaHoc : page) {
+            long khoaHocId = khoaHoc.getId();
+            int count = danhGiaMap.getOrDefault(khoaHocId, 0);
+            Object[] item = { count, khoaHocId };
+            danhGiaList.add(item);
+        }
 
+        for (KhoaHoc khoaHoc : page) {
+            long khoaHocId = khoaHoc.getId();
+            Double count = DiemDanhGiaMap.getOrDefault(khoaHocId, 0.0).doubleValue();
+            Object[] item = { count, khoaHocId };
+            danhGiaList2.add(item);
+        }
+
+        model.addAttribute("danhGiaList2", danhGiaList2);
+        model.addAttribute("danhGiaList", danhGiaList);
         model.addAttribute("list", courseCountList);
         model.addAttribute("courseOnline", page);
 
