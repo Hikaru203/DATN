@@ -80,13 +80,10 @@ app.controller('detail-controller', function ($scope, $http, $window) {
 
     $scope.getid = function (id) {
         $window.sessionStorage.setItem('videoId', id);
-        $window.location.href = '/courseOnline/video';
-        // Chuyển đổi số nguyên thành chuỗi JSON
+        $window.location.href = '/courseOnline/video/' + id;
     }
 
     $scope.continueCourse = function (id) {
-        alert("Bạn đã đăng ký khóa học này rồi");
-        console.log(id);
         $scope.getid(id);
     }
 
@@ -95,7 +92,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
         if (value === 0) {
             console.log("Bạn chưa đăng nhập");
             window.location.href = 'http://localhost:8080/courseOnline/dangnhap';
-        }else {
+        } else {
             console.log(id);
             $scope.check = "";
             $scope.checkCourse(value, id);
