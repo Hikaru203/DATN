@@ -10,6 +10,20 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         $window.location.href = '/courseOnline/video';
     }
 
+    // Lấy URL hiện tại
+    var currentURL = window.location.href;
+    // Sử dụng đối tượng URL để phân tích URL
+    var urlObject = new URL(currentURL);
+    var pathname = urlObject.pathname;
+
+    // Sử dụng đối tượng URL để phân tách `pathname` thành các phần bằng '/'
+    var parts = pathname.split('/');
+
+    // Lấy phần tử cuối cùng của mảng parts, đó chính là số 1
+    var idKhoaHoc = parts[parts.length - 1];
+
+    console.log(idKhoaHoc); // In ra số 1
+
     function setupVideoEvents($scope) {
         // Loại bỏ sự kiện click trên các phần tử video
         let videos = document.querySelectorAll('.video');
@@ -22,7 +36,30 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
     let nextButton = document.getElementById('next-video');
     let volumeControl = document.getElementById('volume-control');
     let playbackSpeedSelect = document.getElementById('playback-speed');
+    let pauseButton = document.getElementById('pause-video');
 
+    pauseButton.addEventListener('click', function () {
+        if (current_player) {
+            if (current_player.getPlayerState() === YT.PlayerState.PLAYING) {
+                current_player.pauseVideo();
+            } else if (current_player.getPlayerState() === YT.PlayerState.PAUSED) {
+                current_player.playVideo();
+            }
+        }
+    });
+
+
+    // Lấy phần tử input bằng ID
+    var inputElement = document.getElementById('idLogin');
+    var value;
+    if (inputElement == null || inputElement == "") {
+        value = 0;
+    }
+    else {
+        // Lấy giá trị của input
+        var value = inputElement.value;
+        value = inputElement.value;
+    }
     function changeVideo(selected_video, videos, $scope) {
         // Xóa thông tin video cũ
         videos.forEach(video => {
@@ -33,9 +70,10 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         selected_video.querySelector('img').src = '/img/pause.svg';
 
         let match_video = $scope.data.find(video => video.id == selected_video.dataset.id);
+
         if (match_video) {
             let videoIframe = document.getElementById('video-iframe');
-            videoIframe.src = 'https://www.youtube-nocookie.com/embed/' + match_video.linkVideo + "?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1";
+            videoIframe.src = 'https://www.youtube-nocookie.com/embed/' + match_video.linkVideo + "?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&controls=0&disablekb=1";
             videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
             videoIframe.setAttribute("allowfullscreen", "");
             videoIframe.onload = function () {
@@ -53,8 +91,18 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                                         let duration = current_player.getDuration();
                                         let timeInfo = formatTime(currentTime) + ' / ' + formatTime(duration);
                                         document.getElementById('video-info').textContent = timeInfo;
-
                                         let progressPercentage = (currentTime / duration) * 100;
+
+                                        var tienDo = match_video.linkVideo + "/" + currentTime;
+                                        var idVideo = match_video.linkVideo;
+                                        console.log(tienDo);
+
+
+                                        $http.put('/api/tiendokhoahoc/' + value + '/' + idKhoaHoc + '/' + idVideo + '/' + currentTime).then(function (response) {
+                                            console.log(response);
+                                        }, function (response) {
+                                            console.log(response);
+                                        });
                                         if (progressPercentage >= 90) {
                                             nextButton.disabled = false;
                                             nextButton.style.opacity = 1;
@@ -134,6 +182,8 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             changeVideo(firstVideo, videos, $scope);
         }
     }
+
+
 
     $scope.loadvideo = function () {
         var storedId = $window.sessionStorage.getItem('videoId');
