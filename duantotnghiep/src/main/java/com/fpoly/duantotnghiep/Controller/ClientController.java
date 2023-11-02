@@ -54,10 +54,10 @@ public class ClientController {
         return "detail";
     }
 
-    
-
-     @GetMapping("/courseOnline/uploadKhoaHoc")
+    @GetMapping("/courseOnline/uploadKhoaHoc")
     public String uploadKhoaHoc() {
         return "uploadKhoaHoc";
     }
+
+    
 }

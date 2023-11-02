@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.fpoly.duantotnghiep.Entity.NguoiDung;
 import com.fpoly.duantotnghiep.jparepository.NguoiDungRepository;
@@ -41,13 +42,20 @@ public class SecurityConfig {
                 NguoiDung userInfo = nguoiDungRepository.findByTaiKhoan(username);
                 String password = userInfo.getMatKhau();
                 String roles = userInfo.getChucVu();
+                Boolean xacminh = userInfo.isXac_minh();
                 session.setAttribute("user", userInfo);
                 if (userInfo.getChucVu().equals("true")) {
                     session.setAttribute("admin", userInfo);
                 }
-                return User.withUsername(username).password(pe.encode(password)).roles(roles).build();
+                return User.withUsername(username).password(pe.encode(password)).roles(roles).accountExpired(!xacminh)
+                        .build();
             }
         };
+    }
+
+    @Bean
+    public AuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
     }
 
     @Bean
@@ -57,6 +65,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests().anyRequest().permitAll().and().exceptionHandling()
                 .accessDeniedPage("/courseOnline/index").and().formLogin().loginPage("/courseOnline/dangnhap")
                 .loginProcessingUrl("/login").defaultSuccessUrl("/courseOnline/index", true)
+                .failureHandler(customAuthenticationFailureHandler())
                 .and().logout().logoutUrl("/logoff").logoutSuccessUrl("/courseOnline/dangnhap").and().build();
     }
 

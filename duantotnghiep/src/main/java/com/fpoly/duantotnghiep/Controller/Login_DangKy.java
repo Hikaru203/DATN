@@ -23,6 +23,11 @@ public class Login_DangKy {
         return "dangky";
     }
 
+    @RequestMapping("/auth/blocked")
+    public String xacminh(Model model) {
+        return "dangnhap";
+    }
+
     @GetMapping("/courseOnline/dangnhap")
     public String dangnhap() {
         httpSession.removeAttribute("user");
@@ -33,5 +38,25 @@ public class Login_DangKy {
     @RequestMapping("/courseOnline/capnhat")
     public String capnhatform(Model model) {
         return "capnhattaikhoan";
+    }
+
+    @RequestMapping("/auth/login_error")
+    public String loginrror() {
+        return "dangnhap";
+    }
+
+    @GetMapping("/courseOnline/EmailError")
+    public String emailerror() {
+        return "dangnhap";
+    }
+
+    @GetMapping("/courseOnline/confirmotp")
+    public String confirmotp() {
+        return "nhapmaotp";
+    }
+
+    @GetMapping("/courseOnline/doimk")
+    public String doimk() {
+        return "doimk";
     }
 }

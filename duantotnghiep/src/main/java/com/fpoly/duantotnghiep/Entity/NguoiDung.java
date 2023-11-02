@@ -48,4 +48,7 @@ public class NguoiDung {
 
     @Column(name = "trang_thai", length = 50)
     private String trangThai;
+
+    @Column(name = "xac_minh")
+    private boolean xac_minh;
 }
