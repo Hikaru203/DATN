@@ -27,11 +27,9 @@ public class TienDoKhoaHocRestController {
     @PutMapping("/{id}/{idkhoahoc}/{idvideo}/{tienDo}")
     public DangKyKhoaHoc updateTienDoKhoaHoc(@PathVariable int id, @PathVariable int idkhoahoc,
             @PathVariable String idvideo, @PathVariable String tienDo) {
-        System.out.println(idvideo + "/" + tienDo);
         DangKyKhoaHoc dangKyKhoaHoc = dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(id, idkhoahoc);
         try {
             dangKyKhoaHoc.setTienDo(idvideo + "/" + tienDo);
-            System.out.println(dangKyKhoaHoc.getTienDo());
             return dangKyKhoaHocService.save(dangKyKhoaHoc);
         } catch (Exception e) {
             // TODO: handle exception

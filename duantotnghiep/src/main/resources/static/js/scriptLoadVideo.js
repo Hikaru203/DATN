@@ -52,6 +52,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
     // Lấy phần tử input bằng ID
     var inputElement = document.getElementById('idLogin');
     var value;
+    let currentVideoIndex = 0;
     if (inputElement == null || inputElement == "") {
         value = 0;
     }
@@ -60,28 +61,29 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         var value = inputElement.value;
         value = inputElement.value;
     }
-    function changeVideo(selected_video, videos, $scope) {
+    function changeVideo(selected_video, videos, $scope, VideoId = null, Time = null) {
         // Xóa thông tin video cũ
-        videos.forEach(video => {
-            video.classList.remove('active');
-            video.querySelector('img').src = '/img/play.svg';
-        });
-        selected_video.classList.add('active');
-        selected_video.querySelector('img').src = '/img/pause.svg';
+        const timeInt = Math.floor(Time);
+
 
         let match_video = $scope.data.find(video => video.id == selected_video.dataset.id);
 
         if (match_video) {
             let videoIframe = document.getElementById('video-iframe');
-            videoIframe.src = 'https://www.youtube-nocookie.com/embed/' + match_video.linkVideo + "?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&controls=0&disablekb=1";
+            let videoSrc;
+            if (VideoId) {
+                videoSrc = `https://www.youtube-nocookie.com/embed/${VideoId}?start=${timeInt}&modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1`;
+            } else {
+                videoSrc = `https://www.youtube-nocookie.com/embed/${match_video.linkVideo}?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1`;
+            }
+
+            videoIframe.src = videoSrc;
             videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
             videoIframe.setAttribute("allowfullscreen", "");
             videoIframe.onload = function () {
                 if (current_player) {
-                    // Đối tượng player đã tồn tại, không cần tạo mới
                     current_player.loadVideoById(match_video.linkVideo);
                 } else {
-                    // Tạo mới đối tượng player và gắn vào iframe
                     current_player = new YT.Player(videoIframe, {
                         events: {
                             'onStateChange': function (event) {
@@ -93,16 +95,15 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                                         document.getElementById('video-info').textContent = timeInfo;
                                         let progressPercentage = (currentTime / duration) * 100;
 
-                                        var tienDo = match_video.linkVideo + "/" + currentTime;
-                                        var idVideo = match_video.linkVideo;
-                                        console.log(tienDo);
-
+                                        var tienDo = (VideoId || match_video.linkVideo) + "/" + currentTime;
+                                        idVideo = current_player.playerInfo.videoData.video_id;
 
                                         $http.put('/api/tiendokhoahoc/' + value + '/' + idKhoaHoc + '/' + idVideo + '/' + currentTime).then(function (response) {
                                             console.log(response);
                                         }, function (response) {
                                             console.log(response);
                                         });
+
                                         if (progressPercentage >= 90) {
                                             nextButton.disabled = false;
                                             nextButton.style.opacity = 1;
@@ -133,13 +134,127 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                                         }
                                     }, 1000);
                                 }
+                            },
+                            'onReady': function (event) {
+                                if (Time) {
+                                    console.log("Seek to:", Time);
+                                }
                             }
                         }
                     });
                 }
             };
+
+            // Lấy thứ tự video đang phát dựa trên current_player.playerInfo.videoData.video_id
+            if (VideoId) {
+                currentVideoIndex = $scope.data.findIndex(video => video.linkVideo === VideoId);
+                currentIndex = currentVideoIndex;
+            }
+
+            videos.forEach((video, index) => {
+                video.classList.remove('active');
+                video.querySelector('img').src = '/img/play.svg';
+
+                if (index === currentIndex) {
+                    video.classList.add('active');
+                    video.querySelector('img').src = '/img/pause.svg';
+                }
+            });
+
+
+        }
+        alert(currentIndex)
+
+    }
+
+
+    function loadNextVideo() {
+        if (currentIndex < $scope.data.length) {
+            const videos = document.querySelectorAll('.video');
+            changeVideo(videos[currentIndex], videos, $scope);
         }
     }
+
+    function loadPrevVideo() {
+        if (currentIndex >= 0) {
+            const videos = document.querySelectorAll('.video');
+            changeVideo(videos[currentIndex], videos, $scope);
+        }
+    }
+
+    function loadFirstVideo(videos, $scope) {
+        if (videos.length > 0) {
+            let firstVideo = videos[0];
+            $http.get('/api/tiendokhoahoc/' + value + '/' + idKhoaHoc).then(function (response) {
+                $scope.tiendokhoahoc = response.data;
+                if ($scope.tiendokhoahoc.tienDo != 0) {
+                    const input = $scope.tiendokhoahoc.tienDo;
+
+                    let needConfirmation = true; // Biến kiểm tra cần hiển thị hộp thoại hay không
+
+                    // Kiểm tra điều kiện nếu cần hiển thị hộp thoại
+                    if (needConfirmation) {
+                        const overlay = document.createElement('div');
+                        overlay.id = 'overlay';
+                        document.body.appendChild(overlay);
+
+                        const dialogBox = document.createElement('div');
+                        dialogBox.id = 'dialog-box';
+                        dialogBox.innerHTML = 'Bạn có muốn tiếp tục học không?';
+                        const yesButton = document.createElement('button');
+                        yesButton.innerHTML = 'Có';
+                        const noButton = document.createElement('button');
+                        noButton.innerHTML = 'Không';
+
+                        dialogBox.appendChild(yesButton);
+                        dialogBox.appendChild(noButton);
+                        overlay.appendChild(dialogBox);
+
+                        yesButton.addEventListener('click', function () {
+                            overlay.style.display = 'none';
+                            console.log('Tiếp tục học');
+                            const { videoId, time } = extractVideoIdAndTime(input);
+                            console.log('Video ID:', videoId);
+                            console.log('Thời gian:', time);
+                            changeVideo(firstVideo, videos, $scope, videoId, time);
+                        });
+
+                        noButton.addEventListener('click', function () {
+                            overlay.style.display = 'none';
+                            console.log('Không tiếp tục học');
+                            const { videoId, time } = extractVideoIdAndTime(input);
+                            console.log('Video ID:', videoId);
+                            console.log('Thời gian:', time);
+                            changeVideo(firstVideo, videos, $scope);
+                        });
+                    } else {
+                        // Nếu không cần hiển thị hộp thoại, thực hiện các hành động khác trực tiếp
+                        const { videoId, time } = extractVideoIdAndTime(input);
+                        console.log('Video ID:', videoId);
+                        console.log('Thời gian:', time);
+                        changeVideo(firstVideo, videos, $scope, videoId, time);
+                    }
+                }
+
+                function extractVideoIdAndTime(input) {
+                    // Tách chuỗi thành videoId và thời gian bằng dấu "/"
+                    const parts = input.split('/');
+
+                    if (parts.length === 2) {
+                        const videoId = parts[0];
+                        const time = parts[1];
+                        return { videoId, time };
+                    } else {
+                        // Trả về null nếu không thể tách thành công
+                        return null;
+                    }
+                }
+            }, function (response) {
+                console.log(response);
+            });
+        }
+    }
+
 
     // Hàm định dạng thời gian
     function formatTime(time) {
@@ -176,12 +291,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         });
     }
 
-    function loadFirstVideo(videos, $scope) {
-        if (videos.length > 0) {
-            let firstVideo = videos[0];
-            changeVideo(firstVideo, videos, $scope);
-        }
-    }
+
 
 
 
@@ -235,19 +345,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         loadPrevVideo();
     });
 
-    function loadNextVideo() {
-        if (currentIndex < $scope.data.length) {
-            const videos = document.querySelectorAll('.video');
-            changeVideo(videos[currentIndex], videos, $scope);
-        }
-    }
 
-    function loadPrevVideo() {
-        if (currentIndex >= 0) {
-            const videos = document.querySelectorAll('.video');
-            changeVideo(videos[currentIndex], videos, $scope);
-        }
-    }
 
     function redirectToQuizPage() {
         // Thay đổi URL hoặc thực hiện hành động cụ thể để chuyển đến trang trắc nghiệm
