@@ -16,7 +16,7 @@ import com.fpoly.duantotnghiep.service.KhoaHocService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/Admin/rest/NguoiDung")
+@RequestMapping("/rest/admin/NguoiDung")
 public class AdminAccountRestController {
     @Autowired
     NguoiDungRepository nguoiDungRepository;
@@ -28,6 +28,6 @@ public class AdminAccountRestController {
 
     @GetMapping("/{id}")
     public NguoiDung getById(@PathVariable("id") int id) {
-        return nguoiDungRepository.findById(id).get();
+        return nguoiDungRepository.findById(id);
     }
 }

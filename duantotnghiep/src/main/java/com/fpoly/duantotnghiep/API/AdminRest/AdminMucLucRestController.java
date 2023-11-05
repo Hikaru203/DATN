@@ -14,7 +14,7 @@ import com.fpoly.duantotnghiep.service.MucLucService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/Admin/rest/MucLuc")
+@RequestMapping("/rest/admin/MucLuc")
 public class AdminMucLucRestController {
     @Autowired
     MucLucService mucLucService;

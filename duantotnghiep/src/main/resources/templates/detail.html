@@ -89,21 +89,18 @@
                     id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
                     <div class="navbar-nav w-100">
                         <div class="nav-item dropdown">
-							<a href="#" class="nav-link" data-toggle="dropdown">Ứng dụng phần mềm<i class="fa fa-angle-down float-right mt-1"></i>
-							</a>
-							<div
-								class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-								<a href="detail" class="dropdown-item">HTML</a> <a
-									href="detail" class="dropdown-item">CSS</a> <a
-									href="detail" class="dropdown-item">JavaScript</a>
-							</div>
-						</div>
-						<a href="detail" class="nav-item nav-link active">Phát
-							triển phần mềm</a> <a href="detail"
-							class="nav-item nav-link active">Kỹ năng học tập</a> <a
-							href="detail" class="nav-item nav-link active">Pháp luật</a>
-						<a href="detail" class="nav-item nav-link active">Tiếng
-							Anh</a>
+                            <a href="#" class="nav-link" data-toggle="dropdown">Web Design <i
+                                    class="fa fa-angle-down float-right mt-1"></i></a>
+                            <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+                                <a href="" class="dropdown-item">HTML</a>
+                                <a href="" class="dropdown-item">CSS</a>
+                                <a href="" class="dropdown-item">jQuery</a>
+                            </div>
+                        </div>
+                        <a href="" class="nav-item nav-link">Apps Design</a>
+                        <a href="" class="nav-item nav-link">Marketing</a>
+                        <a href="" class="nav-item nav-link">Research</a>
+                        <a href="" class="nav-item nav-link">SEO</a>
                     </div>
                 </nav>
             </div>
@@ -117,51 +114,57 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav py-0">
-							<a href="index" class="nav-item nav-link active ">Trang
-								chủ</a> <a href="course" class="nav-item nav-link ">Khoá
-								học</a> <a href="detail" class="nav-item nav-link ">Chi
-								tiết khoá học</a> <a href="about"
-								class="nav-item nav-link ">Đăng ký học thử</a>
-							<div class="nav-item dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
-								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-									<a href="contact" class="dropdown-item">Liên hệ</a> <a
-										href="about" class="dropdown-item">Yêu thích khoá học</a>
-										<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
-									<a href="cart" class="dropdown-item">Giỏ hàng</a> <a
-										href="checkout" class="dropdown-item">Thanh toán</a> <a
-										href="tracnghiem" class="dropdown-item">Trắc nghiệm</a>
-								</div>
-							</div>
-						</div>
-						<ul class="navbar-nav">
-							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangnhap">Đăng nhập</a></li>
-							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangky">Đăng ký</a></li>
-						</ul>
-						<div class="nav-item dropdown" th:if="${session.user != null}">
-							<style>
-								/* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
-								.dropdown-menu {
-									position: absolute;
-									background-color: #ff6600; /* Màu nền */
-									border: 1px solid #ff6600; /* Viền */
-									width: 200px; /* Độ rộng */
-									box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
-								}
-						
-								.dropdown-item {
-									color: #fff; /* Màu chữ */
-									font-size: 14px;
-									padding: 10px 20px;
-								}
-							</style>
-							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
-							<div class="dropdown-menu">
-								<a href="cart.html" class="dropdown-item">Cập nhật tài khoản</a>
-								<a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
-								<a href="/logoff"  class="dropdown-item">Đăng xuất</a>
-							</div>
-						</div>
+                            <a href="index.html" class="nav-item nav-link ">Home</a>
+                            <a href="course.html" class="nav-item nav-link">Khoá học</a>
+                            <a href="deltai.html" class="nav-item nav-link">Chi tiết khoá học</a>
+                            <a href="about.html" class="nav-item nav-link">Tin tức</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
+                                <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+                                    <a href="cart.html" class="dropdown-item">Giỏ hàng</a>
+                                    <a href="checkout.html" class="dropdown-item">Thanh toán</a>
+                                    <a href="tracnghiem.html" class="dropdown-item">Trắc nghiệm</a>
+                                </div>
+                            </div>
+                            <a href="contact.html" class="nav-item nav-link">Liên hệ</a>
+                        </div>
+                        <ul class="navbar-nav">
+                            <li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
+                                    href="/courseOnline/dangnhap">Đăng nhập</a></li>
+                            <li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
+                                    href="/courseOnline/dangky">Đăng ký</a></li>
+                        </ul>
+                        <div class="nav-item dropdown" th:if="${session.user != null}">
+                            <style>
+                                /* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
+                                .dropdown-menu {
+                                    position: absolute;
+                                    background-color: #ff6600;
+                                    /* Màu nền */
+                                    border: 1px solid #ff6600;
+                                    /* Viền */
+                                    width: 200px;
+                                    /* Độ rộng */
+                                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                    /* Hiệu ứng bóng đổ */
+                                }
+
+                                .dropdown-item {
+                                    color: #fff;
+                                    /* Màu chữ */
+                                    font-size: 14px;
+                                    padding: 10px 20px;
+                                }
+                            </style>
+                            <input type="text" id="idLogin" hidden th:value="${session.user.id}">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
+                            <div class="dropdown-menu">
+                                <a href="cart.html" class="dropdown-item">Cập nhật tài khoản</a>
+                                <a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
+                                <a href="/logoff" class="dropdown-item">Đăng xuất</a>
+                            </div>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -185,15 +188,16 @@
         <div class="row px-xl-5">
             <div class="col-lg-5 mb-30">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                    <!-- Replace the image src with your course thumbnail -->
                     <div class="carousel-inner bg-light">
                         <div class="carousel-item active">
-                            <img class="w-100 h-100" style="border-radius:0px" th:src="@{/img/carousel-1.jpg}"
-                                alt="Course Thumbnail">
+                            <img class="img-fluid"
+                                style="border-radius: 0px; width: 100%; height: 100%; object-fit: cover;"
+                                src="/img/{{ hoc.courseOnline.hinhAnh }}" alt="Course Thumbnail" />
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <div class="col-lg-7 h-auto mb-30">
                 <!-- Course Title -->
@@ -327,13 +331,14 @@
                                                 <!-- Sử dụng ng-repeat để lặp qua danh sách video của mục lục -->
                                                 <div ng-repeat="video in hoc.videoKhoaHoc" style="margin-top: 20px;">
                                                     <!-- Sử dụng ng-if để kiểm tra điều kiện -->
-                                                    <div class="row" style="padding-left: 30px;"
+                                                    <div class="row" style="padding-left: 30px; "
                                                         ng-if="video.mucLuc.id === mucLuc.id">
-                                                        <div class="fa fa-video-camera col-md-1"
-                                                            style="margin: 0 auto; padding-right: 0px; left: 10px;">
+                                                        <div style="margin-right: 10px;">
+                                                            <i class="fa fa-video-camera"></i>
                                                         </div>
+
                                                         <span ng-bind="video.tenVideo" ng-value="video.id"
-                                                            class="videoLink col-md-11" ng-click="getId(video.id)"
+                                                            class="videoLink " ng-click="getId(video.id)"
                                                             style="padding-left: 0px; cursor: pointer; color: black;"
                                                             ng-mouseover="video.color = 'red'"
                                                             ng-mouseout="video.color = 'black'"
@@ -394,10 +399,6 @@
                                 background-color: #0056b3;
                             }
 
-                            /* CSS cho thông tin diễn đàn và bình luận */
-                            .row {
-                                margin-bottom: 20px;
-                            }
 
                             /* CSS cho hình ảnh người dùng */
                             img {
@@ -414,16 +415,6 @@
                             p {
                                 margin: 0;
                                 margin-bottom: 5px;
-                            }
-
-                            a {
-                                color: #007bff;
-                                text-decoration: none;
-                                margin-left: 10px;
-                            }
-
-                            a:hover {
-                                text-decoration: underline;
                             }
 
                             /* CSS cho biểu tượng "Mở rộng" */
@@ -465,22 +456,27 @@
                                 <input type="text" ng-model="noiDung" placeholder="Bình Luận">
                                 <button class="button" ng-click="createDienDan()">Đăng</button>
                             </div>
-                            <div ng-repeat="dienDan in DienDan">
+                            <div ng-repeat="dienDan in DienDan" style="margin-left: 10px;">
                                 <div class="row">
                                     <!-- Hiển thị thông tin diễn đàn -->
-                                    <div class="col-md-1">
-                                        <img src="/img/cat-1.jpg"
+                                    <div>
+                                        <img ng-if="dienDan.nguoiDang.hinhAnh"
+                                            ng-src="/img/{{dienDan.nguoiDang.hinhAnh}}"
                                             style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden;"
-                                            alt="avatar">
+                                            alt="avatar" />
+                                        <img ng-if="!dienDan.nguoiDang.hinhAnh" ng-src="/img/PolyAcademy.png"
+                                            style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden;"
+                                            alt="old avatar" />
                                     </div>
-                                    <div class="col-md-11">
+                                    <div style="margin-top: 15px;">
                                         <strong ng-bind="dienDan.nguoiDang.hoTen"></strong>
                                         <!-- Viết hoa tên người dùng -->
                                         <p ng-bind="dienDan.tieuDe"></p>
                                         <p ng-bind="dienDan.ngayDang | date:'dd/MM/yyyy HH:mm:ss'"></p>
                                         <p ng-bind="dienDan.noiDung"></p>
                                         <div class="inline-buttons">
-                                            <a class="reply-button" ng-click="toggleReplyInput(dienDan)">Trả lời</a>
+                                            <a class="reply-button" type="submit"
+                                                ng-click="toggleReplyInput(dienDan)">Trả lời</a>
                                             <div ng-if="dienDan.nguoiDang.id === NguoiDung.id">
                                                 <a class="reply-button" ng-click="deleteDienDan(dienDan)">Xóa</a>
                                             </div>
@@ -494,29 +490,30 @@
                                 <!-- Hiển thị bình luận cho diễn đàn này -->
                                 <div ng-show="dienDan.showReplyInput" class="row">
                                     <input type="text" ng-model="form.noiDung" placeholder="Trả lời">
-                                    <button class="button" ng-click="createBinhLuan(dienDan.id)">Đăng</button>
+                                    <button class="button" style="margin-left: 10px;
+                                    height: 45px;" ng-click="createBinhLuan(dienDan.id)">Đăng</button>
                                 </div>
+                                <!-- HTML -->
                                 <div class="row">
-
                                     <div class="col-md-1"></div>
                                     <div class="col-md-11">
-                                        <div class="row" ng-repeat="binhLuan in BinhLuan"
-                                            ng-if="dienDan.id===binhLuan.baiDang.id">
-
-                                            <div class="col-md-1">
-                                                <img src="/img/cat-1.jpg"
+                                        <div class="row" ng-repeat="binhLuan in BinhLuan.slice(0, visibleComments)"
+                                            ng-if="dienDan.id === binhLuan.baiDang.id">
+                                            <div>
+                                                <img ng-if="binhLuan.nguoiDang.hinhAnh"
+                                                    ng-src="/img/{{binhLuan.nguoiDang.hinhAnh}}"
                                                     style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden;"
-                                                    alt="avatar">
+                                                    alt="avatar" />
+                                                <img ng-if="!binhLuan.nguoiDang.hinhAnh" ng-src="/img/PolyAcademy.png"
+                                                    style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden;"
+                                                    alt="old avatar" />
                                             </div>
-                                            <div class="col-md-8">
+                                            <div>
                                                 <div>
-                                                    <div>
-                                                        <!-- Sử dụng biến số thứ tự để hiển thị số thứ tự -->
-                                                        <strong> {{ binhLuan.nguoiBinhLuan.hoTen
-                                                            }}</strong>
+                                                    <div style="margin-top: 15px;">
+                                                        <strong>{{ binhLuan.nguoiBinhLuan.hoTen }}</strong>
                                                         <p ng-bind="binhLuan.ngayBinhLuan | date:'dd/MM/yyyy HH:mm:ss'">
                                                         </p>
-                                                        <!-- Viết hoa tên người dùng -->
                                                         <p ng-bind="binhLuan.noiDung"></p>
                                                         <div ng-if="binhLuan.nguoiBinhLuan.id === NguoiDung.id">
                                                             <a class="reply-button"
@@ -524,9 +521,35 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- Ẩn thông báo nếu không có bình luận -->
                                             </div>
                                         </div>
+                                        <style>
+                                            /* CSS */
+                                            .show-more-button {
+                                                background-color: #007bff;
+                                                /* Màu nền */
+                                                color: #fff;
+                                                /* Màu văn bản */
+                                                padding: 10px 15px;
+                                                /* Kích thước nút */
+                                                border: none;
+                                                /* Loại bỏ viền nút */
+                                                cursor: pointer;
+                                                /* Con trỏ biến thành bàn tay khi di chuột qua nút */
+                                                border-radius: 4px;
+                                                /* Bo tròn góc */
+                                            }
+
+                                            .show-more-button:hover {
+                                                background-color: #0056b3;
+                                                /* Màu nền khi di chuột qua nút */
+                                            }
+                                        </style>
+                                        <div ng-if="shouldShowMoreButton()">
+                                            <button ng-click="showMoreComments()" class="show-more-button">Hiện thêm
+                                                bình luận</button>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
