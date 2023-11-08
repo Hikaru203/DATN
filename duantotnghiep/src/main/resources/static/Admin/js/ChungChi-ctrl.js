@@ -23,7 +23,7 @@ app.controller("ChungChi-ctrl", function ($scope, $http, $window) {
     $scope.initialize = function () {
 
         // load tài liệu
-        $http.get("/Admin/rest/ChungChi").then(resp => {
+        $http.get("/rest/admin/ChungChi").then(resp => {
             $scope.itemsChungChi = resp.data;
             console.log($scope.itemsChungChi);
 
@@ -33,12 +33,12 @@ app.controller("ChungChi-ctrl", function ($scope, $http, $window) {
             console.error("An error occurred:", error);
         });
 
-        $http.get("/Admin/rest/KhoaHoc").then(resp => {
+        $http.get("/rest/admin/KhoaHoc").then(resp => {
             $scope.itemsKhoaHoc = resp.data;
             console.log($scope.itemsKhoaHoc);
         });
 
-        $http.get("/Admin/rest/NguoiDung").then(resp => {
+        $http.get("/rest/admin/NguoiDung").then(resp => {
             $scope.itemsNguoiDung = resp.data;
             console.log($scope.itemsNguoiDung);
         });
@@ -58,14 +58,14 @@ app.controller("ChungChi-ctrl", function ($scope, $http, $window) {
     $scope.loadDocuments = function (khoaHoc, nguoidung) {
         $scope.selectedCourse = khoaHoc;
         $scope.selectedUser = nguoidung;
-        var url = "/Admin/rest/ChungChi";
+        var url = "/rest/admin/ChungChi";
         if ($scope.selectedCourse && $scope.selectedUser) {
             console.log("1");
-            url = "/Admin/rest/ChungChi/" + $scope.selectedCourse + "/" + $scope.selectedUser;
+            url = "/rest/admin/ChungChi/" + $scope.selectedCourse + "/" + $scope.selectedUser;
         } else if ($scope.selectedCourse) {
-            url = "/Admin/rest/ChungChi/" + $scope.selectedCourse;
+            url = "/rest/admin/ChungChi/" + $scope.selectedCourse;
         } else if ($scope.selectedUser) {
-            url = "/Admin/rest/ChungChi/nguoidung/" + $scope.selectedUser;
+            url = "/rest/admin/ChungChi/nguoidung/" + $scope.selectedUser;
         }
 
         $http.get(url).then(function (resp) {

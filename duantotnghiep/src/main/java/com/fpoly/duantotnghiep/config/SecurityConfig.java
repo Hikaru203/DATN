@@ -45,6 +45,7 @@ public class SecurityConfig {
                 if (userInfo.getChucVu().equals("true")) {
                     session.setAttribute("admin", userInfo);
                 }
+                session.setAttribute("userlogin", userInfo);
                 return User.withUsername(username).password(pe.encode(password)).roles(roles).build();
             }
         };
@@ -54,6 +55,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable().authorizeHttpRequests().requestMatchers("/Admin/**").hasRole("true")
                 .and().authorizeHttpRequests().requestMatchers("/cart/**", "/checkout/**").authenticated().and()
+                .authorizeHttpRequests().requestMatchers("/REST/**").permitAll().and()
                 .authorizeHttpRequests().anyRequest().permitAll().and().exceptionHandling()
                 .accessDeniedPage("/courseOnline/index").and().formLogin().loginPage("/courseOnline/dangnhap")
                 .loginProcessingUrl("/login").defaultSuccessUrl("/courseOnline/index", true)

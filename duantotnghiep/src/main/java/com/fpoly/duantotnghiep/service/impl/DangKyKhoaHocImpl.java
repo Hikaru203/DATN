@@ -21,7 +21,7 @@ public class DangKyKhoaHocImpl implements DangKyKhoaHocService {
 
     @Override
     public List<DangKyKhoaHoc> findAll() {
-        return null;
+        return dangKyKhoaHocRepository.findAll();
     }
 
     @Override

@@ -163,23 +163,66 @@
         .ytp-chrome-top-buttons {
             display: none !important;
         }
+
+        #overlay {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        #dialog-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        #dialog-box button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body ng-app="loadVideo-app" ng-controller="loadVideo-app-ctrl" ng-init="loadvideo()">
+
     <main class="container">
         <section class="main-video">
             <div class="video-frame-container">
-                <iframe id="video-iframe" width="888" height="500" src="" frameborder="0" allowfullscreen></iframe>
-
+                <iframe id="video-iframe" width="560" height="315" src="" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
             </div>
 
             <div class="video-controls">
-                <button id="prev-video" class="button">Prev</button>
-                <button id="next-video" class="button">Next</button>
                 <button id="full-screen" class="button">Full Screen</button>
+                <div id="video-info"></div>
+                <input type="range" id="volume-control" min="0" max="100" step="1" value="100">
+                <select id="playback-speed">
+                    <option value="0.75">0.75x</option>
+                    <option value="1" selected>1x</option>
+                    <option value="1.25">1.25x</option>
+                    <option value="1.5">1.5x</option>
+                </select>
+                <br>
             </div>
-
+            <br>
+            <div style="display: flex; justify-content: space-between;">
+                <button id="prev-video" class="button">Prev</button>
+                <button id="pause-video" class="button">Pause/Resume</button>
+                <button id="next-video" class="button"
+                    style="disabled: true; opacity: 0.5; cursor: not-allowed; pointer-events: none; background-color: #fff; color: #000; border: 1px solid #000; border-radius: 5px; padding: 10px 20px; margin: 0 10px; font-size: 16px; font-weight: bold;">Next</button>
+            </div>
         </section>
         <section class="video-playlist">
             <h3 class="title">Các bài học</h3>
@@ -188,11 +231,7 @@
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-
             const fullScreenButton = document.getElementById('full-screen');
-
-
-
             // Function to toggle full screen
             fullScreenButton.addEventListener('click', function () {
                 if (videoIframe.requestFullscreen) {
@@ -205,10 +244,50 @@
             });
 
         });
-
-
     </script>
-    <script src="/js/scriptLoadVideo.js"></script>
+    <div hidden>
+        <ul class="navbar-nav">
+            <li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangnhap">Đăng
+                    nhập</a></li>
+            <li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangky">Đăng
+                    ký</a>
+            </li>
+        </ul>
+        <div class="nav-item dropdown" th:if="${session.user != null}">
+            <style>
+                /* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
+                .dropdown-menu {
+                    position: absolute;
+                    background-color: #ff6600;
+                    /* Màu nền */
+                    border: 1px solid #ff6600;
+                    /* Viền */
+                    width: 200px;
+                    /* Độ rộng */
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    /* Hiệu ứng bóng đổ */
+                }
+
+                .dropdown-item {
+                    color: #fff;
+                    /* Màu chữ */
+                    font-size: 14px;
+                    padding: 10px 20px;
+                }
+            </style>
+            <input type="text" id="idLogin" hidden th:value="${session.user.id}">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
+            <div class="dropdown-menu">
+                <a href="cart.html" class="dropdown-item">Cập nhật tài khoản</a>
+                <a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
+                <a href="/logoff" class="dropdown-item">Đăng xuất</a>
+            </div>
+        </div>
+        <br>
+        <script src="https://www.youtube.com/iframe_api"></script>
+
+        <script src="/js/scriptLoadVideo.js"></script>
 </body>
 
 

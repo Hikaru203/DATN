@@ -15,7 +15,7 @@ import com.fpoly.duantotnghiep.service.ChungChiService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/Admin/rest/ChungChi")
+@RequestMapping("/rest/admin/ChungChi")
 public class AdminChungChiRestController {
     @Autowired
     ChungChiService chungChiService;

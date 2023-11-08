@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/Admin/rest/TaiLieu")
+@RequestMapping("/rest/admin/TaiLieu")
 public class AdminTaiLietRestController {
     @Autowired
     TaiLieuService taiLieuService;

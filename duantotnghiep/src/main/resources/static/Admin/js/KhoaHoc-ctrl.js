@@ -4,7 +4,7 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
     $scope.formKhoaHoc = {};
     $scope.initialize = function () {
         // load Khóa học
-        $http.get("/Admin/rest/KhoaHoc").then(resp => {
+        $http.get("/rest/admin/KhoaHoc").then(resp => {
            // Chuyển đổi ngày giờ sang múi giờ Việt Nam
         resp.data.forEach(item => {
             item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD HH:mm:ss');
