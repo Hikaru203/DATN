@@ -16,13 +16,9 @@ import com.fpoly.duantotnghiep.service.TaiLieuService;
 
 @CrossOrigin("*")
 @RestController
-<<<<<<<< HEAD:duantotnghiep/src/main/java/com/fpoly/duantotnghiep/API/AdminRest/AdminCauHoiRestController.java
-@RequestMapping("/Admin/rest/CauHoi")
-public class AdminCauHoiRestController {
-========
+
 @RequestMapping("/rest/tracnghiem")
 public class TracnghiemRestController {
->>>>>>>> dev:duantotnghiep/src/main/java/com/fpoly/duantotnghiep/API/ClientRest/TracnghiemRestController.java
     @Autowired
     CauHoiService cauHoiService;
 
