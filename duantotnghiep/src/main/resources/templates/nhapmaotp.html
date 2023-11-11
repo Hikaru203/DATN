@@ -24,6 +24,7 @@
           <form action="/api/confirm" method = "get">
             <div class="form-group">
               <input name= "otp" type="text" class="form-control"  placeholder="Nhập mã OTP">
+              <h4 class="text-danger" th:if="${message}" th:text="${message}"></h4>
             </div>
             <button type="submit" class="btn btn-primary">Xác nhận</button>
             <button type="reset" class="btn btn-danger">Hủy bỏ</button>

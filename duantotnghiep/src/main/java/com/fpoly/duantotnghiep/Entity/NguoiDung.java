@@ -37,7 +37,7 @@ public class NguoiDung {
     @Column(name = "email", length = 100, nullable = false)
     private String email;
 
-    @Column(name = "so_dien_thoai", length = 15, nullable = false)
+    @Column(name = "so_dien_thoai", length = 15)
     private String soDienThoai;
 
     @Column(name = "chuc_vu", length = 50)
@@ -51,4 +51,17 @@ public class NguoiDung {
 
     @Column(name = "xac_minh")
     private boolean xac_minh;
+
+    public NguoiDung(String taiKhoan, String matKhau, String hoTen, String email, String chucVu, String trangThai,
+            boolean xac_minh) {
+        super();
+        this.taiKhoan = taiKhoan;
+        this.matKhau = matKhau;
+        this.hoTen = hoTen;
+        this.email = email;
+        this.trangThai = trangThai;
+        this.chucVu = chucVu;
+        this.xac_minh = xac_minh;
+    }
+
 }

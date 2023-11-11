@@ -60,13 +60,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable().authorizeHttpRequests().requestMatchers("/Admin/**").hasRole("true")
+        http.csrf().disable().authorizeHttpRequests().requestMatchers("/Admin/**").hasRole("true")
                 .and().authorizeHttpRequests().requestMatchers("/cart/**", "/checkout/**").authenticated().and()
                 .authorizeHttpRequests().anyRequest().permitAll().and().exceptionHandling()
                 .accessDeniedPage("/courseOnline/index").and().formLogin().loginPage("/courseOnline/dangnhap")
                 .loginProcessingUrl("/login").defaultSuccessUrl("/courseOnline/index", true)
                 .failureHandler(customAuthenticationFailureHandler())
-                .and().logout().logoutUrl("/logoff").logoutSuccessUrl("/courseOnline/dangnhap").and().build();
+                .and().logout().logoutUrl("/logoff").logoutSuccessUrl("/courseOnline/dangnhap").and().oauth2Login()
+                .loginPage("/auth/login/form")
+                .defaultSuccessUrl("/oauth2/login/success", true)
+                .failureUrl("/auth/login/error")
+                .authorizationEndpoint().baseUri("/oauth2/authorization");
+        return http.build();
+
     }
 
 }

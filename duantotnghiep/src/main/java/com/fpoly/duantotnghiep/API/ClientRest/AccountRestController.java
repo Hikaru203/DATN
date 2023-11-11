@@ -71,6 +71,7 @@ public class AccountRestController {
         int randomNumber = (int) (Math.random() * 9000) + 1000;
         String otp = String.valueOf(randomNumber);
         session.setAttribute("otp", randomNumber);
+        session.setMaxInactiveInterval(320);
         session.setAttribute("email", Email);
         System.out.println(otp);
         try {
@@ -88,7 +89,7 @@ public class AccountRestController {
             System.out.println(otp);
             return new RedirectView("/courseOnline/doimk");
         }
-        return new RedirectView("/courseOnline/confirmotp");
+        return new RedirectView("/courseOnline/ErorOTP");
     }
 
     @GetMapping("/doimaukhau")
