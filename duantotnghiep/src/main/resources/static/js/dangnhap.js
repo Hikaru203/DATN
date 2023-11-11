@@ -4,6 +4,7 @@ if(location.href == location.origin + "/auth/blocked"){
 if(location.href == location.origin + "/auth/login_error"){
     alert("Sai tài khoản hoặc mật khẩu")
 }
+
 if(location.href == location.origin + "/courseOnline/EmailError"){
     alert("Email không tồn tại")
 }

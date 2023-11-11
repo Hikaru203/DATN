@@ -74,9 +74,14 @@ public class Login_DangKy {
         String email = oauth2.getPrincipal().getAttribute("email");
         String password = Long.toHexString(System.currentTimeMillis());
         String name = oauth2.getPrincipal().getAttribute("name");
-        NguoiDung nguoiDung = new NguoiDung(email, password, name, email, "false", "false", true);
-        nguuoidungRepository.save(nguoiDung);
-        httpSession.setAttribute("user", nguoiDung);
+        NguoiDung nguoiDung = nguuoidungRepository.findByEmail(email);
+        if (nguoiDung != null) {
+            httpSession.setAttribute("user", nguoiDung);
+            return "index";
+        }
+        NguoiDung nguoixai = new NguoiDung(email, password, name, email, "false", "false", true);
+        nguuoidungRepository.save(nguoixai);
+        httpSession.setAttribute("user", nguoixai);
         return "index";
     }
 }
