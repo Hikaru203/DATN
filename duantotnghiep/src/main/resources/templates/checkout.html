@@ -3,26 +3,29 @@
 
 <head>
     <meta charset="utf-8">
-    <title>ECOURSES - Online Courses HTML Template</title>
+    <title>CheckOut</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+<link th:href="@{img/favicon.ico}" rel="icon">
+   <!-- Google Web Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+	<!-- Font Awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+	<!-- Libraries Stylesheet -->
+	<link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+	<!-- Customized Bootstrap Stylesheet -->
+	<link href="/css/style.css" rel="stylesheet">
+	  <link rel="stylesheet" href="/css/accordion.min.css">
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -152,42 +155,66 @@
             <div class="col-lg-8">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing
                         Address</span></h5>
-                <div class="bg-light p-30 mb-5">
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label>Họ tên</label>
-                            <input class="form-control" type="text" placeholder="FullName">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Số điện thoại</label>
-                            <input class="form-control" type="text" placeholder="Phone">
-                        </div>
+           <div class="accordion-container">
+			   <style>
+				     /* CSS cho đánh giá của bạn */
+                            h4 {
+                                font-size: 18px;
+                                margin-bottom: 10px;
+                            }
 
-                        <div class="col-md-6 form-group">
-                            <label for="tinh">Country</label>
-                            <select id="tinh" class="custom-select" onchange="updateHuyen()">
-                                <option value="">-- Chọn tỉnh --</option>
-                            </select>
-                        </div>
+                            input[type="text"] {
+                                width: 90%;
+                                padding: 10px;
+                                border: 1px solid #ccc;
+                                border-radius: 5px;
+                                margin-bottom: 10px;
+                            }
+				   </style>
+			 
+<div class="ac">
+  <h2 class="ac-header">
+    <button class="ac-trigger">Thẻ tín dụng / Thẻ ghi nợ</button>
+  </h2>
+  
+  <div class="ac-panel">
+    <label for="so-the" style="margin-top:10px ;">Số thẻ</label>
+    <br>
+        <input type="text" ng-model="noiDung" placeholder="Số thẻ">
+    <br>
 
-                        <div class="col-md-6 form-group">
-                            <label for="huyen">City</label>
-                            <select id="huyen" class="custom-select" onchange="updateXa()">
-                                <option value="">-- Chọn huyện --</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-6 form-group">
-                            <label for="xa">State</label>
-                            <select id="xa" class="custom-select">
-                                <option value="">-- Chọn xã --</option>
-                            </select>
-                        </div>
+    <label for="ngay-het-han">Ngày hết hạn</label>
+    <br>
+            <input type="text" ng-model="noiDung" placeholder="Ngày hết hạn">
 
 
+    <br>
 
-                    </div>
-                </div>
+    <label for="cvc-cvv">CVC/CVV</label>
+    <br>
+            <input type="text" ng-model="noiDung" placeholder="CVC/CVV">
+  </div>
+</div>
+
+
+  <div class="ac">
+    <h2 class="ac-header">
+      <button class="ac-trigger">Lorem ipsum dolor sit amet.</button>
+    </h2>
+    <div class="ac-panel">
+      <p class="ac-text">Nulla et sodales nisl. Nam auctor quis odio eu congue. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+  </div>
+
+  <div class="ac">
+    <h2 class="ac-header">
+      <button class="ac-trigger">Lorem ipsum dolor sit amet.</button>
+    </h2>
+    <div class="ac-panel">
+      <p class="ac-text">Nulla et sodales nisl. Nam auctor quis odio eu congue. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+  </div>
+</div>
                 <div class="collapse mb-5" id="shipping-address">
                     <h5 class="section-title position-relative text-uppercase mb-3"><span
                             class="bg-secondary pr-3">Shipping Address</span></h5>
@@ -243,11 +270,10 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order
-                        Total</span></h5>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Tóm Tắt</span></h5>
                 <div class="bg-light p-30 mb-5">
                     <div class="border-bottom">
-                        <h6 class="mb-3">Products</h6>
+                        <h6 class="mb-3">Sản phẩm</h6>
                         <div class="d-flex justify-content-between">
                             <p>Product Name 1</p>
                             <p>$150</p>
@@ -263,21 +289,21 @@
                     </div>
                     <div class="border-bottom pt-3 pb-2">
                         <div class="d-flex justify-content-between mb-3">
-                            <h6>Subtotal</h6>
+                            <h6>Đơn giá</h6>
                             <h6>$150</h6>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">Mức chiết khấu</h6>
                             <h6 class="font-weight-medium">$10</h6>
                         </div>
                     </div>
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
-                            <h5>Total</h5>
+                            <h5>Tổng tiền</h5>
                             <h5>$160</h5>
                         </div>
                     </div>
-                    <button class="btn btn-block btn-primary font-weight-bold py-3">Thanh toán</button>
+                    <button class="btn btn-block btn-primary font-weight-bold py-3">Hoàn tất thanh toán</button>
 
                 </div>
                 
@@ -342,15 +368,20 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
+    <script src="/mail/jqBootstrapValidation.min.js"></script>
+    <script src="/mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/accordion.min.js"></script>
+
+<script>
+  new Accordion('.accordion-container');
+</script>
     <script>
         // Lấy dữ liệu các tỉnh
         fetch('https://raw.githubusercontent.com/madnh/hanhchinhvn/master/dist/tinh_tp.json')
