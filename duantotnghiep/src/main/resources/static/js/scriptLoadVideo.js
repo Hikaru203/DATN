@@ -105,6 +105,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                             'onStateChange': function (event) {
                                 if (event.data === YT.PlayerState.PLAYING) {
                                     setInterval(function () {
+
                                         let currentTime = current_player.getCurrentTime();
                                         let duration = current_player.getDuration();
                                         let timeInfo = formatTime(currentTime) + ' / ' + formatTime(duration);
@@ -113,7 +114,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
                                         var tienDo = (VideoId || match_video.linkVideo) + "/" + currentTime;
                                         idVideo = current_player.playerInfo.videoData.video_id;
-
+                                        console.log(idVideo);
                                         $http.put('/api/tiendokhoahoc/' + value + '/' + idKhoaHoc + '/' + idVideo + '/' + currentTime).then(function (response) {
                                             console.log(response);
                                         }, function (response) {
@@ -249,6 +250,9 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                         console.log('Thời gian:', time);
                         changeVideo(firstVideo, videos, $scope, videoId, time);
                     }
+                } else {
+                    firstVideo = videos[0];
+                    changeVideo(firstVideo, videos, $scope);
                 }
 
                 function extractVideoIdAndTime(input) {
