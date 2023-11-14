@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "DuantotnghiepApplication",
+            "request": "launch",
+            "mainClass": "com.fpoly.duantotnghiep.DuantotnghiepApplication",
+            "projectName": "duantotnghiep"
+        },
+        {
             "type": "msedge",
             "request": "launch",
             "name": "Open loadVideo.html",
