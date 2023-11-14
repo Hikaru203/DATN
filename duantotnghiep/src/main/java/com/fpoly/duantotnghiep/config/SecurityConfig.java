@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.fpoly.duantotnghiep.Entity.NguoiDung;
 import com.fpoly.duantotnghiep.jparepository.NguoiDungRepository;
@@ -41,25 +42,37 @@ public class SecurityConfig {
                 NguoiDung userInfo = nguoiDungRepository.findByTaiKhoan(username);
                 String password = userInfo.getMatKhau();
                 String roles = userInfo.getChucVu();
+                Boolean xacminh = userInfo.isXac_minh();
                 session.setAttribute("user", userInfo);
                 if (userInfo.getChucVu().equals("true")) {
                     session.setAttribute("admin", userInfo);
                 }
-                session.setAttribute("userlogin", userInfo);
-                return User.withUsername(username).password(pe.encode(password)).roles(roles).build();
+                return User.withUsername(username).password(pe.encode(password)).roles(roles).accountExpired(!xacminh)
+                        .build();
             }
         };
     }
 
     @Bean
+    public AuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable().authorizeHttpRequests().requestMatchers("/Admin/**").hasRole("true")
+        http.csrf().disable().authorizeHttpRequests().requestMatchers("/Admin/**").hasRole("true")
                 .and().authorizeHttpRequests().requestMatchers("/cart/**", "/checkout/**").authenticated().and()
-                .authorizeHttpRequests().requestMatchers("/REST/**").permitAll().and()
                 .authorizeHttpRequests().anyRequest().permitAll().and().exceptionHandling()
                 .accessDeniedPage("/courseOnline/index").and().formLogin().loginPage("/courseOnline/dangnhap")
                 .loginProcessingUrl("/login").defaultSuccessUrl("/courseOnline/index", true)
-                .and().logout().logoutUrl("/logoff").logoutSuccessUrl("/courseOnline/dangnhap").and().build();
+                .failureHandler(customAuthenticationFailureHandler())
+                .and().logout().logoutUrl("/logoff").logoutSuccessUrl("/courseOnline/dangnhap").and().oauth2Login()
+                .loginPage("/auth/login/form")
+                .defaultSuccessUrl("/oauth2/login/success", true)
+                .failureUrl("/auth/login/error")
+                .authorizationEndpoint().baseUri("/oauth2/authorization");
+        return http.build();
+
     }
 
 }

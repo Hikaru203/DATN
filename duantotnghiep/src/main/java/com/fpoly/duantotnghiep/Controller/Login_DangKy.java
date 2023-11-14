@@ -1,6 +1,7 @@
 package com.fpoly.duantotnghiep.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class Login_DangKy {
     @Autowired
-    NguoiDungRepository NguoiDung;
+    NguoiDungRepository nguuoidungRepository;
     @Autowired
     HttpSession httpSession;
 
@@ -21,6 +22,11 @@ public class Login_DangKy {
     public String showsinupFrom(Model model) {
         model.addAttribute("user", new NguoiDung());
         return "dangky";
+    }
+
+    @RequestMapping("/auth/blocked")
+    public String xacminh(Model model) {
+        return "dangnhap";
     }
 
     @GetMapping("/courseOnline/dangnhap")
@@ -34,5 +40,49 @@ public class Login_DangKy {
     @RequestMapping("/courseOnline/capnhat")
     public String capnhatform(Model model) {
         return "capnhattaikhoan";
+    }
+
+    @RequestMapping("/auth/login_error")
+    public String loginrror() {
+        return "dangnhap";
+    }
+
+    @GetMapping("/courseOnline/EmailError")
+    public String emailerror() {
+        return "dangnhap";
+    }
+
+    @GetMapping("/courseOnline/confirmotp")
+    public String confirmotp() {
+
+        return "nhapmaotp";
+    }
+
+    @GetMapping("/courseOnline/doimk")
+    public String doimk() {
+        return "doimk";
+    }
+
+    @GetMapping("/courseOnline/ErorOTP")
+    public String ErorrOTP(Model model) {
+        model.addAttribute("message", "Bạn đã nhập sai vui nhập lại");
+
+        return "nhapmaotp";
+    }
+
+    @RequestMapping("/oauth2/login/success")
+    public String success(OAuth2AuthenticationToken oauth2) {
+        String email = oauth2.getPrincipal().getAttribute("email");
+        String password = Long.toHexString(System.currentTimeMillis());
+        String name = oauth2.getPrincipal().getAttribute("name");
+        NguoiDung nguoiDung = nguuoidungRepository.findByEmail(email);
+        if (nguoiDung != null) {
+            httpSession.setAttribute("user", nguoiDung);
+            return "index";
+        }
+        NguoiDung nguoixai = new NguoiDung(email, password, name, email, "false", "false", true);
+        nguuoidungRepository.save(nguoixai);
+        httpSession.setAttribute("user", nguoixai);
+        return "index";
     }
 }
