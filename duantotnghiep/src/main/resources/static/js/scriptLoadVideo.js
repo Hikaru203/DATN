@@ -36,17 +36,33 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
     let nextButton = document.getElementById('next-video');
     let volumeControl = document.getElementById('volume-control');
     let playbackSpeedSelect = document.getElementById('playback-speed');
-    let pauseButton = document.getElementById('pause-video');
+    const pauseButton = document.getElementById('pause-video');
+    const playPauseIcon = document.getElementById('play-pause-icon');
 
     pauseButton.addEventListener('click', function () {
         if (current_player) {
             if (current_player.getPlayerState() === YT.PlayerState.PLAYING) {
                 current_player.pauseVideo();
+                playPauseIcon.classList.remove('fa-pause');
+                playPauseIcon.classList.add('fa-play');
             } else if (current_player.getPlayerState() === YT.PlayerState.PAUSED) {
                 current_player.playVideo();
+                playPauseIcon.classList.remove('fa-play');
+                playPauseIcon.classList.add('fa-pause');
             }
         }
     });
+    const volumePercentage = document.getElementById('volume-percentage');
+
+    // Update the displayed percentage when the input value changes
+    volumeControl.addEventListener('input', function () {
+        const volumeValue = volumeControl.value;
+        volumePercentage.textContent = volumeValue + '%';
+    });
+
+    // Initial update when the page loads
+    volumePercentage.textContent = volumeControl.value + '%';
+
 
 
     // Lấy phần tử input bằng ID
@@ -72,9 +88,9 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             let videoIframe = document.getElementById('video-iframe');
             let videoSrc;
             if (VideoId) {
-                videoSrc = `https://www.youtube-nocookie.com/embed/${VideoId}?start=${timeInt}&modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1`;
+                videoSrc = `https://www.youtube-nocookie.com/embed/${VideoId}?start=${timeInt}&modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=0&autoplay=1`;
             } else {
-                videoSrc = `https://www.youtube-nocookie.com/embed/${match_video.linkVideo}?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1`;
+                videoSrc = `https://www.youtube-nocookie.com/embed/${match_video.linkVideo}?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=0&autoplay=1`;
             }
 
             videoIframe.src = videoSrc;
@@ -163,7 +179,6 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
 
         }
-        alert(currentIndex)
 
     }
 

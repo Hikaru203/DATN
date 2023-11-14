@@ -11,6 +11,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         /* Resetting default margin and padding */
         body,
@@ -191,6 +193,40 @@
             font-size: 16px;
             cursor: pointer;
         }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        #full-screen {
+            background-color: #28a745;
+        }
+
+        #next-video {
+            background-color: #17a2b8;
+        }
+
+        #prev-video {
+            background-color: #dc3545;
+        }
+
+        .video[data-disabled="true"] {
+            pointer-events: none;
+            opacity: 0.6;
+        }
     </style>
 </head>
 
@@ -205,9 +241,11 @@
             </div>
 
             <div class="video-controls">
-                <button id="full-screen" class="button">Full Screen</button>
                 <div id="video-info"></div>
-                <input type="range" id="volume-control" min="0" max="100" step="1" value="100">
+                <div class="volume-control-container">
+                    <input type="range" id="volume-control" min="0" max="100" step="1" value="100">
+                    <span id="volume-percentage">100%</span>
+                </div>
                 <select id="playback-speed">
                     <option value="0.75">0.75x</option>
                     <option value="1" selected>1x</option>
@@ -218,11 +256,15 @@
             </div>
             <br>
             <div style="display: flex; justify-content: space-between;">
-                <button id="prev-video" class="button">Prev</button>
-                <button id="pause-video" class="button">Pause/Resume</button>
-                <button id="next-video" class="button"
-                    style="disabled: true; opacity: 0.5; cursor: not-allowed; pointer-events: none; background-color: #fff; color: #000; border: 1px solid #000; border-radius: 5px; padding: 10px 20px; margin: 0 10px; font-size: 16px; font-weight: bold;">Next</button>
+                <button id="full-screen" class="button"><i class="fas fa-expand"></i> </button>
+                <button id="prev-video" class="button" disabled><i class="fas fa-step-backward"></i> </button>
+                <button id="pause-video" class="button">
+                    <i id="play-pause-icon" class="fas fa-play"></i>
+                </button>
+                <button id="next-video" class="button" disabled><i class="fas fa-step-forward"></i> </button>
+
             </div>
+
         </section>
         <section class="video-playlist">
             <h3 class="title">Các bài học</h3>
