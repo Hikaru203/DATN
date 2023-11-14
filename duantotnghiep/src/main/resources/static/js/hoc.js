@@ -93,7 +93,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             console.log("Bạn chưa đăng nhập");
             window.location.href = 'http://localhost:8080/courseOnline/dangnhap';
         } else {
-            console.log(id);
+           
             $scope.check = "";
             $scope.checkCourse(value, id);
             // Lấy thông tin người dùng

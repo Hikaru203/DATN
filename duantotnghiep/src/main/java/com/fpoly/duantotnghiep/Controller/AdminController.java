@@ -10,7 +10,7 @@ public class AdminController {
     public String KenhKhoaHoc() {
         return "Admin/KenhKhoaHoc";
     }
-
+    
     @GetMapping("/Admin/KhoaHoc")
     public String KhoaHoc() {
         return "Admin/KhoaHoc";

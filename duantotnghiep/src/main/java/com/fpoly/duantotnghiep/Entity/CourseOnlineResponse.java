@@ -11,9 +11,9 @@ public class CourseOnlineResponse {
     // Constructors, getters, and setters
 
     public List<VideoKhoaHoc> getVideoKhoaHoc() {
-        return videoKhoaHoc;
+    	return videoKhoaHoc;
     }
-
+    
     public void setVideoKhoaHoc(List<VideoKhoaHoc> videoKhoaHoc) {
         this.videoKhoaHoc = videoKhoaHoc;
     }
