@@ -6,6 +6,8 @@ app.controller('detail-controller', function ($scope, $http, $window) {
     $scope.DangKy = {};
     $scope.check = {};
     $scope.hoc = {};
+    $scope.idNguoiDung2={};
+    $scope.TenNguoiDung={};
     var idNguoiDung = null;
     var idKhoaHoc = null;
     // Hàm để lấy giá trị từ cookie bằng tên
@@ -31,8 +33,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
 
     // Lấy id từ cookie
     var id = getCookieValue("id");
-    console.log(id);
-
+   
 
     $scope.checkCourse = function (IdUser, id) {
         $http({
@@ -56,9 +57,9 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             // Gán dữ liệu khóa học cho biến $scope.hoc
             $scope.hoc = response.data;
             idKhoaHoc = $scope.hoc.courseOnline.id;
-            console.log($scope.hoc);
+          
             $scope.checkCourse(value, idKhoaHoc);
-
+			
 
         }, function (response) {
             console.log(response);
@@ -69,7 +70,8 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             $http.get("/rest/admin/NguoiDung/" + value)
                 .then(function (resp) {
                     idNguoiDung = resp.data.id;
-                    console.log(idNguoiDung);
+                    console.log(idNguoiDung+" :id Người dùng");
+                    
                 });
         }
         else {
@@ -77,6 +79,19 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             $scope.check = null;
         }
     }
+	$scope.getIdNguoiDung = function () {
+   	 $http({
+        method: 'GET',
+        url: "/rest/admin/NguoiDung/" + value
+    }).then(function (response) {
+        // Gán dữ liệu người dùng cho biến $scope.idNguoiDung2
+        $scope.idNguoiDung2 = response.data.id;
+        $scope.TenNguoiDung = response.data.hoTen;
+       
+    }, function (response) {
+       
+    });
+};
 
     $scope.getid = function (id) {
         $window.sessionStorage.setItem('videoId', id);
@@ -88,7 +103,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
     }
 
     $scope.addCourse = function (id) {
-        console.log(value);
+        
         if (value === 0) {
             console.log("Bạn chưa đăng nhập");
             window.location.href = 'http://localhost:8080/courseOnline/dangnhap';

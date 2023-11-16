@@ -121,6 +121,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="dangnhap.html">Đăng nhập</a>
                             </li>
+                            <input type="text" id="idLogin" hidden th:value="${session.user.id}">
                             <li class="nav-item">
                                 <a class="nav-link" href="dangky.html">Đăng ký</a>
                             </li>
@@ -174,7 +175,7 @@
 <div class="ac">
   <h2 class="ac-header">
     <button class="ac-trigger" onclick="toggleRadio('acceptTerms1')">
-      <input type="radio" id="acceptTerms1" name="paymentMethod" checked> <!-- Thêm radio button này -->
+      <input type="radio" id="acceptTerms1" name="paymentMethod" value="vnpay" checked> <!-- Thêm radio button này -->
       <img src="/img/credit-card_62780.png" alt="Card" width="30" height="26" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
       Thẻ tín dụng / Thẻ ghi nợ
     </button>
@@ -196,7 +197,7 @@
 <div class="ac">
   <h2 class="ac-header">
     <button class="ac-trigger" onclick="toggleRadio('acceptTerms2')">
-      <input type="radio" id="acceptTerms2" name="paymentMethod"> <!-- Thêm radio button này -->
+      <input type="radio" id="acceptTerms2" value="COD" name="paymentMethod"> <!-- Thêm radio button này -->
       <img src="/staticx/udemy/images/v9/card-default.svg" alt="Card" width="300" height="112" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
       Thẻ tín dụng / Thẻ ghi nợ
     </button>
@@ -297,10 +298,13 @@
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Tổng tiền</h5>
                             <h5>{{hoc.courseOnline.chiPhi*0.012}}</h5>
-                            <input type="hidden" class="form-control" id="amount" name="amount" required
-							value="{{hoc.courseOnline.chiPhi*0.012}}"> 
-							<input type="hidden" class="form-control"
-							id="orderInfo" name="orderInfo" required value="{{hoc.courseOnline.tenKhoaHoc}}">
+                             <!-- các input để lấy thông tin đưa vào api và csdl -->
+                            <input type="" class="form-control" id="amount" name="amount" required value="{{hoc.courseOnline.chiPhi*0.012}}"> 
+							<input type="" class="form-control"id="orderInfo" name="orderInfo" required value="{{hoc.courseOnline.tenKhoaHoc}}">		
+							<input type="" class="form-control" id="idKhoaHoc" name="idKhoaHoc" required value="{{hoc.courseOnline.id}}">
+							<input type="" class="form-control" id="idNguoiDung" name="idNguoiDung" required ng-init="getIdNguoiDung()" ng-model="idNguoiDung2">
+							<input type="" class="form-control" id="tenNguoiDung" name="tenNguoiDung" required ng-init="getIdNguoiDung()" ng-model="TenNguoiDung">
+
                         </div>
                     </div>
                     <button class="btn btn-block btn-primary font-weight-bold py-3">Hoàn tất thanh toán</button>

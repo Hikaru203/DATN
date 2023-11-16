@@ -30,8 +30,12 @@ public class CheckOutController {
 	public String CheckOut() {
 		return "checkout";
 	}
+	@GetMapping("/courseOnline/ordersuccess2")
+	public String ordersuccess2() {
+		return "ordersuccess2";
+	}
 	@PostMapping("/courseOnline/submitOrder")
-	public String submidOrder( @RequestParam("amount") int orderTotal,@RequestParam("orderInfo") String orderInfo,
+	public String submidOrder( @RequestParam("amount") int orderTotal,@RequestParam("tenNguoiDung") String orderInfo,
 			HttpServletRequest request, @CookieValue(value = "username", defaultValue = "0") String userIdCookie,
 			@RequestParam("paymentMethod") String paymentMenThod) {
 
@@ -89,23 +93,24 @@ public class CheckOutController {
 		String paymentTimeString = request.getParameter("vnp_PayDate");
 		String Txnref = request.getParameter("vnp_TxnRef");
 		String totalPrice = request.getParameter("vnp_Amount");
+		String orderInfo =request.getParameter("vnp_OrderInfo");
+		
+		double totalAmount = Double.parseDouble(String.valueOf(Double.valueOf(totalPrice) / 100));
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("vi", "VN"));
+		symbols.setDecimalSeparator(',');
+		symbols.setGroupingSeparator('.');
+		DecimalFormat currencyFormatter = new DecimalFormat("###,###,### VND");
 
-//		double totalAmount = Double.parseDouble(String.valueOf(Double.valueOf(totalPrice) / 100));
-//		DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("vi", "VN"));
-//		symbols.setDecimalSeparator(',');
-//		symbols.setGroupingSeparator('.');
-//		DecimalFormat currencyFormatter = new DecimalFormat("###,###,### VND");
-//
-//		String formattedTotalAmount = currencyFormatter.format(totalAmount);
-//
-//		// Chuyển đổi chuỗi thời gian sang đối tượng LocalDateTime
-//		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-//		LocalDateTime paymentTime = LocalDateTime.parse(paymentTimeString, inputFormatter);
-//
-//		// Định dạng thời gian sang "dd/MM/yyyy HH:mm:ss"
-//		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-//		String formattedPaymentTime = paymentTime.format(outputFormatter);
-//
+		String formattedTotalAmount = currencyFormatter.format(totalAmount);
+
+		// Chuyển đổi chuỗi thời gian sang đối tượng LocalDateTime
+		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+		LocalDateTime paymentTime = LocalDateTime.parse(paymentTimeString, inputFormatter);
+
+		// Định dạng thời gian sang "dd/MM/yyyy HH:mm:ss"
+		DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		String formattedPaymentTime = paymentTime.format(outputFormatter);
+
 //		Integer orderIdObj = (Integer) session.getAttribute("orderId");
 
 //		if (orderIdObj != null) {
@@ -125,8 +130,10 @@ public class CheckOutController {
 //		} else {
 //			// Xử lý trường hợp không tìm thấy orderId trong session
 //		}
-		model.addAttribute("orderId", "3");
-		model.addAttribute("totalPrice", 1000);
+		
+		model.addAttribute("orderId", orderInfo);
+		model.addAttribute("totalPrice", formattedTotalAmount);
+		model.addAttribute("paymentTime", formattedPaymentTime);
 		model.addAttribute("Txnref", Txnref);
 
 		return paymentStatus == 1 ? "ordersuccess" : "orderfail";

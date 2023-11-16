@@ -15,6 +15,7 @@ import com.fpoly.duantotnghiep.Entity.CourseOnlineResponse;
 import com.fpoly.duantotnghiep.Entity.DangKyKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 import com.fpoly.duantotnghiep.Entity.MucLuc;
+import com.fpoly.duantotnghiep.Entity.NguoiDung;
 import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
 import com.fpoly.duantotnghiep.service.CauHoiService;
 import com.fpoly.duantotnghiep.service.DangKyKhoaHocService;
@@ -80,12 +81,13 @@ public class CourseOnlineRestController {
 
     @GetMapping()
     public List<DangKyKhoaHoc> getAll() {
-        return dangKyKhoaHocService.findAll();
+        return dangKyKhoaHocService.findAll();	
     }
 
     @GetMapping("/check/{idNguoiDung}/{idKhoaHoc}")
     public DangKyKhoaHoc check(@PathVariable("idNguoiDung") int idNguoiDung, @PathVariable("idKhoaHoc") int idKhoaHoc) {
         return dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(idNguoiDung, idKhoaHoc);
     }
+    
 
 }
