@@ -22,8 +22,12 @@ import com.fpoly.duantotnghiep.service.KhoaHocService;
 import com.fpoly.duantotnghiep.service.MucLucService;
 import com.fpoly.duantotnghiep.service.VideoService;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/api/courseOnline")
@@ -52,7 +56,7 @@ public class CourseOnlineRestController {
         ArrayList<CauHoi> listCauHoi = new ArrayList<>();
         KhoaHoc khoaHoc = daoHocService.findById(id);
         List<MucLuc> list = mucLucService.findByKhoaHoc(id);
-
+        
         for (MucLuc mucLuc : list) {
             List<VideoKhoaHoc> mucLucVideos = videoService.findByMuHocId(mucLuc.getId());
             listVideo.addAll(mucLucVideos);
@@ -60,7 +64,7 @@ public class CourseOnlineRestController {
             List<CauHoi> mucLucCauHoi = cauHoiService.findByMucLuc(mucLuc.getId());
             listCauHoi.addAll(mucLucCauHoi);
         }
-
+        
         response.setVideoKhoaHoc(listVideo);
         response.setCourseOnline(khoaHoc);
         response.setMucLuc(list);

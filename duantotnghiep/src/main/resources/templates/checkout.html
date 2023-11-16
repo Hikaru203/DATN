@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -28,7 +28,7 @@
 
 </head>
 
-<body>
+<body ng-app="detail-app" ng-controller="detail-controller">
     <!-- Topbar Start -->
     <div class="container-fluid d-none d-lg-block">
         <div class="row align-items-center py-4 px-xl-5">
@@ -148,9 +148,9 @@
     </div>
     <!-- Breadcrumb End -->
 
-
+<form action="/courseOnline/submitOrder" method="post" id="orderForm">
     <!-- Checkout Start -->
-    <div class="container-fluid">
+    <div class="container-fluid" >
         <div class="row px-xl-5">
             <div class="col-lg-8">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing
@@ -171,49 +171,50 @@
                                 margin-bottom: 10px;
                             }
 				   </style>
-			 
 <div class="ac">
   <h2 class="ac-header">
-    <button class="ac-trigger"><img src="/staticx/udemy/images/v9/card-default.svg" alt="Card" width="300" height="112" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> Thẻ tín dụng / Thẻ ghi nợ</button>
+    <button class="ac-trigger" onclick="toggleRadio('acceptTerms1')">
+      <input type="radio" id="acceptTerms1" name="paymentMethod" checked> <!-- Thêm radio button này -->
+      <img src="/img/credit-card_62780.png" alt="Card" width="30" height="26" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
+      Thẻ tín dụng / Thẻ ghi nợ
+    </button>
   </h2>
   
   <div class="ac-panel">
-    <label for="so-the" style="margin-top:10px ;">Số thẻ</label>
-    <br>
-        <input type="text" ng-model="noiDung" placeholder="Số thẻ">
-    <br>
+    <p for="so-the" style="margin-left: 10px; margin-top:10px;">
+      Để hoàn tất giao dịch, chúng tôi sẽ chuyển bạn đến các máy chủ an toàn của VNPAY.
+    </p>
 
-    <label for="ngay-het-han">Ngày hết hạn</label>
+    <p for="so-the" style="margin-left: 10px; margin-top:10px">
+      Ví VNPAY là ví điện tử gia đình, cho phép người dùng mở thêm ví thành viên cho người thân. 
+      Ví VNPAY sở hữu hệ sinh thái tiện ích đa dạng đáp ứng đầy đủ nhu cầu thanh toán của người dùng mọi lúc, mọi nơi
+    </p>
     <br>
-            <input type="text" ng-model="noiDung" placeholder="Ngày hết hạn">
-
-
-    <br>
-
-    <label for="cvc-cvv">CVC/CVV</label>
-    <br>
-            <input type="text" ng-model="noiDung" placeholder="CVC/CVV">
   </div>
 </div>
 
+<div class="ac">
+  <h2 class="ac-header">
+    <button class="ac-trigger" onclick="toggleRadio('acceptTerms2')">
+      <input type="radio" id="acceptTerms2" name="paymentMethod"> <!-- Thêm radio button này -->
+      <img src="/staticx/udemy/images/v9/card-default.svg" alt="Card" width="300" height="112" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
+      Thẻ tín dụng / Thẻ ghi nợ
+    </button>
+  </h2>
+  
+  <div class="ac-panel">
+    <p for="so-the" style="margin-left: 10px; margin-top:10px;">
+      Để hoàn tất giao dịch, chúng tôi sẽ chuyển bạn đến các máy chủ an toàn của VNPAY.
+    </p>
 
-  <div class="ac">
-    <h2 class="ac-header">
-      <button class="ac-trigger">Lorem ipsum dolor sit amet.</button>
-    </h2>
-    <div class="ac-panel">
-      <p class="ac-text">Nulla et sodales nisl. Nam auctor quis odio eu congue. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </div>
+    <p for="so-the" style="margin-left: 10px; margin-top:10px">
+      Ví VNPAY là ví điện tử gia đình, cho phép người dùng mở thêm ví thành viên cho người thân. 
+      Ví VNPAY sở hữu hệ sinh thái tiện ích đa dạng đáp ứng đầy đủ nhu cầu thanh toán của người dùng mọi lúc, mọi nơi
+    </p>
+    <br>
   </div>
+</div>
 
-  <div class="ac">
-    <h2 class="ac-header">
-      <button class="ac-trigger">Lorem ipsum dolor sit amet.</button>
-    </h2>
-    <div class="ac-panel">
-      <p class="ac-text">Nulla et sodales nisl. Nam auctor quis odio eu congue. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </div>
-  </div>
 </div>
                 <div class="collapse mb-5" id="shipping-address">
                     <h5 class="section-title position-relative text-uppercase mb-3"><span
@@ -269,38 +270,37 @@
                     </div>
                 </div>
             </div>
+            
+            
             <div class="col-lg-4">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Tóm Tắt</span></h5>
                 <div class="bg-light p-30 mb-5">
                     <div class="border-bottom">
                         <h6 class="mb-3">Sản phẩm</h6>
                         <div class="d-flex justify-content-between">
-                            <p>Product Name 1</p>
-                            <p>$150</p>
+                            <p>{{hoc.courseOnline.tenKhoaHoc}}</p>
+          
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Product Name 2</p>
-                            <p>$150</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Product Name 3</p>
-                            <p>$150</p>
-                        </div>
+                    
                     </div>
                     <div class="border-bottom pt-3 pb-2">
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Đơn giá</h6>
-                            <h6>$150</h6>
+                             <span class="m-0" id="price">{{hoc.courseOnline.chiPhi}}</span>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Mức chiết khấu</h6>
-                            <h6 class="font-weight-medium">$10</h6>
+                            <h6 class="font-weight-medium">12%</h6>
                         </div>
                     </div>
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Tổng tiền</h5>
-                            <h5>$160</h5>
+                            <h5>{{hoc.courseOnline.chiPhi*0.012}}</h5>
+                            <input type="hidden" class="form-control" id="amount" name="amount" required
+							value="{{hoc.courseOnline.chiPhi*0.012}}"> 
+							<input type="hidden" class="form-control"
+							id="orderInfo" name="orderInfo" required value="{{hoc.courseOnline.tenKhoaHoc}}">
                         </div>
                     </div>
                     <button class="btn btn-block btn-primary font-weight-bold py-3">Hoàn tất thanh toán</button>
@@ -308,10 +308,11 @@
                 </div>
                 
             </div>
+            </form>
         </div>
     </div>
     <!-- Checkout End -->
-
+	
 
     
    <!-- Footer Start -->
@@ -358,7 +359,7 @@
     </div>
 </div>
 <!-- Footer End -->
-
+	
 
 
     <!-- Back to Top -->
@@ -374,99 +375,23 @@
     <!-- Contact Javascript File -->
     <script src="/mail/jqBootstrapValidation.min.js"></script>
     <script src="/mail/contact.js"></script>
-
+ <script src="/js/hoc.js"></script>
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
     <script src="/js/accordion.min.js"></script>
 
+
+   
+	<script>
+  	function toggleRadio(radioId) {
+   	 var radio = document.getElementById(radioId);
+   	 radio.checked = true;
+ 	 }
+	</script>
 <script>
   new Accordion('.accordion-container');
 </script>
-    <script>
-        // Lấy dữ liệu các tỉnh
-        fetch('https://raw.githubusercontent.com/madnh/hanhchinhvn/master/dist/tinh_tp.json')
-            .then(response => response.json())
-            .then(provinces => {
-                var tinhSelect = document.getElementById("tinh");
-                for (var code in provinces) {
-                    var option = document.createElement("option");
-                    option.value = code;
-                    option.text = provinces[code].name;
-                    tinhSelect.appendChild(option);
-                }
-            })
-            .catch(error => {
-                console.log('Đã xảy ra lỗi khi lấy dữ liệu về các tỉnh: ', error);
-            });
-
-        // Hàm để cập nhật danh sách huyện
-        function updateHuyen() {
-            var tinhSelect = document.getElementById("tinh");
-            var huyenSelect = document.getElementById("huyen");
-            var tinhValue = tinhSelect.value;
-
-            // Xóa tất cả các option trong huyenSelect trừ option mặc định
-            huyenSelect.innerHTML = "<option value=''>-- Chọn huyện --</option>";
-
-            // Lấy dữ liệu các huyện của tỉnh đã chọn
-            fetch('https://raw.githubusercontent.com/madnh/hanhchinhvn/master/dist/quan_huyen.json')
-                .then(response => response.json())
-                .then(data => {
-                    var selectedDistricts = Object.values(data).filter(district => district.parent_code === tinhValue);
-
-                    if (selectedDistricts.length > 0) {
-                        selectedDistricts.forEach(district => {
-                            var option = document.createElement("option");
-                            option.value = district.code;
-                            option.text = district.name;
-                            huyenSelect.appendChild(option);
-                        });
-                    } else {
-                        console.log('Không tìm thấy danh sách huyện cho tỉnh đã chọn', tinhValue);
-                    }
-                })
-                .catch(error => {
-                    console.log('Đã xảy ra lỗi khi lấy dữ liệu về các huyện: ', error);
-                });
-        }
-
-
-
-        // Hàm để cập nhật danh sách xã
-        function updateXa() {
-            var huyenSelect = document.getElementById("huyen");
-            var xaSelect = document.getElementById("xa");
-            var huyenValue = huyenSelect.value;
-
-            // Xóa tất cả các option trong xaSelect trừ option mặc định
-            xaSelect.innerHTML = "<option value=''>-- Chọn xã --</option>";
-
-            // Lấy dữ liệu các xã của huyện đã chọn
-            fetch('https://raw.githubusercontent.com/madnh/hanhchinhvn/master/dist/xa_phuong.json')
-                .then(response => response.json())
-                .then(communes => {
-                    var selectedCommunes = Object.values(communes).filter(commune => commune.parent_code === huyenValue);
-
-                    if (selectedCommunes.length > 0) {
-                        selectedCommunes.forEach(commune => {
-                            var option = document.createElement("option");
-                            option.value = commune.code;
-                            option.text = commune.name;
-                            xaSelect.appendChild(option);
-                        });
-                    } else {
-                        console.log('Không tìm thấy danh sách xã cho huyện đã chọn');
-                    }
-                })
-                .catch(error => {
-                    console.log('Đã xảy ra lỗi khi lấy dữ liệu về các xã: ', error);
-                });
-        }
-
-
-
-
-    </script>
+  
 </body>
 
 </html>

@@ -93,7 +93,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             console.log("Bạn chưa đăng nhập");
             window.location.href = 'http://localhost:8080/courseOnline/dangnhap';
         } else {
-           
+           window.location.href = '/courseOnline/CheckOut';
             $scope.check = "";
             $scope.checkCourse(value, id);
             // Lấy thông tin người dùng
@@ -118,7 +118,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
         }
 
     }
-
+	
     // Gọi hàm init để khởi tạo thông tin khóa học
     $scope.init();
 });
