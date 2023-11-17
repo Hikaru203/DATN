@@ -56,7 +56,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
 
 
     $scope.initialize = function () {
-        $http.get("/Admin/rest/Videos").then(resp => {
+        $http.get("/rest/admin/Videos").then(resp => {
             $scope.itemsVideo = resp.data;
             console.log($scope.itemsVideo);
             $scope.totalItems = $scope.itemsVideo.length;
@@ -65,7 +65,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
             console.error("An error occurred:", error);
         });
 
-        $http.get("/Admin/rest/KhoaHoc").then(resp => {
+        $http.get("/rest/admin/KhoaHoc").then(resp => {
             $scope.itemsKhoaHoc = resp.data;
         });
     };
@@ -75,14 +75,14 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
     $scope.loadDocuments = function (course) {
         $scope.selectedCourse = course;
 
-        $http.get("/Admin/rest/MucLuc/KhoaHoc/" + $scope.selectedCourse).then(resp => {
+        $http.get("/rest/admin/MucLuc/KhoaHoc/" + $scope.selectedCourse).then(resp => {
             $scope.MucLuc = resp.data;
             console.log($scope.MucLuc);
         });
 
 
         if ($scope.selectedCourse) {
-            $http.get("/Admin/rest/Videos/" + $scope.selectedCourse).then(resp => {
+            $http.get("/rest/admin/Videos/" + $scope.selectedCourse).then(resp => {
                 $scope.itemsVideo = resp.data;
                 $scope.totalItems = $scope.itemsVideo.length;
                 $scope.order = $scope.itemsVideo.length;
@@ -91,7 +91,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
                 console.log($scope.order);
             });
         } else {
-            $http.get("/Admin/rest/Videos").then(resp => {
+            $http.get("/rest/admin/Videos").then(resp => {
                 $scope.itemsVideo = resp.data;
                 $scope.totalItems = $scope.itemsVideo.length;
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
@@ -210,10 +210,10 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
             return;
         }
 
-        $http.get("/Admin/rest/MucLuc/" + $scope.selectedMucLuc)
+        $http.get("/rest/admin/MucLuc/" + $scope.selectedMucLuc)
             .then(resp => {
                 $scope.formVideo.mucLuc = resp.data;
-                $http.get("/Admin/rest/NguoiDung/" + 1)
+                $http.get("/rest/admin/NguoiDung/" + 1)
                     .then(resp => {
                         $scope.formVideo.nguoiTao = resp.data;
                         $scope.formVideo.linkVideo = videoId;
@@ -233,7 +233,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
                             }
 
                             // Gửi yêu cầu POST để thêm video mới
-                            return $http.post(`/Admin/rest/Videos`, $scope.formVideo);
+                            return $http.post(`/rest/admin/Videos`, $scope.formVideo);
                         });
                     })
             })
@@ -268,11 +268,11 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
         console.log(usernameCookie);
         console.log(videoTitle);
 
-        $http.get("/Admin/rest/MucLuc/" + $scope.selectedMucLuc)
+        $http.get("/rest/admin/MucLuc/" + $scope.selectedMucLuc)
             .then(resp => {
                 $scope.formVideo.mucLuc = resp.data;
 
-                $http.get("/Admin/rest/NguoiDung/" + 1)
+                $http.get("/rest/admin/NguoiDung/" + 1)
                     .then(resp => {
                         $scope.formVideo.nguoiTao = resp.data;
                         $scope.formVideo.linkVideo = usernameCookie;
@@ -292,7 +292,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
                         // Gửi yêu cầu POST để thêm video mới
                         console.log($scope.formVideo);
 
-                        $http.post(`/Admin/rest/Videos`, $scope.formVideo)
+                        $http.post(`/rest/admin/Videos`, $scope.formVideo)
                             .then(resp => {
                                 // Xử lý kết quả thành công nếu cần thiết
                             })

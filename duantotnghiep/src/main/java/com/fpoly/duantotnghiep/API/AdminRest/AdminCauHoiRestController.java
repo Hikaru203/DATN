@@ -19,7 +19,7 @@ import com.fpoly.duantotnghiep.service.TaiLieuService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/Admin/rest/CauHoi")
+@RequestMapping("/rest/admin/CauHoi")
 public class AdminCauHoiRestController {
     @Autowired
     CauHoiService cauHoiService;

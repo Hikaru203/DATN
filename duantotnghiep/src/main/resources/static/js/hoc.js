@@ -6,6 +6,8 @@ app.controller('detail-controller', function ($scope, $http, $window) {
     $scope.DangKy = {};
     $scope.check = {};
     $scope.hoc = {};
+    $scope.idNguoiDung2 = {};
+    $scope.TenNguoiDung = {};
     var idNguoiDung = null;
     var idKhoaHoc = null;
     // Hàm để lấy giá trị từ cookie bằng tên
@@ -15,13 +17,25 @@ app.controller('detail-controller', function ($scope, $http, $window) {
         if (parts.length === 2)
             return parts.pop().split(";").shift();
     }
+    // Lấy phần tử input bằng ID
+    var inputElement = document.getElementById('idLogin');
+
+
+
+    if (inputElement == null || inputElement == "") {
+        value = 0;
+    }
+    else {
+        // Lấy giá trị của input
+        var value = inputElement.value;
+        value = inputElement.value;
+    }
 
     // Lấy id từ cookie
     var id = getCookieValue("id");
-    console.log(id);
 
 
-    $scope.checkCourse = function (IdUser,id) {
+    $scope.checkCourse = function (IdUser, id) {
         $http({
             method: 'GET',
             url: '/api/courseOnline/check/' + IdUser + '/' + id
@@ -29,7 +43,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             $scope.check = response.data;
         }, function (response) {
             console.log(response);
-            $scope.check=null;
+            $scope.check = null;
         });
     }
 
@@ -43,8 +57,8 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             // Gán dữ liệu khóa học cho biến $scope.hoc
             $scope.hoc = response.data;
             idKhoaHoc = $scope.hoc.courseOnline.id;
-            console.log($scope.hoc);
-            $scope.checkCourse(1,idKhoaHoc);
+
+            $scope.checkCourse(value, idKhoaHoc);
 
 
         }, function (response) {
@@ -52,51 +66,63 @@ app.controller('detail-controller', function ($scope, $http, $window) {
         });
 
         // Lấy thông tin người dùng
-        $http.get("/Admin/rest/NguoiDung/1")
-            .then(function (resp) {
-                idNguoiDung = resp.data.id;
-                console.log(idNguoiDung);
-            });
+        if (value != 0) {
+            $http.get("/rest/admin/NguoiDung/" + value)
+                .then(function (resp) {
+                    idNguoiDung = resp.data.id;
+                    console.log(idNguoiDung + " :id Người dùng");
 
+                });
+        }
+        else {
+            idNguoiDung = 0;
+            $scope.check = null;
+        }
+    }
+    $scope.getIdNguoiDung = function () {
+        $http({
+            method: 'GET',
+            url: "/rest/admin/NguoiDung/" + value
+        }).then(function (response) {
+            // Gán dữ liệu người dùng cho biến $scope.idNguoiDung2
+            $scope.idNguoiDung2 = response.data.id;
+            $scope.TenNguoiDung = response.data.hoTen;
+
+        }, function (response) {
+
+        });
+    };
+
+    $scope.getid = function (id) {
+        $window.sessionStorage.setItem('videoId', id);
+        $window.location.href = '/courseOnline/video/' + id;
     }
 
-    $scope.getid = function(id) {
-		$window.sessionStorage.setItem('videoId', id);
-		$window.location.href = '/courseOnline/video';
-		// Chuyển đổi số nguyên thành chuỗi JSON
-	}
-
     $scope.continueCourse = function (id) {
-        alert("Bạn đã đăng ký khóa học này rồi");
-        console.log(id);
         $scope.getid(id);
     }
 
     $scope.addCourse = function (id) {
-        console.log(id);
-        $scope.check="";
-        $scope.checkCourse(1,id);
-        // Lấy thông tin người dùng
-        $http.get("/Admin/rest/NguoiDung/1")
-            .then(function (resp) {
-                $scope.DangKy.nguoiDung = resp.data;
-                $scope.DangKy.khoaHoc = $scope.hoc.courseOnline;
-                $scope.DangKy.ngayDangKy = new Date();
-                $scope.DangKy.tienDo = 0;
-                $scope.DangKy.trangThai = 0;
-                console.log($scope.DangKy);
-                // Gửi POST request để đăng ký khóa học
-                $http.post("/api/courseOnline", $scope.DangKy)
-                    .then(function (response) {
-                        $scope.init();
-                        console.log(response);
-                        $scope.getid(id);
-                    }, function (response) {
-                        console.log(response);
-                    });
-            });
+        if (value === 0) {
+            console.log("Bạn chưa đăng nhập");
+            window.location.href = 'http://localhost:8080/courseOnline/dangnhap';
+        } else {
+            $http({
+                method: 'GET',
+                url: '/api/Checkout/check/' + value
+            }).then(function (response) {
+                if (!response.data.trangThai) {
+                    // Chưa thanh toán, chuyển hướng đến trang Checkout
+                    window.location.href = '/courseOnline/CheckOut';
+                } else {
 
+                }
+            }, function (response) {
+                console.log(response);
+            });
+        }
     }
+
 
     // Gọi hàm init để khởi tạo thông tin khóa học
     $scope.init();

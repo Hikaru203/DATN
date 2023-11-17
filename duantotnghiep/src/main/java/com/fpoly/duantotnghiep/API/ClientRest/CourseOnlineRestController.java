@@ -15,6 +15,7 @@ import com.fpoly.duantotnghiep.Entity.CourseOnlineResponse;
 import com.fpoly.duantotnghiep.Entity.DangKyKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 import com.fpoly.duantotnghiep.Entity.MucLuc;
+import com.fpoly.duantotnghiep.Entity.NguoiDung;
 import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
 import com.fpoly.duantotnghiep.service.CauHoiService;
 import com.fpoly.duantotnghiep.service.DangKyKhoaHocService;
@@ -22,8 +23,12 @@ import com.fpoly.duantotnghiep.service.KhoaHocService;
 import com.fpoly.duantotnghiep.service.MucLucService;
 import com.fpoly.duantotnghiep.service.VideoService;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/api/courseOnline")
@@ -52,7 +57,7 @@ public class CourseOnlineRestController {
         ArrayList<CauHoi> listCauHoi = new ArrayList<>();
         KhoaHoc khoaHoc = daoHocService.findById(id);
         List<MucLuc> list = mucLucService.findByKhoaHoc(id);
-
+        
         for (MucLuc mucLuc : list) {
             List<VideoKhoaHoc> mucLucVideos = videoService.findByMuHocId(mucLuc.getId());
             listVideo.addAll(mucLucVideos);
@@ -60,7 +65,7 @@ public class CourseOnlineRestController {
             List<CauHoi> mucLucCauHoi = cauHoiService.findByMucLuc(mucLuc.getId());
             listCauHoi.addAll(mucLucCauHoi);
         }
-
+        
         response.setVideoKhoaHoc(listVideo);
         response.setCourseOnline(khoaHoc);
         response.setMucLuc(list);
@@ -76,12 +81,13 @@ public class CourseOnlineRestController {
 
     @GetMapping()
     public List<DangKyKhoaHoc> getAll() {
-        return dangKyKhoaHocService.findAll();
+        return dangKyKhoaHocService.findAll();	
     }
 
     @GetMapping("/check/{idNguoiDung}/{idKhoaHoc}")
     public DangKyKhoaHoc check(@PathVariable("idNguoiDung") int idNguoiDung, @PathVariable("idKhoaHoc") int idKhoaHoc) {
         return dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(idNguoiDung, idKhoaHoc);
     }
+    
 
 }

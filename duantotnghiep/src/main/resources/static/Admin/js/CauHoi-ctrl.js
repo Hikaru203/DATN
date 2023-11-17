@@ -27,11 +27,11 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
         $scope.editMode = !$scope.editMode;
     };
     $scope.initialize = function () {
-        $http.get("/Admin/rest/KhoaHoc").then(function (resp) {
+        $http.get("/rest/admin/KhoaHoc").then(function (resp) {
             $scope.khoaHoc = resp.data;
         });
         // Load tài liệu
-        $http.get("/Admin/rest/CauHoi").then(function (resp) {
+        $http.get("/rest/admin/CauHoi").then(function (resp) {
             $scope.itemsCauHoi = resp.data;
             $scope.totalItems = $scope.itemsCauHoi.length;
             $scope.pageChanged(); // Hiển thị trang đầu tiên
@@ -59,7 +59,7 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
             console.error("An error occurred:", error);
         });
 
-        $http.get("/Admin/rest/KhoaHoc").then(function (resp) {
+        $http.get("/rest/admin/KhoaHoc").then(function (resp) {
             $scope.itemsKhoaHoc = resp.data;
         });
     };
@@ -70,16 +70,16 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
     $scope.loadDocuments = function (id) {
         const selectedCourseId = id;
 
-        $http.get("/Admin/rest/MucLuc/KhoaHoc/" + $scope.selectedCourse.id).then(resp => {
+        $http.get("/rest/admin/MucLuc/KhoaHoc/" + $scope.selectedCourse.id).then(resp => {
             $scope.MucLuc = resp.data;
             console.log($scope.MucLuc);
         });
 
         if (selectedCourseId === null || selectedCourseId === undefined) {
-            $http.get("/Admin/rest/CauHoi").then(function (resp) {
+            $http.get("/rest/admin/CauHoi").then(function (resp) {
                 $scope.itemsCauHoi = resp.data;
                 $scope.totalItems = $scope.itemsCauHoi.length;
-                $http.get(`/Admin/rest/KhoaHoc`)
+                $http.get(`/rest/admin/KhoaHoc`)
                     .then(function (resp) {
                         $scope.KhoaHoc = resp.data;
                     });
@@ -268,7 +268,7 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
             return; // Dừng hàm nếu selectedAnswer không hợp lệ
         }
 
-        $http.get("/Admin/rest/MucLuc/" + $scope.selectedMucLuc).then(function (resp) {
+        $http.get("/rest/admin/MucLuc/" + $scope.selectedMucLuc).then(function (resp) {
             $scope.MucLuc = resp.data;
 
             $scope.formCauHoi.cauTraLoi = document.getElementById('cauHoiInput').value;
@@ -278,7 +278,7 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
             console.log($scope.formCauHoi);
 
 
-            $http.post(`/Admin/rest/CauHoi`, $scope.formCauHoi)
+            $http.post(`/rest/admin/CauHoi`, $scope.formCauHoi)
                 .then(function (resp) {
                     $scope.itemsCauHoi.push(resp.data);
                     $scope.formCauHoi = {};
@@ -319,7 +319,7 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
     $scope.delete = function (item) {
         var isConfirmed = confirm(`Bạn có chắc chắn muốn xóa tài liệu "${item.cauHoi}"?`);
         if (isConfirmed) {
-            $http.delete(`/Admin/rest/CauHoi/${item.id}`)
+            $http.delete(`/rest/admin/CauHoi/${item.id}`)
                 .then(function (resp) {
                     var index = $scope.itemsCauHoi.findIndex(item => item.id == resp.data.id);
                     $scope.itemsCauHoi.splice(index, 1);
