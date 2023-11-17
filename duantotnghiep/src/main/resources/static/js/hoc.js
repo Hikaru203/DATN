@@ -102,17 +102,20 @@ app.controller('detail-controller', function ($scope, $http, $window) {
         $scope.getid(id);
     }
 
-    $scope.addCourse = function (id) {
-        
-        if (value === 0) {
-            console.log("Bạn chưa đăng nhập");
-            window.location.href = 'http://localhost:8080/courseOnline/dangnhap';
-        } else {
-           window.location.href = '/courseOnline/CheckOut';
-            $scope.check = "";
-            $scope.checkCourse(value, id);
-            // Lấy thông tin người dùng
-            $http.get("/rest/admin/NguoiDung/" + value)
+  $scope.addCourse = function (id) {
+    if (value === 0) {
+        console.log("Bạn chưa đăng nhập");
+        window.location.href = 'http://localhost:8080/courseOnline/dangnhap';
+    } else {
+        $http({
+            method: 'GET',
+            url: '/api/Checkout/check/' + value
+        }).then(function (response) {
+
+            if (!response.data.trangThai) {
+                // Chưa thanh toán, chuyển hướng đến trang Checkout
+                window.location.href = '/courseOnline/CheckOut';
+                $http.get("/rest/admin/NguoiDung/" + value)
                 .then(function (resp) {
                     $scope.DangKy.nguoiDung = resp.data;
                     $scope.DangKy.khoaHoc = $scope.hoc.courseOnline;
@@ -130,9 +133,15 @@ app.controller('detail-controller', function ($scope, $http, $window) {
                             console.log(response);
                         });
                 });
-        }
-
+            } else {
+              
+            }
+        }, function (response) {
+            console.log(response);
+        });
     }
+}
+
 	
     // Gọi hàm init để khởi tạo thông tin khóa học
     $scope.init();

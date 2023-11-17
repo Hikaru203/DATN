@@ -59,19 +59,25 @@ public class ClientController {
         Map<Long, Integer> danhGiaMap = new HashMap<>();
         Map<Long, Double> DiemDanhGiaMap = new HashMap<>();
 
-        for (DangKyKhoaHoc dangKyKhoaHoc : list) {
-            KhoaHoc khoaHoc = dangKyKhoaHoc.getKhoaHoc();
-            long khoaHocId = khoaHoc.getId();
+        int count1 = 0;  // Declare count1 before using it
 
-            if (courseCountMap.containsKey(khoaHocId)) {
-                int count = courseCountMap.get(khoaHocId);
-                count++;
-                courseCountMap.put(khoaHocId, count);
-            } else {
-                courseCountMap.put(khoaHocId, 1);
-            }
+        for (DanhGia danhGia : list2) {
+            KhoaHoc khoaHoc = danhGia.getKhoaHoc();
+            
+            // Kiểm tra xem khoaHoc có null hay không
+          
+                long khoaHocId = khoaHoc.getId();
+
+                if (danhGiaMap.containsKey(khoaHocId)) {
+                    count1 = danhGiaMap.get(khoaHocId);
+                    count1++;
+                    danhGiaMap.put(khoaHocId, count1);
+                } else {
+                    danhGiaMap.put(khoaHocId, 1);
+                }
+          
         }
-        int count1 = 0;
+
         for (DanhGia danhGia : list2) {
             KhoaHoc khoaHoc = danhGia.getKhoaHoc();
             long khoaHocId = khoaHoc.getId();

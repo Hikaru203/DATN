@@ -299,11 +299,11 @@
                             <h5>Tổng tiền</h5>
                             <h5>{{hoc.courseOnline.chiPhi*0.012}}</h5>
                              <!-- các input để lấy thông tin đưa vào api và csdl -->
-                            <input type="" class="form-control" id="amount" name="amount" required value="{{hoc.courseOnline.chiPhi*0.012}}"> 
-							<input type="" class="form-control"id="orderInfo" name="orderInfo" required value="{{hoc.courseOnline.tenKhoaHoc}}">		
-							<input type="" class="form-control" id="idKhoaHoc" name="idKhoaHoc" required value="{{hoc.courseOnline.id}}">
-							<input type="" class="form-control" id="idNguoiDung" name="idNguoiDung" required ng-init="getIdNguoiDung()" ng-model="idNguoiDung2">
-							<input type="" class="form-control" id="tenNguoiDung" name="tenNguoiDung" required ng-init="getIdNguoiDung()" ng-model="TenNguoiDung">
+                            <input type="hidden" class="form-control" id="amount" name="amount" required value="{{hoc.courseOnline.chiPhi*0.012}}"> 
+							<input type="hidden" class="form-control"id="orderInfo" name="orderInfo" required value="{{hoc.courseOnline.tenKhoaHoc}}">		
+							<input type="hidden" class="form-control" id="idKhoaHoc" name="idKhoaHoc" required value="{{hoc.courseOnline.id}}">
+							<input type="hidden" class="form-control" id="idNguoiDung" name="idNguoiDung" required ng-init="getIdNguoiDung()" value="{{idNguoiDung2}}">
+							<input type="hidden" class="form-control" id="tenNguoiDung" name="tenNguoiDung" required ng-init="getIdNguoiDung()" value="{{TenNguoiDung}}">
 
                         </div>
                     </div>
