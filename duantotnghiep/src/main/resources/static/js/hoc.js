@@ -114,7 +114,6 @@ app.controller('detail-controller', function ($scope, $http, $window) {
                 if (!response.data.trangThai) {
                     // Chưa thanh toán, chuyển hướng đến trang Checkout
                     window.location.href = '/courseOnline/CheckOut';
-
                 } else {
 
                 }

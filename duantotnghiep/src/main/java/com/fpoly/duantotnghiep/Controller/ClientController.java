@@ -59,23 +59,23 @@ public class ClientController {
         Map<Long, Integer> danhGiaMap = new HashMap<>();
         Map<Long, Double> DiemDanhGiaMap = new HashMap<>();
 
-        int count1 = 0;  // Declare count1 before using it
+        int count1 = 0; // Declare count1 before using it
 
         for (DanhGia danhGia : list2) {
             KhoaHoc khoaHoc = danhGia.getKhoaHoc();
-            
-            // Kiểm tra xem khoaHoc có null hay không
-          
-                long khoaHocId = khoaHoc.getId();
 
-                if (danhGiaMap.containsKey(khoaHocId)) {
-                    count1 = danhGiaMap.get(khoaHocId);
-                    count1++;
-                    danhGiaMap.put(khoaHocId, count1);
-                } else {
-                    danhGiaMap.put(khoaHocId, 1);
-                }
-          
+            // Kiểm tra xem khoaHoc có null hay không
+
+            long khoaHocId = khoaHoc.getId();
+
+            if (danhGiaMap.containsKey(khoaHocId)) {
+                count1 = danhGiaMap.get(khoaHocId);
+                count1++;
+                danhGiaMap.put(khoaHocId, count1);
+            } else {
+                danhGiaMap.put(khoaHocId, 1);
+            }
+
         }
 
         for (DanhGia danhGia : list2) {
@@ -104,6 +104,24 @@ public class ClientController {
             }
         }
 
+        // Tạo một Map để lưu trữ count cho mỗi khóa học
+        for (DangKyKhoaHoc dangKyKhoaHoc : list) {
+            KhoaHoc khoaHoc = dangKyKhoaHoc.getKhoaHoc();
+
+            // Kiểm tra xem khoaHoc có null hay không
+
+            long khoaHocId = khoaHoc.getId();
+
+            if (courseCountMap.containsKey(khoaHocId)) {
+                count1 = courseCountMap.get(khoaHocId);
+                count1++;
+                courseCountMap.put(khoaHocId, count1);
+            } else {
+                courseCountMap.put(khoaHocId, 1);
+            }
+
+        }
+
         // Tạo danh sách cuối cùng để hiển thị trong view
         List<Object[]> courseCountList = new ArrayList<>();
         for (KhoaHoc khoaHoc : page) {
@@ -130,8 +148,12 @@ public class ClientController {
         }
 
         model.addAttribute("danhGiaList2", danhGiaList2);
+        System.out.println(danhGiaList2.get(0)[0]);
         model.addAttribute("danhGiaList", danhGiaList);
+        System.out.println(danhGiaList.get(0)[0]);
         model.addAttribute("list", courseCountList);
+        System.out.println(courseCountList.get(0)[0]);
+
         model.addAttribute("courseOnline", page);
 
         return "index";
@@ -153,5 +175,4 @@ public class ClientController {
         return "uploadKhoaHoc";
     }
 
-    
 }

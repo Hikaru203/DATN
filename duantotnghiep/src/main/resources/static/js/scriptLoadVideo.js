@@ -203,6 +203,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             let firstVideo = videos[0];
             $http.get('/api/tiendokhoahoc/' + value + '/' + idKhoaHoc).then(function (response) {
                 $scope.tiendokhoahoc = response.data;
+                console.log($scope.tiendokhoahoc.tienDo + "tiendokhoahoc");
                 if ($scope.tiendokhoahoc.tienDo != 0) {
                     const input = $scope.tiendokhoahoc.tienDo;
 
@@ -252,6 +253,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                     }
                 } else {
                     firstVideo = videos[0];
+                    console.log('Video ID:', firstVideo.dataset.id);
                     changeVideo(firstVideo, videos, $scope);
                 }
 
