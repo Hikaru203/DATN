@@ -109,8 +109,9 @@ app.controller('detail-controller', function ($scope, $http, $window) {
         } else {
             $http({
                 method: 'GET',
-                url: '/api/Checkout/check/' + value
+                url: '/api/Checkout/check/' + value + '/' + id
             }).then(function (response) {
+                console.log(response.data);
                 if (!response.data.trangThai) {
                     // Chưa thanh toán, chuyển hướng đến trang Checkout
                     window.location.href = '/courseOnline/CheckOut';
