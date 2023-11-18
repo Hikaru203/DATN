@@ -3,7 +3,7 @@ app.controller('DanhGia-BinhLuan-ctrl', function ($scope, $http, $window) {
     $scope.DanhGia = [];
     $scope.DanhGiaList = [];
     $scope.averageRating = 0;
-    $scope.BinhLuan = [];
+    $scope.BinhLuan = []; // Danh sách bình luận
     $scope.BinhLuanList = [];
     $scope.DienDan = [];
     $scope.DienDanList = [];
@@ -12,11 +12,21 @@ app.controller('DanhGia-BinhLuan-ctrl', function ($scope, $http, $window) {
     $scope.nguoiDang = {};
     $scope.BinhLuanThem = {};
     $scope.form = {};
+    $scope.visibleComments = 3; // Số lượng bình luận ban đầu hiển thị
+
 
     // Lấy phần tử input bằng ID
     var inputElement = document.getElementById('idLogin');
 
+    // Hàm để hiển thị thêm bình luận
+    $scope.showMoreComments = function () {
+        $scope.visibleComments += 3; // Tăng số lượng bình luận hiển thị lên 3
+    };
 
+    // Hàm để kiểm tra xem có cần hiển thị nút "Hiện thêm bình luận" hay không
+    $scope.shouldShowMoreButton = function () {
+        return $scope.BinhLuan.length > $scope.visibleComments;
+    };
 
     if (inputElement == null || inputElement == "") {
         value = 0;

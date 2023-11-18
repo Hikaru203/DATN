@@ -1,6 +1,5 @@
 package com.fpoly.duantotnghiep.Entity;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -17,31 +16,34 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "dang_ky_khoa_hoc")
+@Table(name = "thanh_toan")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class DangKyKhoaHoc {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+public class ThanhToan {
 
-	@ManyToOne
-	@JoinColumn(name = "id_nguoi_dung")
-	private NguoiDung nguoiDung;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
 
-	@ManyToOne
-	@JoinColumn(name = "id_khoa_hoc")
-	private KhoaHoc khoaHoc;
+    @ManyToOne
+    @JoinColumn(name = "id_khoa_hoc")
+    private KhoaHoc khoaHoc;
 
-	@Column(name = "ngay_dang_ky")
-	private Date ngayDangKy;
+    @ManyToOne
+    @JoinColumn(name = "id_nguoi_dung")
+    private NguoiDung nguoiDung;
 
-	@Column(name = "tien_do")
-    private String tienDo;
-	
+    @Column(name = "tong_tien")
+    private float tongTien;
+
+    @Column(name = "thoi_gian")
+    private Date thoiGian;
+
     @Column(name = "trang_thai")
-    private String trangThai;
-	// Getters and Setters
+    private boolean trangThai;
+
+    // Constructors, getters, and setters
 }
