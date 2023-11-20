@@ -8,6 +8,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
     $scope.hoc = {};
     $scope.idNguoiDung2 = {};
     $scope.TenNguoiDung = {};
+    $scope.khoaHoc = {};
     var idNguoiDung = null;
     var idKhoaHoc = null;
     // Hàm để lấy giá trị từ cookie bằng tên
@@ -57,9 +58,9 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             // Gán dữ liệu khóa học cho biến $scope.hoc
             $scope.hoc = response.data;
             idKhoaHoc = $scope.hoc.courseOnline.id;
-
+            console.log($scope.hoc);
             $scope.checkCourse(value, idKhoaHoc);
-
+            $scope.showTaiLieu(idKhoaHoc);
 
         }, function (response) {
             console.log(response);
@@ -102,25 +103,89 @@ app.controller('detail-controller', function ($scope, $http, $window) {
         $scope.getid(id);
     }
 
+    $scope.showTaiLieu = function (id) {
+        $http.get("/rest/admin/TaiLieu/" + id)
+            .then(function (resp) {
+                $scope.tailieu = resp.data;
+                console.log($scope.tailieu);
+            });
+    }
+
+    $scope.baseFileURL = '/Admin/pdf/'; // Đường dẫn cơ sở tới thư mục chứa file
+
+    $scope.downloadPDF = function (fileName, tentailieu) {
+        var fileURL = $scope.baseFileURL + fileName;
+        fetch(fileURL)
+            .then(response => response.blob())
+            .then(blob => {
+                saveAs(blob, tentailieu + '.pdf'); // Lưu file với tên tài liệu
+            })
+            .catch(error => {
+                console.error('Lỗi khi tải file:', error);
+                // Xử lý lỗi tại đây nếu cần thiết
+            });
+    };
+
     $scope.addCourse = function (id) {
+        $http.get("/rest/admin/NguoiDung/" + value)
+            .then(function (resp) {
+                idNguoiDung = resp.data.id;
+                console.log(idNguoiDung + " :id Người dùng");
+
+            });
+
+
         if (value === 0) {
             console.log("Bạn chưa đăng nhập");
             window.location.href = 'http://localhost:8080/courseOnline/dangnhap';
         } else {
-            $http({
-                method: 'GET',
-                url: '/api/Checkout/check/' + value + '/' + id
-            }).then(function (response) {
-                console.log(response.data);
-                if (!response.data.trangThai) {
-                    // Chưa thanh toán, chuyển hướng đến trang Checkout
-                    window.location.href = '/courseOnline/CheckOut';
-                } else {
 
-                }
-            }, function (response) {
-                console.log(response);
-            });
+            $http.get("/rest/admin/KhoaHoc/" + id)
+                .then(function (resp) {
+                    idKhoaHoc = resp.data.id;
+                    console.log(idKhoaHoc + " :id Khóa học");
+                    $scope.khoaHoc = resp.data;
+
+                    console.log($scope.khoaHoc.chiPhi);
+                    alert("Bạn có muốn đăng ký khóa học này không?");
+
+                    if ($scope.khoaHoc.chiPhi != 0) {
+                        $http({
+                            method: 'GET',
+                            url: '/api/Checkout/check/' + value + '/' + id
+                        }).then(function (response) {
+                            console.log(response.data);
+                            if (!response.data.trangThai) {
+                                // Chưa thanh toán, chuyển hướng đến trang Checkout
+                                window.location.href = '/courseOnline/CheckOut';
+                            } else {
+
+                            }
+                        }, function (response) {
+                            console.log(response);
+                        });
+                    } else {
+                        $http.get("/rest/admin/NguoiDung/" + value)
+                            .then(function (resp) {
+                                $scope.DangKy.nguoiDung = resp.data;
+                                $scope.DangKy.khoaHoc = $scope.hoc.courseOnline;
+                                $scope.DangKy.ngayDangKy = new Date();
+                                $scope.DangKy.tienDo = 0;
+                                $scope.DangKy.trangThai = 0;
+                                console.log($scope.DangKy);
+                                // Gửi POST request để đăng ký khóa học
+                                $http.post("/api/courseOnline", $scope.DangKy)
+                                    .then(function (response) {
+                                        $scope.init();
+                                        console.log(response);
+                                        $scope.getid(id);
+                                    }, function (response) {
+                                        console.log(response);
+                                    });
+                            });
+                    }
+                });
+
         }
     }
 

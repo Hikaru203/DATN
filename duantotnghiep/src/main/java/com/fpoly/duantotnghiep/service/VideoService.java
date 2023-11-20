@@ -12,6 +12,6 @@ public interface VideoService {
 
     VideoKhoaHoc save(VideoKhoaHoc videoKhoaHoc);
 
-    ArrayList<VideoKhoaHoc> findByMuHocId(int idMucLuc);
+    ArrayList<VideoKhoaHoc> findByMucHocId(int idMucLuc);
 
 }
