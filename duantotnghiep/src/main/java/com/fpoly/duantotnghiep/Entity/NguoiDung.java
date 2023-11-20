@@ -63,5 +63,9 @@ public class NguoiDung {
         this.chucVu = chucVu;
         this.xac_minh = xac_minh;
     }
+    @Override
+    public String toString() {
+    return hoTen;
+}
 
 }

@@ -43,4 +43,22 @@ public class KhoaHocServiceImpl implements KhoaHocService {
         return khoaHocRepository.save(khoaHoc);
     }
 
+	@Override
+    public void deleteById(Integer id) {
+        khoaHocRepository.deleteById(id);
+    }
+
+
+	@Override
+    public KhoaHoc update(KhoaHoc khoaHoc) {
+        // Kiểm tra xem Brand có tồn tại trong cơ sở dữ liệu không
+        KhoaHoc existingBrand = khoaHocRepository.findById(khoaHoc.getId());
+        if (existingBrand != null) {
+            return khoaHocRepository.save(existingBrand);
+        } else {
+            // Nếu Brand không tồn tại, không thực hiện cập nhật và trả về null hoặc thông báo lỗi tùy vào logic ứng dụng của bạn
+            return null;
+        }
+    }
+
 }

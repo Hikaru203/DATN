@@ -55,6 +55,7 @@
 
 
 
+
 </head>
 
 <body ng-app="myApp" ng-controller="KhoaHoc-ctrl">
@@ -1049,63 +1050,89 @@
                 </div>
             </div>
         </div>
-        <div class="product-status mg-b-15">
+        <!-- Static Table Start -->
+        <div class="single-pro-review-area mt-t-30 mg-b-15">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="product-status-wrap drp-lst">
-                            <h4>Departments List</h4>
-                            <div class="add-product">
-                                <a href="add-department">Edit Khóa Học</a>
-                            </div>
+                        <div class="product-payment-inner-st">
+                            <ul id="myTabedu1" class="tab-review-design">
+                                <li class="active"><a href="#description">Edit khóa học</a></li>
+                                <div id="myTabContent" class="tab-content custom-product-edit">
+                                    <div class="product-tab-list tab-pane fade active in" id="description">
+                                        <div class="row">
+                                            <div id="tableother">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="product-status mg-b-15">
+                                                        <div class="container-fluid">
+                                                            <div class="row">
+                                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                    <div class="product-status-wrap drp-lst">
+                                                                        <div class="asset-inner row">
+                                                                            <div class="container">
 
-                            <div class="asset-inner">
-                                <table>
-                                    <thead>
-                                        <th>No</th>
-                                        <th>id</th>
-                                        <th>TenKhoaHoc</th>
-                                        <th>ChiPhi</th>
-                                        <th>NgayTao</th>
-                                        <th>NguoiTao</th>
-                                        <th>Image</th>
-                                        <th>TrangThai</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="item in itemsKhoaHoc">
-                                            <td>{{ $index + 1 }}</td>
-                                            <td>{{item.id}}</td>
-                                            <td>{{item.tenKhoaHoc}}</td>
-                                            <td>{{item.chiPhi}}</td>
-                                            <td>{{item.ngayTao}}</td>
-                                            <td>{{item.nguoiTao.hoTen}}</td>
-                                            <td>{{item.hinhAnh}}</td>
-                                            <td>{{item.trangThai}}</td>
-
-
-                                            <td> <button class="pd-setting">Active</button></td>
-                                        </tr>
-                                    </tbody>
-
-
-                                </table>
-                            </div>
-                            <div class="custom-pagination">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
+                                                                                <table>
+                                                                                    <thead>
+                                                                                        <th>No</th>
+                                                                                        <th>id</th>
+                                                                                        <th>TenKhoaHoc</th>
+                                                                                        <th>ChiPhi</th>
+                                                                                        <th>NgayTao</th>
+                                                                                        <th>NguoiTao</th>
+                                                                                        <th>Image</th>
+                                                                                        <th>TrangThai</th>
+                                                                                        <th>Tùy chỉnh </th>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr ng-repeat="item in pager.itemsKhoaHoc"
+                                                                                            ng-click="editbr(item)">
+                                                                                            <td>{{ $index + 1 }}</td>
+                                                                                            <td>{{item.id}}</td>
+                                                                                            <td>{{item.tenKhoaHoc}}</td>
+                                                                                            <td>{{item.chiPhi}}</td>
+                                                                                            <td>{{item.ngayTao}}</td>
+                                                                                            <td>{{item.nguoiTao.hoTen}} </td>
+                                                                                            <td> <img ng-src="/Admin/img/{{item.hinhAnh}}" alt=""> </td>
+                                                                                            <td>{{item.trangThai}}</td>
+                                                                                            <td> <i class="fa fa-cog"
+                                                                                                    aria-hidden="true"></i>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                                <div class="panel-footer text-center">
+                                                                                    <button ng-click="pager.first()" class="btn btn-primary">
+                                                                                      <i class="fa fa-arrow-circle-up"></i>
+                                                                                    </button>
+                                                                                    <button ng-click="pager.prev()" class="btn btn-primary">
+                                                                                      <i class="fa fa-arrow-circle-left"></i>
+                                                                                    </button>
+                                                                                    <button class="btn btn-success">{{pager.page +1}} of {{pager.count}}</button>
+                                                                                    <button ng-click="pager.next()" class="btn btn-primary">
+                                                                                      <i class="fa fa-arrow-circle-right"></i>
+                                                                                    </button>
+                                                                                    <button ng-click="pager.last()" class="btn btn-primary">
+                                                                                      <i class="fa fa-arrow-circle-down"></i>
+                                                                                    </button>
+                                                                                  </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Static Table End -->
 
         <!-- Mobile Menu end -->
 
@@ -1127,49 +1154,78 @@
                                                 <div id="dropzone1" class="pro-ad addcoursepro">
                                                     <form enctype="multipart/form-data"
                                                         class="dropzone dropzone-custom needsclick addcourse"
-                                                        id="demo1-upload" >
+                                                        id="demo1-upload">
                                                         <div class="row">
                                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
-                                                                    <input name="id" type="text" ng-model="newCourse.id" class="form-control" placeholder="id">
+                                                                    <input name="id" type="text"
+                                                                        ng-model="formKhoaHoc.id" class="form-control"
+                                                                        placeholder="id" readonly>
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <input name="tenKhoaHoc" type="text" ng-model="newCourse.tenKhoaHoc" class="form-control" placeholder="TenKhoaHoc">
+                                                                    <input name="tenKhoaHoc" type="text"
+                                                                        ng-model="formKhoaHoc.tenKhoaHoc"
+                                                                        class="form-control" placeholder="TenKhoaHoc">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <input name="nguoiTao" type="text" ng-model="newCourse.nguoiTao.id" class="form-control" placeholder="NguoiTao">
+                                                                    <input name="nguoiTao" type="text"
+                                                                        ng-model="nguoiTao.hoTen" class="form-control"
+                                                                        placeholder="NguoiTao" readonly>
+                                                                    <input name="nguoiTao" type="text"
+                                                                        ng-model="formKhoaHoc.nguoiTao.id" value="0"
+                                                                        hidden placeholder="NguoiTao">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <input name="chiPhi" type="number" ng-model="newCourse.chiPhi" class="form-control" placeholder="ChiPhi">
+                                                                    <input name="chiPhi" type="number"
+                                                                        ng-model="formKhoaHoc.chiPhi"
+                                                                        class="form-control" placeholder="ChiPhi">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <input name="ngayTao" id="ngayTao" type="text" ng-model="newCourse.ngayTao" class="form-control" placeholder="NgayTao">
+                                                                    <input name="ngayTao" id="ngayTao" type="text"
+                                                                        ng-model="formKhoaHoc.ngayTao" hidden
+                                                                        placeholder="NgayTao">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <input name="hinhAnh" id="imageInput"  type="file" file-model="newCourse.hinhAnh" class="form-control"  onchange="handleFileSelect()" placeholder="Hình ảnh">
                                                                     <!-- Hiển thị hình ảnh đã chọn (nếu có) -->
-                                                                    <div id="preview"></div>
+                                                                    <div id="preview">
+                                                                        <!-- Ảnh mặc định -->
+                                                                        <img id="defaultImage"
+                                                                            ng-src="/Admin/img/gallery.png"
+                                                                            alt="Default Image" height="100px"
+                                                                            width="100px">
+                                                                    </div>
+                                                                    <input name="hinhAnh" id="imageInput" type="file"
+                                                                        file-model="formKhoaHoc.hinhAnh"
+                                                                        class="form-control"
+                                                                        onchange="handleFileSelect()"
+                                                                        placeholder="Hình ảnh">
+
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
-                                                                    <textarea name="moTa" ng-model="newCourse.moTa" placeholder="MoTa"></textarea>
+                                                                    <textarea name="moTa" ng-model="formKhoaHoc.moTa"
+                                                                        placeholder="MoTa"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="container mt-4">
                                                             <!-- Button "Thêm" -->
-                                                            <button id="basicSuccess"
-                                                                class="btn btn-success" ng-click="create()">Thêm</button>
+                                                            <button id="basicSuccess" class="btn btn-success"
+                                                                ng-click="create()">Thêm</button>
 
                                                             <!-- Button "Sửa" -->
                                                             <button class="btn btn-warning mr-2"
-                                                                onclick="editFunction()">Sửa</button>
+                                                            ng-click="updateKhoaHoc(formKhoaHoc)">Sửa</button>
 
                                                             <!-- Button "Xóa" -->
                                                             <button class="btn btn-danger"
-                                                                onclick="deleteFunction()">Xóa</button>
+                                                            ng-click="deleteKhoaHoc(formKhoaHoc)">Xóa</button>
+
+                                                                <!-- Button "làm mới" -->
+                                                            <button class="btn btn-info"
+                                                            ng-click="resetKhoaHoc()">Làm mới</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -1189,20 +1245,24 @@
             // Lấy thẻ input và danh sách các tệp tin đã chọn
             var input = document.getElementById('imageInput');
             var files = input.files;
-    
+
             // Kiểm tra xem có tệp tin nào đã chọn hay không
             if (files.length > 0) {
                 var reader = new FileReader();
-    
+
                 // Đọc dữ liệu của tệp tin đã chọn
                 reader.onload = function (e) {
-                    // Hiển thị hình ảnh đã chọn trong một thẻ <img>
+                    // Hiển thị hình ảnh đã chọn trong thẻ <img>
                     var preview = document.getElementById('preview');
                     preview.innerHTML = '<img src="' + e.target.result + '" alt="Selected Image">';
                 };
-    
+
                 // Đọc tệp tin làm nguồn dữ liệu
                 reader.readAsDataURL(files[0]);
+            } else {
+                // Nếu không có tệp tin nào được chọn, hiển thị ảnh mặc định
+                var defaultImage = document.getElementById('defaultImage');
+                defaultImage.style.display = 'block';
             }
         }
     </script>

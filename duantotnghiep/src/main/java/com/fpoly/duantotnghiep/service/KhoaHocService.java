@@ -19,4 +19,8 @@ public interface KhoaHocService {
 	List<KhoaHoc> getKhoaHocByLoai(String loai);
 
 	KhoaHoc create( KhoaHoc khoaHoc);
+
+	void deleteById(Integer id);
+
+	KhoaHoc update(KhoaHoc khoaHoc);
 }
