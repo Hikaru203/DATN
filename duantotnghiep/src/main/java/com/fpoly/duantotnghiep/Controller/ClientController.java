@@ -59,19 +59,25 @@ public class ClientController {
         Map<Long, Integer> danhGiaMap = new HashMap<>();
         Map<Long, Double> DiemDanhGiaMap = new HashMap<>();
 
-        for (DangKyKhoaHoc dangKyKhoaHoc : list) {
-            KhoaHoc khoaHoc = dangKyKhoaHoc.getKhoaHoc();
+        int count1 = 0; // Declare count1 before using it
+
+        for (DanhGia danhGia : list2) {
+            KhoaHoc khoaHoc = danhGia.getKhoaHoc();
+
+            // Kiểm tra xem khoaHoc có null hay không
+
             long khoaHocId = khoaHoc.getId();
 
-            if (courseCountMap.containsKey(khoaHocId)) {
-                int count = courseCountMap.get(khoaHocId);
-                count++;
-                courseCountMap.put(khoaHocId, count);
+            if (danhGiaMap.containsKey(khoaHocId)) {
+                count1 = danhGiaMap.get(khoaHocId);
+                count1++;
+                danhGiaMap.put(khoaHocId, count1);
             } else {
-                courseCountMap.put(khoaHocId, 1);
+                danhGiaMap.put(khoaHocId, 1);
             }
+
         }
-        int count1 = 0;
+
         for (DanhGia danhGia : list2) {
             KhoaHoc khoaHoc = danhGia.getKhoaHoc();
             long khoaHocId = khoaHoc.getId();
@@ -96,6 +102,24 @@ public class ClientController {
             } else {
                 DiemDanhGiaMap.put(khoaHocId, Double.valueOf(danhGia.getSoDiemDanhGia()));
             }
+        }
+
+        // Tạo một Map để lưu trữ count cho mỗi khóa học
+        for (DangKyKhoaHoc dangKyKhoaHoc : list) {
+            KhoaHoc khoaHoc = dangKyKhoaHoc.getKhoaHoc();
+
+            // Kiểm tra xem khoaHoc có null hay không
+
+            long khoaHocId = khoaHoc.getId();
+
+            if (courseCountMap.containsKey(khoaHocId)) {
+                count1 = courseCountMap.get(khoaHocId);
+                count1++;
+                courseCountMap.put(khoaHocId, count1);
+            } else {
+                courseCountMap.put(khoaHocId, 1);
+            }
+
         }
 
         // Tạo danh sách cuối cùng để hiển thị trong view
@@ -124,8 +148,12 @@ public class ClientController {
         }
 
         model.addAttribute("danhGiaList2", danhGiaList2);
+        System.out.println(danhGiaList2.get(0)[0]);
         model.addAttribute("danhGiaList", danhGiaList);
+        System.out.println(danhGiaList.get(0)[0]);
         model.addAttribute("list", courseCountList);
+        System.out.println(courseCountList.get(0)[0]);
+
         model.addAttribute("courseOnline", page);
         return "index";
     }

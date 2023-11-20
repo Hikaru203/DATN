@@ -1,31 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
-    <title>ECOURSES - Online Courses HTML Template</title>
+    <title>CheckOut</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+<link th:href="@{img/favicon.ico}" rel="icon">
+   <!-- Google Web Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+	<!-- Font Awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+	<!-- Libraries Stylesheet -->
+	<link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+	<!-- Customized Bootstrap Stylesheet -->
+	<link href="/css/style.css" rel="stylesheet">
+	  <link rel="stylesheet" href="/css/accordion.min.css">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body ng-app="detail-app" ng-controller="detail-controller">
     <!-- Topbar Start -->
     <div class="container-fluid d-none d-lg-block">
         <div class="row align-items-center py-4 px-xl-5">
@@ -171,49 +176,74 @@
     </div>
     <!-- Breadcrumb End -->
 
-
+<form action="/courseOnline/submitOrder" method="post" id="orderForm">
     <!-- Checkout Start -->
-    <div class="container-fluid">
+    <div class="container-fluid" >
         <div class="row px-xl-5">
             <div class="col-lg-8">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing
                         Address</span></h5>
-                <div class="bg-light p-30 mb-5">
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label>Họ tên</label>
-                            <input class="form-control" type="text" placeholder="FullName">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Số điện thoại</label>
-                            <input class="form-control" type="text" placeholder="Phone">
-                        </div>
+           <div class="accordion-container">
+			   <style>
+				     /* CSS cho đánh giá của bạn */
+                            h4 {
+                                font-size: 18px;
+                                margin-bottom: 10px;
+                            }
 
-                        <div class="col-md-6 form-group">
-                            <label for="tinh">Country</label>
-                            <select id="tinh" class="custom-select" onchange="updateHuyen()">
-                                <option value="">-- Chọn tỉnh --</option>
-                            </select>
-                        </div>
+                            input[type="text"] {
+                                width: 90%;
+                                padding: 10px;
+                                border: 1px solid #ccc;
+                                border-radius: 5px;
+                                margin-bottom: 10px;
+                            }
+				   </style>
+<div class="ac">
+  <h2 class="ac-header">
+    <button class="ac-trigger" onclick="toggleRadio('acceptTerms1')">
+      <input type="radio" id="acceptTerms1" name="paymentMethod" value="vnpay" checked> <!-- Thêm radio button này -->
+      <img src="/img/credit-card_62780.png" alt="Card" width="30" height="26" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
+      Thẻ tín dụng / Thẻ ghi nợ
+    </button>
+  </h2>
+  
+  <div class="ac-panel">
+    <p for="so-the" style="margin-left: 10px; margin-top:10px;">
+      Để hoàn tất giao dịch, chúng tôi sẽ chuyển bạn đến các máy chủ an toàn của VNPAY.
+    </p>
 
-                        <div class="col-md-6 form-group">
-                            <label for="huyen">City</label>
-                            <select id="huyen" class="custom-select" onchange="updateXa()">
-                                <option value="">-- Chọn huyện --</option>
-                            </select>
-                        </div>
+    <p for="so-the" style="margin-left: 10px; margin-top:10px">
+      Ví VNPAY là ví điện tử gia đình, cho phép người dùng mở thêm ví thành viên cho người thân. 
+      Ví VNPAY sở hữu hệ sinh thái tiện ích đa dạng đáp ứng đầy đủ nhu cầu thanh toán của người dùng mọi lúc, mọi nơi
+    </p>
+    <br>
+  </div>
+</div>
 
-                        <div class="col-md-6 form-group">
-                            <label for="xa">State</label>
-                            <select id="xa" class="custom-select">
-                                <option value="">-- Chọn xã --</option>
-                            </select>
-                        </div>
+<div class="ac">
+  <h2 class="ac-header">
+    <button class="ac-trigger" onclick="toggleRadio('acceptTerms2')">
+      <input type="radio" id="acceptTerms2" value="COD" name="paymentMethod"> <!-- Thêm radio button này -->
+      <img src="/staticx/udemy/images/v9/card-default.svg" alt="Card" width="300" height="112" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
+      Thẻ tín dụng / Thẻ ghi nợ
+    </button>
+  </h2>
+  
+  <div class="ac-panel">
+    <p for="so-the" style="margin-left: 10px; margin-top:10px;">
+      Để hoàn tất giao dịch, chúng tôi sẽ chuyển bạn đến các máy chủ an toàn của VNPAY.
+    </p>
 
+    <p for="so-the" style="margin-left: 10px; margin-top:10px">
+      Ví VNPAY là ví điện tử gia đình, cho phép người dùng mở thêm ví thành viên cho người thân. 
+      Ví VNPAY sở hữu hệ sinh thái tiện ích đa dạng đáp ứng đầy đủ nhu cầu thanh toán của người dùng mọi lúc, mọi nơi
+    </p>
+    <br>
+  </div>
+</div>
 
-
-                    </div>
-                </div>
+</div>
                 <div class="collapse mb-5" id="shipping-address">
                     <h5 class="section-title position-relative text-uppercase mb-3"><span
                             class="bg-secondary pr-3">Shipping Address</span></h5>
@@ -268,50 +298,52 @@
                     </div>
                 </div>
             </div>
+            
+            
             <div class="col-lg-4">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order
-                        Total</span></h5>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Tóm Tắt</span></h5>
                 <div class="bg-light p-30 mb-5">
                     <div class="border-bottom">
-                        <h6 class="mb-3">Products</h6>
+                        <h6 class="mb-3">Sản phẩm</h6>
                         <div class="d-flex justify-content-between">
-                            <p>Product Name 1</p>
-                            <p>$150</p>
+                            <p>{{hoc.courseOnline.tenKhoaHoc}}</p>
+          
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Product Name 2</p>
-                            <p>$150</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Product Name 3</p>
-                            <p>$150</p>
-                        </div>
+                    
                     </div>
                     <div class="border-bottom pt-3 pb-2">
                         <div class="d-flex justify-content-between mb-3">
-                            <h6>Subtotal</h6>
-                            <h6>$150</h6>
+                            <h6>Đơn giá</h6>
+                             <span class="m-0" id="price">{{hoc.courseOnline.chiPhi}}</span>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium">$10</h6>
+                            <h6 class="font-weight-medium">Mức chiết khấu</h6>
+                            <h6 class="font-weight-medium">12%</h6>
                         </div>
                     </div>
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
-                            <h5>Total</h5>
-                            <h5>$160</h5>
+                            <h5>Tổng tiền</h5>
+                            <h5>{{hoc.courseOnline.chiPhi*0.012}}</h5>
+                             <!-- các input để lấy thông tin đưa vào api và csdl -->
+                            <input type="hidden" class="form-control" id="amount" name="amount" required value="{{hoc.courseOnline.chiPhi*0.012}}"> 
+							<input type="hidden" class="form-control"id="orderInfo" name="orderInfo" required value="{{hoc.courseOnline.tenKhoaHoc}}">		
+							<input type="hidden" class="form-control" id="idKhoaHoc" name="idKhoaHoc" required value="{{hoc.courseOnline.id}}">
+							<input type="hidden" class="form-control" id="idNguoiDung" name="idNguoiDung" required ng-init="getIdNguoiDung()" value="{{idNguoiDung2}}">
+							<input type="hidden" class="form-control" id="tenNguoiDung" name="tenNguoiDung" required ng-init="getIdNguoiDung()" value="{{TenNguoiDung}}">
+
                         </div>
                     </div>
-                    <button class="btn btn-block btn-primary font-weight-bold py-3">Thanh toán</button>
+                    <button class="btn btn-block btn-primary font-weight-bold py-3">Hoàn tất thanh toán</button>
 
                 </div>
                 
             </div>
+            </form>
         </div>
     </div>
     <!-- Checkout End -->
-
+	
 
     
    <!-- Footer Start -->
@@ -358,7 +390,7 @@
     </div>
 </div>
 <!-- Footer End -->
-
+	
 
 
     <!-- Back to Top -->
@@ -368,100 +400,29 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
-
+    <script src="/mail/jqBootstrapValidation.min.js"></script>
+    <script src="/mail/contact.js"></script>
+ <script src="/js/hoc.js"></script>
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-    <script>
-        // Lấy dữ liệu các tỉnh
-        fetch('https://raw.githubusercontent.com/madnh/hanhchinhvn/master/dist/tinh_tp.json')
-            .then(response => response.json())
-            .then(provinces => {
-                var tinhSelect = document.getElementById("tinh");
-                for (var code in provinces) {
-                    var option = document.createElement("option");
-                    option.value = code;
-                    option.text = provinces[code].name;
-                    tinhSelect.appendChild(option);
-                }
-            })
-            .catch(error => {
-                console.log('Đã xảy ra lỗi khi lấy dữ liệu về các tỉnh: ', error);
-            });
-
-        // Hàm để cập nhật danh sách huyện
-        function updateHuyen() {
-            var tinhSelect = document.getElementById("tinh");
-            var huyenSelect = document.getElementById("huyen");
-            var tinhValue = tinhSelect.value;
-
-            // Xóa tất cả các option trong huyenSelect trừ option mặc định
-            huyenSelect.innerHTML = "<option value=''>-- Chọn huyện --</option>";
-
-            // Lấy dữ liệu các huyện của tỉnh đã chọn
-            fetch('https://raw.githubusercontent.com/madnh/hanhchinhvn/master/dist/quan_huyen.json')
-                .then(response => response.json())
-                .then(data => {
-                    var selectedDistricts = Object.values(data).filter(district => district.parent_code === tinhValue);
-
-                    if (selectedDistricts.length > 0) {
-                        selectedDistricts.forEach(district => {
-                            var option = document.createElement("option");
-                            option.value = district.code;
-                            option.text = district.name;
-                            huyenSelect.appendChild(option);
-                        });
-                    } else {
-                        console.log('Không tìm thấy danh sách huyện cho tỉnh đã chọn', tinhValue);
-                    }
-                })
-                .catch(error => {
-                    console.log('Đã xảy ra lỗi khi lấy dữ liệu về các huyện: ', error);
-                });
-        }
+    <script src="/js/main.js"></script>
+    <script src="/js/accordion.min.js"></script>
 
 
-
-        // Hàm để cập nhật danh sách xã
-        function updateXa() {
-            var huyenSelect = document.getElementById("huyen");
-            var xaSelect = document.getElementById("xa");
-            var huyenValue = huyenSelect.value;
-
-            // Xóa tất cả các option trong xaSelect trừ option mặc định
-            xaSelect.innerHTML = "<option value=''>-- Chọn xã --</option>";
-
-            // Lấy dữ liệu các xã của huyện đã chọn
-            fetch('https://raw.githubusercontent.com/madnh/hanhchinhvn/master/dist/xa_phuong.json')
-                .then(response => response.json())
-                .then(communes => {
-                    var selectedCommunes = Object.values(communes).filter(commune => commune.parent_code === huyenValue);
-
-                    if (selectedCommunes.length > 0) {
-                        selectedCommunes.forEach(commune => {
-                            var option = document.createElement("option");
-                            option.value = commune.code;
-                            option.text = commune.name;
-                            xaSelect.appendChild(option);
-                        });
-                    } else {
-                        console.log('Không tìm thấy danh sách xã cho huyện đã chọn');
-                    }
-                })
-                .catch(error => {
-                    console.log('Đã xảy ra lỗi khi lấy dữ liệu về các xã: ', error);
-                });
-        }
-
-
-
-
-    </script>
+   
+	<script>
+  	function toggleRadio(radioId) {
+   	 var radio = document.getElementById(radioId);
+   	 radio.checked = true;
+ 	 }
+	</script>
+<script>
+  new Accordion('.accordion-container');
+</script>
+  
 </body>
 
 </html>

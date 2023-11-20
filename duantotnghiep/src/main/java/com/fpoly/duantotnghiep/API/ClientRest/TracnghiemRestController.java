@@ -16,6 +16,7 @@ import com.fpoly.duantotnghiep.service.TaiLieuService;
 
 @CrossOrigin("*")
 @RestController
+
 @RequestMapping("/rest/tracnghiem")
 public class TracnghiemRestController {
     @Autowired
