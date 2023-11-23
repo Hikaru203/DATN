@@ -59,7 +59,7 @@ public class CheckOutController {
 
 		HttpSession session = request.getSession();
 
-		if (paymentMenThod.equals("COD")) {
+		if (paymentMenThod.equals("zalo")) {
 
 			return "redirect:" + "ordersuccess2";
 		} else {
