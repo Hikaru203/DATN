@@ -6,11 +6,13 @@ app.controller('detail-controller', function ($scope, $http, $window) {
     $scope.DangKy = {};
     $scope.check = {};
     $scope.hoc = {};
+    $scope.chungChiList = {};
     $scope.idNguoiDung2 = {};
     $scope.TenNguoiDung = {};
     $scope.khoaHoc = {};
     var idNguoiDung = null;
     var idKhoaHoc = null;
+    $scope.trangThai = null;
     // Hàm để lấy giá trị từ cookie bằng tên
     function getCookieValue(name) {
         var value = "; " + document.cookie;
@@ -46,6 +48,18 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             console.log(response);
             $scope.check = null;
         });
+
+        $http({
+            method: 'GET',
+            url: '/api/tiendokhoahoc/' + IdUser + '/' + id
+        }).then(function (response) {
+            $scope.trangThai = response.data.trangThai;
+            console.log($scope.trangThai);
+        }, function (response) {
+            console.log(response);
+        });
+
+
     }
 
     // Hàm để khởi tạo thông tin khóa học
@@ -79,6 +93,20 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             idNguoiDung = 0;
             $scope.check = null;
         }
+
+        $http.get("/rest/ChungChi/" + id + '/' + value)
+            .then(function (resp) {
+                $scope.chungChiList = resp.data; // Lưu trữ mảng dữ liệu vào $scope.chungChiList
+                console.log($scope.chungChiList);
+                for (var i = 0; i < $scope.chungChiList.length; i++) {
+                    var rawDate = new Date($scope.chungChiList[i].ngayCap);
+                    var formattedDate = `${rawDate.getDate()}/${rawDate.getMonth() + 1}/${rawDate.getFullYear()}`;
+                    console.log(formattedDate);
+                    $scope.chungChiList[i].ngayCapFormatted = formattedDate;
+                }
+            });
+
+
     }
     $scope.getIdNguoiDung = function () {
         $http({

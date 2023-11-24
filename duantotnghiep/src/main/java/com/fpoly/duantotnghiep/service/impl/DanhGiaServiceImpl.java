@@ -10,14 +10,19 @@ import com.fpoly.duantotnghiep.jparepository.DanhGiaRepository;
 import com.fpoly.duantotnghiep.service.DanhGiaService;
 
 @Service
-public class DanhGiaServiceImpl implements DanhGiaService{
-    
+public class DanhGiaServiceImpl implements DanhGiaService {
+
     @Autowired
     DanhGiaRepository danhGiaRepository;
 
     @Override
     public List<DanhGia> findAll() {
         return danhGiaRepository.findAll();
+    }
+
+    @Override
+    public DanhGia save(DanhGia danhGia) {
+        return danhGiaRepository.save(danhGia);
     }
 
 }
