@@ -63,6 +63,8 @@ public class CourseOnlineRestController {
 
             List<CauHoi> mucLucCauHoi = cauHoiService.findByMucLuc(mucLuc.getId());
             listCauHoi.addAll(mucLucCauHoi);
+
+           
         }
 
         response.setVideoKhoaHoc(listVideo);
