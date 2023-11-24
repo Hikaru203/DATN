@@ -1,5 +1,7 @@
 package com.fpoly.duantotnghiep.API.ClientRest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,5 +39,10 @@ public class TienDoKhoaHocRestController {
             return null;
 
         }
+    }
+
+    @GetMapping
+    public List<DangKyKhoaHoc> findAll() {
+        return dangKyKhoaHocService.findAll();
     }
 }

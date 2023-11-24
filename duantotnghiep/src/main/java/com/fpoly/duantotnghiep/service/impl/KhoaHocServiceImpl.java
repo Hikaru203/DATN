@@ -32,18 +32,14 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 	}
 
 	@Override
-	public List<KhoaHoc> getKhoaHocByLoai(String loaiKhoaHoc) {
-		return khoaHocRepository.findByLoai(loaiKhoaHoc);
+	public List<KhoaHoc> getKhoaHocByLoai(Integer loaiKhoaHoc) {
+		return khoaHocRepository.findByLoaiKhoaHocId(loaiKhoaHoc);
 	}
     @Override
     public List<String> findAllTenKhoaHoc() {
         return khoaHocRepository.findAllTenKhoaHoc();
     }
 
-	@Override
-	public List<KhoaHoc> getDanhSachDaDang(String tenKhoaHoc) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'getDanhSachDaDang'");
-	}
+	
 }
 

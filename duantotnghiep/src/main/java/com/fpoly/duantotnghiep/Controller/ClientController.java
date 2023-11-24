@@ -177,13 +177,6 @@ public class ClientController {
         return "detail";
     }
 
-    @GetMapping("/courseOnline/uploadKhoaHoc")
-    public String uploadKhoaHoc(Model model) {
-        List<LoaiKhoaHoc> loaiKhoaHocs=loaiKhoaHocRepository.findAll();
-        model.addAttribute("tenKhoaHocList", loaiKhoaHocs);
-        return "uploadKhoaHoc";
-    }
-
     @GetMapping("/courseOnline/about")
     public String about(){
         return "about";

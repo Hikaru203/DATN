@@ -17,9 +17,6 @@ public interface KhoaHocService {
  
 	List<String> findAllTenKhoaHoc();
 
-	// Thêm phương thức mới
-    List<KhoaHoc> getDanhSachDaDang(String tenKhoaHoc);
-
-	List<KhoaHoc> getKhoaHocByLoai(String loaiKhoaHoc);
+	List<KhoaHoc> getKhoaHocByLoai(Integer loaiKhoaHoc);
 	
 }

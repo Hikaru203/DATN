@@ -41,7 +41,7 @@ public class KhoaHocClientRestController {
         }
     }
     @GetMapping("/byLoai/{loai}")
-    public List<KhoaHoc> getKhoaHocByLoai(@PathVariable String loai) {
+    public List<KhoaHoc> getKhoaHocByLoai(@PathVariable Integer loai) {
         return khoaHocService.getKhoaHocByLoai(loai);
     }
      
