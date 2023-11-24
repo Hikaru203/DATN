@@ -57,15 +57,16 @@ public class CourseOnlineRestController {
         ArrayList<CauHoi> listCauHoi = new ArrayList<>();
         KhoaHoc khoaHoc = daoHocService.findById(id);
         List<MucLuc> list = mucLucService.findByKhoaHoc(id);
-        
         for (MucLuc mucLuc : list) {
-            List<VideoKhoaHoc> mucLucVideos = videoService.findByMuHocId(mucLuc.getId());
+            List<VideoKhoaHoc> mucLucVideos = videoService.findByMucHocId(mucLuc.getId());
             listVideo.addAll(mucLucVideos);
 
             List<CauHoi> mucLucCauHoi = cauHoiService.findByMucLuc(mucLuc.getId());
             listCauHoi.addAll(mucLucCauHoi);
+
+           
         }
-        
+
         response.setVideoKhoaHoc(listVideo);
         response.setCourseOnline(khoaHoc);
         response.setMucLuc(list);
@@ -81,13 +82,12 @@ public class CourseOnlineRestController {
 
     @GetMapping()
     public List<DangKyKhoaHoc> getAll() {
-        return dangKyKhoaHocService.findAll();	
+        return dangKyKhoaHocService.findAll();
     }
 
     @GetMapping("/check/{idNguoiDung}/{idKhoaHoc}")
     public DangKyKhoaHoc check(@PathVariable("idNguoiDung") int idNguoiDung, @PathVariable("idKhoaHoc") int idKhoaHoc) {
         return dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(idNguoiDung, idKhoaHoc);
     }
-    
 
 }
