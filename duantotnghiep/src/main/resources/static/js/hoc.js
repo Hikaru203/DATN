@@ -75,7 +75,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             console.log($scope.hoc);
             $scope.checkCourse(value, idKhoaHoc);
             $scope.showTaiLieu(idKhoaHoc);
-
+				
         }, function (response) {
             console.log(response);
         });
