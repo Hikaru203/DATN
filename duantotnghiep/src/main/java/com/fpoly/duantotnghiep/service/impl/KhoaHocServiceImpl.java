@@ -20,6 +20,10 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 	public List<KhoaHoc> findAll() {
 		return khoaHocRepository.findAll();
 	}
+	@Override
+	public List<KhoaHoc> findDuyet() {
+		return khoaHocRepository.findByDuyet();
+	}
 
 	@Override
 	public KhoaHoc findByKhoaHocId(Integer id) {
@@ -51,12 +55,21 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 
 	@Override
     public KhoaHoc update(KhoaHoc khoaHoc) {
-        // Kiểm tra xem Brand có tồn tại trong cơ sở dữ liệu không
+        // Kiểm tra xem  có tồn tại trong cơ sở dữ liệu không
         KhoaHoc existingBrand = khoaHocRepository.findById(khoaHoc.getId());
         if (existingBrand != null) {
+			existingBrand.setTenKhoaHoc(khoaHoc.getTenKhoaHoc());
+			existingBrand.setChiPhi(khoaHoc.getChiPhi());
+			existingBrand.setMoTa(khoaHoc.getMoTa());
+			if(khoaHoc.getHinhAnh()!=null){
+				existingBrand.setHinhAnh(khoaHoc.getHinhAnh());
+			}
+			if(khoaHoc.isDuyet()!=existingBrand.isDuyet()){
+				existingBrand.setDuyet(khoaHoc.isDuyet());
+			}
             return khoaHocRepository.save(existingBrand);
         } else {
-            // Nếu Brand không tồn tại, không thực hiện cập nhật và trả về null hoặc thông báo lỗi tùy vào logic ứng dụng của bạn
+            // Nếu  không tồn tại, không thực hiện cập nhật và trả về null hoặc thông báo lỗi tùy vào logic ứng dụng của bạn
             return null;
         }
     }

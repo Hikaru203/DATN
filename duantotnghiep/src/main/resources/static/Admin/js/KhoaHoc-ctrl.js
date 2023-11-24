@@ -1,6 +1,7 @@
 var app = angular.module("myApp", []);
 app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
     $scope.itemsKhoaHoc = [];
+    $scope.itemsKenhKhoaHoc = [];
     $scope.formKhoaHoc = {};
     $scope.courses = []; // Mảng để lưu trữ các khóa học
     $scope.nguoiTao = [];
@@ -17,11 +18,7 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
                 }
                 
             } 
-
-               
-
         });
-
 
         // load Khóa học
         $http.get("/rest/admin/KhoaHoc").then(resp => {
@@ -35,7 +32,17 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
             $('#table').bootstrapTable('load', $scope.itemsKhoaHoc);
         });
 
+        // load kênh Khóa học
+        $http.get("/rest/admin/KhoaHoc/Duyet").then(resp => {
+            // Chuyển đổi ngày giờ sang múi giờ Việt Nam
+            resp.data.forEach(item => {
+                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD HH:mm:ss');
+            });
 
+            $scope.itemsKenhKhoaHoc = resp.data;
+            console.log($scope.itemsKenhKhoaHoc)
+            $('#table').bootstrapTable('load', $scope.itemsKenhKhoaHoc);
+        });
     }
 
     // Khởi đầu
@@ -104,20 +111,39 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
     }
      // Cập nhật 
      $scope.updateKhoaHoc = function () {
-            var item = angular.copy($scope.formKhoaHoc);
-            item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD');
-            $http.put(`/rest/admin/KhoaHoc/${item.id}`, item).then(resp => {
-                var index = $scope.itemsKhoaHoc.findIndex(
-                    p => p.id == item.id);
-                $scope.itemsKhoaHoc[index] = item;
-                alert("Cập nhật sản phẩm thành công!");
+        var item = angular.copy($scope.formKhoaHoc);
+        item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD');
+        $http.put(`/rest/admin/KhoaHoc/${item.id}`, item).then(resp => {
+            var index = $scope.itemsKhoaHoc.findIndex(
+                p => p.id == item.id);
+            $scope.itemsKhoaHoc[index] = item;
+            alert("Cập nhật sản phẩm thành công!");
+        })
+        .catch(error => {
+                alert("Lỗi cập nhật sản phẩm!");
+                console.log("Error", error)
             })
-            .catch(error => {
-                    alert("Lỗi cập nhật sản phẩm!");
-                    console.log("Error", error)
-                })
-        
-    }
+    
+}
+    
+     // Duyệt khóa học
+     $scope.duyet = function (items) {
+        var item = angular.copy(items);
+        item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD');
+        item.duyet = true;
+        $http.put(`/rest/admin/KhoaHoc/${item.id}`, item).then(resp => {
+            var index = $scope.itemsKenhKhoaHoc.findIndex(
+                p => p.id == item.id);
+            $scope.itemsKenhKhoaHoc[index] = item;
+            alert("Cập nhật sản phẩm thành công!");
+        })
+        .catch(error => {
+                alert("Lỗi cập nhật sản phẩm!");
+                console.log("Error", error)
+            })
+    
+}
+
 
     $scope.pager = {
         page: 0,
@@ -129,6 +155,38 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
 
         get count() {
             return Math.ceil(1.0 * $scope.itemsKhoaHoc.length / this.size);
+        },
+
+        first() {
+            this.page = 0;
+        },
+        prev() {
+            this.page--;
+            if (this.page < 0) {
+                this.last();
+            }
+        },
+        next() {
+            this.page++;
+            if (this.page >= this.count) {
+                this.first();
+            }
+        },
+        last() {
+            this.page = this.count - 1;
+        }
+    }
+//Chuyển trang kênh khóa học
+    $scope.trang = {
+        page: 0,
+        size: 5,
+        get itemsKenhKhoaHoc() {
+            var start = this.page * this.size;
+            return $scope.itemsKenhKhoaHoc.slice(start, start + this.size);
+        },
+
+        get count() {
+            return Math.ceil(1.0 * $scope.itemsKenhKhoaHoc.length / this.size);
         },
 
         first() {
