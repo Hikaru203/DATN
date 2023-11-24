@@ -126,7 +126,7 @@ app.controller('DanhGia-BinhLuan-ctrl', function ($scope, $http, $window) {
             window.location.href = 'http://localhost:8080/courseOnline/dangnhap';
         } else {
             // Lấy thông tin khóa học
-            $http.get('/rest/admin/KhoaHoc' + id)
+            $http.get('/rest/admin/KhoaHoc/' + id)
                 .then(function (response) {
                     $scope.DienDanThem.khoaHoc = response.data;
 

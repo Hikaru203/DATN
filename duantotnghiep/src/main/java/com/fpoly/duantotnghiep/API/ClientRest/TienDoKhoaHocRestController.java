@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +31,22 @@ public class TienDoKhoaHocRestController {
         DangKyKhoaHoc dangKyKhoaHoc = dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(id, idkhoahoc);
         try {
             dangKyKhoaHoc.setTienDo(idvideo + "/" + tienDo);
+            return dangKyKhoaHocService.save(dangKyKhoaHoc);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+            return null;
+
+        }
+    }
+
+    @PutMapping("/upload/{id}/{idkhoahoc}/{trangthai}")
+    public DangKyKhoaHoc updateTienDoKhoaHoc2(@PathVariable int id, @PathVariable int idkhoahoc,
+            @PathVariable String trangthai) {
+        DangKyKhoaHoc dangKyKhoaHoc = dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(id, idkhoahoc);
+        System.out.println(dangKyKhoaHoc);
+        try {
+            dangKyKhoaHoc.setTrangThai(trangthai);
             return dangKyKhoaHocService.save(dangKyKhoaHoc);
         } catch (Exception e) {
             // TODO: handle exception

@@ -148,19 +148,21 @@ public class ClientController {
         }
 
         model.addAttribute("danhGiaList2", danhGiaList2);
-        System.out.println(danhGiaList2.get(0)[0]);
+       
         model.addAttribute("danhGiaList", danhGiaList);
-        System.out.println(danhGiaList.get(0)[0]);
+        
         model.addAttribute("list", courseCountList);
-        System.out.println(courseCountList.get(0)[0]);
+       
 
         model.addAttribute("courseOnline", page);
 
         return "index";
     }
 
-    @GetMapping("/courseOnline/tracnghiem")
-    public String tracngiem() {
+    @GetMapping("/courseOnline/tracnghiem/{id}")
+    public String tracngiem(@PathVariable("id") String id, Model model) {
+        // Truyền id vào model để sử dụng trong view
+        model.addAttribute("id", id);
         return "tracnghiem";
     }
 

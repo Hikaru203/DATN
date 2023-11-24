@@ -1,11 +1,19 @@
 package com.fpoly.duantotnghiep.Controller;
 
+import java.io.UnsupportedEncodingException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.fpoly.duantotnghiep.Entity.NguoiDung;
+
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class AdminController {
-
+@Autowired
+    HttpSession httpSession;
     @GetMapping("/Admin/KenhKhoaHoc")
     public String KenhKhoaHoc() {
         return "Admin/KenhKhoaHoc";

@@ -12,7 +12,6 @@ import com.fpoly.duantotnghiep.Entity.ThanhToan;
 import com.fpoly.duantotnghiep.jparepository.ThanhToanRepository;
 import com.fpoly.duantotnghiep.service.ThanhToanService;
 
-
 @RestController
 @RequestMapping("/api/Checkout")
 public class CheckoutRestController {
@@ -20,17 +19,17 @@ public class CheckoutRestController {
     private ThanhToanService thanhToanService;
     @Autowired
     ThanhToanRepository thanhToanRepository;
-    
-    @GetMapping("/check/{idNguoiDung}")
-    public ThanhToan check(@PathVariable("idNguoiDung") int idNguoiDung) {
-    	 	List<ThanhToan> thanhToanList = thanhToanRepository.findByNguoiDungId(idNguoiDung);
 
-    	    // Lấy bản ghi đầu tiên từ danh sách hoặc trả về null nếu danh sách rỗng
-    	    ThanhToan thanhToan = thanhToanList.isEmpty() ? null : thanhToanList.get(0);
+    @GetMapping("/check/{idNguoiDung}/{idKhoaHoc}")
+    public ThanhToan check(@PathVariable("idNguoiDung") int idNguoiDung, @PathVariable("idKhoaHoc") int idKhoaHoc) {
+        List<ThanhToan> thanhToanList = thanhToanRepository.findByNguoiDungIdAndKhoaHocId(idNguoiDung, idKhoaHoc);
 
-    	    // hoặc sử dụng phương thức findFirst
-    	    // ThanhToan thanhToan = thanhToanList.stream().findFirst().orElse(null);
+        // Lấy bản ghi đầu tiên từ danh sách hoặc trả về null nếu danh sách rỗng
+        ThanhToan thanhToan = thanhToanList.isEmpty() ? null : thanhToanList.get(0);
 
-    	    return thanhToan;
+        // hoặc sử dụng phương thức findFirst
+        // ThanhToan thanhToan = thanhToanList.stream().findFirst().orElse(null);
+
+        return thanhToan;
     }
 }

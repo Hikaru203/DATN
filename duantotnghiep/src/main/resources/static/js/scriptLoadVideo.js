@@ -1,6 +1,7 @@
 const app = angular.module('loadVideo-app', ['ngCookies']);
 const videoPlaylist = document.querySelector('.video-playlist .videos');
 let videoIframe;
+let idMucluc;
 
 app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', function ($scope, $http, $cookies, $window) {
     $scope.items = [];
@@ -9,6 +10,20 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         $window.sessionStorage.setItem('videoId', id);
         $window.location.href = '/courseOnline/video';
     }
+
+    $scope.setid = function (id) {
+        $window.sessionStorage.setItem('MucLuc', id);
+    }
+
+
+
+
+    // Lấy giá trị từ sessionStorage
+    var idFromSessionStorage = $window.sessionStorage.getItem('MucLuc');
+
+    // Sử dụng giá trị lấy được từ sessionStorage theo nhu cầu của bạn trong mã JavaScript của AngularJS
+    // Ví dụ:
+    console.log("Giá trị từ sessionStorage là: " + idFromSessionStorage);
 
     // Lấy URL hiện tại
     var currentURL = window.location.href;
@@ -88,11 +103,11 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             let videoIframe = document.getElementById('video-iframe');
             let videoSrc;
             if (VideoId) {
-                videoSrc = `https://www.youtube-nocookie.com/embed/${VideoId}?start=${timeInt}&modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=0&autoplay=1`;
+                videoSrc = `https://www.youtube-nocookie.com/embed/${VideoId}?start=${timeInt}&modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1`;
             } else {
-                videoSrc = `https://www.youtube-nocookie.com/embed/${match_video.linkVideo}?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=0&autoplay=1`;
+                videoSrc = `https://www.youtube-nocookie.com/embed/${match_video.linkVideo}?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1`;
             }
-
+            console.log(match_video.mucLuc.id);
             videoIframe.src = videoSrc;
             videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
             videoIframe.setAttribute("allowfullscreen", "");
@@ -114,9 +129,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
                                         var tienDo = (VideoId || match_video.linkVideo) + "/" + currentTime;
                                         idVideo = current_player.playerInfo.videoData.video_id;
-                                        console.log(idVideo);
                                         $http.put('/api/tiendokhoahoc/' + value + '/' + idKhoaHoc + '/' + idVideo + '/' + currentTime).then(function (response) {
-                                            console.log(response);
                                         }, function (response) {
                                             console.log(response);
                                         });
@@ -153,9 +166,8 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                                 }
                             },
                             'onReady': function (event) {
-                                if (Time) {
-                                    console.log("Seek to:", Time);
-                                }
+                                event.target.pauseVideo();
+                                event.target.playVideo();
                             }
                         }
                     });
@@ -164,14 +176,24 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
             // Lấy thứ tự video đang phát dựa trên current_player.playerInfo.videoData.video_id
             if (VideoId) {
-                currentVideoIndex = $scope.data.findIndex(video => video.linkVideo === VideoId);
-                currentIndex = currentVideoIndex;
+                const currentVideoIndex = $scope.data.findIndex(video => video.linkVideo === VideoId);
+                if (currentVideoIndex !== -1) {
+                    currentIndex = currentVideoIndex;
+                    console.log($scope.data[currentIndex].mucLuc.id); // Xuất thông tin của video hiện tại
+                    $scope.setid($scope.data[currentIndex].mucLuc.id);
+                    var idFromSessionStorage = $window.sessionStorage.getItem('MucLuc');
+
+                    console.log(idFromSessionStorage + ' idFromSessionStorage');
+                } else {
+                    console.log('Không tìm thấy video với ID đã cung cấp.');
+                }
             }
+
 
             videos.forEach((video, index) => {
                 video.classList.remove('active');
                 video.querySelector('img').src = '/img/play.svg';
-
+                console.log(index);
                 if (index === currentIndex) {
                     video.classList.add('active');
                     video.querySelector('img').src = '/img/pause.svg';
@@ -204,9 +226,20 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             $http.get('/api/tiendokhoahoc/' + value + '/' + idKhoaHoc).then(function (response) {
                 $scope.tiendokhoahoc = response.data;
                 console.log($scope.tiendokhoahoc.tienDo + "tiendokhoahoc");
+
+
                 if ($scope.tiendokhoahoc.tienDo != 0) {
                     const input = $scope.tiendokhoahoc.tienDo;
+                    console.log(idFromSessionStorage);
+                    const previousURL = document.referrer;
+                    console.log(previousURL);
+                    if (previousURL.includes('tracnghiem')) {
+                        // Nếu có, thực hiện các hành động cần thiết ở đây
+                        const { videoId, time } = extractVideoIdAndTime(input);
+                        changeVideo(firstVideo, videos, $scope, videoId, time);
 
+                        return;
+                    }
                     let needConfirmation = true; // Biến kiểm tra cần hiển thị hộp thoại hay không
 
                     // Kiểm tra điều kiện nếu cần hiển thị hộp thoại
@@ -229,31 +262,24 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
                         yesButton.addEventListener('click', function () {
                             overlay.style.display = 'none';
-                            console.log('Tiếp tục học');
                             const { videoId, time } = extractVideoIdAndTime(input);
-                            console.log('Video ID:', videoId);
-                            console.log('Thời gian:', time);
                             changeVideo(firstVideo, videos, $scope, videoId, time);
+                            console.log(videoId);
+
                         });
 
                         noButton.addEventListener('click', function () {
                             overlay.style.display = 'none';
-                            console.log('Không tiếp tục học');
                             const { videoId, time } = extractVideoIdAndTime(input);
-                            console.log('Video ID:', videoId);
-                            console.log('Thời gian:', time);
                             changeVideo(firstVideo, videos, $scope);
                         });
                     } else {
                         // Nếu không cần hiển thị hộp thoại, thực hiện các hành động khác trực tiếp
                         const { videoId, time } = extractVideoIdAndTime(input);
-                        console.log('Video ID:', videoId);
-                        console.log('Thời gian:', time);
                         changeVideo(firstVideo, videos, $scope, videoId, time);
                     }
                 } else {
                     firstVideo = videos[0];
-                    console.log('Video ID:', firstVideo.dataset.id);
                     changeVideo(firstVideo, videos, $scope);
                 }
 
@@ -321,12 +347,10 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         var url = `/rest/loadVideo/get-video-id/${storedId}`;
         $http.get(url).then(response => {
             $scope.data = response.data;
-            console.log($scope.data);
 
             videoPlaylist.innerHTML = ''; // Clear the playlist before adding new videos
 
             $scope.data.forEach((video, i) => {
-                console.log(video);
                 let video_element = `
                     <div class="video" data-id="${video.id}" data-disabled="true">
                         <img src="/img/play.svg" alt="">
@@ -353,31 +377,60 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
     nextVideoButton.addEventListener('click', function () {
         currentIndex++;
-        if (currentIndex < $scope.data.length) {
-            loadNextVideo();
-        } else {
-            // Chuyển đến trang trắc nghiệm khi ở video cuối cùng
-            redirectToQuizPage();
-        }
+        $http.get('/api/courseOnline/detail/' + idKhoaHoc).then(function (response) {
+            $scope.hoc = response.data;
+            idKhoaHoc = $scope.hoc.courseOnline.id;
+
+            if ($scope.hoc && $scope.hoc.mucLuc && $scope.hoc.videoKhoaHoc[currentIndex]) {
+                // Nếu $scope.hoc tồn tại và có thuộc tính mucLuc
+                // Thực hiện các hành động cần thiết ở đây
+                // Ví dụ:
+                console.log($scope.hoc.mucLuc); // Truy cập thuộc tính mucLuc
+            } else {
+                // Nếu $scope.hoc không tồn tại hoặc không có thuộc tính mucLuc
+                // Xử lý lỗi hoặc thực hiện các hành động phù hợp với trường hợp này
+                redirectToQuizPage($scope.hoc.videoKhoaHoc[currentIndex - 1].mucLuc.khoaHoc.id);
+                return;
+            }
+            console.log($scope.hoc.videoKhoaHoc[currentIndex - 1].mucLuc.id);
+            $scope.setid($scope.hoc.videoKhoaHoc[currentIndex - 1].mucLuc.id);
+            idMucluc = $scope.hoc.videoKhoaHoc[currentIndex - 1].mucLuc.id;
+            console.log($scope.hoc);
+
+            if ($scope.hoc.videoKhoaHoc[currentIndex].mucLuc.id != $scope.hoc.videoKhoaHoc[currentIndex - 1].mucLuc.id) {
+                $http.put('/api/tiendokhoahoc/' + value + '/' + idKhoaHoc + '/' + $scope.hoc.videoKhoaHoc[currentIndex].linkVideo + '/' + 1).then(function (response) {
+                }, function (response) {
+                    console.log(response);
+                });
+                redirectToQuizPage($scope.hoc.videoKhoaHoc[currentIndex].mucLuc.khoaHoc.id);
+            } else {
+                if (currentIndex < $scope.data.length) {
+                    loadNextVideo($scope.hoc.videoKhoaHoc[currentIndex].mucLuc.khoaHoc.id);
+                }
+            }
+
+        }, function (response) {
+            console.log(response);
+        });
     });
 
     prevVideoButton.addEventListener('click', function () {
         currentIndex--;
         loadPrevVideo();
+        console.log(currentIndex);
     });
 
 
 
-    function redirectToQuizPage() {
+    function redirectToQuizPage(idKhoaHoc) {
         // Thay đổi URL hoặc thực hiện hành động cụ thể để chuyển đến trang trắc nghiệm
-        window.location.href = '/tracnghiem'; // Ví dụ: chuyển đến trang trắc nghiệm
+        window.location.href = '/courseOnline/tracnghiem/' + idKhoaHoc; // Ví dụ: chuyển đến trang trắc nghiệm
     }
 
 
 }]);
 
 function onPageReady() {
-    console.log("Page is ready");
     videoIframe = document.getElementById('video-iframe');
 }
 
@@ -392,7 +445,6 @@ function extractVideoDuration(videoId) {
         .then(data => {
             const duration = data.items[0].contentDetails.duration;
             const durationInSeconds = parseISO8601DurationToSeconds(duration);
-            console.log(`Tổng thời gian của video (giây): ${durationInSeconds}`);
         })
         .catch(error => {
             console.error(error);

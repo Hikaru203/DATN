@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "thanh_toan")
@@ -21,6 +22,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+
+@ToString
 public class ThanhToan {
 
     @Id
@@ -37,7 +40,7 @@ public class ThanhToan {
     private NguoiDung nguoiDung;
 
     @Column(name = "tong_tien")
-    private float tongTien;
+    private double tongTien;
 
     @Column(name = "thoi_gian")
     private Date thoiGian;
@@ -45,5 +48,12 @@ public class ThanhToan {
     @Column(name = "trang_thai")
     private boolean trangThai;
 
+    @Column(name = "loai_thanh_toan")
+    private String loaiThanhToan;
     // Constructors, getters, and setters
+    
+	private String currency;
+	private String method;
+	private String intent;
+	private String description;
 }

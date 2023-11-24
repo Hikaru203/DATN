@@ -1430,18 +1430,86 @@
                     &lt;&lt;
                 </button>
             </div>
+            <style>
+                .certificate-frame {
+                    margin: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
 
-            <div class="certificate-frame" ng-repeat="certificate in itemsChungChi" ng-show="currentIndex === $index">
-                <img class="certificate-image" th:src="@{Admin/img/logo/logo.png}" alt="Certificate Image">
-                <div class="certificate-details">
-                    <h3>Chứng chỉ học</h3>
-                    <div style="text-align: left;">
-                        <p>Tên chứng chỉ: {{certificate.khoaHoc.tenKhoaHoc}}</p>
-                        <p>Người nhận: {{certificate.nguoiDung.hoTen}}</p>
-                        <p>Loại: {{certificate.bangLoai}}</p>
-                        <p>Ngày hoàn thành: {{certificate.ngayCapFormatted}}</p>
+                .certificate-container {
+                    border: 8px solid #3498db;
+                    padding: 60px;
+                    border-radius: 30px;
+                    background-color: #f8f9fa;
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                    width: 600px;
+                }
+
+                .header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 40px;
+                }
+
+                .logo {
+                    max-width: 120px;
+                    margin-right: 20px;
+                }
+
+                .school-name {
+                    font-size: 32px;
+                    color: #3498db;
+                    margin: 0;
+                }
+
+                .certificate-details {
+                    color: #333;
+                }
+
+                .certificate-title {
+                    font-size: 28px;
+                    margin-bottom: 30px;
+                }
+
+                .details {
+                    text-align: left;
+                    font-size: 20px;
+                    line-height: 1.6;
+                }
+
+                .signature {
+                    margin-top: 40px;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .signature p {
+                    margin-right: 20px;
+                    font-size: 20px;
+                }
+
+                .signature-image {
+                    max-width: 150px;
+                }
+            </style>
+            <div ng-repeat="certificate in itemsChungChi" ng-show="currentIndex === $index">
+                <div class="certificate-container">
+                    <div class="header">
+                        <img class="logo" th:src="@{Admin/img/logo/logo.png}" alt="PolyAcademy Logo">
+                        <h2 class="school-name">PolyAcademy</h2>
                     </div>
-                    <!-- Thêm các thông tin khác liên quan đến chứng chỉ học -->
+                    <div class="certificate-details">
+                        <h3 class="certificate-title">Chứng chỉ học</h3>
+                        <div class="details">
+                            <p class="info">Tên chứng chỉ: {{certificate.khoaHoc.tenKhoaHoc}}</p>
+                            <p class="info">Người nhận: {{certificate.nguoiDung.hoTen}}</p>
+                            <p class="info">Ngày hoàn thành: {{certificate.ngayCapFormatted}}</p>
+                            <!-- Các thông tin khác liên quan đến chứng chỉ học -->
+                        </div>
+                    </div>
                 </div>
             </div>
 

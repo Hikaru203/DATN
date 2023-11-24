@@ -219,9 +219,7 @@
                 </button>
 
                 <!-- Course Image -->
-
             </div>
-
         </div>
         <br>
         <div class="row px-xl-5">
@@ -231,7 +229,12 @@
                         <!-- Replace the tab title with your actual tab title -->
                         <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Mục lục</a>
                         <a class="nav-item nav-link text-dark " data-toggle="tab" href="#tab-pane-2">Đánh giá</a>
-
+                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3" ng-if="check">Tài
+                            liệu</a>
+                        <!-- Giả sử giá trị 'Đã hoàn thành' được lưu trong biến trangThai -->
+                        <!-- Sử dụng AngularJS để kiểm tra và hiển thị mã HTML -->
+                        <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-4"
+                            ng-if="trangThai === 'Đã hoàn thành'">Chứng chỉ</a>
                     </div>
                     <div class="tab-content">
                         <style>
@@ -590,6 +593,107 @@
                         </script>
 
                         <!-- Add content for additional tabs here -->
+                        <div class="tab-pane fade" id="tab-pane-3">
+                            <!-- Replace the course content with the actual course content -->
+                            <div ng-repeat="taiLieu in tailieu">
+                                <ul>
+                                    <li>{{ taiLieu.tenSlide }} <a href="#"
+                                            ng-click="downloadPDF(taiLieu.tenFile, taiLieu.tenSlide)">Tải file PDF</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+                        <style>
+                            .certificate-frame {
+                                margin: 20px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                            }
+
+                            .certificate-container {
+                                border: 8px solid #3498db;
+                                padding: 60px;
+                                border-radius: 30px;
+                                background-color: #f8f9fa;
+                                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                                width: 600px;
+                            }
+
+                            .header {
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                margin-bottom: 40px;
+                            }
+
+                            .logo {
+                                max-width: 120px;
+                                margin-right: 20px;
+                            }
+
+                            .school-name {
+                                font-size: 32px;
+                                color: #3498db;
+                                margin: 0;
+                            }
+
+                            .certificate-details {
+                                color: #333;
+                            }
+
+                            .certificate-title {
+                                font-size: 28px;
+                                margin-bottom: 30px;
+                            }
+
+                            .details {
+                                text-align: left;
+                                font-size: 20px;
+                                line-height: 1.6;
+                            }
+
+                            .signature {
+                                margin-top: 40px;
+                                display: flex;
+                                align-items: center;
+                            }
+
+                            .signature p {
+                                margin-right: 20px;
+                                font-size: 20px;
+                            }
+
+                            .signature-image {
+                                max-width: 150px;
+                            }
+                        </style>
+                        <div class="tab-pane fade" id="tab-pane-4">
+                            <!-- Replace the course content with the actual course content -->
+                            <div class="certificate-frame" ng-repeat="chungChi in chungChiList">
+                                <div class="certificate-container">
+                                    <div class="header">
+                                        <img class="logo" th:src="@{Admin/img/logo/logo.png}" alt="PolyAcademy Logo">
+                                        <h2 class="school-name">PolyAcademy</h2>
+                                    </div>
+                                    <div class="certificate-details">
+                                        <h3 class="certificate-title">Chứng chỉ học</h3>
+                                        <div class="details">
+                                            <p class="info">Tên chứng chỉ: {{chungChi.khoaHoc.tenKhoaHoc}}</p>
+                                            <p class="info">Người nhận: {{chungChi.nguoiDung.hoTen}}</p>
+                                            <p class="info">Ngày hoàn thành: {{chungChi.ngayCapFormatted}}</p>
+                                            <!-- Các thông tin khác liên quan đến chứng chỉ học -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
 
                     </div>
                 </div>
@@ -690,6 +794,8 @@
                 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
                 <script src="/lib/easing/easing.min.js"></script>
                 <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
                 <!-- Customized Bootstrap Scripts -->
                 <script th:src="@{/js/main.js}"></script>
                 <script th:src="@{/js/hoc.js}"></script>
