@@ -11,7 +11,7 @@ public interface KhoaHocService {
 
 
 	List<KhoaHoc> findAll();
-
+	List<KhoaHoc> findDuyet();
 	KhoaHoc findByKhoaHocId(Integer id);
 
 	KhoaHoc findById(int id);
