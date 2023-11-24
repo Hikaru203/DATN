@@ -37,9 +37,6 @@ public class ChungChi {
     @JoinColumn(name = "id_khoa_hoc")
     private KhoaHoc khoaHoc;
 
-    @Column(name = "bang_loai")
-    private String bangLoai;
-
     @Column(name = "ngay_cap")
     private Date ngayCap;
 

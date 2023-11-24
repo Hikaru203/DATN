@@ -96,6 +96,7 @@ public class CheckOutController {
 		} else {
 			session.setAttribute("idNguoiDung", idNguoiDung);
 			session.setAttribute("idKhoaHoc", idKhoaHoc);
+			session.setAttribute("totalprice", orderTotal);
 			return "redirect:" + vnpayUrl;
 		}
 

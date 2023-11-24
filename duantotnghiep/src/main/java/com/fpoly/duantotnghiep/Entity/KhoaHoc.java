@@ -50,7 +50,7 @@ public class KhoaHoc {
     private NguoiDung nguoiTao;
 
     @Column(name = "chi_phi")
-    private BigDecimal chiPhi;
+    private double chiPhi;
 
     @Column(name = "duyet")
     private boolean duyet;

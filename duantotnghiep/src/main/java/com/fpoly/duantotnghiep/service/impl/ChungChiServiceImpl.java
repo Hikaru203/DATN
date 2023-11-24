@@ -34,4 +34,9 @@ public class ChungChiServiceImpl implements ChungChiService {
         return chungChiRepository.findByKhoaHocIdAndNguoiDungId(idKhoaHoc, idNguoiDung);
     }
 
+    @Override
+    public ChungChi save(ChungChi chungChi) {
+        return chungChiRepository.save(chungChi);
+    }
+
 }
