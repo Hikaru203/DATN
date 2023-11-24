@@ -148,11 +148,11 @@ public class ClientController {
         }
 
         model.addAttribute("danhGiaList2", danhGiaList2);
-        System.out.println(danhGiaList2.get(0)[0]);
+       
         model.addAttribute("danhGiaList", danhGiaList);
-        System.out.println(danhGiaList.get(0)[0]);
+        
         model.addAttribute("list", courseCountList);
-        System.out.println(courseCountList.get(0)[0]);
+       
 
         model.addAttribute("courseOnline", page);
 

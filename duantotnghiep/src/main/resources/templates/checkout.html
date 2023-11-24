@@ -197,7 +197,7 @@
 <div class="ac">
   <h2 class="ac-header">
     <button class="ac-trigger" onclick="toggleRadio('acceptTerms2')">
-      <input type="radio" id="acceptTerms2" value="zalo" name="paymentMethod"> <!-- Thêm radio button này -->
+      <input type="radio" id="acceptTerms2" value="paypal" name="paymentMethod"> <!-- Thêm radio button này -->
       <img src="/staticx/udemy/images/v9/card-default.svg" alt="Card" width="300" height="112" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
       Thẻ tín dụng / Thẻ ghi nợ
     </button>
@@ -212,6 +212,7 @@
       Ví VNPAY là ví điện tử gia đình, cho phép người dùng mở thêm ví thành viên cho người thân. 
       Ví VNPAY sở hữu hệ sinh thái tiện ích đa dạng đáp ứng đầy đủ nhu cầu thanh toán của người dùng mọi lúc, mọi nơi
     </p>
+    <input type="text" id="description" name="description" placeholder="Miêu tả" style="width: 100%;">
     <br>
   </div>
 </div>
@@ -297,14 +298,18 @@
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Tổng tiền</h5>
-                            <h5>{{hoc.courseOnline.chiPhi*0.012}}</h5>
+                            <h5>{{hoc.courseOnline.chiPhi*0.88}}</h5>
                              <!-- các input để lấy thông tin đưa vào api và csdl -->
-                            <input type="hidden" class="form-control" id="amount" name="amount" required value="{{hoc.courseOnline.chiPhi*0.012}}"> 
+                            <input type="hidden" class="form-control" id="amount" name="amount" required value="{{hoc.courseOnline.chiPhi*0.88}}"> 
 							<input type="hidden" class="form-control"id="orderInfo" name="orderInfo" required value="{{hoc.courseOnline.tenKhoaHoc}}">		
 							<input type="hidden" class="form-control" id="idKhoaHoc" name="idKhoaHoc" required value="{{hoc.courseOnline.id}}">
 							<input type="hidden" class="form-control" id="idNguoiDung" name="idNguoiDung" required ng-init="getIdNguoiDung()" value="{{idNguoiDung2}}">
 							<input type="hidden" class="form-control" id="tenNguoiDung" name="tenNguoiDung" required ng-init="getIdNguoiDung()" value="{{TenNguoiDung}}">
-
+							
+							<input type="hidden" id="currency" name="currency" placeholder="Enter Currency" value="USD">
+							<input type="hidden" id="method" name="method" placeholder="Payment Method" value="paypal">
+							<input type="hidden" id="intent" name="intent" value="sale">
+							
                         </div>
                     </div>
                     <button class="btn btn-block btn-primary font-weight-bold py-3">Hoàn tất thanh toán</button>
