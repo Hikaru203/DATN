@@ -73,6 +73,10 @@
 
     <!-- Modernizr JS -->
     <script th:src="@{/Admin/js/vendor/modernizr-2.8.3.min.js}"></script>
+    <!-- AngularJS -->
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js}"></script>
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js}"></script>
+
 
     <style>
         .tab {
@@ -109,7 +113,7 @@
 
 </head>
 
-<body>
+<body ng-app="myApp"  ng-controller="revenue-ctrl">
     <!--[if lt IE 8]>
 		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
@@ -1297,12 +1301,12 @@
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                         <div class="white-box analytics-info-cs">
                             <h3 class="box-title">Tổng Doanh Thu Tháng </h3>
-                            <ul class="list-inline two-part-sp">
+                            <ul class="list-inline  ">
                                 <li>
                                     <div id="sparklinedash"></div>
                                 </li>
                                 <li class="text-right sp-cn-r"><i class="fa fa-level-up" aria-hidden="true"></i> <span
-                                        class="counter text-success"><span class="counter">1500</span></span>
+                                        class="counter text-success"><span class="counter">{{ totalRevenue | currency:' ' }} VND</span></span>
                                 </li>
                             </ul>
                         </div>
@@ -1338,6 +1342,32 @@
                 </div>
             </div>
         </div>
+          <!-- Main content -->
+      <section class="content">
+        <!-- /.col-md-6 -->
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header border-0">
+
+            </div>
+            <div class="card-body">
+              <div class="d-flex">
+                <p class="d-flex flex-column">
+                  <span class="text-bold text-lg">{{ totalRevenue | currency:' ' }} VND</span>
+                  <span>Tổng doanh thu</span>
+                </p>
+
+              </div>
+              <!-- /.d-flex -->
+
+              <div class="position-relative mb-4">
+                <canvas id="revenue-chart" height="100"></canvas>
+              </div>
+            </div>
+          </div>
+          <!-- /.card -->
+      </section>
+      <!-- /.content -->
         <div class="tab">
             <button class="tablinks active" onclick="openTab(event, 'tab1')">Tab 1</button>
             <button class="tablinks" onclick="openTab(event, 'tab2')">Tab 2</button>
@@ -1675,6 +1705,9 @@
 
 <!-- Tawk chat JS -->
 <script th:src="@{/Admin/js/tawk-chat.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>s
+<script th:src="@{/Admin/js/ThongKeDoanhThu.js}"></script>
 
 <script>
     function openTab(evt, tabName) {

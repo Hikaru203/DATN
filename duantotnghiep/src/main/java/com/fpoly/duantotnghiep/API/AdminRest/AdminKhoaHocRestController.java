@@ -41,6 +41,10 @@ public class AdminKhoaHocRestController {
     public List<KhoaHoc> getAll() {
         return khoaHocService.findAll();
     }
+    @GetMapping("/Duyet")
+        public List<KhoaHoc> getDuyet() {
+            return khoaHocService.findDuyet();
+        }
 
     @GetMapping("/{id}")
     public KhoaHoc getById(@PathVariable("id") int id) {
