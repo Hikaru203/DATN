@@ -157,6 +157,30 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
 
                     $scope.trangThai = "Đã hoàn thành";
 
+                    $http({
+                        method: 'PUT',
+                        url: '/api/tiendokhoahoc/upload/' + value + '/' + idKhoaHoc + '/' + $scope.trangThai
+                    }).then(function (response) {
+                        console.log("Cập nhật thành công");
+                    });
+
+
+                    $http({
+                        method: 'POST',
+                        url: '/rest/ChungChi',
+                        data: {
+                            id: null,
+                            nguoiDung: {
+                                id: value
+                            },
+                            khoaHoc: {
+                                id: idKhoaHoc
+                            },
+                            ngayCap: new Date(),
+                        }
+                    }).then(function (response) {
+                        console.log("Thêm thành công");
+                    });
                     // Đoạn code để hiển thị hộp thoại prompt
                     var diem = prompt("Vui lòng chọn số điểm (từ 1 đến 5 sao):");
                     var noiDungDanhGia = prompt("Vui lòng nhập nội dung đánh giá:");
@@ -176,6 +200,24 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
 
                             // Các xử lý khác sau khi lưu thông tin đánh giá
                             // ...
+                            $http({
+                                method: 'POST',
+                                url: '/api/danhgia',
+                                data: {
+                                    nguoiDung: {
+                                        id: value
+                                    },
+                                    khoaHoc: {
+                                        id: idKhoaHoc
+                                    },
+                                    soDiemDanhGia: $scope.soDiem,
+                                    noiDung: $scope.noiDungDanhGia,
+                                    ngayDanhGia: new Date(),
+                                }
+                            }).then(function (response) {
+                                console.log("Thêm thành công");
+                                
+                            });
 
                         } else {
                             console.log("Vui lòng nhập số điểm từ 1 đến 5 sao.");
@@ -184,8 +226,8 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
                         console.log("Người dùng đã hủy hoặc không nhập đủ thông tin.");
                     }
 
+                    //window.location.href = '/courseOnline/detail/' + idKhoaHoc; // Ví dụ: chuyển đến trang chi tiết khóa học
 
-                    
                 }
             } else {
                 console.log("Không tìm thấy idFromSessionStorage trong mảng.");
