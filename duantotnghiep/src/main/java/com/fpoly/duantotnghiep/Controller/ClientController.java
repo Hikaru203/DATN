@@ -15,8 +15,10 @@ import com.fpoly.duantotnghiep.Entity.CauHoi;
 import com.fpoly.duantotnghiep.Entity.DangKyKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.DanhGia;
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
+import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.MucLuc;
 import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
+import com.fpoly.duantotnghiep.jparepository.LoaiKhoaHocRepository;
 import com.fpoly.duantotnghiep.service.CauHoiService;
 import com.fpoly.duantotnghiep.service.CookieService;
 import com.fpoly.duantotnghiep.service.DangKyKhoaHocService;
@@ -47,6 +49,9 @@ public class ClientController {
 
     @Autowired
     DanhGiaService danhGiaService;
+
+    @Autowired
+    LoaiKhoaHocRepository loaiKhoaHocRepository;
 
     @GetMapping("/courseOnline/index")
     public String index(Model model) {
@@ -173,7 +178,9 @@ public class ClientController {
     }
 
     @GetMapping("/courseOnline/uploadKhoaHoc")
-    public String uploadKhoaHoc() {
+    public String uploadKhoaHoc(Model model) {
+        List<LoaiKhoaHoc> loaiKhoaHocs=loaiKhoaHocRepository.findAll();
+        model.addAttribute("tenKhoaHocList", loaiKhoaHocs);
         return "uploadKhoaHoc";
     }
 
@@ -193,5 +200,4 @@ public class ClientController {
     public String checkout(){
         return "checkout";
     }
-    
-}
+}   

@@ -13,4 +13,9 @@ public interface KhoaHocRepository extends JpaRepository<KhoaHoc, Integer> {
 
 	 List<KhoaHoc> findAll();
 	KhoaHoc findById(int id);
+
+	@Query("SELECT k.tenKhoaHoc FROM KhoaHoc k")
+    List<String> findAllTenKhoaHoc();
+
+	
 }

@@ -35,5 +35,15 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 	public List<KhoaHoc> getKhoaHocByLoai(String loaiKhoaHoc) {
 		return khoaHocRepository.findByLoai(loaiKhoaHoc);
 	}
+    @Override
+    public List<String> findAllTenKhoaHoc() {
+        return khoaHocRepository.findAllTenKhoaHoc();
+    }
 
+	@Override
+	public List<KhoaHoc> getDanhSachDaDang(String tenKhoaHoc) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'getDanhSachDaDang'");
+	}
 }
+

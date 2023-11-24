@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>ECOURSES - Online Courses HTML Template</title>
+    <title>PolyAcademy</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -184,7 +184,7 @@
     <!-- Header End -->
     <!-- Courses Start -->
     <div class="container">
-        <h1 class="text-center">Đăng Video</h1>
+        <h1 class="text-center">Đăng Video Khoá Học</h1>
         <div class="row">
             <div class="col-md-6">
                 <div class="video-form">
@@ -206,14 +206,12 @@
                             <input type="text" class="form-control" id="videoDate" name="videoDate" required>
                         </div>
                         <div class="form-group">
-                            <label for="courseSelect"><h4>Chọn khoá học:</h4></label>
-                            <select class="form-control" id="courseSelect" name="courseSelect" required>
-                                <option value="course1">Khoá học 1</option>
-                                <option value="course2">Khoá học 2</option>
-                                <option value="course3">Khoá học 3</option>
-                                <!-- Thêm thêm tùy chọn cho các khoá học khác nếu cần -->
+                            <label for="khoaHocSelect"><h4>Chọn khoá học:</h4></label>
+                            <select class="form-control" id="khoaHocSelect" name="khoaHocSelect" required> 
+                                <option th:each="khoaHoc : ${tenKhoaHocList}" th:value="${khoaHoc.id}" th:text="${khoaHoc.tenLoaiKhoaHoc}"></option>
                             </select>
                         </div>
+                        <br><br>                        
                         <button type="submit" class="btn btn-primary">Đăng Video</button>
                     </form>
                 </div>
@@ -229,7 +227,54 @@
                         <img id="preview" src="#" alt="" class="image-container">
                     </div>
                 </div>
+                <br>
+                <div class="course-list" id="danhSachDaDang">
+                    <h4>Danh sách các khoá học đã đăng:</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Khoá học</th>
+                                <th scope="col">Mô tả</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Nơi hiển thị danh sách đã đăng -->
+                        </tbody>
+                    </table>
+                </div>
+                <script>
+                    function loadDanhSachDaDang() {
+                        var selectedKhoaHoc = document.getElementById("khoaHocSelect").value;
+                
+                        // Gửi yêu cầu đến server để lấy danh sách các khoá học đã đăng
+                        // Bạn cần thay đổi đoạn mã này để phản ánh endpoint và cách xử lý yêu cầu trong ứng dụng Spring Boot của bạn
+                        fetch("/api/danhSachDaDang?khoaHoc=" + selectedKhoaHoc)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Xóa nội dung cũ trong bảng
+                                var tbody = document.querySelector("#danhSachDaDang tbody");
+                                tbody.innerHTML = "";
+                
+                                // Hiển thị danh sách mới
+                                data.forEach(khoaHocDaDang => {
+                                    var row = document.createElement("tr");
+                                    var cell1 = document.createElement("td");
+                                    var cell2 = document.createElement("td");
+                
+                                    cell1.textContent = khoaHocDaDang.tenKhoaHoc;
+                                    cell2.textContent = khoaHocDaDang.moTa;
+                
+                                    row.appendChild(cell1);
+                                    row.appendChild(cell2);
+                                    tbody.appendChild(row);
+                                });
+                            })
+                            .catch(error => console.error("Error:", error));
+                    }
+                </script>
+                
             </div>
+            <!-- Thêm phần hiển thị danh sách khoá học sau phần đăng video -->
         </div>
     </div>
     <script>

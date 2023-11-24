@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 
+
 public interface KhoaHocService {
 
 
@@ -13,8 +14,12 @@ public interface KhoaHocService {
 	KhoaHoc findByKhoaHocId(Integer id);
 
 	KhoaHoc findById(int id);
+ 
+	List<String> findAllTenKhoaHoc();
 
-	List<KhoaHoc> getKhoaHocByLoai(String loai);
+	// Thêm phương thức mới
+    List<KhoaHoc> getDanhSachDaDang(String tenKhoaHoc);
 
+	List<KhoaHoc> getKhoaHocByLoai(String loaiKhoaHoc);
 	
 }
