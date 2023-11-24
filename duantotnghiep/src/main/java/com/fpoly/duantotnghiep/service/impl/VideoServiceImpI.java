@@ -24,7 +24,7 @@ public class VideoServiceImpI implements VideoService {
 
     @Override
     public List<VideoKhoaHoc> findByKhoaHocId(int idKhoaHoc) {
-        return videoKhoaHocRepository.findByMucLucIdOrderByAsc(idKhoaHoc);
+        return videoKhoaHocRepository.findByKhoaHocIdOrderByAsc(idKhoaHoc);
     }
 
     @Override

@@ -159,8 +159,10 @@ public class ClientController {
         return "index";
     }
 
-    @GetMapping("/courseOnline/tracnghiem")
-    public String tracngiem() {
+    @GetMapping("/courseOnline/tracnghiem/{id}")
+    public String tracngiem(@PathVariable("id") String id, Model model) {
+        // Truyền id vào model để sử dụng trong view
+        model.addAttribute("id", id);
         return "tracnghiem";
     }
 
