@@ -15,13 +15,15 @@ public class VideoKhoaHocServiceImpl implements VideoKhoaHocService{
 	VideoKhoaHocRepository VideoKhoaHocRepository;
 	
 	@Override
-	public VideoKhoaHoc findByVideoKhoaHocId(Integer id) {
+	public List<VideoKhoaHoc> findAll() {
 		// TODO Auto-generated method stub
-		return VideoKhoaHocRepository.findById(id).get();
+		return videoKhoaHocRepository.findAll();
 	}
 	@Override
-	public List<VideoKhoaHoc> findByKhoaHocId(Integer khoaHocId) {
-	    return VideoKhoaHocRepository.findByKhoaHocIdOrderByAsc(khoaHocId);
-	}
+	public List<VideoKhoaHoc> findById(int id) {
+		// TODO Auto-generated method stub
+		return videoKhoaHocRepository.findById(id);
+	 
+	 
+}}
 
-}
