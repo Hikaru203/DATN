@@ -66,3 +66,4 @@ app.controller('DetailController', ['$scope', '$http', '$routeParams', function(
 		});
 
 }]);
+
