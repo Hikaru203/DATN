@@ -1,11 +1,15 @@
 package com.fpoly.duantotnghiep.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.ui.Model;
 
+import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
+import com.fpoly.duantotnghiep.jparepository.LoaiKhoaHocRepository;
 import com.fpoly.duantotnghiep.service.CookieService;
 import com.fpoly.duantotnghiep.service.YouTubeService;
 
@@ -20,6 +24,9 @@ public class YouTubeController {
 
     @Autowired
     CookieService cookieService;
+
+    @Autowired
+    LoaiKhoaHocRepository loaiKhoaHocRepository;
 
     @GetMapping("/Admin/Video")
     public String authenticate(Model model, HttpSession session) {
@@ -37,6 +44,28 @@ public class YouTubeController {
             model.addAttribute("accessToken", accessToken);
             model.addAttribute("authorizationUrl", authorizationUrl);
             return "Admin/Video";
+        }
+    }
+
+    @GetMapping("/courseOnline/uploadKhoaHoc")
+    public String authenticate2(Model model, HttpSession session) {
+        List<LoaiKhoaHoc> loaiKhoaHocs = loaiKhoaHocRepository.findAll();
+        model.addAttribute("tenKhoaHocList", loaiKhoaHocs);
+
+        String accessToken = (String) session.getAttribute("accessToken");
+
+        if (accessToken == null) {
+            String authorizationUrl = youTubeService.getAuthorizationUrl2();
+            model.addAttribute("authorizationUrl", authorizationUrl);
+            model.addAttribute("accessToken", accessToken);
+            model.addAttribute("authorizationUrl", authorizationUrl);
+            return "uploadKhoaHoc";
+
+        } else {
+            String authorizationUrl = youTubeService.getAuthorizationUrl2();
+            model.addAttribute("accessToken", accessToken);
+            model.addAttribute("authorizationUrl", authorizationUrl);
+            return "uploadKhoaHoc";
         }
     }
 
@@ -66,6 +95,37 @@ public class YouTubeController {
         } catch (Exception e) {
             // Handle exceptions
             return "redirect:/Admin/Video";
+        }
+
+    }
+
+
+    @GetMapping("/oauth2callback2")
+    public String oauth2callback2(@RequestParam("code") String authorizationCode, HttpSession session, Model model) {
+        try {
+            accessToken = youTubeService.getAccessToken(authorizationCode);
+            session.setAttribute("accessToken", accessToken);
+
+            // Trong phương thức khác
+            String title = (String) session.getAttribute("title");
+            String description = (String) session.getAttribute("description");
+            String privacyStatus = (String) session.getAttribute("privacyStatus");
+            MultipartFile file = (MultipartFile) session.getAttribute("file");
+
+            try {
+                youTubeService.uploadVideo(title, description, privacyStatus, file, accessToken);
+
+                String authorizationUrl = youTubeService.getAuthorizationUrl2();
+                model.addAttribute("accessToken", accessToken);
+                model.addAttribute("authorizationUrl", authorizationUrl);
+                return "uploadKhoaHoc";
+
+            } catch (Exception e) {
+                return "redirect:/courseOnline/uploadKhoaHoc";
+            }
+        } catch (Exception e) {
+            // Handle exceptions
+            return "redirect:/courseOnline/uploadKhoaHoc";
         }
 
     }

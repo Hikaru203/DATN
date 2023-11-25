@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 
+
 public interface KhoaHocService {
 
 
@@ -15,8 +16,10 @@ public interface KhoaHocService {
 	KhoaHoc findByKhoaHocId(Integer id);
 
 	KhoaHoc findById(int id);
+ 
+	List<String> findAllTenKhoaHoc();
 
-	List<KhoaHoc> getKhoaHocByLoai(String loai);
+	List<KhoaHoc> getKhoaHocByLoai(Integer loaiKhoaHoc);
 
 	KhoaHoc create( KhoaHoc khoaHoc);
 

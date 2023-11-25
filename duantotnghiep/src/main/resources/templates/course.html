@@ -29,7 +29,7 @@
 	rel="stylesheet">
 
 <!-- Customized Bootstrap Stylesheet -->
-<link href="css/style.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -91,21 +91,20 @@
 					id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
 					<div class="navbar-nav w-100">
 						<div class="nav-item dropdown">
-							<a href="#" class="nav-link" data-toggle="dropdown">Thiết kế
-								trang Web<i class="fa fa-angle-down float-right mt-1"></i>
+							<a href="#" class="nav-link" data-toggle="dropdown">Ứng dụng phần mềm<i class="fa fa-angle-down float-right mt-1"></i>
 							</a>
 							<div
 								class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-								<a href="deltai.html" class="dropdown-item">HTML</a> <a
-									href="deltai.html" class="dropdown-item">CSS</a> <a
-									href="deltai.html" class="dropdown-item">JavaScript</a>
+								<a href="detail" class="dropdown-item">HTML</a> <a
+									href="detail" class="dropdown-item">CSS</a> <a
+									href="detail" class="dropdown-item">JavaScript</a>
 							</div>
 						</div>
-						<a href="deltai.html" class="nav-item nav-link active">Phát
-							triển phần mềm</a> <a href="deltai.html"
+						<a href="detail" class="nav-item nav-link active">Phát
+							triển phần mềm</a> <a href="detail"
 							class="nav-item nav-link active">Kỹ năng học tập</a> <a
-							href="deltai.html" class="nav-item nav-link active">Pháp luật</a>
-						<a href="deltai.html" class="nav-item nav-link active">Tiếng
+							href="detail" class="nav-item nav-link active">Pháp luật</a>
+						<a href="detail" class="nav-item nav-link active">Tiếng
 							Anh</a>
 					</div>
 				</nav>
@@ -125,29 +124,51 @@
 					<div class="collapse navbar-collapse justify-content-between"
 						id="navbarCollapse">
 						<div class="navbar-nav py-0">
-							<a href="index.html" class="nav-item nav-link active">Trang
-								chủ</a> <a href="course.html" class="nav-item nav-link active">Khoá
-								học</a> <a href="deltai.html" class="nav-item nav-link active">Chi
-								tiết khoá học</a> <a href="about.html"
-								class="nav-item nav-link active">Đăng ký học thử</a>
+							<a href="index" class="nav-item nav-link active ">Trang
+								chủ</a> <a href="course" class="nav-item nav-link ">Khoá
+								học</a> <a href="detail" class="nav-item nav-link ">Chi
+								tiết khoá học</a> <a href="about"
+								class="nav-item nav-link ">Đăng ký học thử</a>
 							<div class="nav-item dropdown">
-								<a href="#" class="nav-link dropdown-toggle"
-									data-toggle="dropdown">Trang</a>
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
 								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-									<a href="contact.html" class="dropdown-item">Liên hệ</a> <a
-										href="about.html" class="dropdown-item">Yêu thích khoá học</a>
-									<a href="cart.html" class="dropdown-item">Giỏ hàng</a> <a
-										href="checkout.html" class="dropdown-item">Thanh toán</a> <a
-										href="tracnghiem.html" class="dropdown-item">Trắc nghiệm</a>
+									<a href="contact" class="dropdown-item">Liên hệ</a> <a
+										href="about" class="dropdown-item">Yêu thích khoá học</a>
+										<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
+									<a href="cart" class="dropdown-item">Giỏ hàng</a> <a
+										href="checkout" class="dropdown-item">Thanh toán</a> <a
+										href="tracnghiem" class="dropdown-item">Trắc nghiệm</a>
 								</div>
 							</div>
 						</div>
 						<ul class="navbar-nav">
-							<li class="nav-item"><a class="nav-link"
-								href="dangnhap.html">Đăng nhập</a></li>
-							<li class="nav-item"><a class="nav-link" href="dangky.html">Đăng
-									ký</a></li>
+							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangnhap">Đăng nhập</a></li>
+							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangky">Đăng ký</a></li>
 						</ul>
+						<div class="nav-item dropdown" th:if="${session.user != null}">
+							<style>
+								/* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
+								.dropdown-menu {
+									position: absolute;
+									background-color: #ff6600; /* Màu nền */
+									border: 1px solid #ff6600; /* Viền */
+									width: 200px; /* Độ rộng */
+									box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+								}
+						
+								.dropdown-item {
+									color: #fff; /* Màu chữ */
+									font-size: 14px;
+									padding: 10px 20px;
+								}
+							</style>
+							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
+							<div class="dropdown-menu">
+								<a href="cart.html" class="dropdown-item">Cập nhật tài khoản</a>
+								<a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
+								<a href="/logoff"  class="dropdown-item">Đăng xuất</a>
+							</div>
+						</div>
 					</div>
 				</nav>
 			</div>
