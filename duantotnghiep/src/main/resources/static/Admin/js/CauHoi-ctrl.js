@@ -14,7 +14,7 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
     $scope.initialize = function () {
 
         // load tài liệu
-        $http.get("/rest/CauHoi").then(resp => {
+        $http.get("/Admin/rest/CauHoi").then(resp => {
             $scope.itemsCauHoi = resp.data;
             $scope.totalItems = $scope.itemsCauHoi.length;
             $scope.pageChanged(); // Hiển thị trang đầu tiên
@@ -26,7 +26,6 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
             for (const item of $scope.itemsCauHoi) {
                 if (item.cauTraLoi) {
                     const splitAnswers = item.cauTraLoi.split(',').map(answer => answer.trim());
-
                     // Tạo đối tượng chứa thông tin và đưa vào mảng mới
                     const questionObject = {
                         cauHoi: item.cauHoi,
@@ -50,7 +49,7 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
 
 
 
-        $http.get("/rest/KhoaHoc").then(resp => {
+        $http.get("/Admin/rest/KhoaHoc").then(resp => {
             $scope.itemsKhoaHoc = resp.data;
             console.log($scope.itemsKhoaHoc);
         });
@@ -64,13 +63,13 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
 
     $scope.loadDocuments = function () {
         if ($scope.selectedCourse) {
-            $http.get("/rest/CauHoi/" + $scope.selectedCourse).then(resp => {
+            $http.get("/Admin/rest/CauHoi/" + $scope.selectedCourse).then(resp => {
                 $scope.itemsCauHoi = resp.data;
                 $scope.totalItems = $scope.itemsCauHoi.length;
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
             });
         } else {
-            $http.get("/rest/CauHoi").then(resp => {
+            $http.get("/Admin/rest/CauHoi").then(resp => {
                 $scope.itemsCauHoi = resp.data;
                 $scope.totalItems = $scope.itemsCauHoi.length;
                 $scope.pageChanged(); // Hiển thị trang đầu tiên

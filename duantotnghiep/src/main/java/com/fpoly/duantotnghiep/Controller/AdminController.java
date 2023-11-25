@@ -34,6 +34,7 @@ public class AdminController {
 //        return "Admin/EditNguoiDung";
 //    }
 
+
 	@GetMapping("/VideoKhoaHoc")
 	public String VideoKhoaHoc() {
 		return "Admin/VideoKhoaHoc";
@@ -65,4 +66,25 @@ public class AdminController {
 		return "Admin/CauHoi";
 	}
 
+    @GetMapping("/TaiLieu")
+    public String TaiLieu() {
+        return "Admin/TaiLieu";
+    }
+
+    @GetMapping("/CauHoi")
+    public String CauHoi() {
+        return "Admin/CauHoi";
+    }
+
+    @GetMapping("/ChungChi")
+    public String ChungChi() {
+        return "Admin/ChungChi";
+    }
+
+    @GetMapping("/ThongKe")
+    public String ThongKe() {
+        return "Admin/ThongKe";
+    }
+
+   
 }

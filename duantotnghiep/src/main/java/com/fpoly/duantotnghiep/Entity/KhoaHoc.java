@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,8 +22,7 @@ import lombok.Setter;
 @Table(name = "khoa_hoc")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class KhoaHoc {
 
     @Id
@@ -35,6 +35,10 @@ public class KhoaHoc {
 
     @Column(name = "mo_ta")
     private String moTa;
+
+    @ManyToOne
+    @JoinColumn(name = "loai")
+    private LoaiKhoaHoc loaiKhoaHoc;
 
     @Column(name = "ngay_tao")
     private Date ngayTao;

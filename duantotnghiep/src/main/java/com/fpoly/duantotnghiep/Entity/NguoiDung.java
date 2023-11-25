@@ -21,31 +21,35 @@ import lombok.Setter;
 @Setter
 public class NguoiDung {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
 
-	@Column(name = "tai_khoan")
-	private String taiKhoan;
+    @Column(name = "tai_khoan", length = 50, nullable = false)
+    private String taiKhoan;
 
-	@Column(name = "mat_khau")
-	private String matKhau;
+    @Column(name = "mat_khau", length = 100, nullable = false)
+    private String matKhau;
 
-	@Column(name = "ho_ten")
-	private String hoTen;
+    @Column(name = "ho_ten", length = 100, nullable = false)
+    private String hoTen;
 
-	@Column(name = "email")
-	private String email;
+    @Column(name = "email", length = 100, nullable = false)
+    private String email;
 
-	@Column(name = "so_dien_thoai")
-	private String soDienThoai;
+    @Column(name = "so_dien_thoai", length = 15, nullable = false)
+    private String soDienThoai;
 
 	@Column(name = "chuc_vu")
 	private String chucVu;
 	@Column(name = "hinh_anh")
 	private String hinhAnh;
+    @Column(name = "chuc_vu", length = 50)
+    private String chucVu;
 
-	@Column(name = "trang_thai")
-	private String trangThai;
-	// Getters and Setters
+    @Column(name = "hinh_anh")
+    private String hinhAnh;
+
+    @Column(name = "trang_thai", length = 50, nullable = false)
+    private String trangThai;
 }
