@@ -153,22 +153,25 @@ public class ClientController {
         }
 
         model.addAttribute("danhGiaList2", danhGiaList2);
-        System.out.println(danhGiaList2.get(0)[0]);
+
         model.addAttribute("danhGiaList", danhGiaList);
-        System.out.println(danhGiaList.get(0)[0]);
+
         model.addAttribute("list", courseCountList);
-        System.out.println(courseCountList.get(0)[0]);
 
         model.addAttribute("courseOnline", page);
         return "index";
     }
-      @GetMapping("/courseOnline/course")
-    public String course(){
-        return "course";
-    }
-    @GetMapping("/courseOnline/tracnghiem")
-    public String tracngiem() {
+
+    @GetMapping("/courseOnline/tracnghiem/{id}")
+    public String tracngiem(@PathVariable("id") String id, Model model) {
+        // Truyền id vào model để sử dụng trong view
+        model.addAttribute("id", id);
         return "tracnghiem";
+    }
+
+    @GetMapping("/courseOnline/course")
+    public String course() {
+        return "course";
     }
 
     @GetMapping("/courseOnline/detail/{id}")
@@ -178,19 +181,22 @@ public class ClientController {
     }
 
     @GetMapping("/courseOnline/about")
-    public String about(){
+    public String about() {
         return "about";
     }
+
     @GetMapping("/courseOnline/contact")
-    public String contact(){
+    public String contact() {
         return "contact";
     }
+
     @GetMapping("/courseOnline/cart")
-    public String cart(){
+    public String cart() {
         return "cart";
     }
-     @GetMapping("/courseOnline/checkout")
-    public String checkout(){
+
+    @GetMapping("/courseOnline/checkout")
+    public String checkout() {
         return "checkout";
     }
-}   
+}

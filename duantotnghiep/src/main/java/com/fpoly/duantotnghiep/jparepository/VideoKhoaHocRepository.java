@@ -15,9 +15,14 @@ import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
 
 public interface VideoKhoaHocRepository extends JpaRepository<VideoKhoaHoc, Integer> {
 
-	@Query("SELECT vkh FROM VideoKhoaHoc vkh JOIN vkh.mucLuc kh JOIN kh.khoaHoc khoc WHERE khoc.id = :KhoaHocId ORDER BY vkh.thuTu ASC")
-	ArrayList<VideoKhoaHoc> findByMucLucIdOrderByAsc(@Param("KhoaHocId") Integer khoaHocId);
+	@Query("SELECT vkh FROM VideoKhoaHoc vkh INNER JOIN vkh.mucLuc ml INNER JOIN ml.khoaHoc kh WHERE kh.id = :KhoaHocId ORDER BY vkh.id ASC")
+	ArrayList<VideoKhoaHoc> findByKhoaHocIdOrderByAsc(@Param("KhoaHocId") Integer khoaHocId);
+
+	@Query("SELECT vkh FROM VideoKhoaHoc vkh INNER JOIN vkh.mucLuc ml ON ml.id = vkh.mucLuc.id WHERE ml.id = :khoaHocId ORDER BY vkh.id ASC")
+	ArrayList<VideoKhoaHoc> findByMucLucIdOrderByAsc(@Param("khoaHocId") Integer khoaHocId);
 
 	VideoKhoaHoc findByMucLucId(int idMucLuc);
+
+	VideoKhoaHoc findBylinkVideo(String linkVideo);
 
 }

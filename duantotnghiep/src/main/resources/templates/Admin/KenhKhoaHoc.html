@@ -1241,78 +1241,88 @@
             </div>
         </div>
         <!-- Static Table Start -->
-        <div class="data-table-area mg-b-15">
+        <div class="single-pro-review-area mt-t-30 mg-b-15">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="sparkline13-list">
-                            <div class="sparkline13-hd">
-                                <div class="main-sparkline13-hd">
-                                    <h1> Kênh <span class="table-project-n"> Khóa</span> Học</h1>
-                                </div>
-                            </div>
-                            <div class="sparkline13-graph">
-                                <div class="datatable-dashv1-list custom-datatable-overright">
-                                    <div id="toolbar">
-                                        <select class="form-control dt-tb">
-                                            <option value="">Export Basic</option>
-                                            <option value="all">Export All</option>
-                                            <option value="selected">Export Selected</option>
-                                        </select>
-                                    </div>
-                                    <table id="table" data-toggle="table" data-pagination="true" data-search="true"
-                                        data-show-columns="true" data-show-pagination-switch="true"
-                                        data-show-refresh="true" data-key-events="true" data-show-toggle="true"
-                                        data-resizable="true" data-cookie="true" data-cookie-id-table="saveId"
-                                        data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
-                                        <thead>
-                                            <tr>
-                                                <th data-field="state" data-checkbox="true"></th>
-                                                <th data-field="id" data-editable="true">Id Khóa Học</th>
-                                                <th data-field="tenKhoaHoc" data-editable="true">Tên Khóa Học</th>
+                        <div class="product-payment-inner-st">
+                            <ul id="myTabedu1" class="tab-review-design">
+                                <li class="active"><a href="#description">Kênh khóa học</a></li>
+                                <div id="myTabContent" class="tab-content custom-product-edit">
+                                    <div class="product-tab-list tab-pane fade active in" id="description">
+                                        <div class="row">
+                                            <div id="tableother">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="product-status mg-b-15">
+                                                        <div class="container-fluid">
+                                                            <div class="row">
+                                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                    <div class="product-status-wrap drp-lst">
+                                                                        <div class="asset-inner row">
+                                                                            <div class="container">
 
-                                                <th data-field="duyet" data-editable="true">Duyệt</th>
-                                                <th data-field="ngayTao" data-editable="true">Ngày Tạo</th>
-
-
-
-                                                <th data-field="trangThai">Trạng Thái</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <tr ng-repeat="item in itemsKhoaHoc">
-                                                <td></td>
-                                                <td>{{item.id}}</td>
-                                                <td>{{item.tenKhoaHoc}}</td>
-
-                                                <td>{{item.duyet}}</td>
-
-                                                <td>{{item.ngayTao | date:'dd-MM'}}</td>
-
-                                                <td class="datatable-ct"><i class="fa fa-check"></i>
-                                                </td>
-                                            </tr>
-
-
-
-                                            <div class="button-ap-list responsive-btn">
-                                                <div class="button-style-four btn-mg-b-10">
-
-                                                    <button type="button"
-                                                        class="btn btn-custon-four btn-success">Duyệt</button>
-                                                    <button type="button"
-                                                        class="btn btn-custon-four btn-warning">Xóa</button>
-
+                                                                                <table>
+                                                                                    <thead>
+                                                                                        <th>No</th>
+                                                                                        <th>id</th>
+                                                                                        <th>TenKhoaHoc</th>
+                                                                                        <th>ChiPhi</th>
+                                                                                       
+                                                                                        <th>NguoiTao</th>
+                                                                                        <th>Image</th>
+                                                                                        <th>Duyệt</th>
+                                                                                        <th>TrangThai</th>
+                                                                                        <th>Tùy chỉnh </th>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr ng-repeat="item in trang.itemsKenhKhoaHoc"
+                                                                                            >
+                                                                                            <td>{{ $index + 1 }}</td>
+                                                                                            <td>{{item.id}}</td>
+                                                                                            <td>{{item.tenKhoaHoc}}</td>
+                                                                                            <td>{{item.chiPhi}}</td>
+                                                                                            <td>{{item.nguoiTao.hoTen}} </td>
+                                                                                            <td> <img ng-src="/Admin/img/{{item.hinhAnh}}" alt=""> </td>
+                                                                                            <td>{{item.duyet}}  <a class="fa fa-lock"
+                                                                                                aria-hidden="true"></a></td>
+                                                                                            <td>{{item.trangThai}}</td>
+                                                                                            <td> <a class="fa fa-eye"
+                                                                                                    aria-hidden="true"> Xem</a> ||
+                                                                                                    <a class="fa fa-unlock"
+                                                                                                    aria-hidden="true" ng-click="duyet(item)"> Duyệt</a>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                                <div class="panel-footer text-center">
+                                                                                    <button ng-click="trang.first()" class="btn btn-primary">
+                                                                                      <i class="fa fa-arrow-circle-up"></i>
+                                                                                    </button>
+                                                                                    <button ng-click="trang.prev()" class="btn btn-primary">
+                                                                                      <i class="fa fa-arrow-circle-left"></i>
+                                                                                    </button>
+                                                                                    <button class="btn btn-success">{{pager.page +1}} of {{pager.count}}</button>
+                                                                                    <button ng-click="trang.next()" class="btn btn-primary">
+                                                                                      <i class="fa fa-arrow-circle-right"></i>
+                                                                                    </button>
+                                                                                    <button ng-click="trang.last()" class="btn btn-primary">
+                                                                                      <i class="fa fa-arrow-circle-down"></i>
+                                                                                    </button>
+                                                                                  </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                        </tbody>
-                                    </table>
-
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

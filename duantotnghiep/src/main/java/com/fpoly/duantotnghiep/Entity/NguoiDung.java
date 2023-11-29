@@ -72,5 +72,9 @@ public class NguoiDung {
         this.thongBao = thongBao;
         this.thoiGianTao = new Date();
     }
+    @Override
+    public String toString() {
+    return hoTen;
+}
 
 }

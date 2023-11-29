@@ -23,6 +23,9 @@ import com.fpoly.duantotnghiep.service.KhoaHocService;
 import com.fpoly.duantotnghiep.service.MucLucService;
 import com.fpoly.duantotnghiep.service.VideoService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -50,22 +53,34 @@ public class CourseOnlineRestController {
     private DangKyKhoaHocService dangKyKhoaHocService;
 
     @GetMapping("/detail/{id}")
-    public ResponseEntity<CourseOnlineResponse> getCourseOnline(@PathVariable("id") int id) {
+    public ResponseEntity<CourseOnlineResponse> getCourseOnline(@PathVariable("id") int id,HttpServletRequest request) {
         CourseOnlineResponse response = new CourseOnlineResponse();
 
         ArrayList<VideoKhoaHoc> listVideo = new ArrayList<>();
         ArrayList<CauHoi> listCauHoi = new ArrayList<>();
         KhoaHoc khoaHoc = daoHocService.findById(id);
-        List<MucLuc> list = mucLucService.findByKhoaHoc(id);
         
+     
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("vi", "VN"));
+		symbols.setDecimalSeparator(',');
+		symbols.setGroupingSeparator('.');
+		DecimalFormat currencyFormatter = new DecimalFormat("###,###,### VND");
+		
+		String formattedTotalAmount = currencyFormatter.format(khoaHoc.getChiPhi()* 0.88);
+		HttpSession session = request.getSession();
+		session.setAttribute("donGiaFormat", formattedTotalAmount);
+		
+        List<MucLuc> list = mucLucService.findByKhoaHoc(id);
         for (MucLuc mucLuc : list) {
-            List<VideoKhoaHoc> mucLucVideos = videoService.findByMuHocId(mucLuc.getId());
+            List<VideoKhoaHoc> mucLucVideos = videoService.findByMucHocId(mucLuc.getId());
             listVideo.addAll(mucLucVideos);
 
             List<CauHoi> mucLucCauHoi = cauHoiService.findByMucLuc(mucLuc.getId());
             listCauHoi.addAll(mucLucCauHoi);
+
+           
         }
-        
+
         response.setVideoKhoaHoc(listVideo);
         response.setCourseOnline(khoaHoc);
         response.setMucLuc(list);
@@ -81,13 +96,12 @@ public class CourseOnlineRestController {
 
     @GetMapping()
     public List<DangKyKhoaHoc> getAll() {
-        return dangKyKhoaHocService.findAll();	
+        return dangKyKhoaHocService.findAll();
     }
 
     @GetMapping("/check/{idNguoiDung}/{idKhoaHoc}")
     public DangKyKhoaHoc check(@PathVariable("idNguoiDung") int idNguoiDung, @PathVariable("idKhoaHoc") int idKhoaHoc) {
         return dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(idNguoiDung, idKhoaHoc);
     }
-    
 
 }

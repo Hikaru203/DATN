@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -48,7 +50,7 @@ public class KhoaHoc {
     private NguoiDung nguoiTao;
 
     @Column(name = "chi_phi")
-    private BigDecimal chiPhi;
+    private double chiPhi;
 
     @Column(name = "duyet")
     private boolean duyet;

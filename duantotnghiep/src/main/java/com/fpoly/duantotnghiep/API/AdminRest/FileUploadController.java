@@ -11,8 +11,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
+
+
 
 @RestController
 @RequestMapping("/api")
@@ -31,7 +34,7 @@ public class FileUploadController {
             }
 
             // Lưu tệp tin vào thư mục đích
-            Path filePath = Path.of(uploadDir, file.getOriginalFilename());
+            Path filePath = Paths.get(uploadDir, file.getOriginalFilename());
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
             java.util.Map<String, String> response = new HashMap<>();
