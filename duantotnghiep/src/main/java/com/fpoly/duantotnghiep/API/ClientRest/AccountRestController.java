@@ -24,8 +24,8 @@ public class AccountRestController {
 
     @PostMapping("/nguoidung")
     public NguoiDung createNguoiDung(@RequestBody NguoiDung nguoiDung) {
-        nguoiDung.setTrangThai("flase");
-        nguoiDung.setChucVu("flase");
+        nguoiDung.setTrangThai("false");
+        nguoiDung.setChucVu("false");
         nguoiDung.setXac_minh(false);
         try {
             mailService.activeAccountEmail(nguoiDung.getEmail(), nguoiDung.getHoTen(),
@@ -71,14 +71,14 @@ public class AccountRestController {
         int randomNumber = (int) (Math.random() * 9000) + 1000;
         String otp = String.valueOf(randomNumber);
         session.setAttribute("otp", randomNumber);
-        session.setMaxInactiveInterval(320);
+        session.setMaxInactiveInterval(200);
         session.setAttribute("email", Email);
         System.out.println(otp);
-        try {
-            mailService.otpAccountEmail(Email, otp);
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
+        // try {
+        // mailService.otpAccountEmail(Email, otp);
+        // } catch (Exception e) {
+        // // TODO: handle exception
+        // }
         return new RedirectView("/courseOnline/confirmotp");
     }
 
@@ -86,6 +86,7 @@ public class AccountRestController {
     public RedirectView confom(@RequestParam("otp") String otp) {
         String mck = String.valueOf(session.getAttribute("otp"));
         if (otp.equals(mck)) {
+            session.setAttribute("kiemtraotp", "KT");
             System.out.println(otp);
             return new RedirectView("/courseOnline/doimk");
         }
@@ -94,8 +95,15 @@ public class AccountRestController {
 
     @GetMapping("/doimaukhau")
     public RedirectView doimaukhau(@RequestParam("maukhaumoi") String password) {
+        System.out.println(session.getAttribute("kiemtraotp"));
+        if (session.getAttribute("kiemtraotp") == null) {
+            return new RedirectView("/courseOnline/OTPError");
+        }
         String email = String.valueOf(session.getAttribute("email"));
         NguoiDung nguoiDung = nguoiDungRepository.findByEmail(email);
+        if (nguoiDung == null) {
+            return new RedirectView("/courseOnline/Faillsesion");
+        }
         nguoiDung.setMatKhau(password);
         nguoiDungRepository.save(nguoiDung);
         return new RedirectView("/courseOnline/dangnhap");
