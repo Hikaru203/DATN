@@ -74,11 +74,11 @@ public class AccountRestController {
         session.setMaxInactiveInterval(200);
         session.setAttribute("email", Email);
         System.out.println(otp);
-        // try {
-        // mailService.otpAccountEmail(Email, otp);
-        // } catch (Exception e) {
-        // // TODO: handle exception
-        // }
+        try {
+        mailService.otpAccountEmail(Email, otp);
+        } catch (Exception e) {
+        // TODO: handle exception
+        }
         return new RedirectView("/courseOnline/confirmotp");
     }
 
