@@ -154,7 +154,34 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
                     console.log("Không có giá trị tiếp theo trong mảng.");
                     // Xử lý khi không có giá trị tiếp theo
                     $scope.msg = 'Bạn đã hoàn thành khóa học';
-                    
+
+                    $scope.trangThai = "Đã hoàn thành";
+
+                    $http({
+                        method: 'PUT',
+                        url: '/api/tiendokhoahoc/upload/' + value + '/' + idKhoaHoc + '/' + $scope.trangThai
+                    }).then(function (response) {
+                        console.log("Cập nhật thành công");
+                    });
+
+
+                    $http({
+                        method: 'POST',
+                        url: '/rest/ChungChi',
+                        data: {
+                            id: null,
+                            nguoiDung: {
+                                id: value
+                            },
+                            khoaHoc: {
+                                id: idKhoaHoc
+                            },
+                            ngayCap: new Date(),
+                        }
+                    }).then(function (response) {
+                        console.log("Thêm thành công");
+                        window.location.href = '/courseOnline/detail/' + idKhoaHoc; // Ví dụ: chuyển đến trang trắc nghiệm
+                    });
                 }
             } else {
                 console.log("Không tìm thấy idFromSessionStorage trong mảng.");
