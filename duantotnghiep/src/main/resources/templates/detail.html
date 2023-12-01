@@ -25,6 +25,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
 
     <!-- Customized Bootstrap Stylesheet -->
     <link th:href="@{/css/style.css}" rel="stylesheet">
@@ -689,7 +691,37 @@
                                     </div>
                                 </div>
                             </div>
+                            <button onclick="generatePDF()">Tạo và tải file PDF</button>
 
+                            <script>
+                                function generatePDF() {
+                                    // Tạo một đối tượng jsPDF
+                                    const doc = new jsPDF();
+
+                                    // Lặp qua tất cả các phần tử div có class "certificate-frame" để lấy nội dung của từng chứng chỉ
+                                    const certificateFrames = document.querySelectorAll('.certificate-frame');
+                                    certificateFrames.forEach((certificateFrame, index) => {
+                                        // Lấy nội dung HTML của từng chứng chỉ
+                                        const certificateContent = certificateFrame.innerHTML;
+
+                                        // Thêm nội dung vào tập tin PDF
+                                        if (index !== 0) {
+                                            doc.addPage(); // Thêm trang mới cho các chứng chỉ sau đó
+                                        }
+                                        doc.fromHTML(certificateContent, 15, 15); // Thêm nội dung vào tập tin PDF từ vị trí (15, 15)
+                                    });
+
+                                    // Tạo nút tải về
+                                    doc.save('certificates.pdf'); // Tên file PDF khi tải về
+
+                                    // Lưu tập tin PDF trên trình duyệt
+                                    const pdfOutput = doc.output('datauristring');
+                                    const pdfElement = document.createElement('a');
+                                    pdfElement.href = pdfOutput;
+                                    pdfElement.download = 'certificates.pdf';
+                                    pdfElement.click();
+                                }
+                            </script>
 
 
 
