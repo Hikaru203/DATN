@@ -10,14 +10,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.fpoly.duantotnghiep.Entity.CauHoi;
+import com.fpoly.duantotnghiep.Entity.ChungChi;
 import com.fpoly.duantotnghiep.Entity.DangKyKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.DanhGia;
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.MucLuc;
+import com.fpoly.duantotnghiep.Entity.NguoiDung;
 import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
+import com.fpoly.duantotnghiep.jparepository.ChungChiRepository;
 import com.fpoly.duantotnghiep.jparepository.LoaiKhoaHocRepository;
 import com.fpoly.duantotnghiep.service.CauHoiService;
 import com.fpoly.duantotnghiep.service.CookieService;
@@ -26,6 +30,8 @@ import com.fpoly.duantotnghiep.service.DanhGiaService;
 import com.fpoly.duantotnghiep.service.KhoaHocService;
 import com.fpoly.duantotnghiep.service.MucLucService;
 import com.fpoly.duantotnghiep.service.VideoService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ClientController {
@@ -52,6 +58,9 @@ public class ClientController {
 
     @Autowired
     LoaiKhoaHocRepository loaiKhoaHocRepository;
+
+    @Autowired
+    ChungChiRepository chungchiService;
 
     @GetMapping("/courseOnline/index")
     public String index(Model model) {
@@ -175,8 +184,13 @@ public class ClientController {
     }
 
     @GetMapping("/courseOnline/detail/{id}")
-    public String detail(@PathVariable("id") String id, Model model) {
+    public String detail(@PathVariable("id") String id, Model model, HttpSession session) {
         cookieService.add("id", id, 1);
+        // Lấy id từ session và đưa xuống template
+        if (session.getAttribute("user") != null) {
+            NguoiDung user = (NguoiDung) session.getAttribute("user");
+            model.addAttribute("userId", user.getId());
+        }
         return "detail";
     }
 
@@ -198,5 +212,30 @@ public class ClientController {
     @GetMapping("/courseOnline/checkout")
     public String checkout() {
         return "checkout";
+    }
+
+    @GetMapping("/courseOnline/chungchi/{id}")
+    public String chungchi(@PathVariable("id") String id, Model model) {
+        // Mã hóa ID bằng Base64 trực tiếp trong controller
+        ChungChi chungChi1 = new ChungChi();
+        List<ChungChi> list = chungchiService.findAll();
+        for (ChungChi chungChi : list) {
+            // Mã hóa id của mỗi đối tượng ChungChi và thêm vào danh sách encodedIds
+            String encodedId = java.util.Base64.getEncoder()
+                    .encodeToString(String.valueOf(chungChi.getId()).getBytes());
+            System.out.println(encodedId);
+            if (encodedId.equals(id)) {
+                chungChi1 = chungChi;
+                System.out.println(chungChi1.getNguoiDung().getHoTen());
+                model.addAttribute("chungChi", chungChi1);
+
+            }
+        }
+        for (DangKyKhoaHoc dangKyKhoaHoc : chungChi1.getKhoaHoc().getDangKyKhoaHocs()) {
+            if (dangKyKhoaHoc.getNguoiDung().getId() == chungChi1.getNguoiDung().getId()) {
+                model.addAttribute("dangKyKhoaHoc", dangKyKhoaHoc);
+            }
+        }
+        return "ChungChi";
     }
 }

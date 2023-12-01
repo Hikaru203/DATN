@@ -9,22 +9,22 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-<link th:href="@{img/favicon.ico}" rel="icon">
-   <!-- Google Web Fonts -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+    <link th:href="@{img/favicon.ico}" rel="icon">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
 
-	<!-- Font Awesome -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-	<!-- Libraries Stylesheet -->
-	<link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-	<!-- Customized Bootstrap Stylesheet -->
-	<link href="/css/style.css" rel="stylesheet">
-	  <link rel="stylesheet" href="/css/accordion.min.css">
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/accordion.min.css">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
@@ -32,146 +32,145 @@
 
 <body ng-app="detail-app" ng-controller="detail-controller">
     <!-- Topbar Start -->
-	<div class="container-fluid d-none d-lg-block">
-		<div class="row align-items-center py-4 px-xl-5">
-			<div class="col-lg-3">
-				<a href="" class="text-decoration-none">
-					<h1 class="m-0">
-						<span class="text-primary">Poly</span>Academy
-					</h1>
-				</a>
-			</div>
-			<div class="col-lg-3 text-right">
-				<div class="d-inline-flex align-items-center">
-					<i class="fa fa-2x fa-map-marker-alt text-primary mr-3"></i>
-					<div class="text-left">
-						<h6 class="font-weight-semi-bold mb-1">Văn phòng của chúng
-							tôi</h6>
-						<small>22 Thường thạnh, Cái Răng, Cần Thơ</small>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 text-right">
-				<div class="d-inline-flex align-items-center">
-					<i class="fa fa-2x fa-envelope text-primary mr-3"></i>
-					<div class="text-left">
-						<h6 class="font-weight-semi-bold mb-1">Email của chúng tôi</h6>
-						<small>PolyAcademy@fpt.edu.vn</small>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 text-right">
-				<div class="d-inline-flex align-items-center">
-					<i class="fa fa-2x fa-phone text-primary mr-3"></i>
-					<div class="text-left">
-						<h6 class="font-weight-semi-bold mb-1">Gọi cho chúng tôi</h6>
-						<small>+012 345 6789</small>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Topbar End -->
+    <div class="container-fluid d-none d-lg-block">
+        <div class="row align-items-center py-4 px-xl-5">
+            <div class="col-lg-3">
+                <a href="" class="text-decoration-none">
+                    <h1 class="m-0">
+                        <span class="text-primary">Poly</span>Academy
+                    </h1>
+                </a>
+            </div>
+            <div class="col-lg-3 text-right">
+                <div class="d-inline-flex align-items-center">
+                    <i class="fa fa-2x fa-map-marker-alt text-primary mr-3"></i>
+                    <div class="text-left">
+                        <h6 class="font-weight-semi-bold mb-1">Văn phòng của chúng
+                            tôi</h6>
+                        <small>22 Thường thạnh, Cái Răng, Cần Thơ</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 text-right">
+                <div class="d-inline-flex align-items-center">
+                    <i class="fa fa-2x fa-envelope text-primary mr-3"></i>
+                    <div class="text-left">
+                        <h6 class="font-weight-semi-bold mb-1">Email của chúng tôi</h6>
+                        <small>PolyAcademy@fpt.edu.vn</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 text-right">
+                <div class="d-inline-flex align-items-center">
+                    <i class="fa fa-2x fa-phone text-primary mr-3"></i>
+                    <div class="text-left">
+                        <h6 class="font-weight-semi-bold mb-1">Gọi cho chúng tôi</h6>
+                        <small>+012 345 6789</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
 
 
-	<!-- Navbar Start -->
-	<div class="container-fluid">
-		<div class="row border-top px-xl-5">
-			<div class="col-lg-3 d-none d-lg-block">
-				<a class="d-flex align-items-center justify-content-between bg-secondary w-100 text-decoration-none"
-					data-toggle="collapse" href="#navbar-vertical" style="height: 67px; padding: 0 30px;">
-					<h5 class="text-primary m-0">
-						<i class="fa fa-book-open mr-2"></i>Danh mục khoá học
-					</h5> <i class="fa fa-angle-down text-primary"></i>
-				</a>
-				<nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light"
-					id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
-					<div class="navbar-nav w-100">
-						<div class="nav-item dropdown">
-							<a href="#" class="nav-link" data-toggle="dropdown">Ứng dụng phần mềm<i class="fa fa-angle-down float-right mt-1"></i>
-							</a>
-							<div
-								class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-								<a href="detail" class="dropdown-item">HTML</a> <a
-									href="detail" class="dropdown-item">CSS</a> <a
-									href="detail" class="dropdown-item">JavaScript</a>
-							</div>
-						</div>
-						<a href="detail" class="nav-item nav-link active">Lập trình Web</a> <a href="detail"
-							class="nav-item nav-link active"></a>Cơ khí</a> <a
-							href="detail" class="nav-item nav-link active">Marketing</a>
-						<a href="detail" class="nav-item nav-link active">Nhà hàng - Khách sạn</a>
-					</div>
-				</nav>
-			</div>
-			<div class="col-lg-9">
-				<nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
-					<a href="" class="text-decoration-none d-block d-lg-none">
-						<h1 class="m-0">
-							<span class="text-primary">Poly</span>Academy
-						</h1>
-					</a>
-					<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-						<div class="navbar-nav py-0">
-							<a href="index" class="nav-item nav-link active ">Trang
-								chủ</a> <a href="course" class="nav-item nav-link ">Khoá
-								học</a>
-							<div class="nav-item dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
-								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-									<a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a> 
-										<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
-									<a href="cart" class="dropdown-item">Giỏ hàng</a> <a
-										href="checkout" class="dropdown-item">Thanh toán</a> <a
-										href="tracnghiem" class="dropdown-item">Trắc nghiệm</a>
-								</div>
-							</div>
-						</div>
-						<ul class="navbar-nav">
-							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
-									href="/courseOnline/dangnhap">Đăng nhập</a></li>
-							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
-									href="/courseOnline/dangky">Đăng ký</a></li>
-						</ul>
-						<div class="nav-item dropdown" th:if="${session.user != null}">
-							<style>
-								/* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
-								.dropdown-menu {
-									position: absolute;
-									background-color: #ff6600;
-									/* Màu nền */
-									border: 1px solid #ff6600;
-									/* Viền */
-									width: 200px;
-									/* Độ rộng */
-									box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-									/* Hiệu ứng bóng đổ */
-								}
+    <!-- Navbar Start -->
+    <div class="container-fluid">
+        <div class="row border-top px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a class="d-flex align-items-center justify-content-between bg-secondary w-100 text-decoration-none"
+                    data-toggle="collapse" href="#navbar-vertical" style="height: 67px; padding: 0 30px;">
+                    <h5 class="text-primary m-0">
+                        <i class="fa fa-book-open mr-2"></i>Danh mục khoá học
+                    </h5> <i class="fa fa-angle-down text-primary"></i>
+                </a>
+                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light"
+                    id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
+                    <div class="navbar-nav w-100">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link" data-toggle="dropdown">Ứng dụng phần mềm<i
+                                    class="fa fa-angle-down float-right mt-1"></i>
+                            </a>
+                            <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+                                <a href="detail" class="dropdown-item">HTML</a> <a href="detail"
+                                    class="dropdown-item">CSS</a> <a href="detail" class="dropdown-item">JavaScript</a>
+                            </div>
+                        </div>
+                        <a href="detail" class="nav-item nav-link active">Lập trình Web</a> <a href="detail"
+                            class="nav-item nav-link active"></a>Cơ khí</a> <a href="detail"
+                            class="nav-item nav-link active">Marketing</a>
+                        <a href="detail" class="nav-item nav-link active">Nhà hàng - Khách sạn</a>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <h1 class="m-0">
+                            <span class="text-primary">Poly</span>Academy
+                        </h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav py-0">
+                            <a href="index" class="nav-item nav-link active ">Trang
+                                chủ</a> <a href="course" class="nav-item nav-link ">Khoá
+                                học</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
+                                <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+                                    <a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a>
+                                    <a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
+                                    <a href="cart" class="dropdown-item">Giỏ hàng</a> <a href="checkout"
+                                        class="dropdown-item">Thanh toán</a> <a href="tracnghiem"
+                                        class="dropdown-item">Trắc nghiệm</a>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="navbar-nav">
+                            <li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
+                                    href="/courseOnline/dangnhap">Đăng nhập</a></li>
+                            <li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
+                                    href="/courseOnline/dangky">Đăng ký</a></li>
+                        </ul>
+                        <div class="nav-item dropdown" th:if="${session.user != null}">
+                            <style>
+                                /* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
+                                .dropdown-menu {
+                                    position: absolute;
+                                    background-color: #ff6600;
+                                    /* Màu nền */
+                                    border: 1px solid #ff6600;
+                                    /* Viền */
+                                    width: 200px;
+                                    /* Độ rộng */
+                                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                    /* Hiệu ứng bóng đổ */
+                                }
 
-								.dropdown-item {
-									color: #fff;
-									/* Màu chữ */
-									font-size: 14px;
-									padding: 10px 20px;
-								}
-							</style>
-							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
-								style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
-							<div class="dropdown-menu">
-								<a href="cart.html" class="dropdown-item">Cập nhật tài khoản</a>
-								<a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
-								<a href="/logoff" class="dropdown-item">Đăng xuất</a>
-							</div>
-						</div>
-					</div>
-				</nav>
-			</div>
+                                .dropdown-item {
+                                    color: #fff;
+                                    /* Màu chữ */
+                                    font-size: 14px;
+                                    padding: 10px 20px;
+                                }
+                            </style>
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
+                            <div class="dropdown-menu">
+                                <a href="cart.html" class="dropdown-item">Cập nhật tài khoản</a>
+                                <a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
+                                <a href="/logoff" class="dropdown-item">Đăng xuất</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
 
-		</div>
-	</div>
+        </div>
+    </div>
     <!-- Breadcrumb Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
@@ -186,16 +185,17 @@
     </div>
     <!-- Breadcrumb End -->
 
-<form action="/courseOnline/submitOrder" method="post" id="orderForm">
-    <!-- Checkout Start -->
-    <div class="container-fluid" >
-        <div class="row px-xl-5">
-            <div class="col-lg-8">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing
-                        Address</span></h5>
-           <div class="accordion-container">
-			   <style>
-				     /* CSS cho đánh giá của bạn */
+    <form action="/courseOnline/submitOrder" method="post" id="orderForm">
+        <!-- Checkout Start -->
+        <div class="container-fluid">
+            <div class="row px-xl-5">
+                <div class="col-lg-8">
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span
+                            class="bg-secondary pr-3">Billing
+                            Address</span></h5>
+                    <div class="accordion-container">
+                        <style>
+                            /* CSS cho đánh giá của bạn */
                             h4 {
                                 font-size: 18px;
                                 margin-bottom: 10px;
@@ -208,214 +208,245 @@
                                 border-radius: 5px;
                                 margin-bottom: 10px;
                             }
-				   </style>
-<div class="ac">
-  <h2 class="ac-header">
-    <button class="ac-trigger" onclick="toggleRadio('acceptTerms1')">
-      <input type="radio" id="acceptTerms1" name="paymentMethod" value="vnpay" checked> <!-- Thêm radio button này -->
-      <img src="/img/credit-card_62780.png" alt="Card" width="30" height="26" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
-      Thanh Toán Bằng Cổng Giao Dịch / VnPay
-    </button>
-  </h2>
-  
-  <div class="ac-panel">
-    <p for="so-the" style="margin-left: 10px; margin-top:10px;">
-      	 Để hoàn tất giao dịch, chúng tôi sẽ chuyển bạn đến các máy chủ an toàn của VNPAY.
-    </p>
+                        </style>
+                        <div class="ac">
+                            <h2 class="ac-header">
+                                <button class="ac-trigger" onclick="toggleRadio('acceptTerms1')">
+                                    <input type="radio" id="acceptTerms1" name="paymentMethod" value="vnpay" checked>
+                                    <!-- Thêm radio button này -->
+                                    <img src="/img/credit-card_62780.png" alt="Card" width="30" height="26"
+                                        class="payment-method-label--payment-method--label--brand-icon--Cpsph"
+                                        loading="eager">
+                                    Thanh Toán Bằng Cổng Giao Dịch / VnPay
+                                </button>
+                            </h2>
 
-    <p for="so-the" style="margin-left: 10px; margin-top:10px">
-				 <img src="/img/warning.png" alt="Card" width="20" height="26" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
+                            <div class="ac-panel">
+                                <p for="so-the" style="margin-left: 10px; margin-top:10px;">
+                                    Để hoàn tất giao dịch, chúng tôi sẽ chuyển bạn đến các máy chủ an toàn của VNPAY.
+                                </p>
 
-      Ví VNPAY là ví điện tử gia đình, cho phép người dùng mở thêm ví thành viên cho người thân. 
-      Ví VNPAY sở hữu hệ sinh thái tiện ích đa dạng đáp ứng đầy đủ nhu cầu thanh toán của người dùng mọi lúc, mọi nơi
-    </p>
-    <br>
-  </div>
-</div>
+                                <p for="so-the" style="margin-left: 10px; margin-top:10px">
+                                    <img src="/img/warning.png" alt="Card" width="20" height="26"
+                                        class="payment-method-label--payment-method--label--brand-icon--Cpsph"
+                                        loading="eager">
 
-<div class="ac">
-  <h2 class="ac-header">
-    <button class="ac-trigger" onclick="toggleRadio('acceptTerms2')">
-      <input type="radio" id="acceptTerms2" value="paypal" name="paymentMethod"> <!-- Thêm radio button này -->
-      <img src="/img/PayPal.svg" alt="Card" width="30" height="26" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
-      PayPal
-    </button>
-  </h2>
-  
-  <div class="ac-panel">
-    <p for="so-the" >
-				 <img src="/img/warning.png" alt="Card" width="20" height="26" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
+                                    Ví VNPAY là ví điện tử gia đình, cho phép người dùng mở thêm ví thành viên cho người
+                                    thân.
+                                    Ví VNPAY sở hữu hệ sinh thái tiện ích đa dạng đáp ứng đầy đủ nhu cầu thanh toán của
+                                    người dùng mọi lúc, mọi nơi
+                                </p>
+                                <br>
+                            </div>
+                        </div>
 
-      	Để hoàn tất giao dịch, chúng tôi sẽ chuyển bạn đến các máy chủ an toàn của PayPal.
-    </p>
+                        <div class="ac">
+                            <h2 class="ac-header">
+                                <button class="ac-trigger" onclick="toggleRadio('acceptTerms2')">
+                                    <input type="radio" id="acceptTerms2" value="paypal" name="paymentMethod">
+                                    <!-- Thêm radio button này -->
+                                    <img src="/img/PayPal.svg" alt="Card" width="30" height="26"
+                                        class="payment-method-label--payment-method--label--brand-icon--Cpsph"
+                                        loading="eager">
+                                    PayPal
+                                </button>
+                            </h2>
 
-    <p for="so-the" style="margin-left: 10px; margin-top:10px">
-     
-     		Rất tiếc, PayPal không hỗ trợ thanh toán bằng VND nên giao dịch thanh toán của bạn sẽ được thực hiện bằng USD.
-		
-    </p>
-    
-    <div class="form-group" style="margin-bottom: 0px;">
-    
-    <textarea id="description" name="description" placeholder="Miêu tả" class="form-control"  rows="3"></textarea>
-  </div>
-    
-  </div>
-</div>
+                            <div class="ac-panel">
+                                <p for="so-the">
+                                    <img src="/img/warning.png" alt="Card" width="20" height="26"
+                                        class="payment-method-label--payment-method--label--brand-icon--Cpsph"
+                                        loading="eager">
 
-</div>
-                <div class="collapse mb-5" id="shipping-address">
-                    <h5 class="section-title position-relative text-uppercase mb-3"><span
-                            class="bg-secondary pr-3">Shipping Address</span></h5>
-                    <div class="bg-light p-30">
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label>First Name</label>
-                                <input class="form-control" type="text" placeholder="John">
+                                    Để hoàn tất giao dịch, chúng tôi sẽ chuyển bạn đến các máy chủ an toàn của PayPal.
+                                </p>
+
+                                <p for="so-the" style="margin-left: 10px; margin-top:10px">
+
+                                    Rất tiếc, PayPal không hỗ trợ thanh toán bằng VND nên giao dịch thanh toán của bạn
+                                    sẽ được thực hiện bằng USD.
+
+                                </p>
+
+                                <div class="form-group" style="margin-bottom: 0px;">
+
+                                    <textarea id="description" name="description" placeholder="Miêu tả"
+                                        class="form-control" rows="3"></textarea>
+                                </div>
+
                             </div>
-                            <div class="col-md-6 form-group">
-                                <label>Last Name</label>
-                                <input class="form-control" type="text" placeholder="Doe">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>E-mail</label>
-                                <input class="form-control" type="text" placeholder="example@email.com">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Mobile No</label>
-                                <input class="form-control" type="text" placeholder="+123 456 789">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Address Line 1</label>
-                                <input class="form-control" type="text" placeholder="123 Street">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Address Line 2</label>
-                                <input class="form-control" type="text" placeholder="123 Street">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Country</label>
-                                <select class="custom-select">
-                                    <option selected>United States</option>
-                                    <option>Afghanistan</option>
-                                    <option>Albania</option>
-                                    <option>Algeria</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>City</label>
-                                <input class="form-control" type="text" placeholder="New York">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>State</label>
-                                <input class="form-control" type="text" placeholder="New York">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>ZIP Code</label>
-                                <input class="form-control" type="text" placeholder="123">
+                        </div>
+
+                    </div>
+                    <div class="collapse mb-5" id="shipping-address">
+                        <h5 class="section-title position-relative text-uppercase mb-3"><span
+                                class="bg-secondary pr-3">Shipping Address</span></h5>
+                        <div class="bg-light p-30">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>First Name</label>
+                                    <input class="form-control" type="text" placeholder="John">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Last Name</label>
+                                    <input class="form-control" type="text" placeholder="Doe">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>E-mail</label>
+                                    <input class="form-control" type="text" placeholder="example@email.com">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Mobile No</label>
+                                    <input class="form-control" type="text" placeholder="+123 456 789">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Address Line 1</label>
+                                    <input class="form-control" type="text" placeholder="123 Street">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Address Line 2</label>
+                                    <input class="form-control" type="text" placeholder="123 Street">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Country</label>
+                                    <select class="custom-select">
+                                        <option selected>United States</option>
+                                        <option>Afghanistan</option>
+                                        <option>Albania</option>
+                                        <option>Algeria</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>City</label>
+                                    <input class="form-control" type="text" placeholder="New York">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>State</label>
+                                    <input class="form-control" type="text" placeholder="New York">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>ZIP Code</label>
+                                    <input class="form-control" type="text" placeholder="123">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            
-            <div class="col-lg-4">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Tóm Tắt</span></h5>
-                <div class="bg-light p-30 mb-5">
-                    <div class="border-bottom">
-                        <h6 class="mb-3">Sản phẩm</h6>
-                        <div class="d-flex justify-content-between">
-                            <p>{{hoc.courseOnline.tenKhoaHoc}}</p>
-          
+
+
+                <div class="col-lg-4">
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Tóm
+                            Tắt</span></h5>
+                    <div class="bg-light p-30 mb-5">
+                        <div class="border-bottom">
+                            <h6 class="mb-3">Sản phẩm</h6>
+                            <div class="d-flex justify-content-between">
+                                <p>{{hoc.courseOnline.tenKhoaHoc}}</p>
+
+                            </div>
+
                         </div>
-                    
+                        <div class="border-bottom pt-3 pb-2">
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6>Đơn giá</h6>
+                                <span class="m-0" id="price" th:text="${session.donGiaFormat} "></span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-medium">Mức chiết khấu</h6>
+                                <h6 class="font-weight-medium">12%</h6>
+                            </div>
+                        </div>
+                        <div class="pt-2">
+                            <div class="d-flex justify-content-between mt-2">
+                                <h5>Tổng tiền</h5>
+                                <h5 th:text="${session.donGiaFormat} "></h5>
+                                <!-- các input để lấy thông tin đưa vào api và csdl -->
+                                <input type="hidden" class="form-control" id="amount" name="amount" required
+                                    value="{{hoc.courseOnline.chiPhi*0.88}}">
+                                <input type="hidden" class="form-control" id="orderInfo" name="orderInfo" required
+                                    value="{{hoc.courseOnline.tenKhoaHoc}}">
+                                <input type="hidden" class="form-control" id="idKhoaHoc" name="idKhoaHoc" required
+                                    value="{{hoc.courseOnline.id}}">
+                                <input type="hidden" class="form-control" id="idNguoiDung" name="idNguoiDung" required
+                                    ng-init="getIdNguoiDung()" value="{{idNguoiDung2}}">
+                                <input type="hidden" class="form-control" id="tenNguoiDung" name="tenNguoiDung" required
+                                    ng-init="getIdNguoiDung()" value="{{TenNguoiDung}}">
+
+                                <input type="hidden" id="currency" name="currency" placeholder="Enter Currency"
+                                    value="USD">
+                                <input type="hidden" id="method" name="method" placeholder="Payment Method"
+                                    value="paypal">
+                                <input type="hidden" id="intent" name="intent" value="sale">
+
+                            </div>
+                        </div>
+                        <button class="btn btn-block btn-primary font-weight-bold py-3">Hoàn tất thanh toán</button>
+
                     </div>
-                    <div class="border-bottom pt-3 pb-2">
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6>Đơn giá</h6>
-                             <span class="m-0" id="price" th:text="${session.donGiaFormat} "></span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Mức chiết khấu</h6>
-                            <h6 class="font-weight-medium">12%</h6>
-                        </div>
-                    </div>
-                    <div class="pt-2">
-                        <div class="d-flex justify-content-between mt-2">
-                            <h5>Tổng tiền</h5>
-                               <h5 th:text="${session.donGiaFormat} "></h5>
-                             <!-- các input để lấy thông tin đưa vào api và csdl -->
-                            <input type="hidden" class="form-control" id="amount" name="amount" required value="{{hoc.courseOnline.chiPhi*0.88}}"> 
-							<input type="hidden" class="form-control"id="orderInfo" name="orderInfo" required value="{{hoc.courseOnline.tenKhoaHoc}}">		
-							<input type="hidden" class="form-control" id="idKhoaHoc" name="idKhoaHoc" required value="{{hoc.courseOnline.id}}">
-							<input type="hidden" class="form-control" id="idNguoiDung" name="idNguoiDung" required ng-init="getIdNguoiDung()" value="{{idNguoiDung2}}">
-							<input type="hidden" class="form-control" id="tenNguoiDung" name="tenNguoiDung" required ng-init="getIdNguoiDung()" value="{{TenNguoiDung}}">
-							
-							<input type="hidden" id="currency" name="currency" placeholder="Enter Currency" value="USD">
-							<input type="hidden" id="method" name="method" placeholder="Payment Method" value="paypal">
-							<input type="hidden" id="intent" name="intent" value="sale">
-							
-                        </div>
-                    </div>
-                    <button class="btn btn-block btn-primary font-weight-bold py-3">Hoàn tất thanh toán</button>
 
                 </div>
-                
-            </div>
-            </form>
-        </div>
+    </form>
+    </div>
     </div>
     <!-- Checkout End -->
-	
 
-                                <input type="text" id="idLogin" hidden th:value="${session.user.id}">
 
-   <!-- Footer Start -->
-   <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5">
-    <div class="row pt-5">
-        <div class="col-lg-7 col-md-12">
-            <div class="row">
-                <div class="col-md-6 mb-5">
-                    <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Liên hệ</h5>
-                    <p><i class="fa fa-map-marker-alt mr-2"></i>22 Thường Thạnh, Khu dân cư Hoàng Quân, Q. Cái Răng, TP. Cần Thơ</p>
-                    <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
-                    <p><i class="fa fa-envelope mr-2"></i>PolyAcademy@fpt.edu.vn</p>
-                    <div class="d-flex justify-content-start mt-4">
-                        <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="btn btn-outline-light btn-square" href="#"><i class="fab fa-instagram"></i></a>
+    <input type="text" id="idLogin" hidden th:value="${session.user.id}">
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5">
+        <div class="row pt-5">
+            <div class="col-lg-7 col-md-12">
+                <div class="row">
+                    <div class="col-md-6 mb-5">
+                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Liên hệ</h5>
+                        <p><i class="fa fa-map-marker-alt mr-2"></i>22 Thường Thạnh, Khu dân cư Hoàng Quân, Q. Cái Răng,
+                            TP. Cần Thơ</p>
+                        <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
+                        <p><i class="fa fa-envelope mr-2"></i>PolyAcademy@fpt.edu.vn</p>
+                        <div class="d-flex justify-content-start mt-4">
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-outline-light btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6 mb-5">
-                    <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Khoá học của chúng tôi</h5>
-                    <div class="d-flex flex-column justify-content-start">
-                        <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Thiết kế trang Web</a>
-                        <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Phát triển phần mềm</a>
-                        <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Kỹ năng học tập</a>
-                        <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Pháp luật</a>
-                        <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Tiếng Anh</a>
+                    <div class="col-md-6 mb-5">
+                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Khoá học của chúng tôi
+                        </h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Thiết kế trang
+                                Web</a>
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Phát triển phần
+                                mềm</a>
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Kỹ năng học
+                                tập</a>
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Pháp luật</a>
+                            <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Tiếng Anh</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-5 col-md-12 mb-5">
-            <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">PolyAcademy</h5>
-            <p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh, sinh viên trên cả nước với chất lượng tốt nhất!</p>
-            <div class="w-100">
-                <div class="input-group">
-                    <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="Hãy gửi Email cho chúng tôi">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary px-4">Đăng ký</button>
+            <div class="col-lg-5 col-md-12 mb-5">
+                <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">PolyAcademy</h5>
+                <p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp giải pháp giáo dục toàn diện ngoài
+                    trường học cho tất cả học sinh, sinh viên trên cả nước với chất lượng tốt nhất!</p>
+                <div class="w-100">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-light" style="padding: 30px;"
+                            placeholder="Hãy gửi Email cho chúng tôi">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary px-4">Đăng ký</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Footer End -->
-	
+    <!-- Footer End -->
+
 
 
     <!-- Back to Top -->
@@ -431,23 +462,23 @@
     <!-- Contact Javascript File -->
     <script src="/mail/jqBootstrapValidation.min.js"></script>
     <script src="/mail/contact.js"></script>
- <script src="../js/hoc.js"></script>
+    <script src="../js/hoc.js"></script>
     <!-- Template Javascript -->
     <script src="/js/main.js"></script>
     <script src="/js/accordion.min.js"></script>
 
 
-   
-	<script>
-  	function toggleRadio(radioId) {
-   	 var radio = document.getElementById(radioId);
-   	 radio.checked = true;
- 	 }
-	</script>
-<script>
-  new Accordion('.accordion-container');
-</script>
-  
+
+    <script>
+        function toggleRadio(radioId) {
+            var radio = document.getElementById(radioId);
+            radio.checked = true;
+        }
+    </script>
+    <script>
+        new Accordion('.accordion-container');
+    </script>
+
 </body>
 
 </html>
