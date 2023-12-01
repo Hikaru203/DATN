@@ -53,6 +53,11 @@ public class Login_DangKy {
         return "dangnhap";
     }
 
+    @GetMapping("/courseOnline/OTPError")
+    public String otpError() {
+        return "dangnhap";
+    }
+
     @GetMapping("/courseOnline/confirmotp")
     public String confirmotp() {
 
@@ -85,5 +90,12 @@ public class Login_DangKy {
         nguuoidungRepository.save(nguoixai);
         httpSession.setAttribute("user", nguoixai);
         return "index";
+    }
+
+    @GetMapping("/courseOnline/Faillsesion")
+    public String sesion(Model model) {
+        model.addAttribute("message", "Đổi mật khẩu thất bạn ");
+
+        return "doimk";
     }
 }

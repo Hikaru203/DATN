@@ -178,4 +178,14 @@ header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease-in-out; /* Hiệu ứng màu nền */
 }
+.spinner-container {
+  position: fixed; /* Thiết lập phần tử cố định (fixed) */
+  top: 40%; /* Đặt vị trí theo chiều cao 50% của màn hình */
+  left: 50%; /* Đặt vị trí theo chiều rộng 50% của màn hình */
+  transform: translate(-50%, -50%); /* Dịch chuyển phần tử ngược lại 50% của chính nó */
+  z-index: 999999;
+  font-size: 200px;
+  color: #3498db;
+  display: none;
+}
 
