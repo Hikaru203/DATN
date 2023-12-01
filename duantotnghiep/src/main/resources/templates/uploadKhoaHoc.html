@@ -245,8 +245,8 @@
                     th:value="${authorizationUrl}">
                 <!-- Đây là nút dẫn đến URL -->
                 <div style="text-align: center; padding-top: 60px;">
-                    <a th:href="${authorizationUrl}" class="btn btn-primary">Vui lòng
-                        đăng nhập</a>
+                    <a th:href="${authorizationUrl} " class="btn btn-primary">Vui lòng đăng nhập</a>
+
                 </div>
 
                 <div class="form-group" id="accessTokenGroup">
@@ -290,13 +290,16 @@
                 </div>
                 <style>
                     .course-list {
-    max-height: 300px; /* Đặt chiều cao tối đa cho phần hiển thị */
-    overflow-y: auto; /* Tạo thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
-}
+                        max-height: 300px;
+                        /* Đặt chiều cao tối đa cho phần hiển thị */
+                        overflow-y: auto;
+                        /* Tạo thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
+                    }
 
-.table {
-    width: 100%; /* Đảm bảo bảng rộng 100% của phần chứa nó */
-}
+                    .table {
+                        width: 100%;
+                        /* Đảm bảo bảng rộng 100% của phần chứa nó */
+                    }
                 </style>
             </div>
             <!-- Thêm phần hiển thị danh sách khoá học sau phần đăng video -->
@@ -455,7 +458,7 @@
                     authorizationTokenGroup.style.display = 'block';
                     console.log("1")
                 } else {
-                    authorizationTokenGroup.style.display = 'none';
+                    authorizationTokenGroup.style.display = 'block';
                     console.log("2")
 
 

@@ -76,8 +76,8 @@ public class CheckOutController {
 		
 		if (paymentMenThod.equals("paypal")) {
 			try {
-				Payment payment = service.createPayment((double) orderTotal, order.getCurrency(), order.getMethod(),
-						order.getIntent(), order.getDescription(), "http://localhost:8080/" + CANCEL_URL,
+				Payment payment = service.createPayment((double) 10000, "USD", "paypal",
+						"sale", order.getDescription(), "http://localhost:8080/" + CANCEL_URL,
 						"http://localhost:8080/" + SUCCESS_URL, 0.0000412414);
 				for (Links link : payment.getLinks()) {
 					if (link.getRel().equals("approval_url")) {
