@@ -209,6 +209,32 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         }
     }
 
+    $scope.itemsVideoKhoaHoc = [];
+    $scope.videoKhoaHoc = {};
+    $scope.loadVideoKhoaHoc = function (item) {
+        $http.get(`/rest/admin/Videos/${item.id}`).then(resp => {
+            $scope.itemsVideoKhoaHoc = resp.data;
+            let tieuDeVideo = "";
+    angular.element(document.getElementById('tieude')).text(tieuDeVideo);
+            let videoUrl = "";
+            // Đặt thuộc tính src của video-iframe
+    let videoIframe = document.getElementById('video-iframe');
+    videoIframe.src = "https://www.youtube.com/embed/" + videoUrl;
+        })
+    }
+    
+// Hiển thị video
+$scope.xem = function (item) {
+    $scope.videoKhoaHoc = angular.copy(item);
+    
+    let videoUrl = $scope.videoKhoaHoc.linkVideo;
+    let tieuDeVideo = $scope.videoKhoaHoc.tenVideo;
+    angular.element(document.getElementById('tieude')).text(tieuDeVideo);
+    // Đặt thuộc tính src của video-iframe
+    let videoIframe = document.getElementById('video-iframe');
+    videoIframe.src = "https://www.youtube.com/embed/" + videoUrl;
+    $(".nav-tabs button:eq(1)").tab('show');
+}   
 })
 app.directive('fileModel', ['$parse', function ($parse) {
     return {
@@ -225,3 +251,6 @@ app.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
+
+
+

@@ -4,7 +4,9 @@ import java.io.UnsupportedEncodingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.fpoly.duantotnghiep.Entity.NguoiDung;
 
@@ -62,6 +64,11 @@ public class AdminController {
     @GetMapping("/Admin/ThanhToan")
     public String ThanhToan() {
         return "Admin/ThanhToan";
+    }
+    
+    @GetMapping("/Admin/DuyetVideo/{id}")
+    public String loadVideo(Model model, @PathVariable("id") Long id) {
+        return "Admin/duyetVideo";
     }
 
 }
