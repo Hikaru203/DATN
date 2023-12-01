@@ -18,46 +18,47 @@ import com.fpoly.duantotnghiep.service.DangKyKhoaHocService;
 @CrossOrigin("*")
 @RequestMapping("/api/tiendokhoahoc")
 public class TienDoKhoaHocRestController {
-    @Autowired
-    DangKyKhoaHocService dangKyKhoaHocService;
+	@Autowired
+	DangKyKhoaHocService dangKyKhoaHocService;
 
-    @GetMapping("/{id}/{idkhoahoc}")
-    public DangKyKhoaHoc getTienDoKhoaHoc(@PathVariable int id, @PathVariable int idkhoahoc) {
-        System.out.println("id: " + id + " idkhoahoc: " + idkhoahoc);
-        return dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(id, idkhoahoc);
-    }
+	@GetMapping("/{id}/{idkhoahoc}")
+	public DangKyKhoaHoc getTienDoKhoaHoc(@PathVariable int id, @PathVariable int idkhoahoc) {
+		System.out.println("id: " + id + " idkhoahoc: " + idkhoahoc);
+		return dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(id, idkhoahoc);
+	}
 
-    @PutMapping("/{id}/{idkhoahoc}/{idvideo}/{tienDo}")
-    public DangKyKhoaHoc updateTienDoKhoaHoc(@PathVariable int id, @PathVariable int idkhoahoc,
-            @PathVariable String idvideo, @PathVariable String tienDo) {
-        DangKyKhoaHoc dangKyKhoaHoc = dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(id, idkhoahoc);
-        try {
-            dangKyKhoaHoc.setTienDo(idvideo + "/" + tienDo);
-            return dangKyKhoaHocService.save(dangKyKhoaHoc);
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println(e.getMessage());
-            return null;
+	@PutMapping("/{id}/{idkhoahoc}/{idvideo}/{tienDo}")
+	public DangKyKhoaHoc updateTienDoKhoaHoc(@PathVariable int id, @PathVariable int idkhoahoc,
+			@PathVariable String idvideo, @PathVariable String tienDo) {
+		DangKyKhoaHoc dangKyKhoaHoc = dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(id, idkhoahoc);
+		try {
+			dangKyKhoaHoc.setTienDo(idvideo + "/" + tienDo);
+			return dangKyKhoaHocService.save(dangKyKhoaHoc);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			return null;
 
-        }
-    }
+		}
+	}
 
-    @PutMapping("/upload/{id}/{idkhoahoc}/{trangthai}")
-    public DangKyKhoaHoc updateTienDoKhoaHoc2(@PathVariable int id, @PathVariable int idkhoahoc,
-            @PathVariable String trangthai) {
-        DangKyKhoaHoc dangKyKhoaHoc = dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(id, idkhoahoc);
-        System.out.println(dangKyKhoaHoc);
-        try {
-            dangKyKhoaHoc.setTrangThai(trangthai);
-            return dangKyKhoaHocService.save(dangKyKhoaHoc);
-        } catch (Exception e) {
-            // TODO: handle exception
-            System.out.println(e.getMessage());
-            return null;
+	@PutMapping("/upload/{id}/{idkhoahoc}/{trangthai}")
+	public DangKyKhoaHoc updateTienDoKhoaHoc2(@PathVariable int id, @PathVariable int idkhoahoc,
+			@PathVariable String trangthai) {
+		DangKyKhoaHoc dangKyKhoaHoc = dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(id, idkhoahoc);
+		System.out.println(dangKyKhoaHoc);
+		try {
+			dangKyKhoaHoc.setTrangThai(trangthai);
+			return dangKyKhoaHocService.save(dangKyKhoaHoc);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
 
-        }
-    @GetMapping
-    public List<DangKyKhoaHoc> findAll() {
-        return dangKyKhoaHocService.findAll();
-    }
+	@GetMapping
+	public List<DangKyKhoaHoc> findAll() {
+		return dangKyKhoaHocService.findAll();
+	}
 }

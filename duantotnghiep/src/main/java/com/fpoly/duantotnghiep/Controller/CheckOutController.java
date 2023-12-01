@@ -61,46 +61,7 @@ public class CheckOutController {
 		return "ordersuccess2";
 	}
 
-	@PostMapping("/courseOnline/submitOrder")
-	public String submidOrder(@RequestParam("amount") int orderTotal, @RequestParam("tenNguoiDung") String orderInfo,
-			HttpServletRequest request, @CookieValue(value = "username", defaultValue = "0") String userIdCookie,
-			@RequestParam("paymentMethod") String paymentMenThod, @RequestParam("idKhoaHoc") String idKhoaHoc,
-			@RequestParam("idNguoiDung") String idNguoiDung, @ModelAttribute("order") ThanhToan order) {
 
-		String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-		String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
-
-		HttpSession session = request.getSession();
-		
-		
-		
-		if (paymentMenThod.equals("paypal")) {
-			try {
-				Payment payment = service.createPayment((double) orderTotal, order.getCurrency(), order.getMethod(),
-						order.getIntent(), order.getDescription(), "http://localhost:8080/" + CANCEL_URL,
-						"http://localhost:8080/" + SUCCESS_URL, 0.0000412414);
-				for (Links link : payment.getLinks()) {
-					if (link.getRel().equals("approval_url")) {
-						session.setAttribute("idNguoiDung", idNguoiDung);
-						session.setAttribute("idKhoaHoc", idKhoaHoc);
-						session.setAttribute("totalprice", orderTotal);
-						return "redirect:" + link.getHref();
-					}
-				}
-
-			} catch (PayPalRESTException e) {
-
-				e.printStackTrace();
-			}
-			return "redirect:/";
-		} else {
-			session.setAttribute("idNguoiDung", idNguoiDung);
-			session.setAttribute("idKhoaHoc", idKhoaHoc);
-			session.setAttribute("totalprice", orderTotal);
-			return "redirect:" + vnpayUrl;
-		}
-
-	}
 
 	@GetMapping(value = CANCEL_URL)
 	public String cancelPay() {
