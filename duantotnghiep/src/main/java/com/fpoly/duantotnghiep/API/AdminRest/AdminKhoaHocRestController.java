@@ -1,5 +1,6 @@
 package com.fpoly.duantotnghiep.API.AdminRest;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,10 @@ public class AdminKhoaHocRestController {
     public List<KhoaHoc> getAll() {
         return khoaHocService.findAll();
     }
+    @GetMapping("/Duyet")
+        public List<KhoaHoc> getDuyet() {
+            return khoaHocService.findDuyet();
+        }
 
     @GetMapping("/{id}")
     public KhoaHoc getById(@PathVariable("id") int id) {

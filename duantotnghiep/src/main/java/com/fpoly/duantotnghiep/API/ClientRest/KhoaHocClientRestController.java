@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
@@ -40,8 +41,8 @@ public class KhoaHocClientRestController {
         }
     }
     @GetMapping("/byLoai/{loai}")
-    public List<KhoaHoc> getKhoaHocByLoai(@PathVariable String loai) {
+    public List<KhoaHoc> getKhoaHocByLoai(@PathVariable Integer loai) {
         return khoaHocService.getKhoaHocByLoai(loai);
     }
-
+     
 }

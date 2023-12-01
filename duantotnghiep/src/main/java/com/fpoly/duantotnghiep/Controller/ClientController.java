@@ -15,8 +15,10 @@ import com.fpoly.duantotnghiep.Entity.CauHoi;
 import com.fpoly.duantotnghiep.Entity.DangKyKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.DanhGia;
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
+import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.MucLuc;
 import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
+import com.fpoly.duantotnghiep.jparepository.LoaiKhoaHocRepository;
 import com.fpoly.duantotnghiep.service.CauHoiService;
 import com.fpoly.duantotnghiep.service.CookieService;
 import com.fpoly.duantotnghiep.service.DangKyKhoaHocService;
@@ -47,6 +49,9 @@ public class ClientController {
 
     @Autowired
     DanhGiaService danhGiaService;
+
+    @Autowired
+    LoaiKhoaHocRepository loaiKhoaHocRepository;
 
     @GetMapping("/courseOnline/index")
     public String index(Model model) {
@@ -148,14 +153,12 @@ public class ClientController {
         }
 
         model.addAttribute("danhGiaList2", danhGiaList2);
-       
+
         model.addAttribute("danhGiaList", danhGiaList);
-        
+
         model.addAttribute("list", courseCountList);
-       
 
         model.addAttribute("courseOnline", page);
-
         return "index";
     }
 
@@ -166,15 +169,34 @@ public class ClientController {
         return "tracnghiem";
     }
 
+    @GetMapping("/courseOnline/course")
+    public String course() {
+        return "course";
+    }
+
     @GetMapping("/courseOnline/detail/{id}")
     public String detail(@PathVariable("id") String id, Model model) {
         cookieService.add("id", id, 1);
         return "detail";
     }
 
-    @GetMapping("/courseOnline/uploadKhoaHoc")
-    public String uploadKhoaHoc() {
-        return "uploadKhoaHoc";
+    @GetMapping("/courseOnline/about")
+    public String about() {
+        return "about";
     }
 
+    @GetMapping("/courseOnline/contact")
+    public String contact() {
+        return "contact";
+    }
+
+    @GetMapping("/courseOnline/cart")
+    public String cart() {
+        return "cart";
+    }
+
+    @GetMapping("/courseOnline/checkout")
+    public String checkout() {
+        return "checkout";
+    }
 }

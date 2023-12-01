@@ -33,6 +33,8 @@ public class YouTubeService {
                                                                                        // Secret
     private static final String REDIRECT_URI = "http://localhost:8080/oauth2callback"; // Replace with your Redirect URI
 
+                                                                                         // URI
+
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
     private YouTube youTube;
@@ -63,6 +65,8 @@ public class YouTubeService {
 
         return flow.newAuthorizationUrl().setRedirectUri(REDIRECT_URI).build();
     }
+
+    
 
     public String getAccessToken(String authorizationCode) throws IOException {
         GoogleAuthorizationCodeFlow flow = null;

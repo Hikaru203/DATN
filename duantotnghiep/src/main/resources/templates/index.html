@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="utf-8">
-	<title>PolyAcademy</title>
-	<meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<meta content="Free HTML Templates" name="keywords">
-	<meta content="Free HTML Templates" name="description">
+<meta charset="utf-8">
+<title>PolyAcademy</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="Free HTML Templates" name="keywords">
+<meta content="Free HTML Templates" name="description">
 
 	<!-- Favicon -->
 	<link th:href="@{img/favicon.ico}" rel="icon">
@@ -44,7 +44,7 @@
 					<div class="text-left">
 						<h6 class="font-weight-semi-bold mb-1">Văn phòng của chúng
 							tôi</h6>
-						<small>22 Thường thạnh, Cái Răng, Cần Thơ</small>
+						<small>22 Thường Thạnh, Cái Răng, Cần Thơ</small>
 					</div>
 				</div>
 			</div>
@@ -85,20 +85,19 @@
 					id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
 					<div class="navbar-nav w-100">
 						<div class="nav-item dropdown">
-							<a href="#" class="nav-link" data-toggle="dropdown">Thiết kế
-								trang Web<i class="fa fa-angle-down float-right mt-1"></i>
+							<a href="#" class="nav-link" data-toggle="dropdown">Ứng dụng phần mềm<i class="fa fa-angle-down float-right mt-1"></i>
 							</a>
-							<div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-								<a href="deltai.html" class="dropdown-item">HTML</a> <a href="deltai.html"
-									class="dropdown-item">CSS</a> <a href="deltai.html"
-									class="dropdown-item">JavaScript</a>
+							<div
+								class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+								<a href="detail" class="dropdown-item">HTML</a> <a
+									href="detail" class="dropdown-item">CSS</a> <a
+									href="detail" class="dropdown-item">JavaScript</a>
 							</div>
 						</div>
-						<a href="deltai.html" class="nav-item nav-link active">Phát
-							triển phần mềm</a> <a href="deltai.html" class="nav-item nav-link active">Kỹ năng học
-							tập</a> <a href="deltai.html" class="nav-item nav-link active">Pháp luật</a>
-						<a href="deltai.html" class="nav-item nav-link active">Tiếng
-							Anh</a>
+						<a href="detail" class="nav-item nav-link active">Lập trình Web</a> <a href="detail"
+							class="nav-item nav-link active"></a>Cơ khí</a> <a
+							href="detail" class="nav-item nav-link active">Marketing</a>
+						<a href="detail" class="nav-item nav-link active">Nhà hàng - Khách sạn</a>
 					</div>
 				</nav>
 			</div>
@@ -114,19 +113,17 @@
 					</button>
 					<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
 						<div class="navbar-nav py-0">
-							<a href="index.html" class="nav-item nav-link active ">Trang
-								chủ</a> <a href="course.html" class="nav-item nav-link ">Khoá
-								học</a> <a href="deltai.html" class="nav-item nav-link ">Chi
-								tiết khoá học</a> <a href="about.html" class="nav-item nav-link ">Đăng ký học thử</a>
+							<a href="index" class="nav-item nav-link active ">Trang
+								chủ</a> <a href="course" class="nav-item nav-link ">Khoá
+								học</a>
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
 								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-									<a href="contact.html" class="dropdown-item">Liên hệ</a> <a href="about.html"
-										class="dropdown-item">Yêu thích khoá học</a>
-									<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
-									<a href="cart.html" class="dropdown-item">Giỏ hàng</a> <a href="checkout.html"
-										class="dropdown-item">Thanh toán</a> <a href="tracnghiem.html"
-										class="dropdown-item">Trắc nghiệm</a>
+									<a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a> 
+										<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
+									<a href="cart" class="dropdown-item">Giỏ hàng</a> <a
+										href="checkout" class="dropdown-item">Thanh toán</a> <a
+										href="tracnghiem" class="dropdown-item">Trắc nghiệm</a>
 								</div>
 							</div>
 						</div>
@@ -166,7 +163,6 @@
 								<a href="/logoff" class="dropdown-item">Đăng xuất</a>
 							</div>
 						</div>
-
 					</div>
 				</nav>
 			</div>
@@ -186,13 +182,16 @@
 				<div class="carousel-item active" style="min-height: 300px;">
 					<img class="position-relative w-100" th:src="@{/img/carousel-1.jpg}"
 						style="min-height: 300px; object-fit: cover;">
+						<div
+						class="carousel-caption d-flex align-items-center justify-content-center">
 					<div class="carousel-caption d-flex align-items-center justify-content-center">
 						<div class="p-5" style="width: 100%; max-width: 900px;">
 							<h5 class="text-white text-uppercase mb-md-3">Các khóa học
 								trực tuyến tốt nhất</h5>
 							<h1 class="display-3 text-white mb-md-4">Được sản xuất bởi
 								đội ngũ PolyAcademy</h1>
-							<a href="course.html" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
+							<a href="course.html"
+								class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
 								hiểu thêm</a>
 						</div>
 					</div>
@@ -214,13 +213,15 @@
 				<div class="carousel-item" style="min-height: 300px;">
 					<img class="position-relative w-100" th:src="@{/img/carousel-3.jpg}"
 						style="min-height: 300px; object-fit: cover;">
-					<div class="carousel-caption d-flex align-items-center justify-content-center">
+						<div
+						class="carousel-caption d-flex align-items-center justify-content-center">
 						<div class="p-5" style="width: 100%; max-width: 900px;">
 							<h5 class="text-white text-uppercase mb-md-3">Kiến thức thực
 								tế</h5>
 							<h1 class="display-3 text-white mb-md-4">Xây dựng tương lai
 							</h1>
-							<a href="course.html" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
+							<a href="course.html"
+								class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
 								hiểu thêm</a>
 						</div>
 					</div>
@@ -259,16 +260,16 @@
 	<div class="container-fluid py-5">
 		<div class="container pt-5 pb-3">
 			<div class="text-center mb-5">
-				<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Subjects</h5>
-				<h1>Explore Top Subjects</h1>
-			</div>
+				<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khoá học chính</h5>
+				<h1>Top các khoá học được ưa chuộng</h1>
+			</div>	
 			<div class="row">
 				<div class="col-lg-3 col-md-6 mb-4">
 					<div class="cat-item position-relative overflow-hidden rounded mb-2">
 						<img class="img-fluid" th:src="@{/img/cat-1.jpg}" alt=""> <a
 							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Web Design</h4> <span>100
-								Courses</span>
+							<h4 class="text-white font-weight-medium">Lập trình C</h4> <span>100
+								khoá học</span>
 						</a>
 					</div>
 				</div>
@@ -276,8 +277,8 @@
 					<div class="cat-item position-relative overflow-hidden rounded mb-2">
 						<img class="img-fluid" th:src="@{/img/cat-2.jpg}" alt=""> <a
 							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Development</h4> <span>100
-								Courses</span>
+							<h4 class="text-white font-weight-medium">Thiết kế trang web</h4> <span>50
+								khoá học</span>
 						</a>
 					</div>
 				</div>
@@ -285,8 +286,8 @@
 					<div class="cat-item position-relative overflow-hidden rounded mb-2">
 						<img class="img-fluid" th:src="@{/img/cat-3.jpg}" alt=""> <a
 							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Game Design</h4> <span>100
-								Courses</span>
+							<h4 class="text-white font-weight-medium">Lập trình cơ khí</h4> <span>100
+								Khoá học</span>
 						</a>
 					</div>
 				</div>
@@ -294,8 +295,8 @@
 					<div class="cat-item position-relative overflow-hidden rounded mb-2">
 						<img class="img-fluid" th:src="@{/img/cat-4.jpg}" alt=""> <a
 							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Apps Design</h4> <span>100
-								Courses</span>
+							<h4 class="text-white font-weight-medium">Đẳng cấp Marketing</h4> <span>100
+								Khoá học</span>
 						</a>
 					</div>
 				</div>
@@ -303,8 +304,8 @@
 					<div class="cat-item position-relative overflow-hidden rounded mb-2">
 						<img class="img-fluid" th:src="@{/img/cat-5.jpg}" alt=""> <a
 							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Marketing</h4> <span>100
-								Courses</span>
+							<h5 class="text-white font-weight-medium">Nhà hàng - khách sạn</h5> <span>100
+								Khoá học</span>
 						</a>
 					</div>
 				</div>
@@ -312,8 +313,8 @@
 					<div class="cat-item position-relative overflow-hidden rounded mb-2">
 						<img class="img-fluid" th:src="@{/img/cat-6.jpg}" alt=""> <a
 							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Research</h4> <span>100
-								Courses</span>
+							<h4 class="text-white font-weight-medium">HTML5 căn bản</h4> <span>100
+								Khoá học</span>
 						</a>
 					</div>
 				</div>
@@ -321,8 +322,8 @@
 					<div class="cat-item position-relative overflow-hidden rounded mb-2">
 						<img class="img-fluid" th:src="@{/img/cat-7.jpg}" alt=""> <a
 							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Content Writing</h4> <span>100
-								Courses</span>
+							<h4 class="text-white font-weight-medium">Ma thuật CSS</h4> <span>100
+								Khoá học</span>
 						</a>
 					</div>
 				</div>
@@ -330,8 +331,8 @@
 					<div class="cat-item position-relative overflow-hidden rounded mb-2">
 						<img class="img-fluid" th:src="@{/img/cat-8.jpg}" alt=""> <a
 							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">SEO</h4> <span>100
-								Courses</span>
+							<h4 class="text-white font-weight-medium">JavaScript cơ bản</h4> <span>100
+								Khoá học</span>
 						</a>
 					</div>
 				</div>
@@ -501,6 +502,13 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
+	<!-- Contact Javascript File -->
+	<script src="mail/jqBootstrapValidation.min.js"></script>
+	<script src="mail/contact.js"></script>
+
+	<!-- Template Javascript -->
+	<script src="js/main.js"></script>
+	<script src="js/client.js"></script>
 	<script>
 		var priceElements = document.querySelectorAll("#price");
 		var currencyFormatter = new Intl.NumberFormat("vi-VN", {
