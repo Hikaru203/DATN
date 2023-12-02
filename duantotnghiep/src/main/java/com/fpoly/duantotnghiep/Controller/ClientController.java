@@ -58,61 +58,59 @@ public class ClientController {
 	LoaiKhoaHocRepository loaiKhoaHocRepository;
 
 	@GetMapping("/courseOnline/index")
-    public String index(Model model, @RequestParam("cid") Optional<Integer> cid) {
+	public String index(Model model, @RequestParam("cid") Optional<Integer> cid) {
 		List<KhoaHoc> findAllNameCategory = daoHocService.findAll();
-	    List<String> findAlIdCategory = daoHocService.findAlIdCategory();
+		List<String> findAlIdCategory = daoHocService.findAlIdCategory();
 
-	    // Loại bỏ các giá trị trùng lặp từ danh sách findAllNameCategory
-	    Set<String> uniqueCategories = new HashSet();
-	    List<KhoaHoc> distinctCategories = new ArrayList<>();
-	    for (KhoaHoc khoaHoc : findAllNameCategory) {
-	        String tenLoaiKhoaHoc = khoaHoc.getLoaiKhoaHoc().getTenLoaiKhoaHoc();
-	        if (uniqueCategories.add(tenLoaiKhoaHoc)) {
-	            distinctCategories.add(khoaHoc);
-	        }
-	    }
+		// Loại bỏ các giá trị trùng lặp từ danh sách findAllNameCategory
+		Set<String> uniqueCategories = new HashSet();
+		List<KhoaHoc> distinctCategories = new ArrayList<>();
+		for (KhoaHoc khoaHoc : findAllNameCategory) {
+			String tenLoaiKhoaHoc = khoaHoc.getLoaiKhoaHoc().getTenLoaiKhoaHoc();
+			if (uniqueCategories.add(tenLoaiKhoaHoc)) {
+				distinctCategories.add(khoaHoc);
+			}
+		}
 
-	    model.addAttribute("catesName", distinctCategories);
-	    model.addAttribute("catesId", findAlIdCategory);
-    	 
-    	 
-        if(cid.isPresent()) {
-        	 List<KhoaHoc> page = daoHocService.findByCategory(cid.get());
-             List<DangKyKhoaHoc> list = dangKyKhoaHocService.findAll();
-             List<DanhGia> list2 = danhGiaService.findAll();
+		model.addAttribute("catesName", distinctCategories);
+		model.addAttribute("catesId", findAlIdCategory);
 
-             Map<Long, Integer> courseCountMap = createCourseCountMap(list);
-             Map<Long, Integer> danhGiaMap = createDanhGiaMap(list2);
-             Map<Long, Double> DiemDanhGiaMap = createDiemDanhGiaMap(list2, danhGiaMap);
-             
-             List<Object[]> courseCountList = createCourseCountList(page, courseCountMap);
-             List<Object[]> danhGiaList = createDanhGiaList(page, danhGiaMap);
-             List<Object[]> danhGiaList2 = createDanhGiaList2(page, DiemDanhGiaMap);
-        	model.addAttribute("danhGiaList2", danhGiaList2);
-            model.addAttribute("danhGiaList", danhGiaList);
-            model.addAttribute("list", courseCountList);
-            model.addAttribute("courseOnline", page);
-        }else {
-        	 List<KhoaHoc> page = daoHocService.findAll();
-             List<DangKyKhoaHoc> list = dangKyKhoaHocService.findAll();
-             List<DanhGia> list2 = danhGiaService.findAll();
+		if (cid.isPresent()) {
+			List<KhoaHoc> page = daoHocService.findByCategory(cid.get());
+			List<DangKyKhoaHoc> list = dangKyKhoaHocService.findAll();
+			List<DanhGia> list2 = danhGiaService.findAll();
 
-             Map<Long, Integer> courseCountMap = createCourseCountMap(list);
-             Map<Long, Integer> danhGiaMap = createDanhGiaMap(list2);
-             Map<Long, Double> DiemDanhGiaMap = createDiemDanhGiaMap(list2, danhGiaMap);
-             
-             List<Object[]> courseCountList = createCourseCountList(page, courseCountMap);
-             List<Object[]> danhGiaList = createDanhGiaList(page, danhGiaMap);
-             List<Object[]> danhGiaList2 = createDanhGiaList2(page, DiemDanhGiaMap);
-        	model.addAttribute("danhGiaList2", danhGiaList2);
-            model.addAttribute("danhGiaList", danhGiaList);
-            model.addAttribute("list", courseCountList);
-            model.addAttribute("courseOnline", page);
-        }
-        
+			Map<Long, Integer> courseCountMap = createCourseCountMap(list);
+			Map<Long, Integer> danhGiaMap = createDanhGiaMap(list2);
+			Map<Long, Double> DiemDanhGiaMap = createDiemDanhGiaMap(list2, danhGiaMap);
 
-        return "index";
-    }
+			List<Object[]> courseCountList = createCourseCountList(page, courseCountMap);
+			List<Object[]> danhGiaList = createDanhGiaList(page, danhGiaMap);
+			List<Object[]> danhGiaList2 = createDanhGiaList2(page, DiemDanhGiaMap);
+			model.addAttribute("danhGiaList2", danhGiaList2);
+			model.addAttribute("danhGiaList", danhGiaList);
+			model.addAttribute("list", courseCountList);
+			model.addAttribute("courseOnline", page);
+		} else {
+			List<KhoaHoc> page = daoHocService.findAll();
+			List<DangKyKhoaHoc> list = dangKyKhoaHocService.findAll();
+			List<DanhGia> list2 = danhGiaService.findAll();
+
+			Map<Long, Integer> courseCountMap = createCourseCountMap(list);
+			Map<Long, Integer> danhGiaMap = createDanhGiaMap(list2);
+			Map<Long, Double> DiemDanhGiaMap = createDiemDanhGiaMap(list2, danhGiaMap);
+
+			List<Object[]> courseCountList = createCourseCountList(page, courseCountMap);
+			List<Object[]> danhGiaList = createDanhGiaList(page, danhGiaMap);
+			List<Object[]> danhGiaList2 = createDanhGiaList2(page, DiemDanhGiaMap);
+			model.addAttribute("danhGiaList2", danhGiaList2);
+			model.addAttribute("danhGiaList", danhGiaList);
+			model.addAttribute("list", courseCountList);
+			model.addAttribute("courseOnline", page);
+		}
+
+		return "index";
+	}
 
 	@GetMapping("/courseOnline/course")
 	public String course(Model model) {
@@ -261,5 +259,15 @@ public class ClientController {
 	@GetMapping("/courseOnline/checkout")
 	public String checkout() {
 		return "checkout";
+	}
+
+	@GetMapping("/courseOnline/uploademo")
+	public String uploademo() {
+		return "uploademo";
+	}
+
+	@GetMapping("/courseOnline/mucluc")
+	public String mucluc() {
+		return "mucluc";
 	}
 }
