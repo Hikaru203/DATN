@@ -711,44 +711,63 @@
                                                 <p class="info">Tên chứng chỉ: {{chungChi.khoaHoc.tenKhoaHoc}}</p>
                                                 <p class="info">Người nhận: {{chungChi.nguoiDung.hoTen}}</p>
                                                 <p class="info">Ngày hoàn thành: {{chungChi.ngayCapFormatted}}</p>
+                                                <input id="certificateIdInput" type="text" ng-model="chungChi.id"
+                                                    ng-init="setCertificateId(chungChi.id)" hidden>
                                                 <!-- Các thông tin khác liên quan đến chứng chỉ học -->
                                             </div>
                                         </div>
                                     </div>
+                                    <script>
+                                        function generateAndInsertQRCode(content) {
+                                            const qr = new QRious({
+                                                element: document.getElementById('qrCanvas'),
+                                                value: content,
+                                                size: 200
+                                            });
+                                        }
+
+                                        // Hàm mã hóa Base64
+                                        function encodeToBase64(input) {
+                                            return btoa(unescape(encodeURIComponent(input)));
+                                        }
+
+                                        // Hàm sẽ được gọi khi trang web được tải lên
+                                        window.onload = function () {
+                                            // Lấy giá trị từ trường input chứa ID của chứng chỉ
+                                            const certificateId = document.getElementById('certificateIdInput').value;
+
+                                            // Đảm bảo rằng certificateId có giá trị trước khi sử dụng nó
+                                            if (certificateId) {
+                                                // Mã hóa ID bằng Base64
+                                                const encodedCertificateId = encodeToBase64(certificateId);
+                                                const currentURL = window.location.origin;
+                                                const url = `${currentURL}/courseOnline/chungchi/${encodedCertificateId}`;
+
+                                                generateAndInsertQRCode(url); // Gọi hàm để tạo và chèn mã QR vào HTML
+                                            } else {
+                                                console.error('Certificate ID is missing.'); // Hiển thị thông báo lỗi nếu không có ID
+                                            }
+                                        };
+
+
+                                        function printToPDF() {
+                                            const element = document.getElementById('certificateContent');
+
+                                            const options = {
+                                                margin: 10,
+                                                filename: 'chung_chi.pdf',
+                                                image: { type: 'jpeg', quality: 0.98 },
+                                                html2canvas: { scale: 2 },
+                                                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                                            };
+
+                                            html2pdf().from(element).set(options).save();
+                                        }
+
+                                    </script>
                                 </div>
                             </div>
-
                             <!-- Script JavaScript -->
-                            <script>
-                                function generateAndInsertQRCode(content) {
-                                    const qr = new QRious({
-                                        element: document.getElementById('qrCanvas'),
-                                        value: content,
-                                        size: 200
-                                    });
-                                }
-
-                                // Hàm sẽ được gọi khi trang web được tải lên
-                                window.onload = function () {
-                                    const url = 'https://example.com'; // Thay thế bằng đường link bạn muốn chuyển đổi thành mã QR
-                                    generateAndInsertQRCode(url); // Gọi hàm để tạo và chèn mã QR vào HTML
-                                };
-
-
-                                function printToPDF() {
-                                    const element = document.getElementById('certificateContent');
-
-                                    const options = {
-                                        margin: 10,
-                                        filename: 'chung_chi.pdf',
-                                        image: { type: 'jpeg', quality: 0.98 },
-                                        html2canvas: { scale: 2 },
-                                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                                    };
-
-                                    html2pdf().from(element).set(options).save();
-                                }
-                            </script>
                         </div>
 
                         <style>

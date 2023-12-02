@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DanhGia {
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
@@ -41,6 +41,9 @@ public class DanhGia {
 
     @Column(name = "ngay_danh_gia")
     private Date ngayDanhGia;
+
+    @Column(name = "noi_dung")
+    private String noiDung;
 
     // Constructors, getters, and setters
 
