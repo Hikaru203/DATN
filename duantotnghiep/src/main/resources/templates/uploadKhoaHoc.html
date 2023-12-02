@@ -110,23 +110,20 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav py-0">
-                            <a href="index" class="nav-item nav-link active ">Trang
-                                chủ</a> <a href="course" class="nav-item nav-link ">Khoá
-                                học</a> <a href="detail" class="nav-item nav-link ">Chi
-                                tiết khoá học</a> <a href="about" class="nav-item nav-link ">Đăng ký học thử</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
-                                <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                    <a href="contact" class="dropdown-item">Liên hệ</a> <a href="about"
-                                        class="dropdown-item">Yêu thích khoá học</a>
-                                    <a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
-                                    <a href="cart" class="dropdown-item">Giỏ hàng</a> <a href="checkout"
-                                        class="dropdown-item">Thanh toán</a> <a href="tracnghiem"
-                                        class="dropdown-item">Trắc nghiệm</a>
-                                </div>
-                            </div>
-                        </div>
+                       <div class="navbar-nav py-0">
+							<a href="index" class="nav-item nav-link active ">Trang
+								chủ</a> <a href="course" class="nav-item nav-link ">Khoá
+								học</a>
+							<div class="nav-item dropdown">
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
+								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+									<a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a> 
+										<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
+								 <a
+										href="tracnghiem" class="dropdown-item">Trắc nghiệm</a>
+								</div>
+							</div>
+						</div>
                         <ul class="navbar-nav">
                             <li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
                                     href="/courseOnline/dangnhap">Đăng nhập</a></li>

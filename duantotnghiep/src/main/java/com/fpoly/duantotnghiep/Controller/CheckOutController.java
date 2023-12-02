@@ -60,7 +60,6 @@ public class CheckOutController {
 	public String ordersuccess2() {
 		return "ordersuccess2";
 	}
-
 	@PostMapping("/courseOnline/submitOrder")
 	public String submidOrder(@RequestParam("amount") int orderTotal, @RequestParam("tenNguoiDung") String orderInfo,
 			HttpServletRequest request, @CookieValue(value = "username", defaultValue = "0") String userIdCookie,
@@ -101,7 +100,6 @@ public class CheckOutController {
 		}
 
 	}
-
 	@GetMapping(value = CANCEL_URL)
 	public String cancelPay() {
 		return "cancel";

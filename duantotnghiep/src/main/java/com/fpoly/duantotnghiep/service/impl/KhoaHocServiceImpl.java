@@ -77,6 +77,22 @@ public class KhoaHocServiceImpl implements KhoaHocService {
             return null;
         }
     }
+	@Override
+    public List<KhoaHoc> findByCategory(Integer categoryId) {
+        // Triển khai logic tìm kiếm theo danh mục ở đây
+        return khoaHocRepository.findByCategory(categoryId);
+    }
+	@Override
+	public List<String> findAllNameCategory() {
+		// TODO Auto-generated method stub
+		return khoaHocRepository.findAllNameCategory();
+	}
+	@Override
+	public List<String> findAlIdCategory() {
+		// TODO Auto-generated method stub
+		return khoaHocRepository.findAllIdCategory();
+	}
+	
 
 	
 }
