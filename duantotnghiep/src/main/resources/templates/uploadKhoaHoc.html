@@ -373,6 +373,23 @@
                 dateEntered = true;
             }
         });
+
+        $scope.isUserLoggedIn = false;
+
+    $scope.checkLoginStatus = function () {
+        // Gọi API hoặc kiểm tra token ở đây
+        // Ví dụ sử dụng $http.get("/api/checkLogin")
+        $http.get("/api/checkLogin")
+            .then(function (response) {
+                // Nếu trạng thái đăng nhập là true, hiển thị biểu mẫu tải video
+                $scope.isUserLoggedIn = response.data.isLoggedIn;
+            })
+            .catch(function (error) {
+                console.error("Error checking login status:", error);
+            });
+    };
+
+    $scope.checkLoginStatus();
     </script>
     <br>
     <br>

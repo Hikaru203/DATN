@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<title>PolyAcademy</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="Free HTML Templates" name="keywords">
+	<meta content="Free HTML Templates" name="description">
+
+	<!-- Favicon -->
+	<link th:href="@{img/favicon.ico}" rel="icon">
+
+	<!-- Google Web Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+
+	<!-- Font Awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+	<!-- Libraries Stylesheet -->
+	<link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+	<!-- Customized Bootstrap Stylesheet -->
+	<link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+	<!-- Topbar Start -->
+	<div class="container-fluid d-none d-lg-block">
+		<div class="row align-items-center py-4 px-xl-5">
+			<div class="col-lg-3">
+				<a href="" class="text-decoration-none">
+					<h1 class="m-0">
+						<span class="text-primary">Poly</span>Academy
+					</h1>
+				</a>
+			</div>
+			<div class="col-lg-3 text-right">
+				<div class="d-inline-flex align-items-center">
+					<i class="fa fa-2x fa-map-marker-alt text-primary mr-3"></i>
+					<div class="text-left">
+						<h6 class="font-weight-semi-bold mb-1">Văn phòng của chúng
+							tôi</h6>
+						<small>22 Thường Thạnh, Cái Răng, Cần Thơ</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 text-right">
+				<div class="d-inline-flex align-items-center">
+					<i class="fa fa-2x fa-envelope text-primary mr-3"></i>
+					<div class="text-left">
+						<h6 class="font-weight-semi-bold mb-1">Email của chúng tôi</h6>
+						<small>PolyAcademy@fpt.edu.vn</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 text-right">
+				<div class="d-inline-flex align-items-center">
+					<i class="fa fa-2x fa-phone text-primary mr-3"></i>
+					<div class="text-left">
+						<h6 class="font-weight-semi-bold mb-1">Gọi cho chúng tôi</h6>
+						<small>+012 345 6789</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br><br>
+	<style>
+		.certificate-frame {
+			margin: 20px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.certificate-container {
+			border: 8px solid #3498db;
+			padding: 60px;
+			border-radius: 30px;
+			background-color: #f8f9fa;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+			width: 600px;
+		}
+
+		.header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 40px;
+		}
+
+		.logo {
+			max-width: 120px;
+			margin-right: 20px;
+		}
+
+		.school-name {
+			font-size: 32px;
+			color: #3498db;
+			margin: 0;
+		}
+
+		.certificate-details {
+			color: #333;
+		}
+
+		.certificate-title {
+			font-size: 28px;
+			margin-bottom: 30px;
+		}
+
+		.details {
+			text-align: left;
+			font-size: 20px;
+			line-height: 1.6;
+		}
+
+		.signature {
+			margin-top: 40px;
+			display: flex;
+			align-items: center;
+		}
+
+		.signature p {
+			margin-right: 20px;
+			font-size: 20px;
+		}
+
+		.signature-image {
+			max-width: 150px;
+		}
+	</style>
+	<div>
+		<h1 style="text-align: center;">Thông tin chứng nhận được cấp</h1>
+
+		<br>
+		<div class="certificate-container" style="width: 100%;">
+
+			<div class="certificate-details" style="text-align: center;">
+				<div style="display: inline-block; width: 100%;"> <!-- Căn giữa nội dung -->
+					<h3 class="certificate-title">Chứng nhận học PolyAcademy</h3>
+					<div class="details" style="display: flex; justify-content: space-between;">
+						<div style="width: 100%;"> <!-- Thông tin người nhận -->
+							<h3>Thông tin người nhận</h3>
+							<p>Người nhận: <span th:text="${chungChi.nguoiDung.hoTen}"></span></p>
+							<p>Tài khoản: <span th:text="${chungChi.nguoiDung.taiKhoan}"></span></p>
+							<p>Email: <span
+									th:text="${#strings.substring(chungChi.nguoiDung.email, 0, chungChi.nguoiDung.email.lastIndexOf('@') - 3)} + '***' + ${chungChi.nguoiDung.email.substring(chungChi.nguoiDung.email.lastIndexOf('@'))}"></span>
+							</p>
+							<p>Điện thoại: <span
+									th:text="'***' + ${#strings.substring(chungChi.nguoiDung.soDienThoai, chungChi.nguoiDung.soDienThoai.length() - 4)}"></span>
+							</p>
+						</div>
+						<div style="width: 100%;"> <!-- Thông tin môn học -->
+							<h3>Thông tin môn học</h3>
+							<p>Tên môn học: <span th:text="${chungChi.khoaHoc.tenKhoaHoc}"></span></p>
+							<p>Ngày đăng ký: <span
+									th:text="${#dates.format(dangKyKhoaHoc.ngayDangKy, 'HH:mm:ss dd/MM/yyyy')}"></span>
+							</p>
+							<p>Ngày hoàn thành: <span
+									th:text="${#dates.format(chungChi.ngayCap, 'HH:mm:ss dd/MM/yyyy')}"></span></p>
+							<!-- Các thông tin khác liên quan đến chứng chỉ học -->
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+
+	<!-- JavaScript Libraries -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Contact Javascript File -->
+	<script src="mail/jqBootstrapValidation.min.js"></script>
+	<script src="mail/contact.js"></script>
+
+	<!-- Template Javascript -->
+	<script src="js/main.js"></script>
+	<script src="js/client.js"></script>
+	<script>
+		var priceElements = document.querySelectorAll("#price");
+		var currencyFormatter = new Intl.NumberFormat("vi-VN", {
+			style: "currency",
+			currency: "VND"
+		});
+		priceElements.forEach(function (element) {
+			var rawPrice = element.textContent.trim();
+			var formattedPrice = currencyFormatter.format(parseFloat(rawPrice));
+			element.textContent = formattedPrice;
+		});
+	</script>
+</body>
+
+</html>

@@ -59,7 +59,8 @@ public class NguoiDung {
     @Column(name = "thoi_gian_tao")
     private Date thoiGianTao;
 
-    
+     @Column(name = "nha_sang_tao")
+    private boolean nhaSangTao;
 
     public NguoiDung(String taiKhoan, String matKhau, String hoTen, String email, String chucVu, String trangThai,
             boolean xac_minh, boolean thongBao ) {

@@ -45,8 +45,6 @@ public class CheckOutController {
 
 	@Autowired
 	PaypalService service;
-	
-	
 
 	public static final String SUCCESS_URL = "success";
 	public static final String CANCEL_URL = "cancel";
@@ -70,9 +68,7 @@ public class CheckOutController {
 		String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
 
 		HttpSession session = request.getSession();
-		
-		
-		
+
 		if (paymentMenThod.equals("paypal")) {
 			try {
 				Payment payment = service.createPayment((double) 10000, "USD", "paypal",
@@ -106,18 +102,19 @@ public class CheckOutController {
 	}
 
 	@GetMapping(value = SUCCESS_URL)
-	public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId,HttpServletRequest request, Model model) {
+	public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId,
+			HttpServletRequest request, Model model) {
 		try {
 			Payment payment = service.executePayment(paymentId, payerId);
-			
+
 			if (payment.getState().equals("approved")) {
-				
+
 				HttpSession session = request.getSession();
 
 				Integer idNguoiDung = Integer.parseInt(session.getAttribute("idNguoiDung").toString());
 				Integer idKhoaHoc = Integer.parseInt(session.getAttribute("idKhoaHoc").toString());
-				Double total=Double.parseDouble(session.getAttribute("totalprice").toString());
-			
+				Double total = Double.parseDouble(session.getAttribute("totalprice").toString());
+
 				ThanhToan thanhToan = new ThanhToan();
 
 				// Chuyển đối tượng NguoiDung từ idNguoiDung
@@ -157,13 +154,13 @@ public class CheckOutController {
 
 		Integer idNguoiDung = Integer.parseInt(session.getAttribute("idNguoiDung").toString());
 		Integer idKhoaHoc = Integer.parseInt(session.getAttribute("idKhoaHoc").toString());
-		Double total=Double.parseDouble(session.getAttribute("totalprice").toString());
-		
+		Double total = Double.parseDouble(session.getAttribute("totalprice").toString());
+
 		String paymentTimeString = request.getParameter("vnp_PayDate");
 		String Txnref = request.getParameter("vnp_TxnRef");
 		String totalPrice = request.getParameter("vnp_Amount");
 		String orderInfo = request.getParameter("vnp_OrderInfo");
-		
+
 		double totalAmount = Double.parseDouble(String.valueOf(Double.valueOf(totalPrice) / 100));
 		DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("vi", "VN"));
 		symbols.setDecimalSeparator(',');
@@ -171,7 +168,7 @@ public class CheckOutController {
 		DecimalFormat currencyFormatter = new DecimalFormat("###,###,### VND");
 
 		String formattedTotalAmount = currencyFormatter.format(totalAmount);
-		
+
 		// Chuyển đổi chuỗi thời gian sang đối tượng LocalDateTime
 		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 		LocalDateTime paymentTime = LocalDateTime.parse(paymentTimeString, inputFormatter);
