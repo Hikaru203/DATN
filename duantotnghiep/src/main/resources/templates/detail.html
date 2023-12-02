@@ -82,7 +82,8 @@
     </div>
     <!-- Topbar End -->
 
-                                <input type="text" id="idLogin" hidden th:value="${session.user.id}">
+    <input type="text" id="idLogin" th:if="${session.user != null}" th:value="${session.user.id}" />
+    <input type="text" id="idLogin" th:if="${session.user == null}" value="" />
 
     <!-- Navbar Start -->
     <div class="container-fluid">
