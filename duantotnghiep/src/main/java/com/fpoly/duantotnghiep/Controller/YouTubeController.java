@@ -93,7 +93,7 @@ public class YouTubeController {
                 String authorizationUrl = youTubeService.getAuthorizationUrl();
                 model.addAttribute("accessToken", accessToken);
                 model.addAttribute("authorizationUrl", authorizationUrl);
-                if (user.getChucVu().equals("Admin")) {
+                if (user.getChucVu().equals("true")) {
                     return "redirect:/Admin/Video";
                 } else {
                     return "redirect:/courseOnline/uploadKhoaHoc";

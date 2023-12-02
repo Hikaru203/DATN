@@ -60,7 +60,6 @@ public class CheckOutController {
 	public String ordersuccess2() {
 		return "ordersuccess2";
 	}
-
 	@PostMapping("/courseOnline/submitOrder")
 	public String submidOrder(@RequestParam("amount") int orderTotal, @RequestParam("tenNguoiDung") String orderInfo,
 			HttpServletRequest request, @CookieValue(value = "username", defaultValue = "0") String userIdCookie,
@@ -100,6 +99,55 @@ public class CheckOutController {
 			return "redirect:" + vnpayUrl;
 		}
 
+	}
+	@GetMapping(value = CANCEL_URL)
+	public String cancelPay() {
+		return "cancel";
+	}
+
+	@GetMapping(value = SUCCESS_URL)
+	public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId,HttpServletRequest request, Model model) {
+		try {
+			Payment payment = service.executePayment(paymentId, payerId);
+			
+			if (payment.getState().equals("approved")) {
+				
+				HttpSession session = request.getSession();
+
+				Integer idNguoiDung = Integer.parseInt(session.getAttribute("idNguoiDung").toString());
+				Integer idKhoaHoc = Integer.parseInt(session.getAttribute("idKhoaHoc").toString());
+				Double total=Double.parseDouble(session.getAttribute("totalprice").toString());
+			
+				ThanhToan thanhToan = new ThanhToan();
+
+				// Chuyển đối tượng NguoiDung từ idNguoiDung
+				NguoiDung nguoiDung = new NguoiDung();
+				nguoiDung.setId(idNguoiDung);
+				thanhToan.setNguoiDung(nguoiDung);
+
+				// Chuyển đối tượng KhoaHoc từ idKhoaHoc
+				KhoaHoc khoaHoc = new KhoaHoc();
+				khoaHoc.setId(idKhoaHoc);
+				thanhToan.setKhoaHoc(khoaHoc);
+				thanhToan.setTongTien(total);
+				thanhToan.setThoiGian(new Date());
+				thanhToan.setTrangThai(true);
+				thanhToan.setLoaiThanhToan("paypal");
+				thanhToanService.save(thanhToan);
+
+				DangKyKhoaHoc dangKyKhoaHoc = new DangKyKhoaHoc();
+				dangKyKhoaHoc.setKhoaHoc(khoaHoc);
+				dangKyKhoaHoc.setNguoiDung(nguoiDung);
+				dangKyKhoaHoc.setNgayDangKy(new Date());
+				dangKyKhoaHoc.setTienDo(String.valueOf(0));
+				dangKyKhoaHoc.setTrangThai("Đang học");
+				dangKyKhoaHocService.save(dangKyKhoaHoc);
+				return "success";
+			}
+		} catch (PayPalRESTException e) {
+			System.out.println(e.getMessage());
+		}
+		return "redirect:/";
 	}
 
 	@GetMapping(value = CANCEL_URL)

@@ -22,7 +22,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
     }
     // Lấy phần tử input bằng ID
     var inputElement = document.getElementById('idLogin');
-	
+
 
 
     if (inputElement == null || inputElement == "") {
@@ -71,10 +71,10 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             // Gán dữ liệu khóa học cho biến $scope.hoc
             $scope.hoc = response.data;
             idKhoaHoc = $scope.hoc.courseOnline.id;
-            
+
             $scope.checkCourse(value, idKhoaHoc);
             $scope.showTaiLieu(idKhoaHoc);
-				
+
         }, function (response) {
             console.log(response);
         });
@@ -96,7 +96,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
         $http.get("/rest/ChungChi/" + id + '/' + value)
             .then(function (resp) {
                 $scope.chungChiList = resp.data; // Lưu trữ mảng dữ liệu vào $scope.chungChiList
-                
+
                 for (var i = 0; i < $scope.chungChiList.length; i++) {
                     var rawDate = new Date($scope.chungChiList[i].ngayCap);
                     var formattedDate = `${rawDate.getDate()}/${rawDate.getMonth() + 1}/${rawDate.getFullYear()}`;
@@ -113,10 +113,10 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             url: "/rest/admin/NguoiDung/" + value
         }).then(function (response) {
             // Gán dữ liệu người dùng cho biến $scope.idNguoiDung2
-           
+
             $scope.idNguoiDung2 = response.data.id;
             $scope.TenNguoiDung = response.data.hoTen;
-			   
+
 
         }, function (response) {
 
@@ -153,6 +153,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
                 // Xử lý lỗi tại đây nếu cần thiết
             });
     };
+
 
     $scope.addCourse = function (id) {
         $http.get("/rest/admin/NguoiDung/" + value)

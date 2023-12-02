@@ -1,7 +1,5 @@
 var app = angular.module("myApp", ['ui.bootstrap']);
 app.controller("Video-ctrl", function ($scope, $http, $window) {
-
-
     $scope.itemsVideoWithTen = [];
     $scope.itemsVideo = [];
     $scope.formTaiLieu = {};
@@ -333,6 +331,8 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
 
     };
 });
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const uploadNewVideoSection = document.getElementById("uploadNewVideoSection");
