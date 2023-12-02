@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fpoly.duantotnghiep.Entity.DangKyKhoaHoc;
+import com.fpoly.duantotnghiep.Entity.NguoiDung;
+import com.fpoly.duantotnghiep.jparepository.NguoiDungRepository;
 import com.fpoly.duantotnghiep.service.DangKyKhoaHocService;
 
 @RestController
@@ -20,6 +22,9 @@ import com.fpoly.duantotnghiep.service.DangKyKhoaHocService;
 public class TienDoKhoaHocRestController {
     @Autowired
     DangKyKhoaHocService dangKyKhoaHocService;
+
+    @Autowired
+    NguoiDungRepository dungRepository;
 
     @GetMapping("/{id}/{idkhoahoc}")
     public DangKyKhoaHoc getTienDoKhoaHoc(@PathVariable int id, @PathVariable int idkhoahoc) {
@@ -52,12 +57,18 @@ public class TienDoKhoaHocRestController {
             return dangKyKhoaHocService.save(dangKyKhoaHoc);
         } catch (Exception e) {
             // TODO: handle exception
-            System.out.println(e.getMessage());
             return null;
 
         }
+    }
+
     @GetMapping
     public List<DangKyKhoaHoc> findAll() {
         return dangKyKhoaHocService.findAll();
+    }
+
+    @GetMapping("/duyetnhasangtao")
+    public List<NguoiDung> findAll1() {
+        return dungRepository.findAll();
     }
 }

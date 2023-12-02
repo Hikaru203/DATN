@@ -199,4 +199,13 @@ public class ClientController {
     public String checkout() {
         return "checkout";
     }
+
+    @GetMapping("/courseOnline/uploademo")
+    public String uploademo() {
+        return "uploademo";
+    }
+    @GetMapping("/courseOnline/mucluc")
+    public String mucluc() {
+        return "mucluc";
+    }
 }

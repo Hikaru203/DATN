@@ -227,21 +227,24 @@
                                                             <h1>Tin nhắn</h1>
                                                         </div>
                                                         <ul class="message-menu">
-                                                            <li>
+                                                            <li ng-repeat="notification in mess | limitTo:10" style="width: 100%;" ng-if="notification.nhaSangTao == true && notification.chucVu !== 'true'">
                                                                 <a href="#">
-                                                                    <div class="message-img">
-                                                                        <img th:src="@{/Admin/img/contact/1.jpg}"
-                                                                            alt="">
-                                                                    </div>
-                                                                    <div class="message-content">
-                                                                        <span class="message-date">16 Sept</span>
-                                                                        <h2>Advanda Cro</h2>
-                                                                        <p>Please done this project as soon possible.
-                                                                        </p>
+                                                                    <i class="fa" aria-hidden="true"></i>
+                                                                    <div class="notification-icon">
+                                                                        <i class="fa" aria-hidden="true"></i>
+                                                                        <div class="message-content">
+                                                                            <h2>{{ notification.hoTen }}</h2>
+                                                                            <span class="notification-date" style="position: unset;">
+                                                                                {{ calculateTimeDifference(notification.thoiGianTao || notification.ngayDangKy) }}
+                                                                            </span>
+                                                                            <br> <br>
+                                                                            <p>Đã yêu cầu trở thành nhà sáng tạo </p>
+                                                                        </div>
                                                                     </div>
                                                                 </a>
                                                             </li>
                                                         </ul>
+                                                        
                                                         <div class="message-view">
                                                             <a href="#">xem tất cả tin nhắn</a>
                                                         </div>
@@ -338,13 +341,12 @@
                                                             class="educate-icon educate-menu"></i></a>
 
                                                     <div role="menu"
-                                                        class="admintab-wrap menu-setting-wrap menu-setting-wrap-bg dropdown-menu animated zoomIn">  
+                                                        class="admintab-wrap menu-setting-wrap menu-setting-wrap-bg dropdown-menu animated zoomIn">
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-
                                     <script>
                                         var app = angular.module("myApp", []);
 
@@ -368,7 +370,11 @@
                                                 });
                                                 processNotifications();
                                             });
+                                            $http.get("/api/tiendokhoahoc/duyetnhasangtao").then(resp => {
+                                                $scope.mess = resp.data;
 
+                                                processNotifications();
+                                            });
                                             function processNotifications() {
                                                 // lọc theo thời gian của thông báo
                                                 $scope.notifications.sort(function (a, b) {
@@ -380,7 +386,7 @@
                                                 });
 
                                             }
-                                             //tính ngày giờ thời gian chênh lệch
+                                            //tính ngày giờ thời gian chênh lệch
                                             $scope.calculateTimeDifference = function (thoiGianTao) {
                                                 var thoiGianHienTai = new Date();
                                                 var thoiGianChenhLech = thoiGianHienTai - new Date(thoiGianTao);
@@ -407,7 +413,7 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="breadcome-area">
                 <div class="container-fluid">
                     <div class="row">
