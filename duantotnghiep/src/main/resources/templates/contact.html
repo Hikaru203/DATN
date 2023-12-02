@@ -115,8 +115,7 @@
 								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
 									<a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a> 
 										<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
-									<a href="cart" class="dropdown-item">Giỏ hàng</a> <a
-										href="checkout" class="dropdown-item">Thanh toán</a> <a
+								 <a
 										href="tracnghiem" class="dropdown-item">Trắc nghiệm</a>
 								</div>
 							</div>
@@ -211,10 +210,10 @@
                             </div>
                             <script>
                                 document.addEventListener("DOMContentLoaded", function () {
-                               document.getElementById("sendMessageButton").addEventListener("click", function (event) {
-                                 event.preventDefault(); // Prevent default form submission
+        document.getElementById("sendMessageButton").addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent default form submission
 
-            // bắt form validation
+            // Perform form validation
             if (validateForm()) {
                 // If validation passes, show success message
                 showSuccessMessage();

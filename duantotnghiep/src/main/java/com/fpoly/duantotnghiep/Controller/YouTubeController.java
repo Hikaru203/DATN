@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
 
 import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
@@ -14,6 +15,7 @@ import com.fpoly.duantotnghiep.jparepository.LoaiKhoaHocRepository;
 import com.fpoly.duantotnghiep.service.CookieService;
 import com.fpoly.duantotnghiep.service.YouTubeService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -59,7 +61,8 @@ public class YouTubeController {
             String authorizationUrl = youTubeService.getAuthorizationUrl();
             model.addAttribute("authorizationUrl", authorizationUrl);
             model.addAttribute("accessToken", accessToken);
-            model.addAttribute("authorizationUrl", authorizationUrl);
+            System.out.println("accessToken: " + accessToken);
+            System.out.println("authorizationUrl: " + authorizationUrl);
             return "uploadKhoaHoc";
 
         } else {
@@ -75,10 +78,9 @@ public class YouTubeController {
         try {
             accessToken = youTubeService.getAccessToken(authorizationCode);
             session.setAttribute("accessToken", accessToken);
-
+            // Lấy URL trước đó
             NguoiDung user = (NguoiDung) session.getAttribute("user");
             System.out.println("user: " + user.getChucVu());
-
             // Trong phương thức khác
             String title = (String) session.getAttribute("title");
             String description = (String) session.getAttribute("description");
@@ -91,7 +93,7 @@ public class YouTubeController {
                 String authorizationUrl = youTubeService.getAuthorizationUrl();
                 model.addAttribute("accessToken", accessToken);
                 model.addAttribute("authorizationUrl", authorizationUrl);
-                if (user.getChucVu().equals("Admin")) {
+                if (user.getChucVu().equals("true")) {
                     return "redirect:/Admin/Video";
                 } else {
                     return "redirect:/courseOnline/uploadKhoaHoc";

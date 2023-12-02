@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8">
-<title>PolyAcademy</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="Free HTML Templates" name="keywords">
-<meta content="Free HTML Templates" name="description">
+	<meta charset="utf-8">
+	<title>PolyAcademy</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="Free HTML Templates" name="keywords">
+	<meta content="Free HTML Templates" name="description">
 
 	<!-- Favicon -->
 	<link th:href="@{img/favicon.ico}" rel="icon">
@@ -85,18 +85,17 @@
 					id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
 					<div class="navbar-nav w-100">
 						<div class="nav-item dropdown">
-							<a href="#" class="nav-link" data-toggle="dropdown">Ứng dụng phần mềm<i class="fa fa-angle-down float-right mt-1"></i>
+							<a href="#" class="nav-link" data-toggle="dropdown">Ứng dụng phần mềm<i
+									class="fa fa-angle-down float-right mt-1"></i>
 							</a>
-							<div
-								class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-								<a href="detail" class="dropdown-item">HTML</a> <a
-									href="detail" class="dropdown-item">CSS</a> <a
-									href="detail" class="dropdown-item">JavaScript</a>
+							<div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+								<a href="detail" class="dropdown-item">HTML</a> <a href="detail"
+									class="dropdown-item">CSS</a> <a href="detail" class="dropdown-item">JavaScript</a>
 							</div>
 						</div>
 						<a href="detail" class="nav-item nav-link active">Lập trình Web</a> <a href="detail"
-							class="nav-item nav-link active"></a>Cơ khí</a> <a
-							href="detail" class="nav-item nav-link active">Marketing</a>
+							class="nav-item nav-link active"></a>Cơ khí</a> <a href="detail"
+							class="nav-item nav-link active">Marketing</a>
 						<a href="detail" class="nav-item nav-link active">Nhà hàng - Khách sạn</a>
 					</div>
 				</nav>
@@ -119,13 +118,9 @@
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
 								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-									<a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a> 
-										<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
-										<a href="uploademo" class="dropdown-item">Đăng khoá học1</a>
-										<a href="mucluc" class="dropdown-item">Mục lục</a>
-									<a href="cart" class="dropdown-item">Giỏ hàng</a> <a
-										href="checkout" class="dropdown-item">Thanh toán</a> <a
-										href="tracnghiem" class="dropdown-item">Trắc nghiệm</a>
+									<a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a>
+									<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
+									<a href="tracnghiem" class="dropdown-item">Trắc nghiệm</a>
 								</div>
 							</div>
 						</div>
@@ -136,6 +131,8 @@
 									href="/courseOnline/dangky">Đăng ký</a></li>
 						</ul>
 						<div class="nav-item dropdown" th:if="${session.user != null}">
+							<input type="text" id="idLogin" hidden th:value="${session.user.id}">
+
 							<style>
 								/* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
 								.dropdown-menu {
@@ -184,345 +181,337 @@
 				<div class="carousel-item active" style="min-height: 300px;">
 					<img class="position-relative w-100" th:src="@{/img/carousel-1.jpg}"
 						style="min-height: 300px; object-fit: cover;">
-						<div
-						class="carousel-caption d-flex align-items-center justify-content-center">
 					<div class="carousel-caption d-flex align-items-center justify-content-center">
-						<div class="p-5" style="width: 100%; max-width: 900px;">
-							<h5 class="text-white text-uppercase mb-md-3">Các khóa học
-								trực tuyến tốt nhất</h5>
-							<h1 class="display-3 text-white mb-md-4">Được sản xuất bởi
-								đội ngũ PolyAcademy</h1>
-							<a href="course.html"
-								class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
-								hiểu thêm</a>
+						<div class="carousel-caption d-flex align-items-center justify-content-center">
+							<div class="p-5" style="width: 100%; max-width: 900px;">
+								<h5 class="text-white text-uppercase mb-md-3">Các khóa học
+									trực tuyến tốt nhất</h5>
+								<h1 class="display-3 text-white mb-md-4">Được sản xuất bởi
+									đội ngũ PolyAcademy</h1>
+								<a href="course.html"
+									class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
+									hiểu thêm</a>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="carousel-item" style="min-height: 300px;">
-					<img class="position-relative w-100" th:src="@{/img/carousel-2.jpg}"
-						style="min-height: 300px; object-fit: cover;">
-					<div class="carousel-caption d-flex align-items-center justify-content-center">
-						<div class="p-5" style="width: 100%; max-width: 900px;">
-							<h5 class="text-white text-uppercase mb-md-3">Năng lực cốt
-								lỗi</h5>
-							<h1 class="display-3 text-white mb-md-4">Làm nên sự khác
-								biệt của chính bạn</h1>
-							<a href="course.html" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
-								hiểu thêm</a>
+					<div class="carousel-item" style="min-height: 300px;">
+						<img class="position-relative w-100" th:src="@{/img/carousel-2.jpg}"
+							style="min-height: 300px; object-fit: cover;">
+						<div class="carousel-caption d-flex align-items-center justify-content-center">
+							<div class="p-5" style="width: 100%; max-width: 900px;">
+								<h5 class="text-white text-uppercase mb-md-3">Năng lực cốt
+									lỗi</h5>
+								<h1 class="display-3 text-white mb-md-4">Làm nên sự khác
+									biệt của chính bạn</h1>
+								<a href="course.html"
+									class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
+									hiểu thêm</a>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="carousel-item" style="min-height: 300px;">
-					<img class="position-relative w-100" th:src="@{/img/carousel-3.jpg}"
-						style="min-height: 300px; object-fit: cover;">
-						<div
-						class="carousel-caption d-flex align-items-center justify-content-center">
-						<div class="p-5" style="width: 100%; max-width: 900px;">
-							<h5 class="text-white text-uppercase mb-md-3">Kiến thức thực
-								tế</h5>
-							<h1 class="display-3 text-white mb-md-4">Xây dựng tương lai
-							</h1>
-							<a href="course.html"
-								class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
-								hiểu thêm</a>
+					<div class="carousel-item" style="min-height: 300px;">
+						<img class="position-relative w-100" th:src="@{/img/carousel-3.jpg}"
+							style="min-height: 300px; object-fit: cover;">
+						<div class="carousel-caption d-flex align-items-center justify-content-center">
+							<div class="p-5" style="width: 100%; max-width: 900px;">
+								<h5 class="text-white text-uppercase mb-md-3">Kiến thức thực
+									tế</h5>
+								<h1 class="display-3 text-white mb-md-4">Xây dựng tương lai
+								</h1>
+								<a href="course.html"
+									class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
+									hiểu thêm</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- Carousel End -->
+		<!-- Carousel End -->
 
-	<!-- About Start -->
-	<div class="container-fluid py-5">
-		<div class="container py-5">
-			<div class="row align-items-center">
-				<div class="col-lg-5">
-					<img class="img-fluid rounded mb-4 mb-lg-0" th:src="@{/img/about.jpg}" alt="">
-				</div>
-				<div class="col-lg-7">
-					<div class="text-left mb-4">
-						<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">PHƯƠNG CHÂM ĐÀO TẠO
-							CỦA CHÚNG
-							TÔI</h5>
-						<h1>"LẤY NGƯỜI HỌC LÀM CHẤT LƯỢNG"</h1>
+		<!-- About Start -->
+		<div class="container-fluid py-5">
+			<div class="container py-5">
+				<div class="row align-items-center">
+					<div class="col-lg-5">
+						<img class="img-fluid rounded mb-4 mb-lg-0" th:src="@{/img/about.jpg}" alt="">
 					</div>
-					<p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp
-						giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh,
-						sinh viên trên cả nước với chất lượng tốt nhất!</p>
-					<a href="about.html" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
-						hiểu thêm</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- About End -->
-
-	<!-- Category Start -->
-	<div class="container-fluid py-5">
-		<div class="container pt-5 pb-3">
-			<div class="text-center mb-5">
-				<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khoá học chính</h5>
-				<h1>Top các khoá học được ưa chuộng</h1>
-			</div>	
-			<div class="row">
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-1.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Lập trình C</h4> <span>100
-								khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-2.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Thiết kế trang web</h4> <span>50
-								khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-3.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Lập trình cơ khí</h4> <span>100
-								Khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-4.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Đẳng cấp Marketing</h4> <span>100
-								Khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-5.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h5 class="text-white font-weight-medium">Nhà hàng - khách sạn</h5> <span>100
-								Khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-6.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">HTML5 căn bản</h4> <span>100
-								Khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-7.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Ma thuật CSS</h4> <span>100
-								Khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-8.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">JavaScript cơ bản</h4> <span>100
-								Khoá học</span>
-						</a>
+					<div class="col-lg-7">
+						<div class="text-left mb-4">
+							<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">PHƯƠNG CHÂM ĐÀO
+								TẠO
+								CỦA CHÚNG
+								TÔI</h5>
+							<h1>"LẤY NGƯỜI HỌC LÀM CHẤT LƯỢNG"</h1>
+						</div>
+						<p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp
+							giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh,
+							sinh viên trên cả nước với chất lượng tốt nhất!</p>
+						<a href="about.html" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
+							hiểu thêm</a>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- Category Start -->
+		<!-- About End -->
 
-	<!-- Courses Start -->
-	<div class="container-fluid py-5">
-		<div class="container py-5">
-			<div class="text-center mb-5">
-				<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khoá học thịnh hành</h5>
+		<!-- Category Start -->
+		<div class="container-fluid py-5">
+			<div class="container pt-5 pb-3">
+				<div class="text-center mb-5">
+					<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khoá học chính</h5>
+					<h1>Top các khoá học được ưa chuộng</h1>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-md-6 mb-4" th:each="tenLoai:${catesName}">
+						<div class="cat-item position-relative overflow-hidden rounded mb-2">
+							<img class="img-fluid" th:src="@{/img/cat-1.jpg}" alt="">
+							<a class="cat-overlay text-white text-decoration-none"
+								th:href="@{|?cid=${tenLoai.loaiKhoaHoc.id}|}">
+								<h4 class="text-white font-weight-medium" name="categoryId"
+									th:text="${tenLoai.loaiKhoaHoc.tenLoaiKhoaHoc}"></h4>
 
-			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-6 mb-4" th:each="item, stat : ${courseOnline}">
-					<a th:href="@{'/courseOnline/detail/' + ${item.id}}">
-						<div class="rounded overflow-hidden mb-2" style="height: 400px;">
-							<div class="bg-secondary p-4" style="height: 400px;">
-								<div style="text-align: center;">
-									<img class="img-fluid" style="max-height: 200px; max-width: 280px;"
-										th:src="@{|/img/${item.hinhAnh}|}" alt="">
+
+								<span>100 khoá học</span>
+							</a>
+						</div>
+					</div>
+					<!-- Category Start -->
+
+					<!-- Courses Start -->
+					<div class="container-fluid py-5">
+						<div class="container py-5">
+							<div class="text-center mb-5">
+								<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khoá học
+									thịnh hành
+								</h5>
+
+							</div>
+							<div class="row">
+								<div class="col-lg-4 col-md-6 mb-4" th:each="item, stat : ${courseOnline}">
+									<a th:href="@{'/courseOnline/detail/' + ${item.id}}">
+										<div class="rounded overflow-hidden mb-2" style="height: 400px;">
+											<div class="bg-secondary p-4" style="height: 400px;">
+												<div style="text-align: center;">
+													<img class="img-fluid" style="max-height: 200px; max-width: 280px;"
+														th:src="@{|/img/${item.hinhAnh}|}" alt="">
+												</div>
+												<br>
+												<div class="d-flex justify-content-between mb-3">
+													<small class="m-0">
+														<i class="fa fa-users text-primary mr-2"></i>
+														<span th:text="${list[stat.index][0]} + ' Student'"></span>
+														<!-- Lấy số lượng người học từ courseCountList -->
+													</small>
+												</div>
+												<style>
+													.course-name {
+														display: -webkit-box;
+														-webkit-line-clamp: 2;
+														-webkit-box-orient: vertical;
+														overflow: hidden;
+														text-overflow: ellipsis;
+													}
+												</style>
+												<div style="height: 50px;">
+													<a class="h5 course-name"
+														th:href="@{'/courseOnline/detail/' + ${item.id}}"
+														th:text="${item.tenKhoaHoc}"></a>
+												</div>
+												<div class="border-top mt-4 pt-4">
+													<div class="d-flex justify-content-between">
+														<h6 class="m-0">
+															<i class="fa fa-star text-primary mr-2"
+																th:text="${#numbers.formatDecimal(danhGiaList2[stat.index][0], 1, 1)}"></i>
+															<small
+																th:text="'('+${danhGiaList[stat.index][0]}+')'"></small>
+														</h6>
+														<span class="m-0" th:text="${item.chiPhi}" id="price"></span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
 								</div>
-								<br>
-								<div class="d-flex justify-content-between mb-3">
-									<small class="m-0">
-										<i class="fa fa-users text-primary mr-2"></i>
-										<span th:text="${list[stat.index][0]} + ' Student'"></span>
-										<!-- Lấy số lượng người học từ courseCountList -->
-									</small>
+
+
+							</div>
+
+						</div>
+					</div>
+					<!-- Courses End -->
+					<!-- Registration Start -->
+					<div class="container-fluid bg-registration py-5" style="margin: 90px 0;">
+						<div class="container py-5">
+							<div class="row align-items-center">
+								<div class="col-lg-7 mb-5 mb-lg-0">
+									<div class="mb-4">
+										<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Cần
+											bất kỳ khóa
+											học
+										</h5>
+										<h1 class="text-white">Giảm 30% Cho Học Viên Mới</h1>
+									</div>
+									<p class="text-white">Khi tham gia bạn chỉ cần đăng ký tài
+										khoản các khoá học sẽ có miễn phí và trả phí để học trả phí bạn có
+										thể mua khoá học đó</p>
+									<ul class="list-inline text-white m-0">
+										<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Chất
+											lượng khoá học</li>
+										<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Giảng
+											viên nhiệt tình</li>
+										<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Bài
+											học dễ hiểu</li>
+										<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Có
+											chứng chỉ sao khi học</li>
+									</ul>
 								</div>
-								<style>
-									.course-name {
-										display: -webkit-box;
-										-webkit-line-clamp: 2;
-										-webkit-box-orient: vertical;
-										overflow: hidden;
-										text-overflow: ellipsis;
-									}
-								</style>
-								<div style="height: 50px;">
-									<a class="h5 course-name" th:href="@{'/courseOnline/detail/' + ${item.id}}"
-										th:text="${item.tenKhoaHoc}"></a>
-								</div>
-								<div class="border-top mt-4 pt-4">
-									<div class="d-flex justify-content-between">
-										<h6 class="m-0">
-											<i class="fa fa-star text-primary mr-2"
-												th:text="${#numbers.formatDecimal(danhGiaList2[stat.index][0], 1, 1)}"></i>
-											<small th:text="'('+${danhGiaList[stat.index][0]}+')'"></small>
-										</h6>
-										<span class="m-0" th:text="${item.chiPhi}" id="price"></span>
+								<div class="col-lg-5">
+									<div class="card border-0">
+										<div class="card-body rounded-bottom bg-primary p-5">
+											<button class="btn btn-dark btn-block border-0 py-3" type="submit">Đăng ký
+												ngay</button>
+										</div>
+
 									</div>
 								</div>
 							</div>
 						</div>
-					</a>
-				</div>
-
-
-			</div>
-
-		</div>
-	</div>
-	<!-- Courses End -->
-	<!-- Registration Start -->
-	<div class="container-fluid bg-registration py-5" style="margin: 90px 0;">
-		<div class="container py-5">
-			<div class="row align-items-center">
-				<div class="col-lg-7 mb-5 mb-lg-0">
-					<div class="mb-4">
-						<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Cần bất kỳ khóa học
-						</h5>
-						<h1 class="text-white">Giảm 30% Cho Học Viên Mới</h1>
 					</div>
-					<p class="text-white">Khi tham gia bạn chỉ cần đăng ký tài
-						khoản các khoá học sẽ có miễn phí và trả phí để học trả phí bạn có
-						thể mua khoá học đó</p>
-					<ul class="list-inline text-white m-0">
-						<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Chất
-							lượng khoá học</li>
-						<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Giảng
-							viên nhiệt tình</li>
-						<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Bài
-							học dễ hiểu</li>
-						<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Có
-							chứng chỉ sao khi học</li>
-					</ul>
-				</div>
-				<div class="col-lg-5">
-					<div class="card border-0">
-						<div class="card-body rounded-bottom bg-primary p-5">
-							<button class="btn btn-dark btn-block border-0 py-3" type="submit">Đăng ký ngay</button>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Registration End -->
-	<!-- Footer Start -->
-	<div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5">
-		<div class="row pt-5">
-			<div class="col-lg-7 col-md-12">
-				<div class="row">
-					<div class="col-md-6 mb-5">
-						<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Liên hệ</h5>
-						<p>
-							<i class="fa fa-map-marker-alt mr-2"></i>22 Thường Thạnh, Khu dân
-							cư Hoàng Quân, Q. Cái Răng, TP. Cần Thơ
-						</p>
-						<p>
-							<i class="fa fa-phone-alt mr-2"></i>+012 345 67890
-						</p>
-						<p>
-							<i class="fa fa-envelope mr-2"></i>PolyAcademy@fpt.edu.vn
-						</p>
-						<div class="d-flex justify-content-start mt-4">
-							<a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
-							<a class="btn btn-outline-light btn-square mr-2" href="#"><i
-									class="fab fa-facebook-f"></i></a> <a class="btn btn-outline-light btn-square mr-2"
-								href="#"><i class="fab fa-linkedin-in"></i></a> <a
-								class="btn btn-outline-light btn-square" href="#"><i class="fab fa-instagram"></i></a>
-						</div>
-					</div>
-					<div class="col-md-6 mb-5">
-						<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Khoá học của chúng tôi
-						</h5>
-						<div class="d-flex flex-column justify-content-start">
-							<a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Thiết kế trang
-								Web</a> <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Phát
-								triển phần mềm</a> <a class="text-white mb-2" href="#"><i
-									class="fa fa-angle-right mr-2"></i>Kỹ năng học tập</a> <a class="text-white mb-2"
-								href="#"><i class="fa fa-angle-right mr-2"></i>Pháp luật</a> <a class="text-white"
-								href="#"><i class="fa fa-angle-right mr-2"></i>Tiếng Anh</a>
+					<!-- Registration End -->
+					<!-- Footer Start -->
+					<div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5">
+						<div class="row pt-5">
+							<div class="col-lg-7 col-md-12">
+								<div class="row">
+									<div class="col-md-6 mb-5">
+										<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Liên
+											hệ</h5>
+										<p>
+											<i class="fa fa-map-marker-alt mr-2"></i>22 Thường Thạnh, Khu dân
+											cư Hoàng Quân, Q. Cái Răng, TP. Cần Thơ
+										</p>
+										<p>
+											<i class="fa fa-phone-alt mr-2"></i>+012 345 67890
+										</p>
+										<p>
+											<i class="fa fa-envelope mr-2"></i>PolyAcademy@fpt.edu.vn
+										</p>
+										<div class="d-flex justify-content-start mt-4">
+											<a class="btn btn-outline-light btn-square mr-2" href="#"><i
+													class="fab fa-twitter"></i></a>
+											<a class="btn btn-outline-light btn-square mr-2" href="#"><i
+													class="fab fa-facebook-f"></i></a> <a
+												class="btn btn-outline-light btn-square mr-2" href="#"><i
+													class="fab fa-linkedin-in"></i></a> <a
+												class="btn btn-outline-light btn-square" href="#"><i
+													class="fab fa-instagram"></i></a>
+										</div>
+									</div>
+									<div class="col-md-6 mb-5">
+										<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Khoá
+											học của chúng
+											tôi
+										</h5>
+										<div class="d-flex flex-column justify-content-start">
+											<a class="text-white mb-2" href="#"><i
+													class="fa fa-angle-right mr-2"></i>Thiết kế trang
+												Web</a> <a class="text-white mb-2" href="#"><i
+													class="fa fa-angle-right mr-2"></i>Phát
+												triển phần mềm</a> <a class="text-white mb-2" href="#"><i
+													class="fa fa-angle-right mr-2"></i>Kỹ năng học tập</a> <a
+												class="text-white mb-2" href="#"><i
+													class="fa fa-angle-right mr-2"></i>Pháp luật</a>
+											<a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Tiếng
+												Anh</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-5 col-md-12 mb-5">
+								<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">PolyAcademy
+								</h5>
+								<p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp
+									giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh,
+									sinh viên trên cả nước với chất lượng tốt nhất!</p>
+								<div class="w-100">
+									<div class="input-group">
+										<input type="text" class="form-control border-light" style="padding: 30px;"
+											placeholder="Hãy gửi Email cho chúng tôi">
+										<div class="input-group-append">
+											<button class="btn btn-primary px-4">Đăng ký</button>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="col-lg-5 col-md-12 mb-5">
-				<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">PolyAcademy</h5>
-				<p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp
-					giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh,
-					sinh viên trên cả nước với chất lượng tốt nhất!</p>
-				<div class="w-100">
-					<div class="input-group">
-						<input type="text" class="form-control border-light" style="padding: 30px;"
-							placeholder="Hãy gửi Email cho chúng tôi">
-						<div class="input-group-append">
-							<button class="btn btn-primary px-4">Đăng ký</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Footer End -->
+					<!-- Footer End -->
+					<script type="text/javascript">
+						var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+						(function () {
+							var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+							s1.async = true;
+							s1.src = 'https://embed.tawk.to/656a307eff45ca7d4785d6d3/1hgjcqs8o';
+							s1.charset = 'UTF-8';
+							s1.setAttribute('crossorigin', '*');
+							s0.parentNode.insertBefore(s1, s0);
+						})();
+					</script>
+					<!--End of Tawk.to Script-->
+					<!-- tawk chat JS ============================================ -->
+					<script th:src="@{/Admin/js/tawk-chat.js}"></script>
+
+					<!-- Back to Top -->
+					<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+							class="fa fa-angle-double-up"></i></a>
 
 
-	<!-- Back to Top -->
-	<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+					<!-- JavaScript Libraries -->
+					<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+					<script
+						src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
+					<!-- Contact Javascript File -->
+					<script src="mail/jqBootstrapValidation.min.js"></script>
+					<script src="mail/contact.js"></script>
 
-	<!-- JavaScript Libraries -->
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+					<!-- Template Javascript -->
+					<script src="js/main.js"></script>
+					<script src="js/client.js"></script>
+					<script>
+						var priceElements = document.querySelectorAll("#price");
+						var currencyFormatter = new Intl.NumberFormat("vi-VN", {
+							style: "currency",
+							currency: "VND"
+						});
+						priceElements.forEach(function (element) {
+							var rawPrice = element.textContent.trim();
+							var formattedPrice = currencyFormatter.format(parseFloat(rawPrice));
+							element.textContent = formattedPrice;
+						});
+					</script>
 
-	<!-- Contact Javascript File -->
-	<script src="mail/jqBootstrapValidation.min.js"></script>
-	<script src="mail/contact.js"></script>
+					<<<<<<< HEAD=======<!-- Contact Javascript File -->
+						<script src="/mail/jqBootstrapValidation.min.js"></script>
+						<script src="/mail/contact.js"></script>
 
-	<!-- Template Javascript -->
-	<script src="js/main.js"></script>
-	<script src="js/client.js"></script>
-	<script>
-		var priceElements = document.querySelectorAll("#price");
-		var currencyFormatter = new Intl.NumberFormat("vi-VN", {
-			style: "currency",
-			currency: "VND"
-		});
-		priceElements.forEach(function (element) {
-			var rawPrice = element.textContent.trim();
-			var formattedPrice = currencyFormatter.format(parseFloat(rawPrice));
-			element.textContent = formattedPrice;
-		});
-	</script>
+						<!-- Template Javascript -->
+						<script src="/js/main.js"></script>
+						<script src="/js/client.js"></script>
+						<script>
+							var priceElements = document.querySelectorAll("#price");
+							var currencyFormatter = new Intl.NumberFormat("vi-VN", {
+								style: "currency",
+								currency: "VND"
+							});
+							priceElements.forEach(function (element) {
+								var rawPrice = element.textContent.trim();
+								var formattedPrice = currencyFormatter.format(parseFloat(rawPrice));
+								element.textContent = formattedPrice;
+							});
+						</script>
+						>>>>>>> 05cfdbd1a22158530ed7e11bb16c04a9379bbe8b
 </body>
 
 </html>

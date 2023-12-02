@@ -157,35 +157,31 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
 
                     $scope.trangThai = "Đã hoàn thành";
 
-                    // Đoạn code để hiển thị hộp thoại prompt
-                    var diem = prompt("Vui lòng chọn số điểm (từ 1 đến 5 sao):");
-                    var noiDungDanhGia = prompt("Vui lòng nhập nội dung đánh giá:");
+                    $http({
+                        method: 'PUT',
+                        url: '/api/tiendokhoahoc/upload/' + value + '/' + idKhoaHoc + '/' + $scope.trangThai
+                    }).then(function (response) {
+                        console.log("Cập nhật thành công");
+                    });
 
-                    // Kiểm tra xem người dùng đã nhập thông tin hay chưa
-                    if (diem !== null && noiDungDanhGia !== null) {
-                        // Kiểm tra xem số điểm có hợp lệ không (từ 1 đến 5)
-                        diem = parseInt(diem);
-                        if (diem >= 1 && diem <= 5) {
-                            // Lưu số điểm và nội dung đánh giá vào $scope (giả sử bạn đang sử dụng AngularJS)
-                            $scope.soDiem = diem;
-                            $scope.noiDungDanhGia = noiDungDanhGia;
 
-                            // Log thông tin đánh giá ra console
-                            console.log("Số điểm: " + diem);
-                            console.log("Nội dung đánh giá: " + noiDungDanhGia);
-
-                            // Các xử lý khác sau khi lưu thông tin đánh giá
-                            // ...
-
-                        } else {
-                            console.log("Vui lòng nhập số điểm từ 1 đến 5 sao.");
+                    $http({
+                        method: 'POST',
+                        url: '/rest/ChungChi',
+                        data: {
+                            id: null,
+                            nguoiDung: {
+                                id: value
+                            },
+                            khoaHoc: {
+                                id: idKhoaHoc
+                            },
+                            ngayCap: new Date(),
                         }
-                    } else {
-                        console.log("Người dùng đã hủy hoặc không nhập đủ thông tin.");
-                    }
-
-
-                    
+                    }).then(function (response) {
+                        console.log("Thêm thành công");
+                        window.location.href = '/courseOnline/detail/' + idKhoaHoc; // Ví dụ: chuyển đến trang trắc nghiệm
+                    });
                 }
             } else {
                 console.log("Không tìm thấy idFromSessionStorage trong mảng.");
