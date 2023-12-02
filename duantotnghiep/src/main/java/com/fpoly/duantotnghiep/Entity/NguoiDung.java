@@ -1,5 +1,6 @@
 package com.fpoly.duantotnghiep.Entity;
 
+import java.util.Date;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
@@ -52,8 +53,17 @@ public class NguoiDung {
     @Column(name = "xac_minh")
     private boolean xac_minh;
 
+    @Column(name = "thong_bao")
+    private boolean thongBao;
+
+    @Column(name = "thoi_gian_tao")
+    private Date thoiGianTao;
+
+     @Column(name = "nha_sang_tao")
+    private boolean nhaSangTao;
+
     public NguoiDung(String taiKhoan, String matKhau, String hoTen, String email, String chucVu, String trangThai,
-            boolean xac_minh) {
+            boolean xac_minh, boolean thongBao ) {
         super();
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
@@ -62,6 +72,9 @@ public class NguoiDung {
         this.trangThai = trangThai;
         this.chucVu = chucVu;
         this.xac_minh = xac_minh;
+        this.thongBao = thongBao;
+        this.thoiGianTao = new Date();
+       
     }
     @Override
     public String toString() {

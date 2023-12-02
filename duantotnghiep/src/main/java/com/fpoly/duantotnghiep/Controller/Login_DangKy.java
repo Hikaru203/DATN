@@ -1,5 +1,7 @@
 package com.fpoly.duantotnghiep.Controller;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -84,7 +86,7 @@ public class Login_DangKy {
             httpSession.setAttribute("user", nguoiDung);
             return "index";
         }
-        NguoiDung nguoixai = new NguoiDung(email, password, name, email, "false", "false", true);
+        NguoiDung nguoixai = new NguoiDung(email, password, name, email, "false", "false", true, false);
         nguuoidungRepository.save(nguoixai);
         httpSession.setAttribute("user", nguoixai);
         return "index";

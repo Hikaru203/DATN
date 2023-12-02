@@ -59,45 +59,47 @@ signupForm.addEventListener('submit', function (event) {
       } else {
 
         checkIfEmailExists(email)
-        .then(emailExists => {
-          if (emailExists) {
-            alert('Email đã tồn tại. Vui lòng sử dụng email khác.');
-          } else {
-        // Tiếp tục với đăng ký nếu tên tài khoản không tồn tại
-        // Gửi dữ liệu đăng ký đến máy chủ hoặc xử lý chúng theo cách bạn muốn.
-        fetch('/api/nguoidung', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            hoTen: fullName,
-            taiKhoan: username,
-            email: email,
-            soDienThoai: phone,
-            matKhau: password
-          })
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          if (data) {
-            alert('Đăng ký thành công');
-            // Redirect người dùng đến trang đăng nhập
-            location.href = 'http://localhost:8080/courseOnline/dangnhap';
-          } else {
-            alert('Đăng ký không thành công. Vui lòng thử lại sau.');
+          .then(emailExists => {
+            if (emailExists) {
+              alert('Email đã tồn tại. Vui lòng sử dụng email khác.');
+            } else {
+              // Tiếp tục với đăng ký nếu tên tài khoản không tồn tại
+              // Gửi dữ liệu đăng ký đến máy chủ hoặc xử lý chúng theo cách bạn muốn.
+              fetch('/api/nguoidung', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  hoTen: fullName,
+                  taiKhoan: username,
+                  email: email,
+                  soDienThoai: phone,
+                  matKhau: password,
+                  thongBao: false,
+                  thoiGianTao: new Date().toISOString() // Get the current date and time in ISO format
+                })
+              })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                  }
+                  return response.json();
+                })
+                .then(data => {
+                  if (data) {
+                    alert('Đăng ký thành công');
+                    // Redirect người dùng đến trang đăng nhập
+                    location.href = 'http://localhost:8080/courseOnline/dangnhap';
+                  } else {
+                    alert('Đăng ký không thành công. Vui lòng thử lại sau.');
 
-          }
-        });
+                  }
+                });
+            }
+          });
       }
     });
-  }
-});
 });
 // Hàm kiểm tra số điện thoại
 function isValidPhoneNumber(phone) {
