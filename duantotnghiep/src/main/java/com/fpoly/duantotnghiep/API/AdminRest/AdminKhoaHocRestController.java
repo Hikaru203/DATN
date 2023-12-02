@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
@@ -81,7 +82,26 @@ public class AdminKhoaHocRestController {
     }
 
     @PutMapping("{id}")
-    public KhoaHoc update(@PathVariable("id") Integer id, @RequestBody KhoaHoc khoaHoc) {
+    public KhoaHoc update(@PathVariable("id") Integer id, @RequestPart(name = "hinhAnh", required = false) MultipartFile file, @RequestPart("khoaHoc")  KhoaHoc khoaHoc, HttpServletRequest request) throws IOException  { 
+    // Process the uploaded file
+    if (file != null && !file.isEmpty()) {
+        byte[] bytes = file.getBytes();
+
+        // Specify the directory where you want to save the file
+        String uploadPath = "src/main/resources/static/Admin/img/";
+
+        // Generate a unique filename
+        String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+
+        // Create the complete file path
+        String filePath = uploadPath + fileName;
+
+        // Save the file
+        java.nio.file.Path nioPath = Paths.get(filePath); // Sử dụng java.nio.file.Path
+
+        Files.write(nioPath, bytes);
+        khoaHoc.setHinhAnh(fileName);
+    }
         return khoaHocService.update(khoaHoc);
     }
 

@@ -51,21 +51,38 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
     // Xóa formKhoaHoc
     $scope.resetKhoaHoc = function () {
         $scope.formKhoaHoc = {};
+        // Xóa giá trị của input file
+    var input = document.getElementById('imageInput');
+    input.value = '';
+  // Xóa nội dung của phần tử preview
+  var preview = document.getElementById('preview');
+  preview.innerHTML = '';
+
+  // Hiển thị ảnh mặc định
+  var preview = document.getElementById('preview');
+  preview.innerHTML = '<img  src="/Admin/img/gallery.png" alt="Default Image" height="100px" width="100px">';
     }
 
     // Hiển thị lên formKhoaHoc
     $scope.editbr = function (item) {
         $scope.formKhoaHoc = angular.copy(item);
+        
+        let anh = $scope.formKhoaHoc.hinhAnh;
+        var preview = document.getElementById('preview');
+        preview.innerHTML = '<img  src="/Admin/img/'+ anh +'" alt="Default Image" height="324px" width="576px">';
         $(".nav-tabs button:eq(1)").tab('show');
     }    
     //Thêm mới
     $scope.create = function () {
-        $scope.formKhoaHoc.trangThai = "false";  
+        //trạng thái hiển thị khoa học
+        $scope.formKhoaHoc.trangThai = "false";
+
         $scope.formKhoaHoc.nguoiTao.id = $scope.nguoiTao.id;
-        console.log($scope.formKhoaHoc.nguoiTao.id +" ID")
+        
+
         var currentDate = new Date();
         $scope.formKhoaHoc.ngayTao = currentDate;
-        console.log("mới thêm" + $scope.formKhoaHoc.hinhAnh.name)
+        
 
         var formData = new FormData();
         formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
@@ -90,9 +107,9 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
             $('#table').bootstrapTable('load', $scope.itemsKhoaHoc);
         });
             $scope.resetKhoaHoc();
-            alert("Thêm mới sản phẩm thành công!");
+            alert("Thêm mới thành công!");
         }).catch(error => {
-            alert("Lỗi thêm mới sản phẩm!");
+            alert("Lỗi thêm mới!");
             console.log("Error", error)
         });
     }
@@ -103,26 +120,57 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
                 p => p.id == item.id);
             $scope.itemsKhoaHoc.splice(index, 1);
             $scope.resetKhoaHoc();
-            alert("Xóa sản phẩm thành công!");
+            alert("Xóa  thành công!");
         })
             .catch(error => {
-                alert("Lỗi xóa sản phẩm!");
+                alert("Lỗi xóa !");
             })
     }
      // Cập nhật 
      $scope.updateKhoaHoc = function () {
         var item = angular.copy($scope.formKhoaHoc);
         item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD');
-        $http.put(`/rest/admin/KhoaHoc/${item.id}`, item).then(resp => {
+
+// Chuyển đổi định dạng của chuỗi ngày tháng
+$scope.formKhoaHoc.ngayTao = item.ngayTao;
+
+console.log($scope.formKhoaHoc)
+var formData = new FormData();
+
+formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
+$scope.formKhoaHoc.hinhAnh = $scope.formKhoaHoc.hinhAnh.name;
+
+
+formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type: "application/json" }));
+
+        $http.put(`/rest/admin/KhoaHoc/${item.id}`, formData, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).then(resp => {
             var index = $scope.itemsKhoaHoc.findIndex(
                 p => p.id == item.id);
             $scope.itemsKhoaHoc[index] = item;
-            alert("Cập nhật sản phẩm thành công!");
+
+            // load Khóa học
+        $http.get("/rest/admin/KhoaHoc").then(resp => {
+            // Chuyển đổi ngày giờ sang múi giờ Việt Nam
+            resp.data.forEach(item => {
+                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD HH:mm:ss');
+            });
+
+            $scope.itemsKhoaHoc = resp.data;
+            console.log($scope.itemsKhoaHoc)
+            $('#table').bootstrapTable('load', $scope.itemsKhoaHoc);
+        });
+            $scope.resetKhoaHoc();
+            alert("Cập nhật thành công!");
         })
         .catch(error => {
-                alert("Lỗi cập nhật sản phẩm!");
+                alert("Lỗi cập nhật !");
                 console.log("Error", error)
             })
+           
+        
     
 }
     
@@ -135,10 +183,10 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
             var index = $scope.itemsKenhKhoaHoc.findIndex(
                 p => p.id == item.id);
             $scope.itemsKenhKhoaHoc[index] = item;
-            alert("Cập nhật sản phẩm thành công!");
+            alert("Duyệt thành công!");
         })
         .catch(error => {
-                alert("Lỗi cập nhật sản phẩm!");
+                alert("Lỗi !");
                 console.log("Error", error)
             })
     
