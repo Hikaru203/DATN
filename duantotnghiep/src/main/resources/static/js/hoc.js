@@ -23,8 +23,6 @@ app.controller('detail-controller', function ($scope, $http, $window) {
     // Lấy phần tử input bằng ID
     var inputElement = document.getElementById('idLogin');
 	
-
-
     if (inputElement == null || inputElement == "") {
         value = 0;
     }
@@ -37,7 +35,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
     // Lấy id từ cookie
     var id = getCookieValue("id");
 
-
+	
     $scope.checkCourse = function (IdUser, id) {
         $http({
             method: 'GET',
@@ -153,12 +151,13 @@ app.controller('detail-controller', function ($scope, $http, $window) {
                 // Xử lý lỗi tại đây nếu cần thiết
             });
     };
-
+    
+	
     $scope.addCourse = function (id) {
         $http.get("/rest/admin/NguoiDung/" + value)
             .then(function (resp) {
                 idNguoiDung = resp.data.id;
-                console.log(idNguoiDung + " :id Người dùng");
+                
 
             });
 
