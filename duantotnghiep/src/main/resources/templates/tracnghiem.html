@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>ECOURSES - Online Courses HTML Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+	<title>PolyAcademy</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="Free HTML Templates" name="keywords">
+	<meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
     <link th:href="@{/img/favicon.ico}" rel="icon">
@@ -27,7 +27,6 @@
 </head>
 
 <body ng-app="myApp" ng-controller="TracNghiem-ctrl">
-    <!-- Topbar Start -->
     <div class="container-fluid d-none d-lg-block">
 		<div class="row align-items-center py-4 px-xl-5">
 			<div class="col-lg-3">
@@ -187,9 +186,16 @@
 
             <!-- Hiển thị thông báo nếu câu hỏi chưa được chọn -->
             <!-- Sử dụng ng-if để chỉ hiển thị thông báo khi có câu hỏi bị bỏ sót -->
-            <p ng-if="showErrors && !question.isCorrect" style="font-weight: bold; color: red;">
-                Bạn chọn đáp án sai hoặc không chọn đáp án.
-            </p>
+            <!-- Hiển thị thông báo khi chọn sai -->
+<p ng-if="showErrors && !question.isCorrect && question.selectedAnswer" style="font-weight: bold; color: red;">
+    Bạn chọn đáp án sai.
+</p>
+
+<!-- Hiển thị thông báo khi không chọn đáp án -->
+<p ng-if="showErrors && !question.isCorrect && !question.selectedAnswer" style="font-weight: bold; color: red;">
+    Bạn không chọn đáp án.
+</p>
+
 
         </div>
         <div class="buttons">
@@ -198,8 +204,14 @@
             <button ng-click="checkAnswers(); showErrors = true"
                 class="btn btn-success mx-auto d-block text-center mt-2" ng-disabled="isResultChecked">Nộp bài</button>
             <div class="text-center mt-2">
-                <p>Số câu đúng: {{soCauDung}}</p>
-                <p>Số câu sai: {{soCauSai}}</p>
+                <!--<p ng-if="soCauDung !== undefined">Số câu đúng: {{soCauDung}}</p>
+                <p ng-if="soCauSai !== undefined">Số câu sai: {{soCauSai}}</p> -->
+                <!-- Thêm dòng sau trong phần HTML -->
+                <p ng-if="soCauDung !== undefined && soCauSai !== undefined">Kết quả: Số câu đúng: {{soCauDung}}, Số câu sai: {{soCauSai}}</p>
+
+                <p ng-if="phanTramCauDung !== undefined">Phần trăm câu đúng: {{ phanTramCauDung }}% / 100%</p>
+
+
                 <p class="text-danger"> {{msg}}</p>
             </div>
             <button id="next-cauhoi" class="btn btn-success mx-auto d-block text-center mt-2"

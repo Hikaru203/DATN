@@ -82,18 +82,21 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
         $scope.soCauDung = 0;
         $scope.soCauSai = 0;
         $scope.msg = '';
+        $scope.phanTramCauDung = 0;
 
         // Thêm một thuộc tính 'isCorrect' vào mỗi câu hỏi để xác định câu hỏi có đúng hay sai
         for (const question of $scope.questionAnswerArray) {
-            if (question.selectedAnswer === undefined) {
+            if (question.selectedAnswer === undefined) {           
+                 $scope.soCauSai++;
                 $scope.msg = 'Bạn chưa chọn đáp án cho tất cả các câu hỏi.';
                 return;
             } else {
                 if (question.selectedAnswer === question.dapAn) {
                     $scope.soCauDung++;
                     question.isCorrect = true; // Đánh dấu câu hỏi này là đúng
-                    console.log("Câu đúng: ", $scope.soCauDung / $scope.questionAnswerArray.length * 100);
-
+                    // console.log("Câu đúng: ", $scope.soCauDung / $scope.questionAnswerArray.length * 100);
+                    $scope.phanTramCauDung = ($scope.soCauDung / $scope.questionAnswerArray.length) * 100;
+                    console.log("Phần trăm câu đúng: " + $scope.phanTramCauDung);
                     if ($scope.soCauDung / $scope.questionAnswerArray.length * 100 >= 80) {
                         $scope.msg = 'Bạn đã hoàn thành bài thi';
                         console.log("Bạn đã hoàn thành bài thi");
@@ -195,7 +198,7 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
             console.log(response);
         });
     });
-
+    
     $scope.hasUnansweredQuestions = function () {
         for (const question of $scope.questionAnswerArray) {
             if (question.selectedAnswer === undefined) {
