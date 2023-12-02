@@ -62,6 +62,40 @@ public class CheckOutController {
 	}
 
 
+		String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+		String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
+
+		HttpSession session = request.getSession();
+		
+		
+		
+		if (paymentMenThod.equals("paypal")) {
+			try {
+				Payment payment = service.createPayment((double) 10000, "USD", "paypal",
+						"sale", order.getDescription(), "http://localhost:8080/" + CANCEL_URL,
+						"http://localhost:8080/" + SUCCESS_URL, 0.0000412414);
+				for (Links link : payment.getLinks()) {
+					if (link.getRel().equals("approval_url")) {
+						session.setAttribute("idNguoiDung", idNguoiDung);
+						session.setAttribute("idKhoaHoc", idKhoaHoc);
+						session.setAttribute("totalprice", orderTotal);
+						return "redirect:" + link.getHref();
+					}
+				}
+
+			} catch (PayPalRESTException e) {
+
+				e.printStackTrace();
+			}
+			return "redirect:/";
+		} else {
+			session.setAttribute("idNguoiDung", idNguoiDung);
+			session.setAttribute("idKhoaHoc", idKhoaHoc);
+			session.setAttribute("totalprice", orderTotal);
+			return "redirect:" + vnpayUrl;
+		}
+
+	}
 
 	@GetMapping(value = CANCEL_URL)
 	public String cancelPay() {

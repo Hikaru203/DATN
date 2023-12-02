@@ -33,7 +33,6 @@ public class YouTubeService {
                                                                                        // Secret
     private static final String REDIRECT_URI = "http://localhost:8080/oauth2callback"; // Replace with your Redirect URI
 
-    private static final String REDIRECT_URI2 = "http://localhost:8080/oauth2callback2"; // Replace with your Redirect
                                                                                          // URI
 
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
@@ -67,24 +66,7 @@ public class YouTubeService {
         return flow.newAuthorizationUrl().setRedirectUri(REDIRECT_URI).build();
     }
 
-    public String getAuthorizationUrl2() {
-        GoogleAuthorizationCodeFlow flow = null;
-        try {
-            flow = new GoogleAuthorizationCodeFlow.Builder(
-                    GoogleNetHttpTransport.newTrustedTransport(),
-                    JSON_FACTORY,
-                    CLIENT_ID,
-                    CLIENT_SECRET,
-                    Collections.singleton("https://www.googleapis.com/auth/youtube.upload"))
-                    .setAccessType("offline")
-                    .setApprovalPrompt("force")
-                    .build();
-        } catch (Exception e) {
-            // Handle exception
-        }
-
-        return flow.newAuthorizationUrl().setRedirectUri(REDIRECT_URI2).build();
-    }
+    
 
     public String getAccessToken(String authorizationCode) throws IOException {
         GoogleAuthorizationCodeFlow flow = null;
@@ -104,7 +86,6 @@ public class YouTubeService {
 
         GoogleTokenResponse tokenResponse = flow.newTokenRequest(authorizationCode)
                 .setRedirectUri(REDIRECT_URI)
-                .setRedirectUri(REDIRECT_URI2)
                 .execute();
 
         return tokenResponse.getAccessToken();

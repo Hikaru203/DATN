@@ -52,11 +52,225 @@
     <!-- responsive CSS -->
     <link rel="stylesheet" th:href="@{/Admin/css/responsive.css}" />
     <!-- modernizr JS -->
-    <script src="Admin/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script th:src="@{/Admin/js/vendor/modernizr-2.8.3.min.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 
+    <style>
+        /* Resetting default margin and padding */
+        body,
+        h1,
+        h2,
+        h3,
+        p,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+        }
 
+        /* Setting a background color */
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        .main-video {
+            flex: 2;
+            padding-right: 20px;
+        }
+
+        #video-iframe {
+            width: 100%;
+            height: 500px;
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .video-playlist {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        .title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .video {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .video img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .video .title {
+            font-size: 16px;
+        }
+
+        .video.active {
+            background-color: #f0f0f0;
+        }
+
+        /* Video controls styling */
+        .video-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .video-controls button,
+        .video-controls input {
+            margin-right: 10px;
+        }
+
+        .video-controls input[type="range"] {
+            width: 80px;
+        }
+
+        .video-frame-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        #video-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* CSS cho nút Full Screen, Next và Prev */
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        #full-screen {
+            background-color: #28a745;
+            /* Màu xanh cho nút Full Screen */
+        }
+
+        #next-video {
+            background-color: #17a2b8;
+            /* Màu xanh dương cho nút Next */
+        }
+
+        #prev-video {
+            background-color: #dc3545;
+            /* Màu đỏ cho nút Prev */
+        }
+
+        .video[data-disabled="true"] {
+            pointer-events: none;
+            opacity: 0.6;
+            /* Bất kỳ phong cách vô hiệu hóa nào bạn muốn áp dụng */
+        }
+
+        .ytp-chrome-top-buttons {
+            display: none !important;
+        }
+
+        #overlay {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        #dialog-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        #dialog-box button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        #full-screen {
+            background-color: #28a745;
+        }
+
+        #next-video {
+            background-color: #17a2b8;
+        }
+
+        #prev-video {
+            background-color: #dc3545;
+        }
+
+        .video[data-disabled="true"] {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+    </style>
 
 </head>
 
@@ -1275,8 +1489,7 @@
                                                                                         <th>Tùy chỉnh </th>
                                                                                     </thead>
                                                                                     <tbody>
-                                                                                        <tr ng-repeat="item in trang.itemsKenhKhoaHoc"
-                                                                                            >
+                                                                                        <tr ng-repeat="item in trang.itemsKenhKhoaHoc">
                                                                                             <td>{{ $index + 1 }}</td>
                                                                                             <td>{{item.id}}</td>
                                                                                             <td>{{item.tenKhoaHoc}}</td>
@@ -1286,31 +1499,35 @@
                                                                                             <td>{{item.duyet}}  <a class="fa fa-lock"
                                                                                                 aria-hidden="true"></a></td>
                                                                                             <td>{{item.trangThai}}</td>
-                                                                                            <td> <a class="fa fa-eye"
-                                                                                                    aria-hidden="true"> Xem</a> ||
+                                                                                            <td> <button  class="fa fa-eye"
+                                                                                                    aria-hidden="true" ng-click="loadVideoKhoaHoc(item)"> Xem</button> ||
                                                                                                     <a class="fa fa-unlock"
                                                                                                     aria-hidden="true" ng-click="duyet(item)"> Duyệt</a>
                                                                                             </td>
                                                                                         </tr>
                                                                                     </tbody>
                                                                                 </table>
-                                                                                <div class="panel-footer text-center">
-                                                                                    <button ng-click="trang.first()" class="btn btn-primary">
-                                                                                      <i class="fa fa-arrow-circle-up"></i>
-                                                                                    </button>
-                                                                                    <button ng-click="trang.prev()" class="btn btn-primary">
-                                                                                      <i class="fa fa-arrow-circle-left"></i>
-                                                                                    </button>
-                                                                                    <button class="btn btn-success">{{pager.page +1}} of {{pager.count}}</button>
-                                                                                    <button ng-click="trang.next()" class="btn btn-primary">
-                                                                                      <i class="fa fa-arrow-circle-right"></i>
-                                                                                    </button>
-                                                                                    <button ng-click="trang.last()" class="btn btn-primary">
-                                                                                      <i class="fa fa-arrow-circle-down"></i>
-                                                                                    </button>
-                                                                                  </div>
+                                                                               
+                                                                                  
                                                                             </div>
+                                                                            <div class="panel-footer text-center">
+                                                                                <button ng-click="trang.first()" class="btn btn-primary">
+                                                                                  <i class="fa fa-arrow-circle-up"></i>
+                                                                                </button>
+                                                                                <button ng-click="trang.prev()" class="btn btn-primary">
+                                                                                  <i class="fa fa-arrow-circle-left"></i>
+                                                                                </button>
+                                                                                <button class="btn btn-success">{{pager.page +1}} of {{pager.count}}</button>
+                                                                                <button ng-click="trang.next()" class="btn btn-primary">
+                                                                                  <i class="fa fa-arrow-circle-right"></i>
+                                                                                </button>
+                                                                                <button ng-click="trang.last()" class="btn btn-primary">
+                                                                                  <i class="fa fa-arrow-circle-down"></i>
+                                                                                </button>
+                                                                              </div>
+                                                                            
                                                                         </div>
+                                                                        
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1320,14 +1537,113 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
                         </div>
+                        <main class="container">
+                            <section class="main-video">
+                                <div class="video-frame-container">
+                                    <iframe id="video-iframe" width="560" height="315" src="" title="YouTube video player"  frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        
+                                        allowfullscreen></iframe>
+                                </div>
+                    
+                               <div id="tieude" class="tieude"></div>
+                    
+                            </section>
+                            <section class="video-playlist"  >
+                                <h3 class="title">Các bài học</h3>
+                                <div class="videos"></div>
+                                <table>
+                                    <style>
+                                        .tieude{
+                                            font-size: 23px;
+                                            padding-left: 50px;
+                                        }
+                                        tbody tr:hover td {
+                                            background-color: #f2f2f2; /* Màu nền khi di chuột qua */
+                                        }
+                                    
+                                        tbody tr:hover td:hover {
+                                            background-color: #d9d9d9; /* Màu nền khi di chuột qua và click */
+                                        }
+                                    </style>
+                                    <tbody>
+                                        <tr    ng-repeat="item in itemsVideoKhoaHoc" ng-click="xem(item)" >
+                                    <td style=" font-size: 23px;">Bài {{ $index + 1 }}: {{item.tenVideo}}</td>
+                                </tr>
+                                    </tbody>
+                                    
+                                </table>
+                                
+                            </section>
+                        </main>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const fullScreenButton = document.getElementById('full-screen');
+                                // Function to toggle full screen
+                                fullScreenButton.addEventListener('click', function () {
+                                    if (videoIframe.requestFullscreen) {
+                                        videoIframe.requestFullscreen();
+                                    } else if (videoIframe.mozRequestFullScreen) {
+                                        videoIframe.mozRequestFullScreen();
+                                    } else if (videoIframe.webkitRequestFullscreen) {
+                                        videoIframe.webkitRequestFullscreen();
+                                    }
+                                });
+                    
+                            });
+                        </script>
+                        <div hidden>
+                            <ul class="navbar-nav">
+                                <li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangnhap">Đăng
+                                        nhập</a></li>
+                                <li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangky">Đăng
+                                        ký</a>
+                                </li>
+                            </ul>
+                            <div class="nav-item dropdown" th:if="${session.user != null}">
+                                <style>
+                                    /* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
+                                    .dropdown-menu {
+                                        position: absolute;
+                                        background-color: #ff6600;
+                                        /* Màu nền */
+                                        border: 1px solid #ff6600;
+                                        /* Viền */
+                                        width: 200px;
+                                        /* Độ rộng */
+                                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                        /* Hiệu ứng bóng đổ */
+                                    }
+                    
+                                    .dropdown-item {
+                                        color: #fff;
+                                        /* Màu chữ */
+                                        font-size: 14px;
+                                        padding: 10px 20px;
+                                    }
+                                </style>
+                                <input type="text" id="idLogin" hidden th:value="${session.user.id}">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                    style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
+                                <div class="dropdown-menu">
+                                    <a href="cart.html" class="dropdown-item">Cập nhật tài khoản</a>
+                                    <a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
+                                    <a href="/logoff" class="dropdown-item">Đăng xuất</a>
+                                </div>
+                            </div>
+                            <br>
+                            <script src="https://www.youtube.com/iframe_api"></script>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Static Table End -->
     </div>
+    
+
     <!-- jquery -->
     <script th:src="@{/Admin/js/vendor/jquery-1.12.4.min.js}"></script>
     <!-- bootstrap JS -->
@@ -1377,7 +1693,6 @@
     <!-- main JS -->
     <script th:src="@{/Admin/js/main.js}"></script>
     <!-- tawk chat JS -->
-    <script th:src="@{/Admin/js/tawk-chat.js}"></script>
     <script th:src="@{/Admin/js/KhoaHoc-ctrl.js}"></script>
     <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js}"></script>
 

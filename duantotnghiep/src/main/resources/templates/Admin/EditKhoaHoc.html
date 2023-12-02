@@ -1146,6 +1146,13 @@
                                 <li class="active"><a href="#description">Edit Khóa Học</a></li>
 
                             </ul>
+                            <style>
+                                .tieude{
+                                    font-size: 20px;
+                                    
+                                    text-decoration: underline;
+                                }
+                            </style>
                             <div id="myTabContent" class="tab-content custom-product-edit">
                                 <div class="product-tab-list tab-pane fade active in" id="description">
                                     <div class="row">
@@ -1158,30 +1165,35 @@
                                                         <div class="row">
                                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
+                                                                    <div class="tieude">id:</div>
                                                                     <input name="id" type="text"
                                                                         ng-model="formKhoaHoc.id" class="form-control"
-                                                                        placeholder="id" readonly>
+                                                                         readonly>
                                                                 </div>
 
                                                                 <div class="form-group">
+                                                                    <div class="tieude">Tên khóa học:</div>
                                                                     <input name="tenKhoaHoc" type="text"
                                                                         ng-model="formKhoaHoc.tenKhoaHoc"
-                                                                        class="form-control" placeholder="TenKhoaHoc">
+                                                                        class="form-control">
                                                                 </div>
                                                                 <div class="form-group">
+                                                                    <div class="tieude">Người tạo:</div>
                                                                     <input name="nguoiTao" type="text"
                                                                         ng-model="nguoiTao.hoTen" class="form-control"
-                                                                        placeholder="NguoiTao" readonly>
+                                                                         readonly>
                                                                     <input name="nguoiTao" type="text"
                                                                         ng-model="formKhoaHoc.nguoiTao.id" value="0"
                                                                         hidden placeholder="NguoiTao">
                                                                 </div>
                                                                 <div class="form-group">
+                                                                    <div class="tieude">Chi phí:</div>
                                                                     <input name="chiPhi" type="number"
                                                                         ng-model="formKhoaHoc.chiPhi"
-                                                                        class="form-control" placeholder="ChiPhi">
+                                                                        class="form-control">
                                                                 </div>
                                                                 <div class="form-group">
+                                                                    
                                                                     <input name="ngayTao" id="ngayTao" type="text"
                                                                         ng-model="formKhoaHoc.ngayTao" hidden
                                                                         placeholder="NgayTao">
@@ -1205,8 +1217,9 @@
                                                             </div>
                                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                                 <div class="form-group">
+                                                                    <div class="tieude">Mô tả:</div>
                                                                     <textarea name="moTa" ng-model="formKhoaHoc.moTa"
-                                                                        placeholder="MoTa"></textarea>
+                                                                        ></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
