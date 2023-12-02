@@ -5,6 +5,10 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
     $scope.formKhoaHoc = {};
     $scope.courses = []; // Mảng để lưu trữ các khóa học
     $scope.nguoiTao = [];
+    $scope.btnThemKhoaHoc = true;
+    $scope.btnSuaKhoaHoc = true;
+    $scope.btnXoaKhoaHoc = true;
+
     $scope.initialize = function () {
         // load thông tin người dùng từ session
         $http.get("/rest/admin/KhoaHoc/getUserInfo").then(response => {
@@ -28,7 +32,9 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
             });
 
             $scope.itemsKhoaHoc = resp.data;
-            console.log($scope.itemsKhoaHoc)
+            $scope.btnThemKhoaHoc = true;
+            $scope.btnSuaKhoaHoc = false;
+            $scope.btnXoaKhoaHoc = false;
             $('#table').bootstrapTable('load', $scope.itemsKhoaHoc);
         });
 
@@ -52,15 +58,19 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
     $scope.resetKhoaHoc = function () {
         $scope.formKhoaHoc = {};
         // Xóa giá trị của input file
-    var input = document.getElementById('imageInput');
-    input.value = '';
-  // Xóa nội dung của phần tử preview
-  var preview = document.getElementById('preview');
-  preview.innerHTML = '';
+        var input = document.getElementById('imageInput');
+        input.value = '';
+        // Xóa nội dung của phần tử preview
+        var preview = document.getElementById('preview');
+        preview.innerHTML = '';
 
-  // Hiển thị ảnh mặc định
-  var preview = document.getElementById('preview');
-  preview.innerHTML = '<img  src="/Admin/img/gallery.png" alt="Default Image" height="100px" width="100px">';
+        // Hiển thị ảnh mặc định
+        var preview = document.getElementById('preview');
+        preview.innerHTML = '<img  src="/Admin/img/gallery.png" alt="Default Image" height="100px" width="100px">';
+
+        $scope.btnThemKhoaHoc = true;
+        $scope.btnSuaKhoaHoc = false;
+        $scope.btnXoaKhoaHoc = false;
     }
 
     // Hiển thị lên formKhoaHoc
@@ -70,10 +80,17 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         let anh = $scope.formKhoaHoc.hinhAnh;
         var preview = document.getElementById('preview');
         preview.innerHTML = '<img  src="/Admin/img/'+ anh +'" alt="Default Image" height="324px" width="576px">';
+
+        $scope.btnThemKhoaHoc = false;
+        $scope.btnSuaKhoaHoc = true;
+        $scope.btnXoaKhoaHoc = true;
+
         $(".nav-tabs button:eq(1)").tab('show');
     }    
     //Thêm mới
     $scope.create = function () {
+        $scope.hassError = false;
+        if ($scope.validate()) {
         //trạng thái hiển thị khoa học
         $scope.formKhoaHoc.trangThai = "false";
 
@@ -113,6 +130,7 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
             console.log("Error", error)
         });
     }
+    }
      // Xóa 
      $scope.deleteKhoaHoc = function (item) {
         $http.delete(`/rest/admin/KhoaHoc/${item.id}`).then(resp => {
@@ -129,19 +147,20 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
      // Cập nhật 
      $scope.updateKhoaHoc = function () {
         var item = angular.copy($scope.formKhoaHoc);
+        
+
+        // Chuyển đổi định dạng của chuỗi ngày tháng
+        $scope.formKhoaHoc.ngayTao = item.ngayTao;
         item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD');
-
-// Chuyển đổi định dạng của chuỗi ngày tháng
-$scope.formKhoaHoc.ngayTao = item.ngayTao;
-
-console.log($scope.formKhoaHoc)
-var formData = new FormData();
-
-formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
-$scope.formKhoaHoc.hinhAnh = $scope.formKhoaHoc.hinhAnh.name;
+        
 
 
-formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type: "application/json" }));
+        var formData = new FormData();
+
+        formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
+        $scope.formKhoaHoc.hinhAnh = $scope.formKhoaHoc.hinhAnh.name;
+
+        formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type: "application/json" }));
 
         $http.put(`/rest/admin/KhoaHoc/${item.id}`, formData, {
             transformRequest: angular.identity,
@@ -179,19 +198,79 @@ formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type
         var item = angular.copy(items);
         item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD');
         item.duyet = true;
-        $http.put(`/rest/admin/KhoaHoc/${item.id}`, item).then(resp => {
-            var index = $scope.itemsKenhKhoaHoc.findIndex(
+
+        var formData = new FormData();
+
+        formData.append('hinhAnh', item.hinhAnh);
+        
+    
+        formData.append('khoaHoc', new Blob([JSON.stringify(item)], { type: "application/json" }));
+
+        $http.put(`/rest/admin/KhoaHoc/${item.id}`, formData, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).then(resp => {
+            var index = $scope.itemsKhoaHoc.findIndex(
                 p => p.id == item.id);
-            $scope.itemsKenhKhoaHoc[index] = item;
+            $scope.itemsKhoaHoc[index] = item;
+
+             // load kênh Khóa học
+            $http.get("/rest/admin/KhoaHoc/Duyet").then(resp => {
+                // Chuyển đổi ngày giờ sang múi giờ Việt Nam
+                resp.data.forEach(item => {
+                    item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD HH:mm:ss');
+                });
+
+                $scope.itemsKenhKhoaHoc = resp.data;
+                $('#table').bootstrapTable('load', $scope.itemsKenhKhoaHoc);
+            });
             alert("Duyệt thành công!");
         })
         .catch(error => {
                 alert("Lỗi !");
                 console.log("Error", error)
-            })
-    
+        })
 }
 
+ // Cập nhật trạng thái khóa học
+ $scope.trangThaiKhoaHoc = function (items) {
+    var item = angular.copy(items);
+    item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD');
+    
+    if(item.trangThai == "true"){
+        item.trangThai = "false";
+    }
+    else if(item.trangThai == "false"){
+        item.trangThai = "true"; 
+    }
+    var formData = new FormData();
+
+    formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
+    $scope.formKhoaHoc.hinhAnh = $scope.formKhoaHoc.hinhAnh.name;
+
+    formData.append('khoaHoc', new Blob([JSON.stringify(item)], { type: "application/json" }));
+
+    
+    $http.put(`/rest/admin/KhoaHoc/${item.id}`, formData, {
+        transformRequest: angular.identity,
+        headers: { 'Content-Type': undefined }
+    }).then(resp => {
+        var index = $scope.itemsKhoaHoc.findIndex(
+            p => p.id == item.id);
+        $scope.itemsKhoaHoc[index] = item;
+        if(item.trangThai == "true"){
+            alert("Mở khóa thành công!");
+        }
+        else if(item.trangThai == "false"){
+            alert("Khóa thành công!");
+        }
+        
+    })
+    .catch(error => {
+            alert("Lỗi !");
+            console.log("Error", error)
+    })
+}
 
     $scope.pager = {
         page: 0,
@@ -224,6 +303,7 @@ formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type
             this.page = this.count - 1;
         }
     }
+
 //Chuyển trang kênh khóa học
     $scope.trang = {
         page: 0,
@@ -255,6 +335,48 @@ formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type
         last() {
             this.page = this.count - 1;
         }
+    }
+
+    //validate
+    $scope.KhoaHocMessages = {
+        id: "ID is required",
+        nameNull: "Tên khóa học không được rỗng",
+        hocPhiNull: "Học phí khóa học không được rỗng",
+        hocPhiiNaN: "Học phí khóa học phải là số",
+        hinhAnhNull: "Bạn chưa chọn ảnh cho khóa học",
+        // ...
+    };
+
+    $scope.validate = function () {
+        $scope.message1 = "";
+        $scope.message2 = "";
+        $scope.message3 = "";
+        $scope.checkV = false;
+        if ($scope.formKhoaHoc.tenKhoaHoc === undefined) {
+            $scope.hassError = true;
+            $scope.message1 = $scope.KhoaHocMessages.nameNull;
+            $scope.checkV = true;
+        }
+
+        if ($scope.formKhoaHoc.chiPhi === undefined) {
+            $scope.hassError = true;
+            $scope.message2 = $scope.KhoaHocMessages.hocPhiNull;
+            $scope.checkV = true;
+        }
+        if ($scope.formKhoaHoc.hinhAnh === undefined) {
+            $scope.hassError = true;
+            $scope.message3 = $scope.KhoaHocMessages.hinhAnhNull;
+            $scope.checkV = true;
+        }
+
+        
+        
+        if ($scope.checkV === true) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     $scope.itemsVideoKhoaHoc = [];

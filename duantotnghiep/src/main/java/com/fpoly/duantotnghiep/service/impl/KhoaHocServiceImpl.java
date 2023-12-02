@@ -71,6 +71,9 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 			if(khoaHoc.isDuyet()!=existingBrand.isDuyet()){
 				existingBrand.setDuyet(khoaHoc.isDuyet());
 			}
+			if(khoaHoc.getTrangThai()!=existingBrand.getTrangThai()){
+				existingBrand.setTrangThai(khoaHoc.getTrangThai());
+			}
             return khoaHocRepository.save(existingBrand);
         } else {
             // Nếu  không tồn tại, không thực hiện cập nhật và trả về null hoặc thông báo lỗi tùy vào logic ứng dụng của bạn
