@@ -266,80 +266,20 @@
 				<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khoá học chính</h5>
 				<h1>Top các khoá học được ưa chuộng</h1>
 			</div>	
-			<div class="row">
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-1.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Lập trình C</h4> <span>100
-								khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-2.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Thiết kế trang web</h4> <span>50
-								khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-3.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Lập trình cơ khí</h4> <span>100
-								Khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-4.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Đẳng cấp Marketing</h4> <span>100
-								Khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-5.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h5 class="text-white font-weight-medium">Nhà hàng - khách sạn</h5> <span>100
-								Khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-6.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">HTML5 căn bản</h4> <span>100
-								Khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-7.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">Ma thuật CSS</h4> <span>100
-								Khoá học</span>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="cat-item position-relative overflow-hidden rounded mb-2">
-						<img class="img-fluid" th:src="@{/img/cat-8.jpg}" alt=""> <a
-							class="cat-overlay text-white text-decoration-none" href="">
-							<h4 class="text-white font-weight-medium">JavaScript cơ bản</h4> <span>100
-								Khoá học</span>
-						</a>
-					</div>
-				</div>
-			</div>
+		<div class="row">
+    <div class="col-lg-3 col-md-6 mb-4" th:each="tenLoai:${catesName}">
+        <div class="cat-item position-relative overflow-hidden rounded mb-2">
+            <img class="img-fluid" th:src="@{/img/cat-1.jpg}" alt="">
+            <a class="cat-overlay text-white text-decoration-none" th:href="@{|?cid=${tenLoai.loaiKhoaHoc.id}|}">
+                <h4 class="text-white font-weight-medium" name="categoryId" th:text="${tenLoai.loaiKhoaHoc.tenLoaiKhoaHoc}"></h4>
+                                
+
+                <span>100 khoá học</span>
+            </a>
+        </div>
+    </div>
+</div>
+
 		</div>
 	</div>
 	<!-- Category Start -->
@@ -506,12 +446,12 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Contact Javascript File -->
-	<script src="mail/jqBootstrapValidation.min.js"></script>
-	<script src="mail/contact.js"></script>
+	<script src="/mail/jqBootstrapValidation.min.js"></script>
+	<script src="/mail/contact.js"></script>
 
 	<!-- Template Javascript -->
-	<script src="js/main.js"></script>
-	<script src="js/client.js"></script>
+	<script src="/js/main.js"></script>
+	<script src="/js/client.js"></script>
 	<script>
 		var priceElements = document.querySelectorAll("#price");
 		var currencyFormatter = new Intl.NumberFormat("vi-VN", {
