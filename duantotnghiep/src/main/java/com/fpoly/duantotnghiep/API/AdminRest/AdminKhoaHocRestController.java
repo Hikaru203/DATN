@@ -60,7 +60,7 @@ public class AdminKhoaHocRestController {
         byte[] bytes = file.getBytes();
 
         // Specify the directory where you want to save the file
-        String uploadPath = "src/main/resources/static/Admin/img/";
+        String uploadPath = "src/main/resources/static/img/";
 
         // Generate a unique filename
         String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
@@ -89,7 +89,7 @@ public class AdminKhoaHocRestController {
         byte[] bytes = file.getBytes();
 
         // Specify the directory where you want to save the file
-        String uploadPath = "src/main/resources/static/Admin/img/";
+        String uploadPath = "src/main/resources/static/img/";
 
         // Generate a unique filename
         String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();

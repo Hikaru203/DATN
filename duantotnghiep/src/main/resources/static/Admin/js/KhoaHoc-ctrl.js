@@ -108,7 +108,7 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         
         let anh = $scope.formKhoaHoc.hinhAnh;
         var preview = document.getElementById('preview');
-        preview.innerHTML = '<img  src="/Admin/img/'+ anh +'" alt="Default Image" height="324px" width="576px">';
+        preview.innerHTML = '<img  src="/img/'+ anh +'" alt="Default Image" height="324px" width="576px">';
 
         $scope.btnThemKhoaHoc = false;
         $scope.btnSuaKhoaHoc = true;
@@ -180,7 +180,7 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         
 
         // Chuyển đổi định dạng của chuỗi ngày tháng
-        item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD');
+        item.ngayTao = moment(item.ngayTao,"DD-MM-YYYY HH:mm:ss");
         $scope.formKhoaHoc.ngayTao = item.ngayTao;
         
         
