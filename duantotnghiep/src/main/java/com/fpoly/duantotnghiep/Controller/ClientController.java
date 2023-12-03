@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.duantotnghiep.Entity.CauHoi;
+import com.fpoly.duantotnghiep.Entity.ChungChi;
 import com.fpoly.duantotnghiep.Entity.DangKyKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.DanhGia;
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
@@ -24,6 +25,7 @@ import com.fpoly.duantotnghiep.Entity.MucLuc;
 import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
 import com.fpoly.duantotnghiep.jparepository.LoaiKhoaHocRepository;
 import com.fpoly.duantotnghiep.service.CauHoiService;
+import com.fpoly.duantotnghiep.service.ChungChiService;
 import com.fpoly.duantotnghiep.service.CookieService;
 import com.fpoly.duantotnghiep.service.DangKyKhoaHocService;
 import com.fpoly.duantotnghiep.service.DanhGiaService;
@@ -56,6 +58,9 @@ public class ClientController {
 
 	@Autowired
 	LoaiKhoaHocRepository loaiKhoaHocRepository;
+
+	@Autowired
+	ChungChiService chungchiService;
 
 	@GetMapping("/courseOnline/index")
 	public String index(Model model, @RequestParam("cid") Optional<Integer> cid) {
@@ -269,5 +274,37 @@ public class ClientController {
 	@GetMapping("/courseOnline/mucluc")
 	public String mucluc() {
 		return "mucluc";
+	}
+
+	@GetMapping("/courseOnline/chungchi/{id}")
+	public String chungchi(@PathVariable("id") String id, Model model) {
+		// Mã hóa ID bằng Base64 trực tiếp trong controller
+		ChungChi chungChi1 = new ChungChi();
+		List<ChungChi> list = chungchiService.findAll();
+		for (ChungChi chungChi : list) {
+			// Mã hóa id của mỗi đối tượng ChungChi và thêm vào danh sách encodedIds
+			String encodedId = java.util.Base64.getEncoder()
+					.encodeToString(String.valueOf(chungChi.getId()).getBytes());
+			System.out.println(encodedId);
+			if (encodedId.equals(id)) {
+				chungChi1 = chungChi;
+				System.out.println(chungChi1.getNguoiDung().getHoTen());
+				model.addAttribute("chungChi", chungChi1);
+
+			}
+		}
+		for (DangKyKhoaHoc dangKyKhoaHoc : chungChi1.getKhoaHoc().getDangKyKhoaHocs()) {
+			if (dangKyKhoaHoc.getNguoiDung().getId() == chungChi1.getNguoiDung().getId()) {
+				model.addAttribute("dangKyKhoaHoc", dangKyKhoaHoc);
+			}
+		}
+		return "ChungChi";
+	}
+
+	@GetMapping("/courseOnline/tracnghiem/{id}")
+	public String tracngiem(@PathVariable("id") String id, Model model) {
+		// Truyền id vào model để sử dụng trong view
+		model.addAttribute("id", id);
+		return "tracnghiem";
 	}
 }

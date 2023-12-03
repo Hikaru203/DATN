@@ -64,6 +64,11 @@ public class AdminController {
     public String User() {
         return "Admin/User";
     }
+    @GetMapping("/Admin/HocVien")
+    public String HocVien() {
+        return "Admin/HocVien";
+    }
+
 
     @GetMapping("/Admin/ThanhToan")
     public String ThanhToan() {

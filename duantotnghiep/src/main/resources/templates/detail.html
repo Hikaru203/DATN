@@ -41,7 +41,7 @@
 
 <body ng-app="detail-app" ng-controller="detail-controller">
     <!-- Topbar Start -->
-    <div class="container-fluid d-none d-lg-block">
+	<div class="container-fluid d-none d-lg-block">
 		<div class="row align-items-center py-4 px-xl-5">
 			<div class="col-lg-3">
 				<a href="" class="text-decoration-none">
@@ -56,7 +56,7 @@
 					<div class="text-left">
 						<h6 class="font-weight-semi-bold mb-1">Văn phòng của chúng
 							tôi</h6>
-						<small>22 Thường thạnh, Cái Răng, Cần Thơ</small>
+						<small>22 Thường Thạnh, Cái Răng, Cần Thơ</small>
 					</div>
 				</div>
 			</div>
@@ -80,13 +80,9 @@
 			</div>
 		</div>
 	</div>
-    <!-- Topbar End -->
-
-    <input type="text" id="idLogin" th:if="${session.user != null}" th:value="${session.user.id}" />
-    <input type="text" id="idLogin" th:if="${session.user == null}" value="" />
-
-    <!-- Navbar Start -->
-    <div class="container-fluid">
+	<!-- Topbar End -->
+<!-- Navbar Start -->
+	<div class="container-fluid">
 		<div class="row border-top px-xl-5">
 			<div class="col-lg-3 d-none d-lg-block">
 				<a class="d-flex align-items-center justify-content-between bg-secondary w-100 text-decoration-none"
@@ -99,18 +95,17 @@
 					id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
 					<div class="navbar-nav w-100">
 						<div class="nav-item dropdown">
-							<a href="#" class="nav-link" data-toggle="dropdown">Ứng dụng phần mềm<i class="fa fa-angle-down float-right mt-1"></i>
+							<a href="#" class="nav-link" data-toggle="dropdown">Ứng dụng phần mềm<i
+									class="fa fa-angle-down float-right mt-1"></i>
 							</a>
-							<div
-								class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-								<a href="detail" class="dropdown-item">HTML</a> <a
-									href="detail" class="dropdown-item">CSS</a> <a
-									href="detail" class="dropdown-item">JavaScript</a>
+							<div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+								<a href="detail" class="dropdown-item">HTML</a> <a href="detail"
+									class="dropdown-item">CSS</a> <a href="detail" class="dropdown-item">JavaScript</a>
 							</div>
 						</div>
 						<a href="detail" class="nav-item nav-link active">Lập trình Web</a> <a href="detail"
-							class="nav-item nav-link active"></a>Cơ khí</a> <a
-							href="detail" class="nav-item nav-link active">Marketing</a>
+							class="nav-item nav-link active"></a>Cơ khí</a> <a href="detail"
+							class="nav-item nav-link active">Marketing</a>
 						<a href="detail" class="nav-item nav-link active">Nhà hàng - Khách sạn</a>
 					</div>
 				</nav>
@@ -127,20 +122,16 @@
 					</button>
 					<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
 						<div class="navbar-nav py-0">
-							<a href="index" class="nav-item nav-link active ">Trang
-								chủ</a> <a href="course" class="nav-item nav-link ">Khoá
-								học</a> <a href="detail" class="nav-item nav-link ">Chi
-								tiết khoá học</a> <a href="about"
-								class="nav-item nav-link ">Đăng ký học thử</a>
+							<a href="/courseOnline/index" class="nav-item nav-link active ">Trang
+								chủ</a> <a href="/courseOnline/course" class="nav-item nav-link ">Khoá
+								học</a>
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
 								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-									<a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a> <a
-										href="about" class="dropdown-item">Yêu thích khoá học</a>
-										<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
-									<a href="cart" class="dropdown-item">Giỏ hàng</a> <a
-										href="checkout" class="dropdown-item">Thanh toán</a> <a
-										href="tracnghiem" class="dropdown-item">Trắc nghiệm</a>
+									<a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a>
+									
+									<a href="uploademo" class="dropdown-item">Đăng khoá học1</a>
+									<a href="mucluc" class="dropdown-item">Mục lục</a>
 								</div>
 							</div>
 						</div>
@@ -151,6 +142,8 @@
 									href="/courseOnline/dangky">Đăng ký</a></li>
 						</ul>
 						<div class="nav-item dropdown" th:if="${session.user != null}">
+							<input type="text" id="idLogin" hidden th:value="${session.user.id}">
+
 							<style>
 								/* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
 								.dropdown-menu {
@@ -175,7 +168,7 @@
 							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
 								style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
 							<div class="dropdown-menu">
-								<a href="cart.html" class="dropdown-item">Cập nhật tài khoản</a>
+								<a href="/courseOnline/updateAccount/{id}" class="dropdown-item">Cập nhật tài khoản</a>
 								<a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
 								<a href="/logoff" class="dropdown-item">Đăng xuất</a>
 							</div>
@@ -186,14 +179,15 @@
 
 		</div>
 	</div>
+	<!-- Navbar End -->
     <div class="container-fluid page-header" style="margin-bottom: 90px;">
         <div class="container">
             <div class="d-flex flex-column justify-content-center" style="min-height: 300px">
-                <h3 class="display-4 text-white text-uppercase">Courses</h3>
+                <h3 class="display-4 text-white text-uppercase">Khóa học</h3>
                 <div class="d-inline-flex text-white">
-                    <p class="m-0 text-uppercase"><a class="text-white" href="">Trang chủ</a></p>
+                    <p class="m-0 text-uppercase"><a class="text-white" href="">Home</a></p>
                     <i class="fa fa-angle-double-right pt-1 px-3"></i>
-                    <p class="m-0 text-uppercase">Khoá học</p>
+                    <p class="m-0 text-uppercase">Chi tiết khóa học</p>
                 </div>
             </div>
         </div>
@@ -733,21 +727,24 @@
 
                                         // Hàm sẽ được gọi khi trang web được tải lên
                                         window.onload = function () {
-                                            // Lấy giá trị từ trường input chứa ID của chứng chỉ
-                                            const certificateId = document.getElementById('certificateIdInput').value;
+                                            setTimeout(function () {
+                                                // Lấy giá trị từ trường input chứa ID của chứng chỉ
+                                                const certificateId = document.getElementById('certificateIdInput').value;
 
-                                            // Đảm bảo rằng certificateId có giá trị trước khi sử dụng nó
-                                            if (certificateId) {
-                                                // Mã hóa ID bằng Base64
-                                                const encodedCertificateId = encodeToBase64(certificateId);
-                                                const currentURL = window.location.origin;
-                                                const url = `${currentURL}/courseOnline/chungchi/${encodedCertificateId}`;
+                                                // Đảm bảo rằng certificateId có giá trị trước khi sử dụng nó
+                                                if (certificateId) {
+                                                    // Mã hóa ID bằng Base64
+                                                    const encodedCertificateId = encodeToBase64(certificateId);
+                                                    const currentURL = window.location.origin;
+                                                    const url = `${currentURL}/courseOnline/chungchi/${encodedCertificateId}`;
 
-                                                generateAndInsertQRCode(url); // Gọi hàm để tạo và chèn mã QR vào HTML
-                                            } else {
-                                                console.error('Certificate ID is missing.'); // Hiển thị thông báo lỗi nếu không có ID
-                                            }
+                                                    generateAndInsertQRCode(url); // Gọi hàm để tạo và chèn mã QR vào HTML
+                                                } else {
+                                                    console.error('Certificate ID is missing.'); // Hiển thị thông báo lỗi nếu không có ID
+                                                }
+                                            }, 1000); // 1000 milliseconds = 1 giây
                                         };
+
 
 
                                         function printToPDF() {
@@ -795,7 +792,13 @@
                     </div>
                 </div>
 
-                <!-- Shop Detail Start -->
+              
+                <!-- Footer End -->
+            </div>
+        </div>
+        
+    </div>
+      <!-- Shop Detail Start -->
                 <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5" style="margin-top: 90px;">
                     <div class="row pt-5">
                         <div class="col-lg-7 col-md-12">
@@ -880,11 +883,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- Footer End -->
-            </div>
-        </div>
-    </div>
-
+    <input type="text" id="idLogin" th:if="${session.user != null}" hidden th:value="${session.user.id}" />
+    <input type="text" id="idLogin" th:if="${session.user == null}" hidden value="" />
     <!-- Back to Top Button -->
     <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     <!-- Thư viện jsPDF -->
