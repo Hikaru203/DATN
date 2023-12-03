@@ -54,7 +54,7 @@ public class TienDoKhoaHocRestController {
             // TODO: handle exception
             System.out.println(e.getMessage());
             return null;
-
+        }
         }
     @GetMapping
     public List<DangKyKhoaHoc> findAll() {

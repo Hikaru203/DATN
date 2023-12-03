@@ -199,4 +199,6 @@ public class ClientController {
     public String checkout() {
         return "checkout";
     }
+  
+    
 }
