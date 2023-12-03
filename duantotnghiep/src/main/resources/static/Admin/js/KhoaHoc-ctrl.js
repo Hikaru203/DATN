@@ -8,13 +8,22 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
     $scope.btnThemKhoaHoc = true;
     $scope.btnSuaKhoaHoc = true;
     $scope.btnXoaKhoaHoc = true;
+    $scope.cboloaiKhoaHoc = [];
+
+
+    //định dạng tiền
+    $scope.formatCurrency = function (amount) {
+        // Chuyển đổi số tiền thành chuỗi và loại bỏ số 0 ở cuối
+        var formattedAmount = amount.toLocaleString('vi-VN');
+        return formattedAmount + '₫';
+    };
 
     $scope.initialize = function () {
+        
         // load thông tin người dùng từ session
         $http.get("/rest/admin/KhoaHoc/getUserInfo").then(response => {
             // Dùng thông tin người dùng ở đây
-            console.log(response.data +"tên2")
-            
+
             $scope.nguoiTao =response.data ;
             $scope.formKhoaHoc = {
                 nguoiTao:{
@@ -28,27 +37,35 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         $http.get("/rest/admin/KhoaHoc").then(resp => {
             // Chuyển đổi ngày giờ sang múi giờ Việt Nam
             resp.data.forEach(item => {
-                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD HH:mm:ss');
+                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
             });
 
             $scope.itemsKhoaHoc = resp.data;
             $scope.btnThemKhoaHoc = true;
             $scope.btnSuaKhoaHoc = false;
             $scope.btnXoaKhoaHoc = false;
-            $('#table').bootstrapTable('load', $scope.itemsKhoaHoc);
+            
         });
 
         // load kênh Khóa học
         $http.get("/rest/admin/KhoaHoc/Duyet").then(resp => {
             // Chuyển đổi ngày giờ sang múi giờ Việt Nam
             resp.data.forEach(item => {
-                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD HH:mm:ss');
+                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
             });
 
             $scope.itemsKenhKhoaHoc = resp.data;
-            console.log($scope.itemsKenhKhoaHoc)
-            $('#table').bootstrapTable('load', $scope.itemsKenhKhoaHoc);
+            
+            
         });
+
+        // load loại khóa học
+        $http.get("/rest/admin/KhoaHoc/loaiKhoaHoc").then(resp => {
+            $scope.cboloaiKhoaHoc = resp.data;
+            
+        });
+
+
     }
 
     // Khởi đầu
@@ -71,6 +88,18 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         $scope.btnThemKhoaHoc = true;
         $scope.btnSuaKhoaHoc = false;
         $scope.btnXoaKhoaHoc = false;
+
+        // load thông tin người dùng từ session
+        $http.get("/rest/admin/KhoaHoc/getUserInfo").then(response => {
+            
+            $scope.nguoiTao =response.data ;
+            $scope.formKhoaHoc = {
+                nguoiTao:{
+                    id: $scope.nguoiTao.id
+                }
+                
+            } 
+        });
     }
 
     // Hiển thị lên formKhoaHoc
@@ -93,13 +122,12 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         if ($scope.validate()) {
         //trạng thái hiển thị khoa học
         $scope.formKhoaHoc.trangThai = "false";
-
+        $scope.formKhoaHoc.duyet = true;
         $scope.formKhoaHoc.nguoiTao.id = $scope.nguoiTao.id;
         
 
         var currentDate = new Date();
-        $scope.formKhoaHoc.ngayTao = currentDate;
-        
+        $scope.formKhoaHoc.ngayTao = currentDate.toISOString();
 
         var formData = new FormData();
         formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
@@ -113,20 +141,19 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         }).then(resp => {
             $scope.itemsKhoaHoc.push(resp.data);
              // load Khóa học
-        $http.get("/rest/admin/KhoaHoc").then(resp => {
-            // Chuyển đổi ngày giờ sang múi giờ Việt Nam
-            resp.data.forEach(item => {
-                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD HH:mm:ss');
-            });
+            $http.get("/rest/admin/KhoaHoc").then(resp => {
+                // Chuyển đổi ngày giờ sang múi giờ Việt Nam
+                resp.data.forEach(item => {
+                    item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
+                });
 
-            $scope.itemsKhoaHoc = resp.data;
-            console.log($scope.itemsKhoaHoc)
-            $('#table').bootstrapTable('load', $scope.itemsKhoaHoc);
-        });
+                $scope.itemsKhoaHoc = resp.data;
+                
+            });
             $scope.resetKhoaHoc();
-            alert("Thêm mới thành công!");
+            showNotification(2);
         }).catch(error => {
-            alert("Lỗi thêm mới!");
+            showNotification(6);
             console.log("Error", error)
         });
     }
@@ -138,20 +165,24 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
                 p => p.id == item.id);
             $scope.itemsKhoaHoc.splice(index, 1);
             $scope.resetKhoaHoc();
-            alert("Xóa  thành công!");
+            showNotification(3);
         })
             .catch(error => {
-                alert("Lỗi xóa !");
+                showNotification(7);
             })
     }
      // Cập nhật 
      $scope.updateKhoaHoc = function () {
+
+        $scope.hassError = false;
+        if ($scope.validate()) {
         var item = angular.copy($scope.formKhoaHoc);
         
 
         // Chuyển đổi định dạng của chuỗi ngày tháng
-        $scope.formKhoaHoc.ngayTao = item.ngayTao;
         item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD');
+        $scope.formKhoaHoc.ngayTao = item.ngayTao;
+        
         
 
 
@@ -174,29 +205,29 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         $http.get("/rest/admin/KhoaHoc").then(resp => {
             // Chuyển đổi ngày giờ sang múi giờ Việt Nam
             resp.data.forEach(item => {
-                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD HH:mm:ss');
+                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
             });
 
             $scope.itemsKhoaHoc = resp.data;
-            console.log($scope.itemsKhoaHoc)
-            $('#table').bootstrapTable('load', $scope.itemsKhoaHoc);
-        });
+            
+        });showNotification(4);
             $scope.resetKhoaHoc();
-            alert("Cập nhật thành công!");
+            
         })
         .catch(error => {
-                alert("Lỗi cập nhật !");
+            showNotification(8);
                 console.log("Error", error)
             })
            
         
-    
+        }
 }
     
      // Duyệt khóa học
      $scope.duyet = function (items) {
+        
         var item = angular.copy(items);
-        item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD');
+        item.ngayTao = moment(item.ngayTao,"DD-MM-YYYY HH:mm:ss");
         item.duyet = true;
 
         var formData = new FormData();
@@ -213,21 +244,22 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
             var index = $scope.itemsKhoaHoc.findIndex(
                 p => p.id == item.id);
             $scope.itemsKhoaHoc[index] = item;
-
+            
              // load kênh Khóa học
             $http.get("/rest/admin/KhoaHoc/Duyet").then(resp => {
                 // Chuyển đổi ngày giờ sang múi giờ Việt Nam
                 resp.data.forEach(item => {
-                    item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD HH:mm:ss');
+                    item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
                 });
 
                 $scope.itemsKenhKhoaHoc = resp.data;
-                $('#table').bootstrapTable('load', $scope.itemsKenhKhoaHoc);
-            });
-            alert("Duyệt thành công!");
+                
+               
+            });showNotification(9);
         })
+            
         .catch(error => {
-                alert("Lỗi !");
+            showNotification(5);
                 console.log("Error", error)
         })
 }
@@ -235,8 +267,10 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
  // Cập nhật trạng thái khóa học
  $scope.trangThaiKhoaHoc = function (items) {
     var item = angular.copy(items);
-    item.ngayTao = moment(item.ngayTao).utcOffset(7).format('YYYY-MM-DD');
     
+    item.ngayTao = moment(item.ngayTao,"DD-MM-YYYY HH:mm:ss");
+    
+
     if(item.trangThai == "true"){
         item.trangThai = "false";
     }
@@ -245,8 +279,7 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
     }
     var formData = new FormData();
 
-    formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
-    $scope.formKhoaHoc.hinhAnh = $scope.formKhoaHoc.hinhAnh.name;
+    formData.append('hinhAnh', item.hinhAnh);
 
     formData.append('khoaHoc', new Blob([JSON.stringify(item)], { type: "application/json" }));
 
@@ -258,16 +291,32 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         var index = $scope.itemsKhoaHoc.findIndex(
             p => p.id == item.id);
         $scope.itemsKhoaHoc[index] = item;
+
+        // load Khóa học
+        $http.get("/rest/admin/KhoaHoc").then(resp => {
+            // Chuyển đổi ngày giờ sang múi giờ Việt Nam
+            resp.data.forEach(item => {
+                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
+            });
+
+            $scope.itemsKhoaHoc = resp.data;
+            $scope.btnThemKhoaHoc = true;
+            $scope.btnSuaKhoaHoc = false;
+            $scope.btnXoaKhoaHoc = false;
+            
+        });
+        
         if(item.trangThai == "true"){
-            alert("Mở khóa thành công!");
+            
+            showNotification(0);
         }
         else if(item.trangThai == "false"){
-            alert("Khóa thành công!");
+            showNotification(1);
         }
         
     })
     .catch(error => {
-            alert("Lỗi !");
+        showNotification(6);
             console.log("Error", error)
     })
 }
@@ -344,6 +393,7 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         hocPhiNull: "Học phí khóa học không được rỗng",
         hocPhiiNaN: "Học phí khóa học phải là số",
         hinhAnhNull: "Bạn chưa chọn ảnh cho khóa học",
+        loaiKhoaHocNull: "Bạn chưa chọn loại khóa học",
         // ...
     };
 
@@ -351,6 +401,7 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         $scope.message1 = "";
         $scope.message2 = "";
         $scope.message3 = "";
+        $scope.message4 = "";
         $scope.checkV = false;
         if ($scope.formKhoaHoc.tenKhoaHoc === undefined) {
             $scope.hassError = true;
@@ -366,6 +417,16 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         if ($scope.formKhoaHoc.hinhAnh === undefined) {
             $scope.hassError = true;
             $scope.message3 = $scope.KhoaHocMessages.hinhAnhNull;
+            $scope.checkV = true;
+        }
+        if ($scope.formKhoaHoc.loaiKhoaHoc === undefined) {
+            $scope.hassError = true;
+            $scope.message4 = $scope.KhoaHocMessages.loaiKhoaHocNull;
+            $scope.checkV = true;
+        }
+        if ($scope.formKhoaHoc.loaiKhoaHoc.id === null) {
+            $scope.hassError = true;
+            $scope.message4 = $scope.KhoaHocMessages.loaiKhoaHocNull;
             $scope.checkV = true;
         }
 
@@ -423,4 +484,36 @@ app.directive('fileModel', ['$parse', function ($parse) {
 }]);
 
 
+// Mảng lưu trữ các thông báo
+const notifications = [
+    { text: "Đã khóa", duration: 3000, type: "success" },//---0---
+    { text: "Đã mở khóa", duration: 3000, type: "success" },//---1---
+    { text: "Thêm thành công", duration: 3000, type: "success" },//---2---
+    { text: "Xóa thành công", duration: 3000, type: "success" },//---3---
+    { text: "Sửa thành công", duration: 3000, type: "success" },//---4---
+    { text: "lỗi", duration: 3000, type: "error" },//---5---
+    { text: "Lỗi thêm mới", duration: 3000, type: "error" },//---6---
+    { text: "Lỗi xóa", duration: 3000, type: "error" },//---7---
+    { text: "Lỗi cập nhật", duration: 3000, type: "error" },//---8---
+    { text: "Duyệt thành công", duration: 3000, type: "success" }//---9---
+  ];
 
+  // Hàm hiển thị thông báo
+  function showNotification(index) {
+    if (index < notifications.length) {
+      const notification = notifications[index];
+
+      Toastify({
+        text: notification.text,
+        duration: notification.duration,
+        gravity: "top",
+        position: 'center',
+        className: notification.type,
+        onClose: function() {
+          // Hiển thị thông báo tiếp theo khi thông báo hiện tại được đóng
+          showNotification(index + 1);
+        }
+      }).showToast();
+    }
+  }
+ 

@@ -8,13 +8,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
+import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
 import com.fpoly.duantotnghiep.jparepository.KhoaHocRepository;
+import com.fpoly.duantotnghiep.jparepository.LoaiKhoaHocRepository;
 import com.fpoly.duantotnghiep.service.KhoaHocService;
 
 @Service
 public class KhoaHocServiceImpl implements KhoaHocService {
 	@Autowired
 	KhoaHocRepository khoaHocRepository;
+
+	@Autowired
+	LoaiKhoaHocRepository loaiKhoaHocRepository;
 
 	@Override
 	public List<KhoaHoc> findAll() {
@@ -74,6 +79,9 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 			if(khoaHoc.getTrangThai()!=existingBrand.getTrangThai()){
 				existingBrand.setTrangThai(khoaHoc.getTrangThai());
 			}
+			if(khoaHoc.getLoaiKhoaHoc()!=existingBrand.getLoaiKhoaHoc()){
+				existingBrand.setLoaiKhoaHoc(khoaHoc.getLoaiKhoaHoc());
+			}
             return khoaHocRepository.save(existingBrand);
         } else {
             // Nếu  không tồn tại, không thực hiện cập nhật và trả về null hoặc thông báo lỗi tùy vào logic ứng dụng của bạn
@@ -96,7 +104,10 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 		return khoaHocRepository.findAllIdCategory();
 	}
 	
-
+	@Override
+	public List<LoaiKhoaHoc> findAllLoaiKhoaHoc() {
+		return loaiKhoaHocRepository.findAll();
+	}
 	
 }
 

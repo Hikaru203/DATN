@@ -53,8 +53,23 @@
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js}"></script>
     <script th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js}"></script>
 
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css}">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/toastify-js}"></script>
 
+    <style>
+        /* Thêm CSS để bo tròn góc của thanh thông báo */
+        .toastify {
+          border-radius: 10px;
+        }
 
+        .error {
+            background: linear-gradient(to right, #e12e1d, #f07c74); /* Gradient màu đỏ cho lỗi */
+        }
+
+        .success {
+            background: linear-gradient(to right,  #00b09b, #96c93d); /* Gradient màu xanh cho thành công */
+        }
+      </style>
 
 </head>
 
@@ -1074,12 +1089,11 @@
                                                                                 <table>
                                                                                     <thead>
                                                                                         <th>No</th>
-                                                                                        <th>TenKhoaHoc</th>
-                                                                                        <th>ChiPhi</th>
-                                                                                        <th>NgayTao</th>
-                                                                                        <th>NguoiTao</th>
-                                                                                        <th>Image</th>
-                                                                                        <th>TrangThai</th>
+                                                                                        <th>Tên khóa học</th>
+                                                                                        <th>Học phí</th>
+                                                                                        <th>Ngày tạo</th>
+                                                                                        <th>Người tạo</th>
+                                                                                        <th>Trạng thái</th>
                                                                                         <th>Tùy chỉnh </th>
                                                                                     </thead>
                                                                                     <tbody>
@@ -1087,10 +1101,9 @@
                                                                                             ng-click="editbr(item)">
                                                                                             <td>{{ $index + 1 }}</td>
                                                                                             <td>{{item.tenKhoaHoc}}</td>
-                                                                                            <td>{{item.chiPhi}}</td>
+                                                                                            <td>{{ formatCurrency(item.chiPhi) }}</td>
                                                                                             <td>{{item.ngayTao}}</td>
                                                                                             <td>{{item.nguoiTao.hoTen}} </td>
-                                                                                            <td> <img ng-src="/Admin/img/{{item.hinhAnh}}" alt=""> </td>
                                                                                             <td>
                                                                                                 <button style="background-color: #fff;" ng-if="item.trangThai === 'false'" class="fa fa-unlock" ng-click="trangThaiKhoaHoc(item)"> Đang mở khóa</button>
                                                                                                 <button style="background-color: #fff;" ng-if="item.trangThai === 'true'" class="fa fa-lock" ng-click="trangThaiKhoaHoc(item)"> Đã khóa</button>
@@ -1150,7 +1163,6 @@
                             <style>
                                 .tieude{
                                     font-size: 20px;
-                                    
                                     text-decoration: underline;
                                 }
                             </style>
@@ -1189,7 +1201,7 @@
                                                                         hidden placeholder="NguoiTao">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <div class="tieude">Chi phí:</div>
+                                                                    <div class="tieude">Học phí:</div>
                                                                     <input  name="chiPhi" type="number"
                                                                         ng-model="formKhoaHoc.chiPhi"
                                                                         class="form-control">
@@ -1223,6 +1235,14 @@
                                                                     <div class="tieude">Mô tả:</div>
                                                                     <textarea name="moTa" ng-model="formKhoaHoc.moTa"
                                                                         ></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="tieude">Loại khóa học:</div>
+                                                                    <select name="loaiKhoaHoc" class="form-control" ng-model="formKhoaHoc.loaiKhoaHoc.id"
+                                                                    ng-options="item.id as item.tenLoaiKhoaHoc for item in cboloaiKhoaHoc">
+                                                                        <option value="">--Chọn loại khóa học--</option>
+                                                                      </select>
+                                                                      <div ng-show="hassError" style="color: red;">{{message4}}</div>
                                                                 </div>
                                                             </div>
                                                         </div>

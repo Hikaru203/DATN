@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
+import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.NguoiDung;
 import com.fpoly.duantotnghiep.service.KhoaHocService;
 
@@ -116,6 +117,12 @@ public class AdminKhoaHocRestController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User không tồn tại");
         }
+    }
+
+// load cbo loai khóa học
+    @GetMapping("/loaiKhoaHoc")
+    public List<LoaiKhoaHoc> getAllLoaiKhoaHoc() {
+        return khoaHocService.findAllLoaiKhoaHoc();
     }
 
 }
