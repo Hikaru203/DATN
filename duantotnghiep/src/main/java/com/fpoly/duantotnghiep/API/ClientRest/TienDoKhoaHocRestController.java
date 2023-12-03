@@ -58,10 +58,8 @@ public class TienDoKhoaHocRestController {
         } catch (Exception e) {
             // TODO: handle exception
             return null;
-
         }
     }
-
     @GetMapping
     public List<DangKyKhoaHoc> findAll() {
         return dangKyKhoaHocService.findAll();

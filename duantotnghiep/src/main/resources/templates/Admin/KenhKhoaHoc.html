@@ -55,7 +55,23 @@
     <script th:src="@{/Admin/js/vendor/modernizr-2.8.3.min.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css}">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/toastify-js}"></script>
 
+    <style>
+        /* Thêm CSS để bo tròn góc của thanh thông báo */
+        .toastify {
+          border-radius: 10px;
+        }
+
+        .error {
+            background: linear-gradient(to right, #e12e1d, #f07c74); /* Gradient màu đỏ cho lỗi */
+        }
+
+        .success {
+            background: linear-gradient(to right,  #00b09b, #96c93d); /* Gradient màu xanh cho thành công */
+        }
+      </style>
     <style>
         /* Resetting default margin and padding */
         body,
@@ -1478,22 +1494,22 @@
                                                                                 <table>
                                                                                     <thead>
                                                                                         <th>No</th>
-                                                                                        <th>id</th>
-                                                                                        <th>TenKhoaHoc</th>
-                                                                                        <th>ChiPhi</th>
+                                                                                        
+                                                                                        <th>Tên khóa học</th>
+                                                                                        <th>Học phí</th>
                                                                                        
-                                                                                        <th>NguoiTao</th>
+                                                                                        <th>Người tạo</th>
                                                                                         <th>Image</th>
                                                                                         <th>Duyệt</th>
-                                                                                        <th>TrangThai</th>
+                                                                                        <th>Trạng thái</th>
                                                                                         <th>Tùy chỉnh </th>
                                                                                     </thead>
                                                                                     <tbody>
                                                                                         <tr ng-repeat="item in trang.itemsKenhKhoaHoc">
                                                                                             <td>{{ $index + 1 }}</td>
-                                                                                            <td>{{item.id}}</td>
+                                                                                           
                                                                                             <td>{{item.tenKhoaHoc}}</td>
-                                                                                            <td>{{item.chiPhi}}</td>
+                                                                                            <td>{{ formatCurrency(item.chiPhi) }}</td>
                                                                                             <td>{{item.nguoiTao.hoTen}} </td>
                                                                                             <td> <img ng-src="/Admin/img/{{item.hinhAnh}}" alt=""> </td>
                                                                                             <td>{{item.duyet}}  <a class="fa fa-lock"

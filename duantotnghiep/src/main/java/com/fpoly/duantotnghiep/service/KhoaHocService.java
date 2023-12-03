@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
+import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
 
 
 public interface KhoaHocService {
@@ -32,5 +33,5 @@ public interface KhoaHocService {
 
 	List<String> findAlIdCategory();
 
-	
+	List<LoaiKhoaHoc> findAllLoaiKhoaHoc();
 }
