@@ -10,7 +10,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
     $scope.KhoaHoc = {};
     var tenTaiLieu = $scope.formTaiLieu.tenSlide;
     $scope.selectedItem = null; // Biến để lưu trữ item được chọn khi bạn bấm vào nút "Sửa"
-
+    $scope.selectedCourse = null; // Biến để lưu trữ khóa học được chọn
 
     $scope.currentPage = 1; // Trang hiện tại
     $scope.itemsPerPage = 5; // Số hàng trên mỗi trang
@@ -148,8 +148,8 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
     $scope.create = function () {
         var tenTaiLieu = $scope.formTaiLieu.tenSlide;
         var selectedFile = document.getElementById('fileInput').files[0];
-        var selectedKhoaHoc = $scope.KhoaHoc;
-
+        var selectedKhoaHoc = $scope.selectedCourse;
+        
         // Kiểm tra nếu tên tài liệu không được bỏ trống
         if (!tenTaiLieu) {
             alert("Tên tài liệu không được bỏ trống");

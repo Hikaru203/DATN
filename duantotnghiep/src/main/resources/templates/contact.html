@@ -13,7 +13,7 @@
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -23,6 +23,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
 <body>
@@ -39,7 +40,7 @@
                     <i class="fa fa-2x fa-map-marker-alt text-primary mr-3"></i>
                     <div class="text-left">
                         <h6 class="font-weight-semi-bold mb-1">Văn phòng của chúng tôi</h6>
-                        <small>22 Thường thạnh, Cái Răng, Cần Thơ</small>
+                        <small>22 Thường Thạnh, Cái Răng, Cần Thơ</small>
                     </div>
                 </div>
             </div>
@@ -68,90 +69,95 @@
     <div class="container-fluid">
         <div class="row border-top px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
-                <a class="d-flex align-items-center justify-content-between bg-secondary w-100 text-decoration-none" data-toggle="collapse" href="#navbar-vertical" style="height: 67px; padding: 0 30px;">
-                    <h5 class="text-primary m-0"><i class="fa fa-book-open mr-2"></i>Danh mục khoá học</h5>
-                    <i class="fa fa-angle-down text-primary"></i>
+                <a class="d-flex align-items-center justify-content-between bg-secondary w-100 text-decoration-none"
+                    data-toggle="collapse" href="#navbar-vertical" style="height: 67px; padding: 0 30px;">
+                    <h5 class="text-primary m-0">
+                        <i class="fa fa-book-open mr-2"></i>Danh mục khoá học
+                    </h5> <i class="fa fa-angle-down text-primary"></i>
                 </a>
-                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
+                <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light"
+                    id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
                     <div class="navbar-nav w-100">
                         <div class="nav-item dropdown">
-							<a href="#" class="nav-link" data-toggle="dropdown">Ứng dụng phần mềm<i class="fa fa-angle-down float-right mt-1"></i>
-							</a>
-							<div
-								class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-								<a href="detail" class="dropdown-item">HTML</a> <a
-									href="detail" class="dropdown-item">CSS</a> <a
-									href="detail" class="dropdown-item">JavaScript</a>
-							</div>
-						</div>
-						<a href="detail" class="nav-item nav-link active">Phát
-							triển phần mềm</a> <a href="detail"
-							class="nav-item nav-link active">Kỹ năng học tập</a> <a
-							href="detail" class="nav-item nav-link active">Pháp luật</a>
-						<a href="detail" class="nav-item nav-link active">Tiếng
-							Anh</a>
+                            <a href="#" class="nav-link" data-toggle="dropdown">Ứng dụng phần mềm<i
+                                    class="fa fa-angle-down float-right mt-1"></i>
+                            </a>
+                            <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+                                <a href="detail" class="dropdown-item">HTML</a> <a href="detail"
+                                    class="dropdown-item">CSS</a> <a href="detail" class="dropdown-item">JavaScript</a>
+                            </div>
+                        </div>
+                        <a href="detail" class="nav-item nav-link active">Lập trình Web</a> <a href="detail"
+                            class="nav-item nav-link active"></a>Cơ khí</a> <a href="detail"
+                            class="nav-item nav-link active">Marketing</a>
+                        <a href="detail" class="nav-item nav-link active">Nhà hàng - Khách sạn</a>
                     </div>
                 </nav>
             </div>
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
                     <a href="" class="text-decoration-none d-block d-lg-none">
-                        <h1 class="m-0"><span class="text-primary">Poly</span>Academy</h1>
+                        <h1 class="m-0">
+                            <span class="text-primary">Poly</span>Academy
+                        </h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav py-0">
-							<a href="index" class="nav-item nav-link active ">Trang
-								chủ</a> <a href="course" class="nav-item nav-link ">Khoá
-								học</a> <a href="detail" class="nav-item nav-link ">Chi
-								tiết khoá học</a> <a href="about"
-								class="nav-item nav-link ">Đăng ký học thử</a>
-							<div class="nav-item dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
-								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-									<a href="contact" class="dropdown-item">Liên hệ</a> <a
-										href="about" class="dropdown-item">Yêu thích khoá học</a>
-										<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
-									<a href="cart" class="dropdown-item">Giỏ hàng</a> <a
-										href="checkout" class="dropdown-item">Thanh toán</a> <a
-										href="tracnghiem" class="dropdown-item">Trắc nghiệm</a>
-								</div>
-							</div>
-						</div>
-						<ul class="navbar-nav">
-							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangnhap">Đăng nhập</a></li>
-							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangky">Đăng ký</a></li>
-						</ul>
-						<div class="nav-item dropdown" th:if="${session.user != null}">
-							<style>
-								/* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
-								.dropdown-menu {
-									position: absolute;
-									background-color: #ff6600; /* Màu nền */
-									border: 1px solid #ff6600; /* Viền */
-									width: 200px; /* Độ rộng */
-									box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
-								}
-						
-								.dropdown-item {
-									color: #fff; /* Màu chữ */
-									font-size: 14px;
-									padding: 10px 20px;
-								}
-							</style>
-							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
-							<div class="dropdown-menu">
-								<a href="cart.html" class="dropdown-item">Cập nhật tài khoản</a>
-								<a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
-								<a href="/logoff"  class="dropdown-item">Đăng xuất</a>
-							</div>
-						</div>
+                            <a href="index" class="nav-item nav-link active ">Trang
+                                chủ</a> <a href="course" class="nav-item nav-link ">Khoá
+                                học</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
+                                <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+                                    <a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a>
+                                    <a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
+                                    <a href="tracnghiem" class="dropdown-item">Trắc nghiệm</a>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="navbar-nav">
+                            <li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
+                                    href="/courseOnline/dangnhap">Đăng nhập</a></li>
+                            <li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
+                                    href="/courseOnline/dangky">Đăng ký</a></li>
+                        </ul>
+                        <div class="nav-item dropdown" th:if="${session.user != null}">
+                            <style>
+                                /* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
+                                .dropdown-menu {
+                                    position: absolute;
+                                    background-color: #ff6600;
+                                    /* Màu nền */
+                                    border: 1px solid #ff6600;
+                                    /* Viền */
+                                    width: 200px;
+                                    /* Độ rộng */
+                                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                    /* Hiệu ứng bóng đổ */
+                                }
+
+                                .dropdown-item {
+                                    color: #fff;
+                                    /* Màu chữ */
+                                    font-size: 14px;
+                                    padding: 10px 20px;
+                                }
+                            </style>
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                                style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
+                            <div class="dropdown-menu">
+                                <a href="cart.html" class="dropdown-item">Cập nhật tài khoản</a>
+                                <a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
+                                <a href="/logoff" class="dropdown-item">Đăng xuất</a>
+                            </div>
+                        </div>
                     </div>
                 </nav>
             </div>
-            
+
         </div>
     </div>
     <!-- Navbar End -->
@@ -161,8 +167,8 @@
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="text-center mb-5">
-                <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Liên hệ</h5>
-                <h1>Liên hệ chúng tôi nếu có bất kỳ câu hỏi nào</h1>
+                <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Đăng ký nhà sáng tạo</h5>
+                <h2>Hãy xác nhận để trở thành nhà sáng tạo của chúng tôi.</h2>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -170,24 +176,129 @@
                         <div id="success"></div>
                         <form name="sentMessage" id="contactForm" novalidate="novalidate">
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" id="name" placeholder="tên của bạn" required="required" data-validation-required-message="Please enter your name" />
+                                <label for="videoTitle">
+                                    <h4>Nhập tên của bạn:</h4>
+                                </label>
+                                <input type="text" class="form-control border-0 p-4" id="name"
+                                    placeholder="Tên của bạn..." required="required"
+                                    data-validation-required-message="Please enter your name" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="email" class="form-control border-0 p-4" id="email" placeholder="Email của bạn" required="required" data-validation-required-message="Please enter your email" />
+                                <label for="videoTitle">
+                                    <h4>Nhập Email của bạn:</h4>
+                                </label>
+                                <input type="email" class="form-control border-0 p-4" id="email"
+                                    placeholder="Email của bạn..." required="required"
+                                    data-validation-required-message="Please enter your email" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control border-0 p-4" id="subject" placeholder="Tên tiêu đề" required="required" data-validation-required-message="Please enter a subject" />
+                                <label for="videoTitle">
+                                    <h4>Tiêu đề:</h4>
+                                </label>
+                                <input type="text" class="form-control border-0 p-4" id="subject"
+                                    placeholder="Tên tiêu đề..." required="required"
+                                    data-validation-required-message="Please enter a subject" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <textarea class="form-control border-0 py-3 px-4" rows="5" id="message" placeholder="Nội dung" required="required" data-validation-required-message="Please enter your message"></textarea>
+                                <label for="videoTitle">
+                                    <h4>Nội dung:</h4>
+                                </label>
+                                <textarea class="form-control border-0 py-3 px-4" rows="5" id="message"
+                                    placeholder="Hãy cho chúng tôi biết tại sao bạn muốn làm nhà sáng tạo..."
+                                    required="required"
+                                    data-validation-required-message="Please enter your message"></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="text-center">
-                                <button class="btn btn-primary py-3 px-5" type="submit" id="sendMessageButton">Gửi tin nhắn</button>
+                                <button class="btn btn-primary py-3 px-5" type="submit" id="sendMessageButton">Gửi xác
+                                    nhận</button>
                             </div>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    document.getElementById("sendMessageButton").addEventListener("click", function (event) {
+                                        event.preventDefault(); // Prevent default form submission
+
+                                        // Perform form validation
+                                        if (validateForm()) {
+                                            // If validation passes, show success message
+                                            showSuccessMessage();
+                                        }
+                                    });
+
+                                    function validateForm() {
+                                        const nameInput = document.getElementById("name");
+                                        const emailInput = document.getElementById("email");
+                                        const subjectInput = document.getElementById("subject");
+                                        const messageInput = document.getElementById("message");
+
+                                        let valid = true;
+
+                                        // Reset error messages
+                                        clearErrors();
+
+                                        // Validate name
+                                        if (nameInput.value.trim() === "") {
+                                            valid = false;
+                                            displayError(nameInput, "Vui lòng nhập tên của bạn");
+                                        }
+
+                                        // Validate email
+                                        if (emailInput.value.trim() === "") {
+                                            valid = false;
+                                            displayError(emailInput, "Vui lòng nhập email của bạn");
+                                        } else if (!isValidEmail(emailInput.value.trim())) {
+                                            valid = false;
+                                            displayError(emailInput, "Vui lòng nhập đúng địa chỉ email");
+                                        }
+
+                                        // Validate subject
+                                        if (subjectInput.value.trim() === "") {
+                                            valid = false;
+                                            displayError(subjectInput, "Vui lòng nhập tiêu đề của bạn");
+                                        }
+
+                                        // Validate message
+                                        if (messageInput.value.trim() === "") {
+                                            valid = false;
+                                            displayError(messageInput, "Vui lòng nhập nội dung của bạn");
+                                        }
+
+                                        return valid;
+                                    }
+
+                                    function displayError(input, message) {
+                                        const helpBlock = input.nextElementSibling;
+                                        helpBlock.innerText = message;
+                                    }
+
+                                    function clearErrors() {
+                                        const errorMessages = document.querySelectorAll(".help-block.text-danger");
+                                        errorMessages.forEach(function (errorMessage) {
+                                            errorMessage.innerText = "";
+                                        });
+                                    }
+
+                                    function isValidEmail(email) {
+                                        // A simple email validation regex
+                                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                                        return emailRegex.test(email);
+                                    }
+
+                                    function showSuccessMessage() {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Gửi thành công!',
+                                            text: 'Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi lại sớm nhất có thể.',
+                                            confirmButtonText: 'Đóng',
+                                        });
+
+                                        // Additional post-submission processing can be added here if needed
+                                    }
+                                });
+                            </script>
                         </form>
                     </div>
                 </div>
@@ -204,22 +315,29 @@
                 <div class="row">
                     <div class="col-md-6 mb-5">
                         <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Liên hệ</h5>
-                        <p><i class="fa fa-map-marker-alt mr-2"></i>22 Thường Thạnh, Khu dân cư Hoàng Quân, Q. Cái Răng, TP. Cần Thơ</p>
+                        <p><i class="fa fa-map-marker-alt mr-2"></i>22 Thường Thạnh, Khu dân cư Hoàng Quân, Q. Cái Răng,
+                            TP. Cần Thơ</p>
                         <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
                         <p><i class="fa fa-envelope mr-2"></i>PolyAcademy@fpt.edu.vn</p>
                         <div class="d-flex justify-content-start mt-4">
                             <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-square mr-2" href="#"><i
+                                    class="fab fa-linkedin-in"></i></a>
                             <a class="btn btn-outline-light btn-square" href="#"><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                     <div class="col-md-6 mb-5">
-                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Khoá học của chúng tôi</h5>
+                        <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Khoá học của chúng tôi
+                        </h5>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Thiết kế trang Web</a>
-                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Phát triển phần mềm</a>
-                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Kỹ năng học tập</a>
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Thiết kế trang
+                                Web</a>
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Phát triển phần
+                                mềm</a>
+                            <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Kỹ năng học
+                                tập</a>
                             <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Pháp luật</a>
                             <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Tiếng Anh</a>
                         </div>
@@ -228,10 +346,12 @@
             </div>
             <div class="col-lg-5 col-md-12 mb-5">
                 <h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">PolyAcademy</h5>
-                <p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh, sinh viên trên cả nước với chất lượng tốt nhất!</p>
+                <p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp giải pháp giáo dục toàn diện ngoài
+                    trường học cho tất cả học sinh, sinh viên trên cả nước với chất lượng tốt nhất!</p>
                 <div class="w-100">
                     <div class="input-group">
-                        <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="Hãy gửi Email cho chúng tôi">
+                        <input type="text" class="form-control border-light" style="padding: 30px;"
+                            placeholder="Hãy gửi Email cho chúng tôi">
                         <div class="input-group-append">
                             <button class="btn btn-primary px-4">Đăng ký</button>
                         </div>

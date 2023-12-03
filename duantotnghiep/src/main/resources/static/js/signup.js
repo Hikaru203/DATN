@@ -50,7 +50,7 @@ signupForm.addEventListener('submit', function (event) {
     alert('Sai định dang số điện thoại');
     return;
   }
-
+  toggleSpinner()
   // Kiểm tra trùng tên tài khoản trước khi đăng ký
   checkIfUsernameExists(username)
     .then(usernameExists => {
@@ -106,3 +106,11 @@ function isValidPhoneNumber(phone) {
   // Kiểm tra xem chuỗi chỉ chứa các chữ số và có ít nhất 10 ký tự
   return /^[0-9]{10,}$/.test(phone);
 }
+
+function toggleSpinner() {
+  var spinnerContainer = document.querySelector('.spinner-container');
+
+    spinnerContainer.style.display = 'block';
+
+  }
+

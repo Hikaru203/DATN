@@ -42,6 +42,7 @@ app.controller("ChungChi-ctrl", function ($scope, $http, $window) {
             $scope.itemsNguoiDung = resp.data;
             console.log($scope.itemsNguoiDung);
         });
+        
 
     };
     $scope.$watch('select2ChosenText', function (newVal, oldVal) {

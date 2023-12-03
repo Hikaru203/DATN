@@ -174,270 +174,11 @@
     <!-- End Left menu area -->
     <!-- Start Welcome area -->
     <div class="all-content-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="logo-pro">
-                        <a href="index"><img class="main-logo" th:src="@{/Admin/img/logo/logo.png}" alt="" /></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="header-advance-area">
-            <div class="header-top-area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="header-top-wraper">
-                                <div class="row">
-                                    <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
-                                        <div class="menu-switcher-pro">
-                                            <button type="button" id="sidebarCollapse"
-                                                class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
-                                                <i class="educate-icon educate-nav"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
-                                        <div class="header-top-menu tabl-d-n">
-                                            <ul class="nav navbar-nav mai-top-nav">
-                                                <li class="nav-item"><a href="#" class="nav-link">Trang chủ</a>
-                                                </li>
-                                                <li class="nav-item"><a href="#" class="nav-link">Liên hệ</a>
-                                                </li>
-                                                <li class="nav-item"><a href="#" class="nav-link">Bảo mật</a>
-                                                </li>
-                                                <li class="nav-item"><a href="#" class="nav-link">Báo cáo</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" ng-controller="thongBaoCtrl">
-                                        <div class="header-right-info">
-                                            <ul class="nav navbar-nav mai-top-nav header-right-menu">
-                                                <li class="nav-item dropdown">
-                                                    <a href="#" data-toggle="dropdown" role="button"
-                                                        aria-expanded="false" class="nav-link dropdown-toggle"><i
-                                                            class="educate-icon educate-message edu-chat-pro"
-                                                            aria-hidden="true"></i><span
-                                                            class="indicator-ms"></span></a>
-                                                    <div role="menu"
-                                                        class="author-message-top dropdown-menu animated zoomIn">
-                                                        <div class="message-single-top">
-                                                            <h1>Tin nhắn</h1>
-                                                        </div>
-                                                        <ul class="message-menu">
-                                                            <li>
-                                                                <a href="#">
-                                                                    <div class="message-img">
-                                                                        <img th:src="@{/Admin/img/contact/1.jpg}"
-                                                                            alt="">
-                                                                    </div>
-                                                                    <div class="message-content">
-                                                                        <span class="message-date">16 Sept</span>
-                                                                        <h2>Advanda Cro</h2>
-                                                                        <p>Please done this project as soon possible.
-                                                                        </p>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="message-view">
-                                                            <a href="#">xem tất cả tin nhắn</a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="nav-item"><a href="#" data-toggle="dropdown" role="button"
-                                                        aria-expanded="false" class="nav-link dropdown-toggle"><i
-                                                            class="educate-icon educate-bell"
-                                                            aria-hidden="true"></i><span
-                                                            class="indicator-nt"></span></a>
-                                                    <div role="menu"
-                                                        class="notification-author dropdown-menu animated zoomIn">
-                                                        <div class="notification-single-top">
-                                                            <h1>Thông báo</h1>
-                                                        </div>
-                                                        <style>
+        <div th:replace="Admin/layout :: menutop"></div>
+        <script>
+            var app = angular.module("myApp", []);
 
-                                                        </style>
-                                                        <ul class="notification-menu">
-                                                            <ul class="notification-menu">
-                                                                <li ng-repeat="notification in notifications| limitTo:10"
-                                                                    style="width: 100%;">
-                                                                    <a href="#">
-                                                                        <i class="fa"
-                                                                            ng-class="{'fa-user': notification.type === 'user', 'fa-book': notification.type === 'course'}"
-                                                                            aria-hidden="true"></i>
-                                                                        <div class="notification-icon">
-                                                                            <i class="fa"
-                                                                                ng-class="{'fa-user': notification.type === 'user', 'fa-book': notification.type === 'course'}"
-                                                                                aria-hidden="true"></i>
-                                                                        </div>
-                                                                        <div class="notification-content">
-                                                                            <h2 ng-if="notification.type === 'user'">{{
-                                                                                notification.hoTen }}</h2>
-                                                                            <h2 ng-if="notification.type === 'course'">
-                                                                                {{ notification.nguoiDung.hoTen }}</h2>
-                                                                            <span class="notification-date"
-                                                                                style="position: unset;">
-                                                                                {{
-                                                                                calculateTimeDifference(notification.thoiGianTao
-                                                                                || notification.ngayDangKy) }}
-                                                                            </span>
-                                                                            <br> <br>
-                                                                            <p ng-if="notification.type === 'user'">Đã
-                                                                                đăng ký thành công tài khoản mới.</p>
-                                                                            <p ng-if="notification.type === 'course'">Đã
-                                                                                đăng ký khóa học "{{
-                                                                                notification.khoaHoc.tenKhoaHoc }}".</p>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-
-                                                        </ul>
-
-                                                        <div class="notification-view">
-                                                            <a href="#">Xem tất cả thông báo</a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" data-toggle="dropdown" role="button"
-                                                        aria-expanded="false" class="nav-link dropdown-toggle">
-                                                        <img th:src="@{/Admin/img/product/pro4.jpg}" alt="" />
-                                                        <span class="admin-name">Admin</span>
-                                                        <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
-                                                    </a>
-                                                    <ul role="menu"
-                                                        class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                        <li><a href="#"><span
-                                                                    class="edu-icon edu-home-admin author-log-ic"></span>My
-                                                                Account</a>
-                                                        </li>
-                                                        <li><a href="#"><span
-                                                                    class="edu-icon edu-user-rounded author-log-ic"></span>My
-                                                                Profile</a>
-                                                        </li>
-                                                        <li><a href="#"><span
-                                                                    class="edu-icon edu-money author-log-ic"></span>User
-                                                                Billing</a>
-                                                        </li>
-                                                        <li><a href="#"><span
-                                                                    class="edu-icon edu-settings author-log-ic"></span>Settings</a>
-                                                        </li>
-                                                        <li><a href="#"><span
-                                                                    class="edu-icon edu-locked author-log-ic"></span>Log
-                                                                Out</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown"
-                                                        role="button" aria-expanded="false"
-                                                        class="nav-link dropdown-toggle"><i
-                                                            class="educate-icon educate-menu"></i></a>
-
-                                                    <div role="menu"
-                                                        class="admintab-wrap menu-setting-wrap menu-setting-wrap-bg dropdown-menu animated zoomIn">  
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <script>
-                                        var app = angular.module("myApp", []);
-
-                                        app.controller("thongBaoCtrl", function ($scope, $http, $window) {
-                                            $scope.notifications = [];
-
-                                            $http.get("/rest/admin/NguoiDung").then(resp => {
-                                                $scope.nguoiDung = resp.data;
-                                                $scope.nguoiDung.forEach(user => {
-                                                    user.type = 'user';
-                                                    $scope.notifications.push(user);
-                                                });
-                                                processNotifications();
-                                            });
-
-                                            $http.get("/api/tiendokhoahoc").then(resp => {
-                                                $scope.dangKyKhoaHoc = resp.data;
-                                                $scope.dangKyKhoaHoc.forEach(course => {
-                                                    course.type = 'course';
-                                                    $scope.notifications.push(course);
-                                                });
-                                                processNotifications();
-                                            });
-
-                                            function processNotifications() {
-                                                // lọc theo thời gian của thông báo
-                                                $scope.notifications.sort(function (a, b) {
-                                                    return new Date(b.thoiGianTao || b.ngayDangKy) - new Date(a.thoiGianTao || a.ngayDangKy);
-                                                });
-
-                                                $scope.notifications.forEach(notification => {
-                                                    notification.timeDifference = $scope.calculateTimeDifference(notification.thoiGianTao || notification.ngayDangKy);
-                                                });
-
-                                            }
-                                             //tính ngày giờ thời gian chênh lệch
-                                            $scope.calculateTimeDifference = function (thoiGianTao) {
-                                                var thoiGianHienTai = new Date();
-                                                var thoiGianChenhLech = thoiGianHienTai - new Date(thoiGianTao);
-
-                                                var phutChenhLech = Math.floor(thoiGianChenhLech / (1000 * 60));
-                                                var gioChenhLech = Math.floor(thoiGianChenhLech / (1000 * 60 * 60));
-                                                var ngayChenhLech = Math.floor(thoiGianChenhLech / (1000 * 60 * 60 * 24));
-
-                                                if (ngayChenhLech > 0) {
-                                                    return ngayChenhLech + (ngayChenhLech === 1 ? " ngày" : " ngày") + " trước";
-                                                } else if (gioChenhLech > 0) {
-                                                    return gioChenhLech + (gioChenhLech === 1 ? " giờ" : " giờ") + " trước";
-                                                } else if (phutChenhLech > 0) {
-                                                    return phutChenhLech + (phutChenhLech === 1 ? " phút" : " phút") + " trước";
-                                                } else {
-                                                    return "Vừa xong";
-                                                }
-                                            };
-                                        });
-                                    </script>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> 
-            <div class="breadcome-area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="breadcome-list single-page-breadcome">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <div class="breadcome-heading">
-                                            <form role="search" class="sr-input-func">
-                                                <input type="text" placeholder="Search..."
-                                                    class="search-int form-control">
-                                                <a href="#"><i class="fa fa-search"></i></a>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <ul class="breadcome-menu">
-                                            <li><a href="#">Trang chủ</a> <span class="bread-slash">/</span>
-                                            </li>
-                                            <li><span class="bread-blod">Chỉnh sửa User </span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </script>
         <!-- Single pro tab review Start-->
         <div class="single-pro-review-area mt-t-30 mg-b-15">
             <div class="container-fluid">
@@ -637,6 +378,20 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/656a307eff45ca7d4785d6d3/1hgjcqs8o';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+    <!-- tawk chat JS ============================================ -->
+    <script th:src="@{/Admin/js/tawk-chat.js}"></script>
     <!-- jQuery -->
     <script th:src="@{/Admin/js/vendor/jquery-1.12.4.min.js}"></script>
 
@@ -704,7 +459,7 @@
     <script th:src="@{/Admin/js/main.js}"></script>
 
     <!-- Tawk Chat JS -->
-    <script th:src="@{/Admin/js/tawk-chat.js}"></script>
+    <script th:src="@{/Admin/js/thongBao.js}"></script>
 
 </body>
 
