@@ -25,8 +25,8 @@ public class UpdateAccountController {
         // Lấy tên người dùng hiện tại từ Principal
         String currentUsername = principal.getName();
 
-        // Tìm kiếm thông tin người dùng theo tên người dùng
-        NguoiDung nguoiDung = nguoiDungRepository.findByUsername(currentUsername);
+       
+        NguoiDung nguoiDung = nguoiDungRepository.findByTaiKhoan(currentUsername);
 
         // Kiểm tra xem người dùng có tồn tại không
         if (nguoiDung != null) {
@@ -41,9 +41,7 @@ public class UpdateAccountController {
 
     @PostMapping("/courseOnline/updateAccount")
     public String updateAccount(@ModelAttribute NguoiDung nguoiDung) {
-        // Thực hiện logic cập nhật thông tin người dùng
-        // Ví dụ: nguoiDungService.updateNguoiDung(nguoiDung);
-
+     
         return "redirect:/courseOnline/index";
     }
   
