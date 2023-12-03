@@ -626,6 +626,11 @@ pre code {
     max-width: 540px;
   }
 }
+.cat-overlay h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 @media (min-width: 768px) {
   .container, .container-sm, .container-md {
