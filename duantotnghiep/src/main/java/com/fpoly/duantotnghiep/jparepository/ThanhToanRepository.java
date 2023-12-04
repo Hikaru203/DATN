@@ -1,5 +1,6 @@
 package com.fpoly.duantotnghiep.jparepository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,7 +17,14 @@ public interface ThanhToanRepository extends JpaRepository<ThanhToan, Integer> {
 
 	@Query(nativeQuery = true, value = "Select YEAR(thoi_gian) AS year, MONTH(thoi_gian) AS month, SUM(tong_tien) AS total_revenue  "+
             "from dbo.thanh_toan " +
+            "WHERE thoi_gian BETWEEN DATEFROMPARTS(YEAR(GETDATE()), 1, 1) AND GETDATE() " +
             "GROUP BY YEAR(thoi_gian), MONTH(thoi_gian) " +
             "ORDER BY year, month")
     List<Object[]> fetchRevenueData();
+    	@Query(nativeQuery = true, value = "Select YEAR(thoi_gian) AS year, MONTH(thoi_gian) AS month, SUM(tong_tien) AS total_revenue  "+
+            "from dbo.thanh_toan " +
+            "WHERE thoi_gian BETWEEN :batDau AND :ketThuc " +
+            "GROUP BY YEAR(thoi_gian), MONTH(thoi_gian) " +
+            "ORDER BY year, month")
+    List<Object[]> ThongKeTheoThoiGian(String batDau, String ketThuc);
 }

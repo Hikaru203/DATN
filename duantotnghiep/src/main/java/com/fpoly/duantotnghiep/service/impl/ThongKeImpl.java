@@ -2,6 +2,7 @@ package com.fpoly.duantotnghiep.service.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,23 @@ ThanhToanRepository thanhToanRepository;
     @Override
     public List<ThongKeDATA> getRevenueDatas() {
         List<Object[]> result = thanhToanRepository.fetchRevenueData();
+        List<ThongKeDATA> revenueDataList = new ArrayList<>();
+
+        for (Object[] row : result) {
+            ThongKeDATA revenueData = new ThongKeDATA();
+            revenueData.setYear((int) row[0]);
+            revenueData.setMonth((int) row[1]);
+            revenueData.setTotalRevenue((BigDecimal) row[2]);
+
+            revenueDataList.add(revenueData);
+        }
+
+        return revenueDataList;
+    }
+
+    @Override
+    public List<ThongKeDATA> getThongKeTheoThoiGian(String batDau, String ketThuc) {
+        List<Object[]> result = thanhToanRepository.ThongKeTheoThoiGian(batDau, ketThuc);
         List<ThongKeDATA> revenueDataList = new ArrayList<>();
 
         for (Object[] row : result) {
