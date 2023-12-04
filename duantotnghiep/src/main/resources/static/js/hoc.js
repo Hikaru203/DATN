@@ -153,6 +153,10 @@ app.controller('detail-controller', function ($scope, $http, $window) {
                 // Xử lý lỗi tại đây nếu cần thiết
             });
     };
+    $scope.goToLoginForm = function () {
+        // Chuyển hướng đến form đăng nhập
+        window.location.href = '/courseOnline/dangnhap'; // Thay đổi đường dẫn tùy theo định dạng URL của bạn
+    };
 
 
     $scope.addCourse = function (id) {

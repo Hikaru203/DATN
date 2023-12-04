@@ -110,16 +110,17 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                       <div class="navbar-nav py-0">
+                        <div class="navbar-nav py-0">
 							<a href="index" class="nav-item nav-link active ">Trang
 								chủ</a> <a href="course" class="nav-item nav-link ">Khoá
 								học</a>
 							<div class="nav-item dropdown">
-								<a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Trang</a>
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
 								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
 									<a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a> 
 										<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
-								 <a
+									<a href="cart" class="dropdown-item">Giỏ hàng</a> <a
+										href="checkout" class="dropdown-item">Thanh toán</a> <a
 										href="tracnghiem" class="dropdown-item">Trắc nghiệm</a>
 								</div>
 							</div>
@@ -242,8 +243,8 @@
                     th:value="${authorizationUrl}">
                 <!-- Đây là nút dẫn đến URL -->
                 <div style="text-align: center; padding-top: 60px;">
-                    <a th:href="${authorizationUrl} " class="btn btn-primary">Vui lòng đăng nhập</a>
-
+                    <a th:href="${authorizationUrl}" class="btn btn-primary">Vui lòng
+                        đăng nhập</a>
                 </div>
 
                 <div class="form-group" id="accessTokenGroup">
@@ -287,16 +288,13 @@
                 </div>
                 <style>
                     .course-list {
-                        max-height: 300px;
-                        /* Đặt chiều cao tối đa cho phần hiển thị */
-                        overflow-y: auto;
-                        /* Tạo thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
-                    }
+    max-height: 300px; /* Đặt chiều cao tối đa cho phần hiển thị */
+    overflow-y: auto; /* Tạo thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
+}
 
-                    .table {
-                        width: 100%;
-                        /* Đảm bảo bảng rộng 100% của phần chứa nó */
-                    }
+.table {
+    width: 100%; /* Đảm bảo bảng rộng 100% của phần chứa nó */
+}
                 </style>
             </div>
             <!-- Thêm phần hiển thị danh sách khoá học sau phần đăng video -->
@@ -472,7 +470,7 @@
                     authorizationTokenGroup.style.display = 'block';
                     console.log("1")
                 } else {
-                    authorizationTokenGroup.style.display = 'block';
+                    authorizationTokenGroup.style.display = 'none';
                     console.log("2")
 
 

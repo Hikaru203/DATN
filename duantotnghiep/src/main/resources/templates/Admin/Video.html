@@ -65,6 +65,8 @@
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" th:href="@{/Admin/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css}">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/toastify-js}"></script>
     <!-- modernizr JS
 		============================================ -->
     <script th:src="@{/Admin/js/vendor/modernizr-2.8.3.min.js}"></script>
@@ -90,6 +92,26 @@
             /* Điều chỉnh kích thước tối đa của khung bao */
             margin: 0 auto;
             /* Để căn giữa khung bao trên trang */
+        }
+
+        /* Thêm CSS để bo tròn góc của thanh thông báo */
+        .toastify {
+            border-radius: 10px;
+        }
+
+        .error {
+            background: linear-gradient(to right, #e12e1d, #f07c74);
+            /* Gradient màu đỏ cho lỗi */
+        }
+
+        .success {
+            background: linear-gradient(to right, #00b09b, #96c93d);
+            /* Gradient màu xanh cho thành công */
+        }
+
+        .warning {
+            background: linear-gradient(to right, #f5a623, #f8e71c);
+            /* Gradient màu vàng cho cảnh báo */
         }
     </style>
 
@@ -600,7 +622,7 @@
                                                                             Video</button>
                                                                     </div>
                                                                 </div>
-                                                                <p hidden>Giá trị order là: {{order}}</p>
+                                                                <p>Giá trị order là: {{order}}</p>
 
                                                             </div>
                                                         </div>
@@ -637,16 +659,24 @@
                                                                             <th>Khóa học</th>
                                                                             <th>tên Video</th>
                                                                             <th>Thu Tu</th>
+                                                                            <th>Tùy chỉnh</th>
                                                                         </tr>
                                                                         <tr ng-repeat="VideoWithTen in displayedItems">
                                                                             <td>{{VideoWithTen.mucLuc.khoaHoc.tenKhoaHoc}}
                                                                             </td>
                                                                             <td>
-                                                                                {{VideoWithTen.mucLuc.tenMucLuc}}
+                                                                                {{VideoWithTen.tenVideo}}
                                                                             </td>
 
                                                                             <td>
                                                                                 {{VideoWithTen.thuTu}}
+                                                                            </td>
+                                                                            <td>
+                                                                                <span><a class="fa fa-trash-o"
+                                                                                        aria-hidden="true"
+                                                                                        ng-click="delete(VideoWithTen.id)"></a>
+
+                                                                                </span>
                                                                             </td>
                                                                         </tr>
 

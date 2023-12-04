@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,5 +41,6 @@ public class MucLuc {
     @ManyToOne
     @JoinColumn(name = "nguoi_tao")
     private NguoiDung nguoiTao;
+
 
 }
