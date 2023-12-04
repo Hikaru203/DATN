@@ -103,9 +103,9 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             let videoIframe = document.getElementById('video-iframe');
             let videoSrc;
             if (VideoId) {
-                videoSrc = `https://www.youtube-nocookie.com/embed/${VideoId}?start=${timeInt}&modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1`;
+                videoSrc = `https://www.youtube-nocookie.com/embed/${VideoId}?start=${timeInt}&modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=0`;
             } else {
-                videoSrc = `https://www.youtube-nocookie.com/embed/${match_video.linkVideo}?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1`;
+                videoSrc = `https://www.youtube-nocookie.com/embed/${match_video.linkVideo}?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=0`;
             }
             console.log(match_video.mucLuc.id);
             videoIframe.src = videoSrc;
@@ -309,6 +309,26 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         let seconds = Math.floor(time % 60);
         return `${minutes}:${seconds.toString().padStart(2, '0')}`;
     }
+    const volumeControl1 = document.getElementById('volume-control');
+    const volumeIcon = document.getElementById('volume-icon');
+    const volumePercentage1 = document.getElementById('volume-percentage');
+
+    volumeControl1.addEventListener('input', function () {
+        const volumeValue = parseInt(this.value);
+        volumePercentage1.textContent = volumeValue + '%';
+
+        // Kiểm tra nếu âm lượng nhỏ hơn 50% thì thay đổi icon
+        if (volumeValue < 50) {
+            volumeIcon.classList.remove('fa-volume-up');
+            volumeIcon.classList.add('fa-volume-down');
+        } else {
+            volumeIcon.classList.remove('fa-volume-down');
+            volumeIcon.classList.add('fa-volume-up');
+        }
+    });
+
+    
+
 
     // Xử lý sự kiện thay đổi âm lượng
     volumeControl.addEventListener('input', function () {
