@@ -32,4 +32,30 @@ public class ThongKeRestController {
             @RequestParam(name = "ketThuc", required = false) String ketThuc) {
         return thongKeService.getThongKeTheoThoiGian(batDau, ketThuc);
     }
+
+    @GetMapping("/thong-ke-Khoa-hoc")
+    public List<ThongKeDATA> getThongKeTheoKhoaHoc(
+            @RequestParam(name = "idKhoaHoc", required = false) int idKhoaHoc) {
+        return thongKeService.getThongKeTheoKhoaHoc(idKhoaHoc);
+    }
+    @GetMapping("/thong-ke-Khoa-hoc-TG")
+    public List<ThongKeDATA> getThongKeTheoKhoaHocTG(
+            @RequestParam(name = "idKhoaHoc", required = false) int idKhoaHoc,
+            @RequestParam(name = "batDau", required = false) String batDau,
+            @RequestParam(name = "ketThuc", required = false) String ketThuc) {
+        return thongKeService.getThongKeTheoKhoaHocTG(idKhoaHoc, batDau, ketThuc);
+    }
+
+     @GetMapping("/thong-ke-nguoi-hoc")
+    public long getThongKeNguoiHoc(
+            @RequestParam(name = "idKhoaHoc", required = false) long idKhoaHoc) {
+        return thongKeService.countUsersInKhoaHoc(idKhoaHoc);
+    }
+    @GetMapping("/thong-ke-nguoi-hoc-theo-moc-thoi-gian")
+    public long getThongKeNguoiHocTheoMocThoiGian(
+            @RequestParam(name = "idKhoaHoc", required = false) long idKhoaHoc,
+            @RequestParam(name = "batDau", required = false) String batDau,
+            @RequestParam(name = "ketThuc", required = false) String ketThuc) {
+        return thongKeService.countUsersInKhoaHocTG(idKhoaHoc, batDau, ketThuc);
+    }
 }

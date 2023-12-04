@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fpoly.duantotnghiep.Entity.ThongKeDATA;
+import com.fpoly.duantotnghiep.jparepository.DangKyKhoaHocRepository;
 import com.fpoly.duantotnghiep.jparepository.ThanhToanRepository;
 import com.fpoly.duantotnghiep.service.ThongKeService;
 
@@ -49,5 +50,49 @@ ThanhToanRepository thanhToanRepository;
         }
 
         return revenueDataList;
+    }
+
+     @Override
+    public List<ThongKeDATA> getThongKeTheoKhoaHoc(int idKhoaHoc) {
+        List<Object[]> result = thanhToanRepository.ThongKeTheoKhoaHoc(idKhoaHoc);
+        List<ThongKeDATA> revenueDataList = new ArrayList<>();
+
+        for (Object[] row : result) {
+            ThongKeDATA revenueData = new ThongKeDATA();
+            revenueData.setYear((int) row[0]);
+            revenueData.setMonth((int) row[1]);
+            revenueData.setTotalRevenue((BigDecimal) row[2]);
+
+            revenueDataList.add(revenueData);
+        }
+
+        return revenueDataList;
+    }
+
+    @Override
+    public List<ThongKeDATA> getThongKeTheoKhoaHocTG(int idKhoaHoc,String batDau, String ketThuc) {
+        List<Object[]> result = thanhToanRepository.ThongKeTheoKhoaHocTG(idKhoaHoc, batDau, ketThuc);
+        List<ThongKeDATA> revenueDataList = new ArrayList<>();
+
+        for (Object[] row : result) {
+            ThongKeDATA revenueData = new ThongKeDATA();
+            revenueData.setYear((int) row[0]);
+            revenueData.setMonth((int) row[1]);
+            revenueData.setTotalRevenue((BigDecimal) row[2]);
+
+            revenueDataList.add(revenueData);
+        }
+
+        return revenueDataList;
+    }
+    @Autowired
+    private DangKyKhoaHocRepository dangKyKhoaHocRepository;
+    @Override
+    public long countUsersInKhoaHoc(Long idKhoaHoc) {
+        return dangKyKhoaHocRepository.countByKhoaHocId(idKhoaHoc);
+    }
+    @Override
+    public long countUsersInKhoaHocTG(Long idKhoaHoc,String batDau, String ketThuc) {
+        return dangKyKhoaHocRepository.countByKhoaHocIdTG(idKhoaHoc, batDau, ketThuc);
     }
 }
