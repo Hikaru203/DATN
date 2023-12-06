@@ -109,7 +109,7 @@ public class MailService {
                     + "  <div class=\"container\">\r\n"
                     + "    <h2>Thông báo cấp mã OTP</h2>\r\n"
                     + "    <div class=\"message\">\r\n"
-                    + "      <p>Bạn đã yêu cầu cấp mã OTP để đổi mật khẩu tài khoản của mình. Vui lòng sử dụng mã OTP sau đây (Lưu ý, mã OTP chỉ tồn tại 1 phút):</p>\r\n"
+                    + "      <p>Bạn đã yêu cầu cấp mã OTP để đổi mật khẩu tài khoản của mình. Vui lòng sử dụng mã OTP sau đây (Lưu ý, mã OTP chỉ tồn tại 2 phút):</p>\r\n"
                     + "      <h3>Mã OTP: " + otp + "</h3>\r\n"
                     + "    </div>\r\n"
                     + "    <div class=\"message\">\r\n"
