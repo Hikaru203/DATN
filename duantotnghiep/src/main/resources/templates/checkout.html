@@ -15,6 +15,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<!-- Font Awesome -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -28,6 +29,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/paymen_select.css" rel="stylesheet">
 </head>
 
 <body ng-app="detail-app" ng-controller="detail-controller">
@@ -209,60 +211,39 @@
                                 margin-bottom: 10px;
                             }
 				   </style>
-<div class="ac">
-  <h2 class="ac-header">
-    <button class="ac-trigger" onclick="toggleRadio('acceptTerms1')">
-      <input type="radio" id="acceptTerms1" name="paymentMethod" value="vnpay" checked> <!-- Thêm radio button này -->
-      <img src="/img/credit-card_62780.png" alt="Card" width="30" height="26" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
-      Thanh Toán Bằng Cổng Giao Dịch / VnPay
-    </button>
-  </h2>
-  
-  <div class="ac-panel">
-    <p for="so-the" style="margin-left: 10px; margin-top:10px;">
-      	 Để hoàn tất giao dịch, chúng tôi sẽ chuyển bạn đến các máy chủ an toàn của VNPAY.
-    </p>
 
-    <p for="so-the" style="margin-left: 10px; margin-top:10px">
-				 <img src="/img/warning.png" alt="Card" width="20" height="26" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
 
-      Ví VNPAY là ví điện tử gia đình, cho phép người dùng mở thêm ví thành viên cho người thân. 
-      Ví VNPAY sở hữu hệ sinh thái tiện ích đa dạng đáp ứng đầy đủ nhu cầu thanh toán của người dùng mọi lúc, mọi nơi
-    </p>
-    <br>
-  </div>
-</div>
-
-<div class="ac">
-  <h2 class="ac-header">
-    <button class="ac-trigger" onclick="toggleRadio('acceptTerms2')">
-      <input type="radio" id="acceptTerms2" value="paypal" name="paymentMethod"> <!-- Thêm radio button này -->
-      <img src="/img/PayPal.svg" alt="Card" width="30" height="26" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
-      PayPal
-    </button>
-  </h2>
-  
-  <div class="ac-panel">
-    <p for="so-the" >
-				 <img src="/img/warning.png" alt="Card" width="20" height="26" class="payment-method-label--payment-method--label--brand-icon--Cpsph" loading="eager"> 
-
-      	Để hoàn tất giao dịch, chúng tôi sẽ chuyển bạn đến các máy chủ an toàn của PayPal.
-    </p>
-
-    <p for="so-the" style="margin-left: 10px; margin-top:10px">
+	 <div class="title">
+        <h4>Chọn phương thức <span style="color: #6064b6">thanh toán</span> </h4>
+    </div>
+	 <input type="radio" value="vnpay" id="vnpay" name="paymentMethod">
+       
+        <input type="radio" name="paymentMethod" value="paypal" id="paypal" >
      
-     		Rất tiếc, PayPal không hỗ trợ thanh toán bằng VND nên giao dịch thanh toán của bạn sẽ được thực hiện bằng USD.
-		
-    </p>
-    
-    <div class="form-group" style="margin-bottom: 0px;">
-    
-    <textarea id="description" name="description" placeholder="Miêu tả" class="form-control"  rows="3"></textarea>
-  </div>
-    
-  </div>
-</div>
 
+
+        <div class="category">
+            <label for="vnpay" class="vnpayMethod">
+                <div class="imgName">
+                    <div class="imgContainer vnpay">
+                        <img src="/img/Logo-VNPAY-QR.png" alt="Card">
+                    </div>
+                    <span class="name">VnPay</span>
+                </div>
+                <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+            </label>
+
+            <label for="paypal" class="paypalMethod">
+                <div class="imgName">
+                    <div class="imgContainer paypal">
+                        <img src="https://i.ibb.co/KVF3mr1/paypal.png" alt="">
+                    </div>
+                    <span class="name">Paypal</span>
+                </div>
+                <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+            </label>
+<input id="description" name="description" placeholder="Miêu tả" class="form-control"  type="hidden"rows="3"></input>
+        </div>
 </div>
                 <div class="collapse mb-5" id="shipping-address">
                     <h5 class="section-title position-relative text-uppercase mb-3"><span
@@ -320,7 +301,7 @@
             </div>
             
             
-            <div class="col-lg-4">
+            <div class="col-lg-4" style="padding-top: 100px;">
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Tóm Tắt</span></h5>
                 <div class="bg-light p-30 mb-5">
                     <div class="border-bottom">
@@ -362,6 +343,9 @@
 
                 </div>
                 
+            </div>
+               
+            </div>
             </div>
             </form>
         </div>

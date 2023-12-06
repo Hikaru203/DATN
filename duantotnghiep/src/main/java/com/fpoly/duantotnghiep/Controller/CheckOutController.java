@@ -1,5 +1,8 @@
 package com.fpoly.duantotnghiep.Controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.time.LocalDateTime;
@@ -62,7 +65,7 @@ public class CheckOutController {
 	public String submidOrder(@RequestParam("amount") int orderTotal, @RequestParam("tenNguoiDung") String orderInfo,
 			HttpServletRequest request, @CookieValue(value = "username", defaultValue = "0") String userIdCookie,
 			@RequestParam("paymentMethod") String paymentMenThod, @RequestParam("idKhoaHoc") String idKhoaHoc,
-			@RequestParam("idNguoiDung") String idNguoiDung, @ModelAttribute("order") ThanhToan order) {
+			@RequestParam("idNguoiDung") String idNguoiDung, @ModelAttribute("order") ThanhToan order) throws UnsupportedEncodingException {
 
 		String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 		String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
@@ -71,7 +74,7 @@ public class CheckOutController {
 
 		if (paymentMenThod.equals("paypal")) {
 			try {
-				Payment payment = service.createPayment((double) 10000, "USD", "paypal",
+				Payment payment = service.createPayment((double) orderTotal, "USD", "paypal",
 						"sale", order.getDescription(), "http://localhost:8080/" + CANCEL_URL,
 						"http://localhost:8080/" + SUCCESS_URL, 0.0000412414);
 				for (Links link : payment.getLinks()) {
@@ -144,11 +147,11 @@ public class CheckOutController {
 		} catch (PayPalRESTException e) {
 			System.out.println(e.getMessage());
 		}
-		return "redirect:/";
+		return "redirect:/courseOnline/index";
 	}
 
 	@GetMapping("/vnpay-payment")
-	public String getVnpayPayment(HttpServletRequest request, Model model) {
+	public String getVnpayPayment(HttpServletRequest request, Model model) throws UnsupportedEncodingException {
 		int paymentStatus = vnPayService.orderReturn(request);
 		HttpSession session = request.getSession();
 
@@ -159,7 +162,8 @@ public class CheckOutController {
 		String paymentTimeString = request.getParameter("vnp_PayDate");
 		String Txnref = request.getParameter("vnp_TxnRef");
 		String totalPrice = request.getParameter("vnp_Amount");
-		String orderInfo = request.getParameter("vnp_OrderInfo");
+		String orderInfo = URLDecoder.decode(request.getParameter("vnp_OrderInfo"), StandardCharsets.UTF_8.toString());
+
 
 		double totalAmount = Double.parseDouble(String.valueOf(Double.valueOf(totalPrice) / 100));
 		DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("vi", "VN"));
