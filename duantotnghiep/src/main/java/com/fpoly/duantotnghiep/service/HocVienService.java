@@ -1,7 +1,16 @@
 package com.fpoly.duantotnghiep.service;
 
+
+
 import java.util.List;
 
-public class HocVienService {
-//List<HocVien> findAll();
+import com.fpoly.duantotnghiep.Entity.HocVienDTO;
+import com.fpoly.duantotnghiep.Entity.KhoaHoc;
+
+
+public interface HocVienService {
+    List<HocVienDTO> layDanhSachHocVien();
+	List<KhoaHoc> layDanhSachKhoaHoc();
+	
 }
+

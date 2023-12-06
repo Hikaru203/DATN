@@ -1,4 +1,4 @@
-	package com.fpoly.duantotnghiep.service.impl;
+package com.fpoly.duantotnghiep.service.impl;
 
 import java.util.List;
 
@@ -9,21 +9,21 @@ import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
 import com.fpoly.duantotnghiep.service.VideoKhoaHocService;
 import com.fpoly.duantotnghiep.jparepository.VideoKhoaHocRepository;
+
 @Service
-public class VideoKhoaHocServiceImpl implements VideoKhoaHocService{
+public class VideoKhoaHocServiceImpl implements VideoKhoaHocService {
 	@Autowired
 	VideoKhoaHocRepository VideoKhoaHocRepository;
-	
-	@Override
-	public List<VideoKhoaHoc> findAll() {
-		// TODO Auto-generated method stub
-		return videoKhoaHocRepository.findAll();
-	}
-	@Override
-	public List<VideoKhoaHoc> findById(int id) {
-		// TODO Auto-generated method stub
-		return videoKhoaHocRepository.findById(id);
-	 
-	 
-}}
 
+	@Override
+	public VideoKhoaHoc findByVideoKhoaHocId(Integer id) {
+		// TODO Auto-generated method stub
+		return VideoKhoaHocRepository.findById(id).get();
+	}
+
+	@Override
+	public List<VideoKhoaHoc> findByKhoaHocId(Integer khoaHocId) {
+		return VideoKhoaHocRepository.findByKhoaHocIdOrderByAsc(khoaHocId);
+	}
+
+}
