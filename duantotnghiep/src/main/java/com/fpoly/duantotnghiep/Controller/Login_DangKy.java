@@ -84,12 +84,14 @@ public class Login_DangKy {
         NguoiDung nguoiDung = nguuoidungRepository.findByEmail(email);
         if (nguoiDung != null) {
             httpSession.setAttribute("user", nguoiDung);
-            return "index";
+            return "redirect:/courseOnline/index";
+        } else {
+            NguoiDung nguoixai = new NguoiDung(email, password, name, email, "false", "false", true, false);
+            nguuoidungRepository.save(nguoixai);
+            httpSession.setAttribute("user", nguoixai);
+            return "redirect:/courseOnline/index";
         }
-        NguoiDung nguoixai = new NguoiDung(email, password, name, email, "false", "false", true, false);
-        nguuoidungRepository.save(nguoixai);
-        httpSession.setAttribute("user", nguoixai);
-        return "index";
+
     }
 
     @GetMapping("/courseOnline/Faillsesion")

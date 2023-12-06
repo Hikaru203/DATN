@@ -140,6 +140,10 @@
                                     href="/courseOnline/dangnhap">Đăng nhập</a></li>
                             <li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
                                     href="/courseOnline/dangky">Đăng ký</a></li>
+
+                            <li th:if="${session.user} == null" class="nav-item"> <input hidden type="text" id="idLogin"
+                                    value="null">
+
                         </ul>
                         <div class="nav-item dropdown" th:if="${session.user != null}">
                             <input type="text" id="idLogin" hidden th:value="${session.user.id}">
@@ -223,13 +227,11 @@
                 </button>
 
                 <!-- Kiểm tra nếu $scope.check không tồn tại, thì hiển thị nút "Đăng ký học" -->
-                <button ng-if="!check && !idLoginValue" ng-click="goToLoginForm()" class="btn btn-primary px-3">
+
+                <button ng-if="!check " ng-click="addCourse(hoc.courseOnline.id)" class="btn btn-primary px-3">
                     <i class="fa fa-graduation-cap mr-1"></i> Đăng ký ngay
                 </button>
-                <button ng-if="!check && idLoginValue" ng-click="addCourse(hoc.courseOnline.id)"
-                    class="btn btn-primary px-3">
-                    <i class="fa fa-graduation-cap mr-1"></i> Đăng ký ngay
-                </button>
+
 
 
                 <!-- Course Image -->
@@ -884,8 +886,6 @@
             </div>
         </div>
     </div>
-    <input type="text" id="idLogin" th:if="${session.user != null}" hidden th:value="${session.user.id}" />
-    <input type="text" id="idLogin" th:if="${session.user == null}" hidden value="" />
     <!-- Back to Top Button -->
     <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     <!-- Thư viện jsPDF -->

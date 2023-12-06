@@ -110,27 +110,33 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav py-0">
-							<a href="index" class="nav-item nav-link active ">Trang
-								chủ</a> <a href="course" class="nav-item nav-link ">Khoá
-								học</a>
-							<div class="nav-item dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
-								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-									<a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a> 
-										<a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
-									<a href="cart" class="dropdown-item">Giỏ hàng</a> <a
-										href="checkout" class="dropdown-item">Thanh toán</a> <a
-										href="tracnghiem" class="dropdown-item">Trắc nghiệm</a>
-								</div>
-							</div>
-						</div>
+                            <a href="index" class="nav-item nav-link active ">Trang
+                                chủ</a> <a href="course" class="nav-item nav-link ">Khoá
+                                học</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
+                                <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+                                    <a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a>
+                                    <a href="uploadKhoaHoc" class="dropdown-item">Đăng khoá học</a>
+                                    <a href="cart" class="dropdown-item">Giỏ hàng</a> <a href="checkout"
+                                        class="dropdown-item">Thanh toán</a> <a href="tracnghiem"
+                                        class="dropdown-item">Trắc nghiệm</a>
+                                </div>
+                            </div>
+                        </div>
                         <ul class="navbar-nav">
                             <li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
                                     href="/courseOnline/dangnhap">Đăng nhập</a></li>
                             <li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
                                     href="/courseOnline/dangky">Đăng ký</a></li>
+
+                            <li th:if="${session.user} == null" class="nav-item"> <input hidden type="text" id="idLogin"
+                                    value="null">
+
                         </ul>
                         <div class="nav-item dropdown" th:if="${session.user != null}">
+                            <input type="text" id="idLogin" hidden th:value="${session.user.id}">
+
                             <style>
                                 /* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
                                 .dropdown-menu {
@@ -155,7 +161,7 @@
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
                                 style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
                             <div class="dropdown-menu">
-                                <a href="cart.html" class="dropdown-item">Cập nhật tài khoản</a>
+                                <a href="/courseOnline/updateAccount/{id}" class="dropdown-item">Cập nhật tài khoản</a>
                                 <a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
                                 <a href="/logoff" class="dropdown-item">Đăng xuất</a>
                             </div>
@@ -187,7 +193,7 @@
 
         .tab-content {
             display: none;
-           
+
         }
 
         .active {
@@ -198,284 +204,457 @@
         .container {
             margin-top: 20px;
         }
+
         .button-container {
-            margin-top: 10px; /* Thay đổi giá trị theo mong muốn của bạn */
+            margin-top: 10px;
+            /* Thay đổi giá trị theo mong muốn của bạn */
         }
-    
+
         /* Thêm các quy tắc CSS hiện tại của bạn ở đây */
     </style>
 
     <!-- Header End -->
     <!-- Courses Start -->
     <!-- Tabs -->
-<div class="tabs">
-    <button onclick="openTab('tab1')" class="tab-button active">Tạo khoá học</button>
-    <button onclick="openTab('tab2')" class="tab-button">Thêm mục lục</button>
-    <button onclick="openTab('tab3')" class="tab-button">Đăng video</button>
-</div>
-<!-- Tab Content -->
-<div id="tab1" class="tab-content active">
-    <!-- Your provided code goes here -->
-    <div class="container" ng-app="myApp" ng-controller="myCtrl">
-        <h1 class="text-center">Tạo Khoá Học</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="video-form">
-                    <form action="process_video.php" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="videoTitle">
-                                <h4>Tên khoá học:</h4>
-                            </label>
-                            <input type="text" class="form-control" id="tenKhoaHoc" name="tenKhoaHoc" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="videoDescription">
-                                <h4>Mô tả:</h4>
-                            </label>
-                            <textarea class="form-control" id="videoDescription" name="videoDescription" rows="4"
-                                required></textarea>
-                        </div>
-                        <button type="button" class="btn btn-primary" onclick="nextTab('tab2')">Tiếp theo</button>
+    <div class="tabs">
+        <button onclick="openTab('tab1')" class="tab-button active">Tạo khoá học</button>
+        <button onclick="openTab('tab2')" class="tab-button">Thêm mục lục</button>
+        <button onclick="openTab('tab3')" class="tab-button">Đăng video</button>
+    </div>
+    <!-- Tab Content -->
+    <div id="tab1" class="tab-content active">
+        <!-- Your provided code goes here -->
+        <div class="container" ng-app="myApp" ng-controller="myCtrl">
+            <h1 class="text-center">Tạo Khoá Học</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="video-form">
+                        <form action="process_video.php" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="videoTitle">
+                                    <h4>Tên khoá học:</h4>
+                                </label>
+                                <input type="text" class="form-control" id="tenKhoaHoc" name="tenKhoaHoc" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="videoDescription">
+                                    <h4>Mô tả:</h4>
+                                </label>
+                                <textarea class="form-control" id="videoDescription" name="videoDescription" rows="4"
+                                    required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="videoDescription">
+                                    <h4>Chọn nền khóa học</h4>
+                                </label> <br>
+                                <input type="file" name="fileInput" id="fileInput" onchange="previewImage()">
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="nextTab('tab2')">Tiếp theo</button>
 
-                        <br><br>
-                    </form>
+                            <br><br>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-me-6">
+                    <img id="imagePreview" src="#" alt="Ảnh xem trước" style="max-width: 500px; max-height: 500px;">
+                </div>
+                <script>
+                    function previewImage() {
+                        var preview = document.getElementById('imagePreview'); // Chọn thẻ img để hiển thị ảnh
+                        var fileInput = document.getElementById('fileInput'); // Lấy input file
+
+                        var file = fileInput.files[0]; // Lấy file từ input
+
+                        var reader = new FileReader();
+
+                        reader.onloadend = function () {
+                            preview.src = reader.result; // Hiển thị ảnh đã chọn
+                        }
+
+                        if (file) {
+                            reader.readAsDataURL(file); // Đọc file dưới dạng URL Data
+                        } else {
+                            preview.src = ""; // Nếu không có file, hiển thị một ảnh trống hoặc thông báo khác
+                        }
+                    }
+
+                    // Khởi tạo để hiển thị ảnh ban đầu (nếu có)
+                    window.onload = function () {
+                        previewImage();
+                    };
+                </script>
+                <div class="">
+                    <h4>Danh sách tất cả các khoá học:</h4>
+
+                    <div class="course-list">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Khoá học</th>
+                                    <th scope="col">Miêu tả</th>
+                                </tr>
+                                <tr th:each="khoaHoc : ${khoaHoc}"
+                                    th:onclick="'handleRowClick(\'' + ${khoaHoc.id} + '\')'">
+                                    <td th:text="${khoaHoc.tenKhoaHoc}"></td>
+                                    <td th:text="${khoaHoc.moTa}"></td>
+                                </tr>
+
+                            </thead>
+                            <script>
+                                function handleRowClick(idKhoaHoc) {
+                                    console.log(idKhoaHoc);
+
+                                }
+                            </script>
+                            <tbody>
+                                <!-- Nơi hiển thị danh sách đã đăng -->
+                                <tr ng-repeat="loai in khoaHocByLoai">
+                                    <td>{{loai.tenKhoaHoc}}</td>
+                                    <!-- Add other relevant fields here -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <style>
+                        .course-list {
+                            max-height: 300px;
+                            overflow-y: auto;
+                        }
+
+                        .table {
+                            width: 100%;
+                        }
+                    </style>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="course-list">
-                    <h4>Danh sách tất cả các khoá học:</h4>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Khoá học</th>
-                                <th scope="col">Miêu tả</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Nơi hiển thị danh sách đã đăng -->
-                            <tr ng-repeat="loai in khoaHocByLoai">
-                                <td>{{loai.tenKhoaHoc}}</td>
-                                <!-- Add other relevant fields here -->
-                            </tr>
-                        </tbody>
-                    </table>
+        </div>
+    </div>
+
+    <div id="tab2" class="tab-content">
+        <div class="container" ng-app="myApp" ng-controller="myCtrl">
+            <h1 class="text-center">Thêm mục lục video</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="video-form">
+                        <form action="process_video.php" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="khoaHocSelect">
+                                    <h4>Chọn khoá học cần thêm video:</h4>
+                                </label>
+                                <div>
+                                    <select ng-change="changeLoai(selectedKhoaHoc)" class="form-control"
+                                        id="khoaHocSelect" name="khoaHocSelect" ng-model="selectedKhoaHoc" required>
+                                        <option th:each="khoaHoc : ${tenKhoaHocList}" th:value="${khoaHoc.id}"
+                                            th:text="${khoaHoc.tenLoaiKhoaHoc}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="videoTitle">
+                                    <h4>Tên mục lục:</h4>
+                                </label>
+                                <input type="text" class="form-control" id="tenMucLuc" name="tenMucLuc" required>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
+                <div class="col-md-6">
+                    <br>
+                    <div class="course-list">
+                        <h4>Danh sách các khoá học đã thêm mục lục:</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Khoá học</th>
+                                    <th scope="col">Số mục lục</th>
+                                </tr>
+                                <tr ng-repeat="loai in khoaHocByLoai">
+                                    <td>{{loai.tenKhoaHoc}}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Nơi hiển thị danh sách đã đăng -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button type="button" class="btn btn-primary" onclick="goBack()">Trở lại</button>
+                </div>
+                <div class="button-container">
+                    <button type="button" class="btn btn-primary" onclick="nextTab('tab3')">Tiếp theo</button>
+                </div>
+
+                <br><br>
                 <style>
                     .course-list {
                         max-height: 300px;
+                        /* Đặt chiều cao tối đa cho phần hiển thị */
                         overflow-y: auto;
+                        /* Tạo thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
                     }
-            
+
                     .table {
                         width: 100%;
+                        /* Đảm bảo bảng rộng 100% của phần chứa nó */
                     }
                 </style>
+
+
+                <!-- Thêm phần hiển thị danh sách khoá học sau phần đăng video -->
             </div>
         </div>
     </div>
-</div>
 
-<div id="tab2" class="tab-content">
-    <div class="container" ng-app="myApp" ng-controller="myCtrl">
-        <h1 class="text-center">Thêm mục lục video</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="video-form">
-                    <form action="process_video.php" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="khoaHocSelect">
-                                <h4>Chọn khoá học cần thêm video:</h4>
-                            </label>
-                            <div>
-                                <select ng-change="changeLoai(selectedKhoaHoc)" class="form-control" id="khoaHocSelect"
-                                    name="khoaHocSelect" ng-model="selectedKhoaHoc" required>
-                                    <option th:each="khoaHoc : ${tenKhoaHocList}" th:value="${khoaHoc.id}"
-                                        th:text="${khoaHoc.tenLoaiKhoaHoc}"></option>
-                                </select>
+    <div id="tab3" class="tab-content">
+        <!-- Content for Tab 3 goes here -->
+        <div class="container" ng-app="myApp" ng-controller="myCtrl" th:if="${accessToken != null}">
+            <h1 class="text-center">Đăng Video Khoá Học</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="video-form">
+                        <form action="process_video.php" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="videoTitle">
+                                    <h4>Tiêu đề video:</h4>
+                                </label>
+                                <input type="text" class="form-control" id="videoTitle" name="videoTitle" required>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="videoTitle">
-                                <h4>Tên mục lục:</h4>
-                            </label>
-                            <input type="text" class="form-control" id="tenMucLuc" name="tenMucLuc" required>
-                        </div>
-                    </form>
-                </div>
+                            <div class="form-group">
+                                <label for="videoDescription">
+                                    <h4>Mô tả:</h4>
+                                </label>
+                                <textarea class="form-control" id="videoDescription" name="videoDescription" rows="4"
+                                    required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="videoFile">
+                                    <h4>File video:</h4>
+                                </label>
+                                <input type="file" class="form-control-file" id="videoFile" name="videoFile"
+                                    accept="video/*" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="videoDate">
+                                    <h4>Ngày đăng dự kiến:</h4>
+                                </label>
+                                <input type="text" class="form-control" id="videoDate" name="videoDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="khoaHocSelect">
+                                    <h4>Chọn khoá học:</h4>
+                                </label>
+                                <div>
+                                    <select ng-change="changeLoai(selectedKhoaHoc)" class="form-control"
+                                        id="khoaHocSelect" name="khoaHocSelect" ng-model="selectedKhoaHoc" required>
+                                        <option th:each="khoaHoc : ${tenKhoaHocList}" th:value="${khoaHoc.id}"
+                                            th:text="${khoaHoc.tenLoaiKhoaHoc}"></option>
+                                    </select>
+                                </div>
 
-            </div>
-            <div class="col-md-6">
-                <br>
-                <div class="course-list">
-                    <h4>Danh sách các khoá học đã thêm mục lục:</h4>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Khoá học</th>
-                                <th scope="col">Số mục lục</th>
-                            </tr>
-                            <tr ng-repeat="loai in khoaHocByLoai">
-                                <td>{{loai.tenKhoaHoc}}</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Nơi hiển thị danh sách đã đăng -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="button-container">
-                <button type="button" class="btn btn-primary" onclick="goBack()">Trở lại</button>
-            </div>
-            <div class="button-container">
-                <button type="button" class="btn btn-primary" onclick="nextTab('tab3')">Tiếp theo</button>
-            </div>
-           
-            <br><br>
-                <style>
-                    .course-list {
-                     max-height: 300px; /* Đặt chiều cao tối đa cho phần hiển thị */
-                    overflow-y: auto; /* Tạo thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
-                       }
 
-                   .table {
-                  width: 100%; /* Đảm bảo bảng rộng 100% của phần chứa nó */
-                   }
-                </style>
-            
-           
-            <!-- Thêm phần hiển thị danh sách khoá học sau phần đăng video -->
-        </div>
-    </div>
-</div>
 
-<div id="tab3" class="tab-content">
-    <!-- Content for Tab 3 goes here -->
-    <div class="container" ng-app="myApp" ng-controller="myCtrl">
-        <h1 class="text-center">Đăng Video Khoá Học</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="video-form">
-                    <form action="process_video.php" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="videoTitle">
-                                <h4>Tiêu đề video:</h4>
-                            </label>
-                            <input type="text" class="form-control" id="videoTitle" name="videoTitle" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="videoDescription">
-                                <h4>Mô tả:</h4>
-                            </label>
-                            <textarea class="form-control" id="videoDescription" name="videoDescription" rows="4"
-                                required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="videoFile">
-                                <h4>File video:</h4>
-                            </label>
-                            <input type="file" class="form-control-file" id="videoFile" name="videoFile"
-                                accept="video/*" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="videoDate">
-                                <h4>Ngày đăng dự kiến:</h4>
-                            </label>
-                            <input type="text" class="form-control" id="videoDate" name="videoDate" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="khoaHocSelect">
-                                <h4>Chọn khoá học:</h4>
-                            </label>
-                            <div>
-                                <select ng-change="changeLoai(selectedKhoaHoc)" class="form-control" id="khoaHocSelect"
-                                    name="khoaHocSelect" ng-model="selectedKhoaHoc" required>
-                                    <option th:each="khoaHoc : ${tenKhoaHocList}" th:value="${khoaHoc.id}"
-                                        th:text="${khoaHoc.tenLoaiKhoaHoc}"></option>
-                                </select>
+                            </div>
+                            <br><br>
+                            <div class="button-container">
+                                <button type="button" class="btn btn-primary" onclick="goBack()">Trở lại</button>
                             </div>
 
-
-
-                        </div>
-                        <br><br>
-                        <div class="button-container">
-                            <button type="button" class="btn btn-primary" onclick="goBack()">Trở lại</button>
-                        </div>
-
-                        <div class="button-container">
-                            <button type="submit" class="btn btn-primary">Đăng Video</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-            <div class="form-group" id="authorizationTokenGroup">
-
-                <input type="" class="form-control" id="authorizationUrlInput" name="authorizationUrl"
-                    th:value="${authorizationUrl}">
-                <!-- Đây là nút dẫn đến URL -->
-                <div style="text-align: center; padding-top: 60px;">
-                    <a th:href="${authorizationUrl}" class="btn btn-primary">Vui lòng
-                        đăng nhập</a>
-                </div>
-
-                <div class="form-group" id="accessTokenGroup">
-                    <input type="" class="form-control" id="accessToken" name="accessToken" th:value="${accessToken}">
-                </div>
-
-            </div>
-
-            <div class="col-md-6">
-                <div class="image-form-group">
-                    <label for="videoThumbnail">
-                        <h5>Kéo và thả hình ảnh hoặc chọn từ máy tính:</h5>
-                    </label>
-                    <label for="videoThumbnail">Chọn hoặc tải một hình ảnh lên để thể hiện nội dung trong video của bạn.
-                        Hình thu nhỏ hấp dẫn sẽ làm nổi bật video của bạn và thu hút người xem.</label>
-                    <input type="file" class="form-control-file" id="videoThumbnail" name="videoThumbnail"
-                        accept="image/*" style="display: none;">
-                    <div class="image-preview" id="imagePreview" ondragover="onDragOver(event)"
-                        ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
-                        <p id="dropText">Kéo và thả hình ảnh vào đây</p>
-                        <img id="preview" src="#" alt="" class="image-container">
+                            <div class="button-container">
+                                <button type="submit" class="btn btn-primary">Đăng Video</button>
+                            </div>
+                        </form>
                     </div>
-                </div>
-                <br>
-                <div class="course-list">
-                    <h4>Danh sách các khoá học cùng loại:</h4>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Khoá học</th>
-                                <th scope="col">Mô tả</th>
-                            </tr>
-                            <tr ng-repeat="loai in khoaHocByLoai">
-                                <td>{{loai.tenKhoaHoc}}</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Nơi hiển thị danh sách đã đăng -->
-                        </tbody>
-                    </table>
-                </div>
-                <style>
-                    .course-list {
-    max-height: 300px; /* Đặt chiều cao tối đa cho phần hiển thị */
-    overflow-y: auto; /* Tạo thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
-}
 
-.table {
-    width: 100%; /* Đảm bảo bảng rộng 100% của phần chứa nó */
-}
-                </style>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="image-form-group">
+                        <label for="videoThumbnail">
+                            <h5>Kéo và thả hình ảnh hoặc chọn từ máy tính:</h5>
+                        </label>
+                        <label for="videoThumbnail">Chọn hoặc tải một hình ảnh lên để thể hiện nội dung trong video của
+                            bạn.
+                            Hình thu nhỏ hấp dẫn sẽ làm nổi bật video của bạn và thu hút người xem.</label>
+                        <input type="file" class="form-control-file" id="videoThumbnail" name="videoThumbnail"
+                            accept="image/*" style="display: none;">
+                        <div class="image-preview" id="imagePreview" ondragover="onDragOver(event)"
+                            ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
+                            <p id="dropText">Kéo và thả hình ảnh vào đây</p>
+                            <img id="preview" src="#" alt="" class="image-container">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="course-list">
+                        <h4>Danh sách các khoá học cùng loại:</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Khoá học</th>
+                                    <th scope="col">Mô tả</th>
+                                </tr>
+                                <tr ng-repeat="loai in khoaHocByLoai">
+                                    <td>{{loai.tenKhoaHoc}}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Nơi hiển thị danh sách đã đăng -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <style>
+                        .course-list {
+                            max-height: 300px;
+                            /* Đặt chiều cao tối đa cho phần hiển thị */
+                            overflow-y: auto;
+                            /* Tạo thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
+                        }
+
+                        .table {
+                            width: 100%;
+                            /* Đảm bảo bảng rộng 100% của phần chứa nó */
+                        }
+                    </style>
+                </div>
+                <!-- Thêm phần hiển thị danh sách khoá học sau phần đăng video -->
             </div>
-            <!-- Thêm phần hiển thị danh sách khoá học sau phần đăng video -->
         </div>
+
+        <div class="form-group" id="authorizationTokenGroup" th:if="${accessToken == null}">
+            <input type="hidden" class="form-control" id="authorizationUrlInput" name="authorizationUrl"
+                th:value="${authorizationUrl}">
+            <!-- Đây là nút dẫn đến URL -->
+            <div style="text-align: center; padding-top: 60px;">
+                <a th:href="${authorizationUrl}" class="btn btn-primary">Vui lòng đăng nhập</a>
+            </div>
+
+            <div class="form-group" id="accessTokenGroup">
+                <input type="hidden" class="form-control" id="accessToken" name="accessToken" th:value="${accessToken}">
+            </div>
+        </div>
+        <script>
+            var currentTabIndex = 1;
+
+            function openTab(tabName) {
+                var i, tabContent, tabButtons;
+                tabContent = document.getElementsByClassName("tab-content");
+                for (i = 0; i < tabContent.length; i++) {
+                    tabContent[i].style.display = "none";
+                }
+                tabButtons = document.getElementsByClassName("tab-button");
+                for (i = 0; i < tabButtons.length; i++) {
+                    tabButtons[i].classList.remove("active");
+                    tabButtons[i].style.border = "2px solid #007bff";
+                    tabButtons[i].style.color = "#007bff";
+                }
+                document.getElementById(tabName).style.display = "block";
+                var clickedButton = document.querySelector('[onclick="openTab(\'' + tabName + '\')"]');
+                clickedButton.classList.add("active");
+                clickedButton.style.border = "2px solid #fff";
+                clickedButton.style.color = "#fff";
+                currentTabIndex = parseInt(tabName.replace('tab', ''));
+            }
+
+            function goBack() {
+                if (currentTabIndex > 1) {
+                    currentTabIndex--;
+                    openTab('tab' + currentTabIndex);
+                } else {
+                    alert("This is the first tab.");
+                }
+            }
+
+            function nextTab() {
+                if (currentTabIndex < 3) {
+                    currentTabIndex++;
+                    openTab('tab' + currentTabIndex);
+                } else {
+                    alert("This is the last tab.");
+                }
+            }
+        </script>
+        <script>
+            const thumbnailInput = document.getElementById("videoThumbnail");
+            const imagePreview = document.getElementById("imagePreview");
+            const preview = document.getElementById("preview");
+            let dateEntered = false;
+            let imageDropped = false; // Thêm biến imageDropped
+
+
+            function onDrop(e) {
+                e.preventDefault();
+                imagePreview.classList.remove("drag-over"); // Bỏ lớp khi thả xong
+                const file = e.dataTransfer.files[0];
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                    };
+
+                    reader.readAsDataURL(file);
+
+                    imagePreview.style.display = "block";
+                    imageDropped = true; // Đặt biến imageDropped thành true khi có hình ảnh được thả vào
+                } else {
+                    preview.src = "";
+                    imagePreview.style.display = "none";
+                }
+            }
+            function onDragOver(e) {
+                e.preventDefault();
+                imagePreview.classList.add("drag-over"); // Thêm lớp khi kéo và thả
+                dropText.style.display = "none"; // Ẩn nội dung khi kéo và thả
+            }
+
+            function onDragLeave(e) {
+                e.preventDefault();
+                imagePreview.classList.remove("drag-over"); // Bỏ lớp khi rời đi
+                if (!imageDropped) {
+                    dropText.style.display = "block"; // Hiển thị nội dung khi rời đi (nếu không có hình ảnh)
+                }
+            }
+
+            function onDrop(e) {
+                e.preventDefault();
+                imagePreview.classList.remove("drag-over"); // Bỏ lớp khi thả xong
+                const file = e.dataTransfer.files[0];
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                    };
+
+                    reader.readAsDataURL(file);
+
+                    imagePreview.style.display = "block";
+                    imageDropped = true; // Đặt biến imageDropped thành true khi có hình ảnh được thả vào
+                    dropText.style.display = "none"; // Ẩn nội dung khi có hình ảnh
+                } else {
+                    preview.src = "";
+                    imagePreview.style.display = "none";
+                }
+            }
+            // Tự động nhập ngày hiện tại nếu chưa nhập
+            const videoDate = document.getElementById("videoDate");
+            videoDate.addEventListener("focus", function () {
+                if (!dateEntered) {
+                    const currentDate = new Date().toLocaleDateString();
+                    videoDate.value = currentDate;
+                    dateEntered = true;
+                }
+            });
+
+
+        </script>
+        <br>
+        <br>
     </div>
+
     <script>
-        var currentTabIndex = 1;
-    
         function openTab(tabName) {
             var i, tabContent, tabButtons;
             tabContent = document.getElementsByClassName("tab-content");
@@ -485,147 +664,14 @@
             tabButtons = document.getElementsByClassName("tab-button");
             for (i = 0; i < tabButtons.length; i++) {
                 tabButtons[i].classList.remove("active");
-                tabButtons[i].style.border = "2px solid #007bff";
-                tabButtons[i].style.color = "#007bff";
             }
             document.getElementById(tabName).style.display = "block";
-            var clickedButton = document.querySelector('[onclick="openTab(\'' + tabName + '\')"]');
-            clickedButton.classList.add("active");
-            clickedButton.style.border = "2px solid #fff";
-            clickedButton.style.color = "#fff";
-            currentTabIndex = parseInt(tabName.replace('tab', ''));
-        }
-    
-        function goBack() {
-            if (currentTabIndex > 1) {
-                currentTabIndex--;
-                openTab('tab' + currentTabIndex);
-            } else {
-                alert("This is the first tab.");
-            }
-        }
-    
-        function nextTab() {
-            if (currentTabIndex < 3) {
-                currentTabIndex++;
-                openTab('tab' + currentTabIndex);
-            } else {
-                alert("This is the last tab.");
-            }
+            event.currentTarget.classList.add("active");
         }
     </script>
-    <script>
-        const thumbnailInput = document.getElementById("videoThumbnail");
-        const imagePreview = document.getElementById("imagePreview");
-        const preview = document.getElementById("preview");
-        let dateEntered = false;
-        let imageDropped = false; // Thêm biến imageDropped
 
-    
-        function onDrop(e) {
-            e.preventDefault();
-            imagePreview.classList.remove("drag-over"); // Bỏ lớp khi thả xong
-            const file = e.dataTransfer.files[0];
-            if (file) {
-                const reader = new FileReader();
 
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                };
 
-                reader.readAsDataURL(file);
-
-                imagePreview.style.display = "block";
-                imageDropped = true; // Đặt biến imageDropped thành true khi có hình ảnh được thả vào
-            } else {
-                preview.src = "";
-                imagePreview.style.display = "none";
-            }
-        }
-        function onDragOver(e) {
-            e.preventDefault();
-            imagePreview.classList.add("drag-over"); // Thêm lớp khi kéo và thả
-            dropText.style.display = "none"; // Ẩn nội dung khi kéo và thả
-        }
-
-        function onDragLeave(e) {
-            e.preventDefault();
-            imagePreview.classList.remove("drag-over"); // Bỏ lớp khi rời đi
-            if (!imageDropped) {
-                dropText.style.display = "block"; // Hiển thị nội dung khi rời đi (nếu không có hình ảnh)
-            }
-        }
-
-        function onDrop(e) {
-            e.preventDefault();
-            imagePreview.classList.remove("drag-over"); // Bỏ lớp khi thả xong
-            const file = e.dataTransfer.files[0];
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                };
-
-                reader.readAsDataURL(file);
-
-                imagePreview.style.display = "block";
-                imageDropped = true; // Đặt biến imageDropped thành true khi có hình ảnh được thả vào
-                dropText.style.display = "none"; // Ẩn nội dung khi có hình ảnh
-            } else {
-                preview.src = "";
-                imagePreview.style.display = "none";
-            }
-        }
-        // Tự động nhập ngày hiện tại nếu chưa nhập
-        const videoDate = document.getElementById("videoDate");
-        videoDate.addEventListener("focus", function () {
-            if (!dateEntered) {
-                const currentDate = new Date().toLocaleDateString();
-                videoDate.value = currentDate;
-                dateEntered = true;
-            }
-        });
-
-        $scope.isUserLoggedIn = false;
-
-    $scope.checkLoginStatus = function () {
-        // Gọi API hoặc kiểm tra token ở đây
-        // Ví dụ sử dụng $http.get("/api/checkLogin")
-        $http.get("/api/checkLogin")
-            .then(function (response) {
-                // Nếu trạng thái đăng nhập là true, hiển thị biểu mẫu tải video
-                $scope.isUserLoggedIn = response.data.isLoggedIn;
-            })
-            .catch(function (error) {
-                console.error("Error checking login status:", error);
-            });
-    };
-
-    $scope.checkLoginStatus();
-    </script>
-    <br>
-    <br>
-</div>
-
-<script>
-    function openTab(tabName) {
-        var i, tabContent, tabButtons;
-        tabContent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabContent.length; i++) {
-            tabContent[i].style.display = "none";
-        }
-        tabButtons = document.getElementsByClassName("tab-button");
-        for (i = 0; i < tabButtons.length; i++) {
-            tabButtons[i].classList.remove("active");
-        }
-        document.getElementById(tabName).style.display = "block";
-        event.currentTarget.classList.add("active");
-    }
-</script>
-  
-    
-    
     <!-- Courses End -->
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5">
