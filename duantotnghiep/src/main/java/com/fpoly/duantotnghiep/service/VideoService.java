@@ -14,4 +14,6 @@ public interface VideoService {
 
     ArrayList<VideoKhoaHoc> findByMucHocId(int idMucLuc);
 
+    void deleteById(int id);
+
 }

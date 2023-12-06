@@ -59,9 +59,7 @@ public class TienDoKhoaHocRestController {
             // TODO: handle exception
             return null;
         }
-        }
-    
-
+    }
     @GetMapping
     public List<DangKyKhoaHoc> findAll() {
         return dangKyKhoaHocService.findAll();

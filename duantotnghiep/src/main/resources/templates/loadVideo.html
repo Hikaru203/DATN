@@ -32,7 +32,6 @@
         }
 
         .container {
-            display: flex;
             justify-content: space-between;
             max-width: 1400px;
             margin: 0 auto;
@@ -227,42 +226,141 @@
             pointer-events: none;
             opacity: 0.6;
         }
+
+        .container {
+            flex-direction: column;
+            /* Chuyển layout của container thành dạng cột */
+            align-items: center;
+            /* Căn giữa các phần tử trong container */
+        }
+
+        .main-video {
+            margin-bottom: 20px;
+            /* Tạo khoảng cách giữa phần video chính và phần danh sách video */
+        }
+
+        .video-controls {
+            /* Bỏ khoảng cách giữa phần controls và phần video */
+            margin-bottom: 10px;
+        }
+
+
+
+        /* Để các phần tử video playlist và main video nằm cạnh nhau trên màn hình rộng */
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+                /* Chuyển layout thành dạng hàng */
+
+            }
+
+            .main-video {
+                flex: 1;
+                /* Phần video chính sẽ chiếm một phần tử linh hoạt trong container */
+                margin-bottom: 0;
+                /* Bỏ khoảng cách giữa phần video chính và phần danh sách video */
+            }
+
+            .video-playlist {
+                flex: 1;
+                /* Phần danh sách video chiếm một phần tử linh hoạt trong container */
+                margin-left: 20px;
+                /* Tạo khoảng cách giữa phần video chính và danh sách video */
+            }
+
+
+
+            .video-controls {
+                position: absolute;
+                bottom: 20px;
+                left: 20px;
+                background-color: rgba(255, 255, 255, 0.5);
+                padding: 10px;
+                border-radius: 5px;
+                display: none;
+            }
+
+            .video-container:hover .video-controls {
+                display: flex;
+                align-items: center;
+                /* Canh chỉnh các phần tử theo chiều dọc */
+                justify-content: space-between;
+            }
+
+            /* Định dạng cho các nút điều chỉnh */
+            #volume-control,
+            #playback-speed,
+            #resolution {
+                margin-right: 10px;
+            }
+
+            /* Đưa phần tử select sang phải bằng cách sử dụng margin-left: auto */
+            #playback-speed {
+                margin-left: 0px;
+            }
+
+            /* Định dạng cho icon */
+            .fa-volume-down::before {
+                content: "\f027";
+                /* Unicode của icon loa nhỏ */
+            }
+
+            /* Ẩn tooltip âm lượng ban đầu */
+            .volume-tooltip {
+                display: none;
+                position: absolute;
+                background-color: #000;
+                color: #fff;
+                padding: 5px;
+                border-radius: 5px;
+                pointer-events: none;
+                /* Ngăn không cho tooltip chặn sự kiện chuột */
+            }
+
+
+        }
     </style>
 </head>
 
 <body ng-app="loadVideo-app" ng-controller="loadVideo-app-ctrl" ng-init="loadvideo()">
-
     <main class="container">
         <section class="main-video">
-            <div class="video-frame-container">
+            <div class="video-frame-container video-container">
                 <iframe id="video-iframe" width="560" height="315" src="" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen></iframe>
+                <div class="video-controls" style="width: 95%;">
+                    <!-- Các nút điều chỉnh âm lượng, tốc độ và độ phân giải -->
+                    <button id="pause-video" class="button">
+                        <i id="play-pause-icon" class="fas fa-play"></i>
+                    </button>
+                    <button id="full-screen" class="button"><i class="fas fa-expand"></i></button>
+                    <label for="">Âm lượng</label>
+                    <div class="volume-control-container">
+                        <i class="fas fa-volume-up" id="volume-icon"></i>
+                        <input type="range" id="volume-control" min="0" max="100" step="1" value="100">
+                        <span id="volume-percentage" class="volume-tooltip">100%</span>
+                    </div>
+                    <div id="video-info"></div>
+                    <label for=""> Tốc độ</label>
+                    <select id="playback-speed">
+                        <option value="1">Normal</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
+                </div>
+
             </div>
 
             <div class="video-controls">
-                <div id="video-info"></div>
-                <div class="volume-control-container">
-                    <input type="range" id="volume-control" min="0" max="100" step="1" value="100">
-                    <span id="volume-percentage">100%</span>
-                </div>
-                <select id="playback-speed">
-                    <option value="0.75">0.75x</option>
-                    <option value="1" selected>1x</option>
-                    <option value="1.25">1.25x</option>
-                    <option value="1.5">1.5x</option>
-                </select>
+
                 <br>
             </div>
             <br>
             <div style="display: flex; justify-content: space-between;">
-                <button id="full-screen" class="button"><i class="fas fa-expand"></i> </button>
-                <button id="prev-video" class="button" ><i class="fas fa-step-backward"></i> </button>
-                <button id="pause-video" class="button">
-                    <i id="play-pause-icon" class="fas fa-play"></i>
-                </button>
-                <button id="next-video" class="button" disabled><i class="fas fa-step-forward"></i> </button>
+                <button id="prev-video" class="button"><i class="fas fa-step-backward"></i> </button>
 
+                <button id="next-video" class="button" disabled><i class="fas fa-step-forward"></i> </button>
             </div>
 
         </section>

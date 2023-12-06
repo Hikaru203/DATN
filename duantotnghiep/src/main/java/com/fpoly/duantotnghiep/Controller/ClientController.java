@@ -9,6 +9,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +34,7 @@ import com.fpoly.duantotnghiep.service.DanhGiaService;
 import com.fpoly.duantotnghiep.service.KhoaHocService;
 import com.fpoly.duantotnghiep.service.MucLucService;
 import com.fpoly.duantotnghiep.service.VideoService;
+import com.paypal.api.openidconnect.Session;
 
 @Controller
 public class ClientController {
@@ -264,11 +267,6 @@ public class ClientController {
 	@GetMapping("/courseOnline/checkout")
 	public String checkout() {
 		return "checkout";
-	}
-
-	@GetMapping("/courseOnline/uploademo")
-	public String uploademo() {
-		return "uploademo";
 	}
 
 	@GetMapping("/courseOnline/mucluc")
