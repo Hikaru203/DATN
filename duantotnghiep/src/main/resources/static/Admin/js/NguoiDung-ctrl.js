@@ -1,130 +1,81 @@
-var app = angular.module("myApp", []);
-let urlNguoiDung = "/rest/admin/NguoiDung";
+var app = angular.module("myApp", ['ui.bootstrap']);
 
-app.controller("NguoiDungCtrl", function($scope, $http) {
-    $scope.nguoiDungList = [];
-    $scope.nguoiDung = {};
-    $scope.selectedFileName = "";
+app.controller("NguoiDung-ctrl", function($scope, $http) {
+	// Initialize the nguoiDungList as an empty array
+	$scope.nguoiDungList = [];
+
+	// Function to fetch nguoiDung data
+	function loadNguoiDung() {
+		$http.get("/rest/NguoiDung").then(function(resp) {
+			$scope.nguoiDungList = resp.data;
+		});
+	}
+
+	// Function to populate input fields when the "Edit" button is clicked
+	$scope.editUser = function(nguoiDung) {
+		$scope.selectedUser = nguoiDung; // Store the selected user data
+	};
+
+	// Call the function to load nguoiDung data initially
+	loadNguoiDung();
+});
+// Function to insert a new user
+$scope.addUser = function() {
+    // Tạo một đối tượng người dùng mới với các thông tin từ form
+    var newUser = {
+        id: $scope.selectedUser.id,
+        hoTen: $scope.selectedUser.hoTen,
+        matKhau: $scope.selectedUser.matKhau,
+        soDienThoai: $scope.selectedUser.soDienThoai,
+        email: $scope.selectedUser.email,
+        chucVu: $scope.selectedUser.role, // Lấy từ dropdown Role
+        hinhAnh: $scope.selectedUser.imageico, // Tên hình ảnh từ input file
+        trangThai: $scope.selectedUser.trangThai === 'Yes' ? true : false // Chuyển đổi giá trị Yes/No thành true/false
+    };
+
+ $scope.chooseImage = function() {
+    const imageInput = document.getElementById("fileInput");
+    imageInput.click();
+
+    imageInput.addEventListener("change", function() {
+        const selectedImage = imageInput.files[0];
+        // Kiểm tra xem đã chọn tệp ảnh hay chưa
+        if (selectedImage) {
+            // Lưu tên tệp ảnh vào biến selectedFileName
+            $scope.selectedFileName = selectedImage.name;
+        }
+    });
+};
+
+    // Thêm người dùng mới vào danh sách
+    $scope.nguoiDungList.push(newUser);
+
+    // Xóa các thông tin trong form
     $scope.selectedUser = {};
-    $scope.isEditing = false;
-
-    // Lấy danh sách người dùng
-    $scope.getAllNguoiDung = function() {
-        $http.get("/rest/admin/NguoiDung")
-            .then(function(response) {
-                $scope.nguoiDungList = response.data;
-
-                // Sắp xếp danh sách theo id tăng dần
-                $scope.nguoiDungList.sort(function(a, b) {
-                    return a.id - b.id;
-                });
-
-                // Đặt số thứ tự cho mỗi người dùng
-                for (var i = 0; i < $scope.nguoiDungList.length; i++) {
-                    $scope.nguoiDungList[i].stt = i + 1;
-                }
-            })
-            .catch(function(error) {
-                console.error("Lỗi khi lấy danh sách người dùng: " + error);
-            });
-    };
-
-    // Hàm để chỉnh sửa người dùng
-    $scope.editUser = function(nguoiDung) {
-        $scope.isEditing = true;
-        $scope.selectedUser = angular.copy(nguoiDung);
-    };
-// Thêm Người Dùng
-$scope.addNguoiDung = function() {
-    // Gửi yêu cầu POST đến máy chủ để thêm người dùng mới
-    $http.post(urlNguoiDung + "/addNguoiDung", $scope.selectedUser)
-        .then(function(response) {
-            // Xử lý kết quả thành công
-            // Thêm người dùng vào danh sách
-            $scope.nguoiDungList.push(response.data);
-            // Đặt lại form
-            $scope.resetForm();
-        })
-        .catch(function(error) {
-            // Xử lý lỗi
-            console.error("Lỗi khi thêm người dùng: " + error);
-        });
 };
 
+	$scope.editUser = function() {
+		// Implement the logic for editing a user here
+		// You can use $scope.selectedUser to access the selected user's data
+	};
+	$scope.deleteUser = function() {
+		    var index = $scope.nguoiDungList.indexOf(nguoiDung);
+    if (index !== -1) {
+        $scope.nguoiDungList.splice(index, 1); // Xóa người dùng khỏi danh sách
+    }
+	};
+	// Push the new user object into the nguoiDungList
 
-// Chỉnh sửa Người Dùng
-$scope.editNguoiDung = function() {
-    // Gửi yêu cầu PUT đến máy chủ để cập nhật thông tin người dùng
-    $http.put(urlNguoiDung + "/" + $scope.selectedUser.id, $scope.selectedUser)
-        .then(function(response) {
-            // Xử lý kết quả thành công
-            // Cập nhật thông tin người dùng trong danh sách
-            var index = $scope.nguoiDungList.findIndex(function(nguoiDung) {
-                return nguoiDung.id === response.data.id;
-            });
-            if (index !== -1) {
-                $scope.nguoiDungList[index] = response.data;
-            }
-            // Đặt lại form
-            $scope.resetForm();
-        })
-        .catch(function(error) {
-            // Xử lý lỗi
-            console.error("Lỗi khi chỉnh sửa người dùng: " + error);
-        });
-};
-
-// Xóa Người Dùng
-$scope.deleteNguoiDung = function(nguoiDung) {
-    // Gửi yêu cầu DELETE đến máy chủ để xóa người dùng
-    $http.delete(urlNguoiDung + "/" + nguoiDung.id)
-        .then(function() {
-            // Xử lý kết quả thành công
-            // Xóa người dùng khỏi danh sách
-            var index = $scope.nguoiDungList.indexOf(nguoiDung);
-            if (index !== -1) {
-                $scope.nguoiDungList.splice(index, 1);
-            }
-        })
-        .catch(function(error) {
-            // Xử lý lỗi
-            console.error("Lỗi khi xóa người dùng: " + error);
-        });
-};
-
-    // Reset form
-    $scope.resetForm = function() {
-        $scope.nguoiDung = {};
-        $scope.selectedFileName = "";
-    };
-
-    // Hàm để đặt lại form chỉnh sửa
-    $scope.resetEditForm = function() {
-        $scope.isEditing = false;
-        $scope.selectedUser = {};
-        $scope.resetForm(); // Đặt lại cả form khi kết thúc chỉnh sửa
-    };
-
-app.controller('UpdateAccount', function($scope, $http) {
-  $scope.nguoiDung = {}; // Đối tượng chứa thông tin người dùng
-
-  $scope.updateAccount = function() {
-    // Gửi request HTTP PUT để cập nhật tài khoản
-    $http.put('/rest/admin/NguoiDung' + $scope.nguoiDung.id, $scope.nguoiDung)
-      .then(function(response) {
-        // Xử lý kết quả trả về từ server (nếu cần)
-        console.log(response.data);
-      })
-      .catch(function(error) {
-        // Xử lý lỗi (nếu có)
-        console.error(error);
-      });
-  };
-});
-
+function chooseImage() {
+  const imageInput = document.getElementById("imageInput");
+  imageInput.click(); // Khi nút "Chọn ảnh" được nhấp, kích hoạt sự kiện click của input[type="file"]
   
-
-
-    // Gọi hàm lấy danh sách người dùng khi trang web được tải
-    $scope.getAllNguoiDung();
-});
+  // Lắng nghe sự kiện khi người dùng chọn ảnh
+  imageInput.addEventListener("change", function() {
+    const selectedImage = imageInput.files[0]; // Lấy file ảnh được chọn (chỉ lấy 1 file)
+    
+    // Ở đây, bạn có thể xử lý file ảnh được chọn, ví dụ hiển thị nó trên giao diện hoặc thực hiện các thao tác khác.
+    // Ví dụ, hiển thị tên file ảnh lên màn hình:
+    alert(`Bạn đã chọn ảnh: ${selectedImage.name}`);
+  });
+}
