@@ -227,63 +227,99 @@
         <div class="container" ng-app="myApp" ng-controller="myCtrl">
             <h1 class="text-center">Tạo Khoá Học</h1>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="video-form">
-                        <form action="process_video.php" method="POST" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="videoTitle">
-                                    <h4>Tên khoá học:</h4>
-                                </label>
-                                <input type="text" class="form-control" id="tenKhoaHoc" name="tenKhoaHoc" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="videoDescription">
-                                    <h4>Mô tả:</h4>
-                                </label>
-                                <textarea class="form-control" id="videoDescription" name="videoDescription" rows="4"
-                                    required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="videoDescription">
-                                    <h4>Chọn nền khóa học</h4>
-                                </label> <br>
-                                <input type="file" name="fileInput" id="fileInput" onchange="previewImage()">
-                            </div>
-                            <button type="button" class="btn btn-primary" onclick="nextTab('tab2')">Tiếp theo</button>
+                        <form enctype="multipart/form-data" class="dropzone dropzone-custom needsclick addcourse"
+                            id="demo1-upload">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <input name="id" type="text" ng-model="formKhoaHoc.id" class="form-control"
+                                            readonly hidden>
+                                    </div>
 
-                            <br><br>
+                                    <div class="form-group">
+                                        <div class="tieude">Tên khóa học:</div>
+                                        <input name="tenKhoaHoc" type="text" ng-model="formKhoaHoc.tenKhoaHoc"
+                                            class="form-control">
+                                        <div ng-show="hassError" style="color: red;">{{message1}}</div>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <input name="ngayTao" id="ngayTao" type="text" ng-model="formKhoaHoc.ngayTao"
+                                            hidden placeholder="NgayTao">
+                                    </div>
+                                    <div class="form-group">
+                                        <!-- Hiển thị hình ảnh đã chọn (nếu có) -->
+                                        <div id="preview">
+                                            <!-- Ảnh mặc định -->
+                                            <img id="defaultImage" ng-src="/Admin/img/gallery.png" alt="Default Image"
+                                                height="100px" width="100px">
+                                        </div>
+                                        <input name="hinhAnh" id="imageInput" type="file"
+                                            file-model="formKhoaHoc.hinhAnh" class="form-control"
+                                            onchange="handleFileSelect()" placeholder="Hình ảnh">
+                                        <div ng-show="hassError" style="color: red;">{{message3}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <div class="tieude">Mô tả:</div>
+                                        <textarea name="moTa" ng-model="formKhoaHoc.moTa"
+                                            style="width: 100%; height: 150px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container mt-4">
+                                <!-- Button "Thêm" -->
+                                <button id="basicSuccess" class="btn btn-success" ng-click="create()"
+                                    ng-disabled="!btnThemKhoaHoc">Thêm</button>
+
+                                <!-- Button "Sửa" -->
+                                <button class="btn btn-warning mr-2" ng-click="updateKhoaHoc()"
+                                    ng-disabled="!btnSuaKhoaHoc">Sửa</button>
+
+                                <!-- Button "Xóa" -->
+                                <button class="btn btn-danger" ng-click="deleteKhoaHoc(formKhoaHoc)"
+                                    ng-disabled="!btnXoaKhoaHoc">Xóa</button>
+
+                                <!-- Button "làm mới" -->
+                                <button class="btn btn-info" ng-click="resetKhoaHoc()">Làm mới</button>
+                            </div>
                         </form>
                     </div>
                 </div>
-                <div class="col-me-6">
-                    <img id="imagePreview" src="#" alt="Ảnh xem trước" style="max-width: 500px; max-height: 500px;">
-                </div>
+
                 <script>
-                    function previewImage() {
-                        var preview = document.getElementById('imagePreview'); // Chọn thẻ img để hiển thị ảnh
-                        var fileInput = document.getElementById('fileInput'); // Lấy input file
+                    function handleFileSelect() {
+                        // Lấy thẻ input và danh sách các tệp tin đã chọn
+                        var input = document.getElementById('imageInput');
+                        var files = input.files;
+                        console.log(files);
+                        // Kiểm tra xem có tệp tin nào đã chọn hay không
+                        if (files.length > 0) {
+                            var reader = new FileReader();
 
-                        var file = fileInput.files[0]; // Lấy file từ input
+                            // Đọc dữ liệu của tệp tin đã chọn
+                            reader.onload = function (e) {
+                                // Hiển thị hình ảnh đã chọn trong thẻ <img>
+                                var preview = document.getElementById('preview');
+                                preview.innerHTML = '<img src="' + e.target.result + '" alt="Selected Image" style="height: 300px;">';
+                            };
 
-                        var reader = new FileReader();
-
-                        reader.onloadend = function () {
-                            preview.src = reader.result; // Hiển thị ảnh đã chọn
-                        }
-
-                        if (file) {
-                            reader.readAsDataURL(file); // Đọc file dưới dạng URL Data
+                            // Đọc tệp tin làm nguồn dữ liệu
+                            reader.readAsDataURL(files[0]);
                         } else {
-                            preview.src = ""; // Nếu không có file, hiển thị một ảnh trống hoặc thông báo khác
+                            // Nếu không có tệp tin nào được chọn, hiển thị ảnh mặc định
+                            var defaultImage = document.getElementById('defaultImage');
+                            defaultImage.style.display = 'block';
                         }
                     }
 
-                    // Khởi tạo để hiển thị ảnh ban đầu (nếu có)
-                    window.onload = function () {
-                        previewImage();
-                    };
                 </script>
-                <div class="">
+
+                <div class="col-md-12" style="margin-top: 20px;">
                     <h4>Danh sách tất cả các khoá học:</h4>
 
                     <div class="course-list">
@@ -291,14 +327,16 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Khoá học</th>
-                                    <th scope="col">Miêu tả</th>
+                                    <th scope="col">Mô tả</th>
                                 </tr>
-                                <tr th:each="khoaHoc : ${khoaHoc}"
-                                    th:onclick="'handleRowClick(\'' + ${khoaHoc.id} + '\')'">
-                                    <td th:text="${khoaHoc.tenKhoaHoc}"></td>
-                                    <td th:text="${khoaHoc.moTa}"></td>
-                                </tr>
+                                <table>
+                                    <tr ng-repeat="khoaHoc in khoaHocFindByNguoiTao" ng-click="edit(khoaHoc)"
+                                        ng-if="khoaHoc.trangThai !== 'true'">
+                                        <td>{{khoaHoc.tenKhoaHoc}}</td>
+                                        <td>{{khoaHoc.moTa}}</td>
+                                    </tr>
 
+                                </table>
                             </thead>
                             <script>
                                 function handleRowClick(idKhoaHoc) {
@@ -452,9 +490,6 @@
                                             th:text="${khoaHoc.tenLoaiKhoaHoc}"></option>
                                     </select>
                                 </div>
-
-
-
                             </div>
                             <br><br>
                             <div class="button-container">
@@ -522,7 +557,7 @@
             </div>
         </div>
 
-        <div class="form-group" id="authorizationTokenGroup" th:if="${accessToken == null}">
+        <div class="form-group" id="authorizationTokenGroup">
             <input type="hidden" class="form-control" id="authorizationUrlInput" name="authorizationUrl"
                 th:value="${authorizationUrl}">
             <!-- Đây là nút dẫn đến URL -->
@@ -734,6 +769,11 @@
         var app = angular.module('myApp', []);
         app.controller('myCtrl', function ($scope, $http, $window) {
             $scope.khoaHocByLoai = {};
+            $scope.khoaHoc = {};
+            $scope.formKhoaHoc = {};
+            $scope.khoaHocFindByNguoiTao = {};
+            $scope.selectedKhoaHoc = {}; // Initialize selectedKhoaHoc object
+
             $scope.changeLoai = function (id) {
                 console.log(id);
                 // Thêm logic xử lý khi giá trị thay đổi
@@ -749,15 +789,150 @@
             $scope.updateUI = function () {
                 if (accountTokenInput === null || accountTokenInput.value === '' || accountTokenInput.value === null) {
                     authorizationTokenGroup.style.display = 'block';
-                    console.log("1")
                 } else {
                     authorizationTokenGroup.style.display = 'none';
-                    console.log("2")
-
-
                 }
+                $scope.idLogin = document.getElementById("idLogin").value;
+                console.log($scope.idLogin);
+                $http.get('/api/khoahoc')
+                    .then(response => {
+                        $scope.khoaHoc = response.data;
+                        console.log($scope.khoaHoc);
+                        $scope.khoaHocFindByNguoiTao = $scope.khoaHoc.filter(item => item.nguoiTao.id == $scope.idLogin);
+                        console.log($scope.khoaHocFindByNguoiTao);
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi nếu cần
+                        console.error('Lỗi khi lấy dữ liệu khóa học:', error);
+                    });
+                $scope.btnThemKhoaHoc = true;
+                $scope.btnSuaKhoaHoc = false;
+                $scope.btnXoaKhoaHoc = false;
             };
+            $scope.edit = function (item) {
+                console.log(item);
+                $scope.formKhoaHoc = angular.copy(item); // Copy khoaHoc object to selectedKhoaHoc
+                $scope.btnThemKhoaHoc = false;
+                $scope.btnSuaKhoaHoc = true;
+                $scope.btnXoaKhoaHoc = true;
+
+
+            }
+            $scope.updateKhoaHoc = function () {
+                $scope.hassError = false;
+                var item = angular.copy($scope.formKhoaHoc);
+                // Chuyển đổi định dạng của chuỗi ngày tháng
+                console.log(item);
+                var currentDate = new Date();
+                $scope.formKhoaHoc.ngayTao = currentDate.toISOString();
+                var formData = new FormData();
+                formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
+                formData.append('hinhAnh', new Blob([JSON.stringify($scope.formKhoaHoc.hinhAnh)], { type: "application/json" }));
+
+                formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type: "application/json" }));
+
+                $http.put(`/rest/admin/KhoaHoc/${item.id}`, formData, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                }).then(resp => {
+                    console.log(resp);
+                    $scope.resetKhoaHoc();
+                    $scope.updateUI();
+                })
+                    .catch(error => {
+                        console.log("Error", error)
+                    })
+
+
+            }
+            // Xóa 
+            $scope.deleteKhoaHoc = function (item) {
+                $scope.hassError = false;
+                $scope.formKhoaHoc.trangThai = true;
+
+                var item = angular.copy($scope.formKhoaHoc);
+                // Chuyển đổi định dạng của chuỗi ngày tháng
+                console.log(item);
+                var currentDate = new Date();
+                $scope.formKhoaHoc.ngayTao = currentDate.toISOString();
+                var formData = new FormData();
+                formData.append('hinhAnh', new Blob([JSON.stringify($scope.formKhoaHoc.hinhAnh)], { type: "application/json" }));
+
+                formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type: "application/json" }));
+
+                $http.put(`/rest/admin/KhoaHoc/${item.id}`, formData, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                }).then(resp => {
+                    console.log(resp);
+                    $scope.resetKhoaHoc();
+                    $scope.updateUI();
+                })
+                    .catch(error => {
+                        console.log("Error", error)
+                    })
+            }
+            $scope.resetKhoaHoc = function () {
+                $scope.formKhoaHoc = {};
+                // Xóa giá trị của input file
+                var input = document.getElementById('imageInput');
+                input.value = '';
+                // Xóa nội dung của phần tử preview
+                var preview = document.getElementById('preview');
+                preview.innerHTML = '';
+
+                // Hiển thị ảnh mặc định
+                var preview = document.getElementById('preview');
+                preview.innerHTML = '<img  src="/Admin/img/gallery.png" alt="Default Image" height="100px" width="100px">';
+
+                $scope.btnThemKhoaHoc = true;
+                $scope.btnSuaKhoaHoc = false;
+                $scope.btnXoaKhoaHoc = false;
+
+
+            }
+
+            $scope.create = function () {
+                $scope.idLogin = document.getElementById("idLogin").value;
+                $scope.hassError = false;
+                //trạng thái hiển thị khoa học
+                $scope.formKhoaHoc.trangThai = "true";
+                $scope.formKhoaHoc.duyet = false;
+                var input = document.getElementById('imageInput');
+                var files = input.files;
+
+                var currentDate = new Date();
+                $scope.formKhoaHoc.ngayTao = currentDate.toISOString();
+                $scope.formKhoaHoc.hinhAnh = files[0].name;
+                $scope.formKhoaHoc.nguoiTao = { id: $scope.idLogin };
+                $scope.formKhoaHoc.loaiKhoaHoc = { id: '6' };
+                var formData = new FormData();
+                formData.append('hinhAnh', new Blob([JSON.stringify($scope.formKhoaHoc.hinhAnh)], { type: "application/json" }));
+
+                formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type: "application/json" }));
+                console.log(formData.get('khoaHoc'));
+                console.log(formData.get('hinhAnh'));
+                $http.post('/api/khoahoc', formData, {
+                    transformRequest: angular.identity,
+                    headers: { 'Content-Type': undefined }
+                })
+                    .then(function (response) {
+                        alert("Thêm thành công");
+                        $scope.updateUI();
+                        $scope.resetKhoaHoc();
+                    })
+                    .catch(function (response) {
+                        $scope.hassError = true;
+                        $scope.message1 = "Tên khoá học đã tồn tại";
+                        console.log(response);
+                    });
+
+            }
+
+
             $scope.updateUI();
+
+
         });
     </script>
     <!-- Footer End -->

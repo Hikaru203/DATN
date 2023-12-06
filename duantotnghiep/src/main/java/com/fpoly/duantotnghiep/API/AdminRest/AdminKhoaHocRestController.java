@@ -1,6 +1,5 @@
 package com.fpoly.duantotnghiep.API.AdminRest;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,70 +42,76 @@ public class AdminKhoaHocRestController {
     public List<KhoaHoc> getAll() {
         return khoaHocService.findAll();
     }
+
     @GetMapping("/Duyet")
-        public List<KhoaHoc> getDuyet() {
-            return khoaHocService.findDuyet();
-        }
+    public List<KhoaHoc> getDuyet() {
+        return khoaHocService.findDuyet();
+    }
 
     @GetMapping("/{id}")
     public KhoaHoc getById(@PathVariable("id") int id) {
         return khoaHocService.findById(id);
     }
-     @PostMapping()
-    public KhoaHoc create(@RequestParam("hinhAnh") MultipartFile file, @RequestPart("khoaHoc")  KhoaHoc khoaHoc, HttpServletRequest request) throws IOException {
 
-         // Process the uploaded file
-    if (!file.isEmpty()) {
-        byte[] bytes = file.getBytes();
+    @PostMapping()
+    public KhoaHoc create(@RequestParam("hinhAnh") MultipartFile file, @RequestPart("khoaHoc") KhoaHoc khoaHoc,
+            HttpServletRequest request) throws IOException {
 
-        // Specify the directory where you want to save the file
-        String uploadPath = "src/main/resources/static/img/";
+        // Process the uploaded file
+        if (!file.isEmpty()) {
+            byte[] bytes = file.getBytes();
 
-        // Generate a unique filename
-        String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+            // Specify the directory where you want to save the file
+            String uploadPath = "src/main/resources/static/img/";
 
-        // Create the complete file path
-        String filePath = uploadPath + fileName;
+            // Generate a unique filename
+            String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
 
-        // Save the file
-        java.nio.file.Path nioPath = Paths.get(filePath); // Sử dụng java.nio.file.Path
+            // Create the complete file path
+            String filePath = uploadPath + fileName;
 
-        Files.write(nioPath, bytes);
-        khoaHoc.setHinhAnh(fileName);
-    }
+            // Save the file
+            java.nio.file.Path nioPath = Paths.get(filePath); // Sử dụng java.nio.file.Path
+
+            Files.write(nioPath, bytes);
+            khoaHoc.setHinhAnh(fileName);
+        }
 
         return khoaHocService.create(khoaHoc);
     }
+
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Integer id) {
         khoaHocService.deleteById(id);
     }
 
     @PutMapping("{id}")
-    public KhoaHoc update(@PathVariable("id") Integer id, @RequestPart(name = "hinhAnh", required = false) MultipartFile file, @RequestPart("khoaHoc")  KhoaHoc khoaHoc, HttpServletRequest request) throws IOException  { 
-    // Process the uploaded file
-    if (file != null && !file.isEmpty()) {
-        byte[] bytes = file.getBytes();
+    public KhoaHoc update(@PathVariable("id") Integer id,
+            @RequestPart(name = "hinhAnh", required = false) MultipartFile file,
+            @RequestPart("khoaHoc") KhoaHoc khoaHoc, HttpServletRequest request) throws IOException {
+        // Process the uploaded file
+        if (file != null && !file.isEmpty()) {
+            byte[] bytes = file.getBytes();
 
-        // Specify the directory where you want to save the file
-        String uploadPath = "src/main/resources/static/img/";
+            // Specify the directory where you want to save the file
+            String uploadPath = "src/main/resources/static/img/";
 
-        // Generate a unique filename
-        String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+            // Generate a unique filename
+            String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
 
-        // Create the complete file path
-        String filePath = uploadPath + fileName;
+            // Create the complete file path
+            String filePath = uploadPath + fileName;
 
-        // Save the file
-        java.nio.file.Path nioPath = Paths.get(filePath); // Sử dụng java.nio.file.Path
+            // Save the file
+            java.nio.file.Path nioPath = Paths.get(filePath); // Sử dụng java.nio.file.Path
 
-        Files.write(nioPath, bytes);
-        khoaHoc.setHinhAnh(fileName);
-    }
+            Files.write(nioPath, bytes);
+            khoaHoc.setHinhAnh(fileName);
+        }
         return khoaHocService.update(khoaHoc);
     }
 
-     @Autowired
+    @Autowired
     private HttpSession httpSession;
 
     @GetMapping("/getUserInfo")
@@ -119,7 +124,7 @@ public class AdminKhoaHocRestController {
         }
     }
 
-// load cbo loai khóa học
+    // load cbo loai khóa học
     @GetMapping("/loaiKhoaHoc")
     public List<LoaiKhoaHoc> getAllLoaiKhoaHoc() {
         return khoaHocService.findAllLoaiKhoaHoc();
