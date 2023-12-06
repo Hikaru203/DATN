@@ -71,7 +71,8 @@ public class Login_DangKy {
 
     @GetMapping("/courseOnline/ErorOTP")
     public String ErorrOTP(Model model) {
-        model.addAttribute("message", "Bạn đã nhập sai vui nhập lại");
+        model.addAttribute("message",
+                "Xin lỗi, OTP của bạn đã hết hạn");
 
         return "nhapmaotp";
     }
@@ -99,5 +100,10 @@ public class Login_DangKy {
         model.addAttribute("message", "Đổi mật khẩu thất bạn ");
 
         return "doimk";
+    }
+
+    @GetMapping("/courseOnline/huy")
+    public String huy(Model model) {
+        return "dangnhap";
     }
 }
