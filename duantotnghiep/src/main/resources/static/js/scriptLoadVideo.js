@@ -103,9 +103,9 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             let videoIframe = document.getElementById('video-iframe');
             let videoSrc;
             if (VideoId) {
-                videoSrc = `https://www.youtube-nocookie.com/embed/${VideoId}?start=${timeInt}&modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=0`;
+                videoSrc = `https://www.youtube-nocookie.com/embed/${VideoId}?start=${timeInt}&modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=1`;
             } else {
-                videoSrc = `https://www.youtube-nocookie.com/embed/${match_video.linkVideo}?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=0`;
+                videoSrc = `https://www.youtube-nocookie.com/embed/${match_video.linkVideo}?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=1`;
             }
             console.log(match_video.mucLuc.id);
             videoIframe.src = videoSrc;
@@ -327,7 +327,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         }
     });
 
-    
+
 
 
     // Xử lý sự kiện thay đổi âm lượng
@@ -370,17 +370,29 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
             videoPlaylist.innerHTML = ''; // Clear the playlist before adding new videos
 
-            $scope.data.forEach((video, i) => {
-                let video_element = `
-                    <div class="video" data-id="${video.id}" data-disabled="true">
-                        <img src="/img/play.svg" alt="">
-                        <p>${i + 1 > 9 ? i + 1 : '0' + (i + 1)}. </p>
-                        <h3 class="title">${video.tenVideo}</h3>
-                    </div>
-                `;
-                videoPlaylist.innerHTML += video_element;
+            // Sort videos by mucLuc (assuming mucLuc is a property in each video item)
+            $scope.data.sort((a, b) => {
+                if (a.mucLuc.id < b.mucLuc.id) {
+                    return -1;
+                }
+                if (a.mucLuc.id > b.mucLuc.id) {
+                    return 1;
+                }
+                return 0;
             });
-
+            console.log($scope.data);
+            let index = 1;
+            $scope.data.forEach((video) => {
+                let video_element = `
+            <div class="video" data-id="${video.id}" data-disabled="true">
+                <img src="/img/play.svg" alt="">
+                <p>${index > 9 ? index : '0' + index}. </p>
+                <h3 class="title">${video.tenVideo}</h3>
+            </div>
+        `;
+                videoPlaylist.innerHTML += video_element;
+                index++;
+            });
 
             let videos = document.querySelectorAll('.video');
             setupVideoEvents($scope);
@@ -388,6 +400,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         }).catch(error => {
             console.error(error);
         });
+
     }
 
 
