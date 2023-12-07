@@ -1,18 +1,27 @@
 package com.fpoly.duantotnghiep.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
 
+import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
+import com.fpoly.duantotnghiep.Entity.MucLuc;
 import com.fpoly.duantotnghiep.Entity.NguoiDung;
+import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
 import com.fpoly.duantotnghiep.jparepository.LoaiKhoaHocRepository;
 import com.fpoly.duantotnghiep.service.CookieService;
+import com.fpoly.duantotnghiep.service.KhoaHocService;
+import com.fpoly.duantotnghiep.service.MucLucService;
+import com.fpoly.duantotnghiep.service.VideoService;
 import com.fpoly.duantotnghiep.service.YouTubeService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +39,15 @@ public class YouTubeController {
 
     @Autowired
     LoaiKhoaHocRepository loaiKhoaHocRepository;
+
+    @Autowired
+    MucLucService mucLucService;
+
+    @Autowired
+    KhoaHocService daoHocService;
+
+    @Autowired
+    VideoService videoService;
 
     @GetMapping("/Admin/Video")
     public String authenticate(Model model, HttpSession session) {
@@ -50,26 +68,42 @@ public class YouTubeController {
         }
     }
 
-    @GetMapping("/courseOnline/uploadKhoaHoc")
+    @GetMapping("/courseOnline/uploademo")
     public String authenticate2(Model model, HttpSession session) {
         List<LoaiKhoaHoc> loaiKhoaHocs = loaiKhoaHocRepository.findAll();
         model.addAttribute("tenKhoaHocList", loaiKhoaHocs);
 
-        String accessToken = (String) session.getAttribute("accessToken");
+        // Lấy thông tin về người dùng đang đăng nhập từ Spring Security
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        NguoiDung user = (NguoiDung) session.getAttribute("user");
 
-        if (accessToken == null) {
-            String authorizationUrl = youTubeService.getAuthorizationUrl();
-            model.addAttribute("authorizationUrl", authorizationUrl);
-            model.addAttribute("accessToken", accessToken);
-            System.out.println("accessToken: " + accessToken);
-            System.out.println("authorizationUrl: " + authorizationUrl);
-            return "uploadKhoaHoc";
+        if (authentication != null && !authentication.getName().equals("anonymousUser") && user != null) {
+            
+            // Kiểm tra xem người dùng đã được xác thực hay chưa
+            if (!user.getChucVu().equalsIgnoreCase("true")) {
 
+                String accessToken = (String) session.getAttribute("accessToken");
+
+                if (accessToken == null) {
+                    String authorizationUrl = youTubeService.getAuthorizationUrl();
+                    model.addAttribute("authorizationUrl", authorizationUrl);
+                    model.addAttribute("accessToken", accessToken);
+
+                    return "uploademo";
+
+                } else {
+                    String authorizationUrl = youTubeService.getAuthorizationUrl();
+                    model.addAttribute("accessToken", accessToken);
+                    model.addAttribute("authorizationUrl", authorizationUrl);
+                    return "uploademo";
+                }
+            } else {
+                return "redirect:/Admin/User";
+            }
         } else {
-            String authorizationUrl = youTubeService.getAuthorizationUrl();
-            model.addAttribute("accessToken", accessToken);
-            model.addAttribute("authorizationUrl", authorizationUrl);
-            return "uploadKhoaHoc";
+            // Xử lý nếu không có người dùng nào đăng nhập
+            // Hoặc redirect đến trang đăng nhập nếu cần
+            return "redirect:/courseOnline/dangnhap";
         }
     }
 
@@ -96,7 +130,7 @@ public class YouTubeController {
                 if (user.getChucVu().equals("true")) {
                     return "redirect:/Admin/Video";
                 } else {
-                    return "redirect:/courseOnline/uploadKhoaHoc";
+                    return "redirect:/courseOnline/uploademo";
                 }
             } catch (Exception e) {
                 return "redirect:/Admin/Video";

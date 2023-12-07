@@ -10,6 +10,8 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
     $scope.itemsNguoiDung = [];
     $scope.formVideo = {};
     $scope.MucLuc = [];
+    $scope.MucLuc1 = [];
+
     $scope.videoTitles = [];
 
 
@@ -53,6 +55,38 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
     }
 
 
+
+    $scope.saveChanges = function () {
+        // Logic để lưu các thay đổi, có thể là gọi API hoặc thực hiện các thao tác khác
+        // Sau khi lưu thành công, có thể ẩn form chỉnh sửa
+        $scope.closeForm();
+    };
+
+    $scope.closeForm = function () {
+        // Đưa form chỉnh sửa về trạng thái ẩn
+        var editForm = document.querySelector('.edit-form');
+        if (editForm) {
+            editForm.style.display = 'none';
+            $scope.formIsVisible = false; // Ban đầu form ẩn đi
+            console.log($scope.formIsVisible);
+
+        }
+    };
+
+
+    $scope.delete = function (id) {
+        if (confirm("Bạn có chắc chắn muốn xóa không?")) {
+            $http.delete(`/rest/admin/Videos/${id}`).then(resp => {
+                showNotification(3);
+                $scope.initialize();
+            }).catch(error => {
+                showNotification(7);
+                console.error("Error", error);
+            });
+        }
+    };
+
+
     $scope.initialize = function () {
         $http.get("/rest/admin/Videos").then(resp => {
             $scope.itemsVideo = resp.data;
@@ -83,7 +117,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
             $http.get("/rest/admin/Videos/" + $scope.selectedCourse).then(resp => {
                 $scope.itemsVideo = resp.data;
                 $scope.totalItems = $scope.itemsVideo.length;
-                $scope.order = $scope.itemsVideo.length;
+
                 $scope.pageChanged(); // Hiển thị trang đầu tiên
 
                 console.log($scope.order);
@@ -100,8 +134,15 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
     };
 
     $scope.getSelectedMucLuc = function (selectedMucLuc) {
-        console.log("Selected Muc Luc ID: " + selectedMucLuc);
-        $scope.selectedMucLuc = selectedMucLuc;
+        console.log(selectedMucLuc);
+        $http.get("/rest/admin/MucLuc/" + selectedMucLuc).then(resp => {
+            console.log(resp.data);
+            $scope.selectedMucLuc = selectedMucLuc;
+        });
+        $http.get("/rest/admin/Videos/mucLuc/" + selectedMucLuc).then(resp => {
+            console.log(resp.data.length);
+            $scope.order = resp.data.length;
+        });
     };
 
 
@@ -192,58 +233,63 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
         const youtubeLink = document.getElementById("youtubeLink").value;
 
         if (!selectedCourseId) {
-            alert("Vui lòng chọn một khóa học.");
+            showNotification(12)
             return;
         }
 
         if (!youtubeLink.trim()) {
-            alert("Vui lòng nhập liên kết video từ YouTube.");
+            showNotification(13);
             return;
         }
 
         const videoId = getYoutubeVideoId(youtubeLink);
 
         if (!videoId) {
-            alert("Không thể trích xuất ID video từ liên kết YouTube.");
+            showNotification(14);
             return;
         }
+        if (!$scope.selectedMucLuc) {
+            showNotification(23);
+            return;
+        } else {
+            $http.get("/rest/admin/MucLuc/" + $scope.selectedMucLuc)
+                .then(resp => {
+                    $scope.formVideo.mucLuc = resp.data;
+                    $http.get("/rest/admin/NguoiDung/" + 1)
+                        .then(resp => {
+                            $scope.formVideo.nguoiTao = resp.data;
+                            $scope.formVideo.linkVideo = videoId;
+                            $scope.formVideo.thuTu = $scope.order + 1;
 
-        $http.get("/rest/admin/MucLuc/" + $scope.selectedMucLuc)
-            .then(resp => {
-                $scope.formVideo.mucLuc = resp.data;
-                $http.get("/rest/admin/NguoiDung/" + 1)
-                    .then(resp => {
-                        $scope.formVideo.nguoiTao = resp.data;
-                        $scope.formVideo.linkVideo = videoId;
-                        $scope.formVideo.thuTu = $scope.order + 1;
+                            // Lấy ngày và giờ hiện tại
+                            var currentDate = new Date();
+                            $scope.formVideo.ngayTao = currentDate.toISOString(); // Lưu dưới dạng ISO string
 
-                        // Lấy ngày và giờ hiện tại
-                        var currentDate = new Date();
-                        $scope.formVideo.ngayTao = currentDate.toISOString(); // Lưu dưới dạng ISO string
+                            // Lấy tiêu đề của video
+                            getYoutubeVideoTitle(videoId, function (videoTitle) {
+                                if (videoTitle) {
+                                    $scope.formVideo.tenVideo = videoTitle;
+                                } else {
+                                    showNotification(15);
+                                    return;
+                                }
 
-                        // Lấy tiêu đề của video
-                        getYoutubeVideoTitle(videoId, function (videoTitle) {
-                            if (videoTitle) {
-                                $scope.formVideo.tenVideo = videoTitle;
-                            } else {
-                                alert("Không thể lấy được tiêu đề của video từ YouTube.");
-                                return;
-                            }
+                                // Gửi yêu cầu POST để thêm video mới
+                                return $http.post(`/rest/admin/Videos`, $scope.formVideo);
+                            });
+                        })
 
-                            // Gửi yêu cầu POST để thêm video mới
-                            return $http.post(`/rest/admin/Videos`, $scope.formVideo);
-                        });
-                    })
-            })
-            .then(resp => {
-                console.log("Success", resp);
-                alert("Thêm mới thành công");
-                $scope.loadDocuments();
-            })
-            .catch(error => {
-                console.log("Error", error);
-                alert("Thêm mới thất bại");
-            });
+                })
+                .then(resp => {
+                    console.log("Success", resp);
+                    showNotification(2);
+                    $scope.loadDocuments();
+                })
+                .catch(error => {
+                    console.log("Error", error);
+                    showNotification(6);
+                });
+        }
     };
 
 
@@ -252,7 +298,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
     $scope.createNewVideo = function () {
         const selectedCourseId = $scope.selectedCourse;
         if (!selectedCourseId) {
-            alert("Vui lòng chọn khóa học");
+            showNotification(12);
             return;
         }
 
@@ -284,7 +330,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
                         deleteCookie('videoId');
                         deleteCookie('videoTitle');
 
-                        alert("Thêm mới thành công");
+                        showNotification(2);
                         $scope.loadDocuments();
 
                         // Gửi yêu cầu POST để thêm video mới
@@ -296,18 +342,18 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
                             })
                             .catch(error => {
                                 console.log("Error", error);
-                                alert("Thêm mới thất bại");
+                                showNotification(6);
                             });
 
                     })
                     .catch(error => {
                         console.log("Error", error);
-                        alert("Thêm mới thất bại");
+                        showNotification(6);
                     });
             })
             .catch(error => {
                 console.log("Error", error);
-                alert("Thêm mới thất bại");
+                showNotification(6);
             });
     };
 
@@ -330,6 +376,9 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
         $scope.loadDocuments(course.id);
 
     };
+
+
+
 });
 
 
@@ -351,22 +400,22 @@ document.addEventListener("DOMContentLoaded", function () {
             const fileInput = document.getElementById("file");
 
             if (!titleInput.value) {
-                alert("Vui lòng nhập tiêu đề.");
+                showNotification(16);
                 return;
             }
 
             if (!descriptionInput.value) {
-                alert("Vui lòng nhập mô tả.");
+                showNotification(17);
                 return;
             }
 
             if (!privacyStatusInput.value) {
-                alert("Vui lòng chọn quyền riêng tư.");
+                showNotification(18);
                 return;
             }
 
             if (!fileInput.files[0]) {
-                alert("Vui lòng chọn tệp video.");
+                showNotification(19);
                 return;
             }
 
@@ -386,11 +435,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         const scope = angular.element(document.querySelector('[ng-controller="Video-ctrl"]')).scope();
                         scope.$apply(function () {
                             scope.createNewVideo();
-                            alert("Đã gửi form thành công.");
+                            showNotification(10);
                         });
 
                     } else {
-                        alert("Đã xảy ra lỗi khi gửi form.");
+                        showNotification(11);
                     }
                 })
                 .catch(error => {
@@ -423,7 +472,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 videoPlayer.src = objectURL;
                 youtubeVideoContainer.style.display = "none";
             } else {
-                alert("Chỉ hỗ trợ tệp .mp4");
+                showNotification(20);
                 fileInput.value = "";
             }
         } else {
@@ -442,10 +491,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 videoPlayer.src = youtubeEmbedCode;
                 youtubeVideoContainer.style.display = "block";
             } else {
-                alert("Không thể trích xuất mã video từ liên kết");
+                showNotification(21);
             }
         } else {
-            alert("Liên kết YouTube không hợp lệ");
+            showNotification(22);
         }
     });
 
@@ -535,4 +584,50 @@ const filterList = searchTerm => {
     });
 };
 
+
+const notifications = [
+    { text: "Đã khóa", duration: 3000, type: "success" },//---0---
+    { text: "Đã mở khóa", duration: 3000, type: "success" },//---1---
+    { text: "Thêm thành công", duration: 3000, type: "success" },//---2---
+    { text: "Xóa thành công", duration: 3000, type: "success" },//---3---
+    { text: "Sửa thành công", duration: 3000, type: "success" },//---4---
+    { text: "lỗi", duration: 3000, type: "error" },//---5---
+    { text: "Lỗi thêm mới", duration: 3000, type: "error" },//---6---
+    { text: "Lỗi xóa", duration: 3000, type: "error" },//---7---
+    { text: "Lỗi cập nhật", duration: 3000, type: "error" },//---8---D
+    { text: "Duyệt thành công", duration: 3000, type: "success" },//---9---
+    { text: "Đã gửi form thành công", duration: 3000, type: "success" },//---10---
+    { text: "Lỗi gửi form", duration: 3000, type: "error" },//---11---
+    { text: "Vui lòng chọn một khóa học", duration: 3000, type: "warning" },//---12---
+    { text: "Vui lòng nhập liên kết video từ YouTube", duration: 3000, type: "warning" },//---13---
+    { text: "Không thể trích xuất ID video từ liên kết YouTube", duration: 3000, type: "warning" },//---14---
+    { text: "Không thể lấy được tiêu đề của video từ YouTube", duration: 3000, type: "warning" },//---15---
+    { text: "Vui lòng nhập tiêu đề", duration: 3000, type: "warning" },//---16---
+    { text: "Vui lòng nhập mô tả", duration: 3000, type: "warning" },//---17---
+    { text: "Vui lòng chọn quyền riêng tư", duration: 3000, type: "warning" },//---18---
+    { text: "Vui lòng chọn tệp video", duration: 3000, type: "warning" },//---19---
+    { text: "Chỉ hỗ trợ tệp .mp4", duration: 3000, type: "warning" },//---20---
+    { text: "Không thể trích xuất mã video từ liên kết", duration: 3000, type: "warning" },//---21---
+    { text: "Liên kết YouTube không hợp lệ", duration: 3000, type: "warning" },//---22---
+    { text: "Vui lòng chọn mục lục", duration: 3000, type: "warning" },//---23---
+];
+
+// Hàm hiển thị thông báo
+function showNotification(index) {
+    if (index < notifications.length) {
+        const notification = notifications[index];
+
+        Toastify({
+            text: notification.text,
+            duration: notification.duration,
+            gravity: "top",
+            position: 'center',
+            className: notification.type,
+            onClose: function () {
+                // Hiển thị thông báo tiếp theo khi thông báo hiện tại được đóng
+                showNotification(index + 1);
+            }
+        }).showToast();
+    }
+}
 

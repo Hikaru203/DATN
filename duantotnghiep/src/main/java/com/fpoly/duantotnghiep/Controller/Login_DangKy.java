@@ -71,10 +71,18 @@ public class Login_DangKy {
 
     @GetMapping("/courseOnline/ErorOTP")
     public String ErorrOTP(Model model) {
-        model.addAttribute("message", "Bạn đã nhập sai vui nhập lại");
+        model.addAttribute("message",
+                "Xin lỗi, OTP của bạn đã hết hạn");
 
         return "nhapmaotp";
     }
+    @GetMapping("/courseOnline/FaillOTP")
+    public String failotp(Model model) {
+        model.addAttribute("message", "Sai OTP vui lòng nhập lại ");
+
+        return "nhapmaotp";
+    }
+
 
     @RequestMapping("/oauth2/login/success")
     public String success(OAuth2AuthenticationToken oauth2) {
@@ -84,12 +92,14 @@ public class Login_DangKy {
         NguoiDung nguoiDung = nguuoidungRepository.findByEmail(email);
         if (nguoiDung != null) {
             httpSession.setAttribute("user", nguoiDung);
-            return "index";
+            return "redirect:/courseOnline/index";
+        } else {
+            NguoiDung nguoixai = new NguoiDung(email, password, name, email, "false", "false", true, false);
+            nguuoidungRepository.save(nguoixai);
+            httpSession.setAttribute("user", nguoixai);
+            return "redirect:/courseOnline/index";
         }
-        NguoiDung nguoixai = new NguoiDung(email, password, name, email, "false", "false", true, false);
-        nguuoidungRepository.save(nguoixai);
-        httpSession.setAttribute("user", nguoixai);
-        return "index";
+
     }
 
     @GetMapping("/courseOnline/Faillsesion")
@@ -97,5 +107,10 @@ public class Login_DangKy {
         model.addAttribute("message", "Đổi mật khẩu thất bạn ");
 
         return "doimk";
+    }
+
+    @GetMapping("/courseOnline/huy")
+    public String huy(Model model) {
+        return "dangnhap";
     }
 }

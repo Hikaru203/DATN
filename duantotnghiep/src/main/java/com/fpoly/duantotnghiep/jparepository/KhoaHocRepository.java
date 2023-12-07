@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
+import com.fpoly.duantotnghiep.Entity.NguoiDung;
 
 public interface KhoaHocRepository extends JpaRepository<KhoaHoc, Integer> {
 	@Query("SELECT kh FROM KhoaHoc kh WHERE kh.loaiKhoaHoc = ?1")
@@ -29,7 +30,10 @@ public interface KhoaHocRepository extends JpaRepository<KhoaHoc, Integer> {
 
 	@Query("SELECT DISTINCT k.loaiKhoaHoc.tenLoaiKhoaHoc FROM KhoaHoc k")
 	List<String> findAllNameCategory();
-	
+
 	@Query("SELECT DISTINCT k.loaiKhoaHoc.tenLoaiKhoaHoc FROM KhoaHoc k")
 	List<String> findAllIdCategory();
+
+	@Query("SELECT k FROM KhoaHoc k WHERE k.nguoiTao.id = :nguoiDungId")
+	List<KhoaHoc> findByNguoiDung(@Param("nguoiDungId") Integer nguoiDungId);
 }

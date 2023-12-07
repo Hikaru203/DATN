@@ -86,8 +86,8 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
 
         // Thêm một thuộc tính 'isCorrect' vào mỗi câu hỏi để xác định câu hỏi có đúng hay sai
         for (const question of $scope.questionAnswerArray) {
-            if (question.selectedAnswer === undefined) {           
-                 $scope.soCauSai++;
+            if (question.selectedAnswer === undefined) {
+                $scope.soCauSai++;
                 $scope.msg = 'Bạn chưa chọn đáp án cho tất cả các câu hỏi.';
                 return;
             } else {
@@ -185,6 +185,7 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
                         console.log("Thêm thành công");
                         window.location.href = '/courseOnline/detail/' + idKhoaHoc; // Ví dụ: chuyển đến trang trắc nghiệm
                     });
+                    window.location.href = '/courseOnline/detail/' + idKhoaHoc; // Ví dụ: chuyển đến trang trắc nghiệm
                 }
             } else {
                 console.log("Không tìm thấy idFromSessionStorage trong mảng.");
@@ -198,7 +199,7 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
             console.log(response);
         });
     });
-    
+
     $scope.hasUnansweredQuestions = function () {
         for (const question of $scope.questionAnswerArray) {
             if (question.selectedAnswer === undefined) {

@@ -56,8 +56,10 @@ public class NguoiDungServiceImpl implements NguoiDungService {
     public boolean existsById(int id) {
         return nguoiDungRepository.existsById(id);
     }
-  	
-  
+
+    	
+   
+
     @Override
     public NguoiDung findNguoiDungById(int id) {
         return nguoiDungRepository.findById(id).orElse(null);
@@ -73,7 +75,7 @@ public class NguoiDungServiceImpl implements NguoiDungService {
                                                          .substring(file.getOriginalFilename().lastIndexOf("."));
         Path path = Paths.get(IMAGE_DIRECTORY, fileName);
         Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-        nguoiDung.setHinhAnh("/Admin/img/User/" + fileName);
+        nguoiDung.setHinhAnh("uploads/images/" + fileName);
         return nguoiDungRepository.save(nguoiDung);
     }
        @Override
@@ -82,6 +84,8 @@ public class NguoiDungServiceImpl implements NguoiDungService {
     }
 
         
+
+
        @Override
        public void capNhatNguoiDung(int id, NguoiDung nguoiDung, MultipartFile file) throws IOException {
            NguoiDung existingUser = nguoiDungRepository.findById(id)
@@ -104,8 +108,6 @@ public class NguoiDungServiceImpl implements NguoiDungService {
 
            nguoiDungRepository.save(existingUser);
        }
-
-
 
 
        @Override

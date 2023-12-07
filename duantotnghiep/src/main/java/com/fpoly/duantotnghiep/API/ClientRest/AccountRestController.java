@@ -71,13 +71,13 @@ public class AccountRestController {
         int randomNumber = (int) (Math.random() * 9000) + 1000;
         String otp = String.valueOf(randomNumber);
         session.setAttribute("otp", randomNumber);
-        session.setMaxInactiveInterval(200);
+        session.setMaxInactiveInterval(60);
         session.setAttribute("email", Email);
         System.out.println(otp);
         try {
-        mailService.otpAccountEmail(Email, otp);
+            mailService.otpAccountEmail(Email, otp);
         } catch (Exception e) {
-        // TODO: handle exception
+            // TODO: handle exception
         }
         return new RedirectView("/courseOnline/confirmotp");
     }
@@ -85,12 +85,16 @@ public class AccountRestController {
     @GetMapping("/confirm")
     public RedirectView confom(@RequestParam("otp") String otp) {
         String mck = String.valueOf(session.getAttribute("otp"));
+        if (session.getAttribute("otp") == null) {
+
+            return new RedirectView("/courseOnline/ErorOTP");
+        }
         if (otp.equals(mck)) {
             session.setAttribute("kiemtraotp", "KT");
             System.out.println(otp);
             return new RedirectView("/courseOnline/doimk");
         }
-        return new RedirectView("/courseOnline/ErorOTP");
+        return new RedirectView("/courseOnline/FaillOTP");
     }
 
     @GetMapping("/doimaukhau")

@@ -37,4 +37,9 @@ public class VideoServiceImpI implements VideoService {
         return videoKhoaHocRepository.findByMucLucIdOrderByAsc(idMucLuc);
     }
 
+    @Override
+    public void deleteById(int id) {
+        videoKhoaHocRepository.deleteById(id);
+    }
+
 }

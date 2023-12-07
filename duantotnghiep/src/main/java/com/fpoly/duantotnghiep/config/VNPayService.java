@@ -12,7 +12,7 @@ import java.util.*;
 @Service
 public class VNPayService {
 
-    public String createOrder(int total, String orderInfor, String urlReturn){
+    public String createOrder(int total, String orderInfor, String urlReturn) throws UnsupportedEncodingException{
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
@@ -28,7 +28,10 @@ public class VNPayService {
         vnp_Params.put("vnp_CurrCode", "VND");
         
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_OrderInfo", orderInfor);
+     // Encode the order info
+        String encodedOrderInfo = URLEncoder.encode(orderInfor, StandardCharsets.UTF_8.toString());
+        vnp_Params.put("vnp_OrderInfo", encodedOrderInfo);
+
         vnp_Params.put("vnp_OrderType", orderType);
 
         String locate = "vn";

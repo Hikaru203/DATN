@@ -54,6 +54,22 @@ public class AdminAccountRestController {
     }
 
 
+    @PostMapping("/them")
+    public ResponseEntity<?> addNguoiDung(NguoiDung nguoiDung, MultipartFile file) {
+        try {
+            NguoiDung addedNguoiDung = nguoiDungService.addNguoiDung(nguoiDung, file);
+            return ResponseEntity.ok(addedNguoiDung);
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Lỗi khi lưu file hình ảnh: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/them1")
+    public ResponseEntity<?> addNguoiDung1(@RequestBody NguoiDung nguoiDung) {
+        NguoiDung addedNguoiDung = nguoiDungService.save(nguoiDung);
+        return ResponseEntity.ok(addedNguoiDung);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<NguoiDung> layNguoiDung(@PathVariable("id") int id) {
         NguoiDung nguoiDung = nguoiDungService.getNguoiDungById(id);

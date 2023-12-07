@@ -10,8 +10,7 @@
 
 	<!-- Favicon -->
 	<link th:href="@{img/favicon.ico}" rel="icon">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<!-- Google Web Fonts -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -120,7 +119,7 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
 								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
 									<a href="contact" class="dropdown-item">Đăng ký nhà sáng tạo</a>
-									
+
 									<a href="uploademo" class="dropdown-item">Đăng khoá học1</a>
 									<a href="mucluc" class="dropdown-item">Mục lục</a>
 								</div>
@@ -171,110 +170,118 @@
 		</div>
 	</div>
 	<!-- Navbar End -->
-	
+
 	<!-- Carousel Start -->
 	<div class="container-fluid p-0 pb-5 mb-5">
 		<div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
-    <ol class="carousel-indicators">
-        <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
-        <li data-target="#header-carousel" data-slide-to="1"></li>
-        <li data-target="#header-carousel" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-        <div class="carousel-item active" style="min-height: 300px;">
-            <img class="position-relative w-100" th:src="@{/img/carousel-1.jpg}" style="min-height: 300px; object-fit: cover;">
-            <div class="carousel-caption d-flex align-items-center justify-content-center">
-                <div class="p-5" style="width: 100%; max-width: 900px;">
-                    <h5 class="text-white text-uppercase mb-md-3">Các khóa học trực tuyến tốt nhất</h5>
-                    <h1 class="display-3 text-white mb-md-4">Được sản xuất bởi đội ngũ PolyAcademy</h1>
-                    <a href="/courseOnline/index" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm hiểu thêm</a>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-item" style="min-height: 300px;">
-            <img class="position-relative w-100" th:src="@{/img/carousel-2.jpg}" style="min-height: 300px; object-fit: cover;">
-            <div class="carousel-caption d-flex align-items-center justify-content-center">
-                <div class="p-5" style="width: 100%; max-width: 900px;">
-                    <h5 class="text-white text-uppercase mb-md-3">Năng lực cốt lỗi</h5>
-                    <h1 class="display-3 text-white mb-md-4">Làm nên sự khác biệt của chính bạn</h1>
-                    <a href="/courseOnline/index" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm hiểu thêm</a>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-item" style="min-height: 300px;">
-            <img class="position-relative w-100" th:src="@{/img/carousel-3.jpg}" style="min-height: 300px; object-fit: cover;">
-            <div class="carousel-caption d-flex align-items-center justify-content-center">
-                <div class="p-5" style="width: 100%; max-width: 900px;">
-                    <h5 class="text-white text-uppercase mb-md-3">Kiến thức thực tế</h5>
-                    <h1 class="display-3 text-white mb-md-4">Xây dựng tương lai</h1>
-                    <a href="/courseOnline/index" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm hiểu thêm</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-		<!-- Carousel End -->
-
-		<!-- About Start -->
-		<div class="container-fluid py-5">
-			<div class="container py-5">
-				<div class="row align-items-center">
-					<div class="col-lg-5">
-						<img class="img-fluid rounded mb-4 mb-lg-0" th:src="@{/img/about.jpg}" alt="">
-					</div>
-					<div class="col-lg-7">
-						<div class="text-left mb-4">
-							<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">PHƯƠNG CHÂM ĐÀO
-								TẠO
-								CỦA CHÚNG
-								TÔI</h5>
-							<h1>"LẤY NGƯỜI HỌC LÀM CHẤT LƯỢNG"</h1>
+			<ol class="carousel-indicators">
+				<li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+				<li data-target="#header-carousel" data-slide-to="1"></li>
+				<li data-target="#header-carousel" data-slide-to="2"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="carousel-item active" style="min-height: 300px;">
+					<img class="position-relative w-100" th:src="@{/img/carousel-1.jpg}"
+						style="min-height: 300px; object-fit: cover;">
+					<div class="carousel-caption d-flex align-items-center justify-content-center">
+						<div class="p-5" style="width: 100%; max-width: 900px;">
+							<h5 class="text-white text-uppercase mb-md-3">Các khóa học trực tuyến tốt nhất</h5>
+							<h1 class="display-3 text-white mb-md-4">Được sản xuất bởi đội ngũ PolyAcademy</h1>
+							<a href="/courseOnline/index"
+								class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm hiểu thêm</a>
 						</div>
-						<p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp
-							giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh,
-							sinh viên trên cả nước với chất lượng tốt nhất!</p>
-						<a href="/courseOnline/index" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
-							hiểu thêm</a>
+					</div>
+				</div>
+				<div class="carousel-item" style="min-height: 300px;">
+					<img class="position-relative w-100" th:src="@{/img/carousel-2.jpg}"
+						style="min-height: 300px; object-fit: cover;">
+					<div class="carousel-caption d-flex align-items-center justify-content-center">
+						<div class="p-5" style="width: 100%; max-width: 900px;">
+							<h5 class="text-white text-uppercase mb-md-3">Năng lực cốt lỗi</h5>
+							<h1 class="display-3 text-white mb-md-4">Làm nên sự khác biệt của chính bạn</h1>
+							<a href="/courseOnline/index"
+								class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm hiểu thêm</a>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item" style="min-height: 300px;">
+					<img class="position-relative w-100" th:src="@{/img/carousel-3.jpg}"
+						style="min-height: 300px; object-fit: cover;">
+					<div class="carousel-caption d-flex align-items-center justify-content-center">
+						<div class="p-5" style="width: 100%; max-width: 900px;">
+							<h5 class="text-white text-uppercase mb-md-3">Kiến thức thực tế</h5>
+							<h1 class="display-3 text-white mb-md-4">Xây dựng tương lai</h1>
+							<a href="/courseOnline/index"
+								class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm hiểu thêm</a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- About End -->
+	</div>
+	<!-- Carousel End -->
 
-		<!-- Category Start -->
-		<div class="container-fluid py-5">
-			<div class="container pt-5 pb-3">
-				<div class="text-center mb-5">
-					<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khoá học chính</h5>
-					<h1>Top các khoá học được ưa chuộng</h1>
+	<!-- About Start -->
+	<div class="container-fluid py-5">
+		<div class="container py-5">
+			<div class="row align-items-center">
+				<div class="col-lg-5">
+					<img class="img-fluid rounded mb-4 mb-lg-0" th:src="@{/img/about.jpg}" alt="">
 				</div>
-				<div class="row">
+				<div class="col-lg-7">
+					<div class="text-left mb-4">
+						<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">PHƯƠNG CHÂM ĐÀO
+							TẠO
+							CỦA CHÚNG
+							TÔI</h5>
+						<h1>"LẤY NGƯỜI HỌC LÀM CHẤT LƯỢNG"</h1>
+					</div>
+					<p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp
+						giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh,
+						sinh viên trên cả nước với chất lượng tốt nhất!</p>
+					<a href="/courseOnline/index" class="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2">Tìm
+						hiểu thêm</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- About End -->
+
+	<!-- Category Start -->
+	<div class="container-fluid py-5">
+		<div class="container pt-5 pb-3">
+			<div class="text-center mb-5">
+				<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khoá học chính</h5>
+				<h1>Top các khoá học được ưa chuộng</h1>
+			</div>
+			<div class="row">
 				<div class="col-lg-3 col-md-6 mb-4" th:each="tenLoai:${catesName}">
-    <div class="cat-item position-relative overflow-hidden rounded mb-2">
-        <img class="img-fluid" th:src="@{/img/cat-1.jpg}" alt="">
-        <a class="cat-overlay text-white text-decoration-none text-center" th:href="@{|?cid=${tenLoai.loaiKhoaHoc.id}|}">
-            <div class="d-flex flex-column align-items-center">
-                <h4 class="text-white font-weight-medium" name="categoryId" th:text="${tenLoai.loaiKhoaHoc.tenLoaiKhoaHoc}"></h4>
-                <span>100 khoá học</span>
-            </div>
-        </a>
-    </div>
-</div>
-
-					<!-- Category Start -->
-
-					<!-- Courses Start -->
-					<div class="container-fluid py-5">
-						<div class="container py-5">
-							<div class="text-center mb-5">
-								<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khoá học
-									thịnh hành
-								</h5>
-
+					<div class="cat-item position-relative overflow-hidden rounded mb-2">
+						<img class="img-fluid" th:src="@{/img/cat-1.jpg}" alt="">
+						<a class="cat-overlay text-white text-decoration-none text-center"
+							th:href="@{|?cid=${tenLoai.loaiKhoaHoc.id}|}">
+							<div class="d-flex flex-column align-items-center">
+								<h4 class="text-white font-weight-medium" name="categoryId"
+									th:text="${tenLoai.loaiKhoaHoc.tenLoaiKhoaHoc}"></h4>
 							</div>
-							<div class="row">
-								<div class="col-lg-4 col-md-6 mb-4" th:each="item, stat : ${courseOnline}">
+						</a>
+					</div>
+				</div>
+
+				<!-- Category Start -->
+
+				<!-- Courses Start -->
+				<div class="container-fluid py-5">
+					<div class="container py-5">
+						<div class="text-center mb-5">
+							<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khoá học
+								thịnh hành
+							</h5>
+
+						</div>
+						<div class="row">
+							<div class="col-lg-4 col-md-6 mb-4" th:each="item, stat : ${courseOnline}">
+								<th:block th:if="${item.trangThai == 'false' and item.duyet == true}">
 									<a th:href="@{'/courseOnline/detail/' + ${item.id}}">
 										<div class="rounded overflow-hidden mb-2" style="height: 400px;">
 											<div class="bg-secondary p-4" style="height: 400px;">
@@ -287,7 +294,6 @@
 													<small class="m-0">
 														<i class="fa fa-users text-primary mr-2"></i>
 														<span th:text="${list[stat.index][0]} + ' Student'"></span>
-														<!-- Lấy số lượng người học từ courseCountList -->
 													</small>
 												</div>
 												<style>
@@ -318,65 +324,66 @@
 											</div>
 										</div>
 									</a>
-								</div>
-
-
+								</th:block>
 							</div>
 
+
+
 						</div>
+
 					</div>
-					<!-- Courses End -->
-					
 				</div>
+				<!-- Courses End -->
+
+			</div>
 		</div>
 	</div>
 	<!-- Registration Start -->
-					<div class="container-fluid bg-registration py-5" style="margin-bottom: 100px;">
-						<div class="container py-5" >
-							<div class="row align-items-center" >
-								<div class="col-lg-7 mb-5 mb-lg-0">
-									<div class="mb-4">
-										<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Cần
-											bất kỳ khóa
-											học
-										</h5>
-										<h1 class="text-white">Giảm 30% Cho Học Viên Mới</h1>
-									</div>
-									<p class="text-white">Khi tham gia bạn chỉ cần đăng ký tài
-										khoản các khoá học sẽ có miễn phí và trả phí để học trả phí bạn có
-										thể mua khoá học đó</p>
-									<ul class="list-inline text-white m-0">
-										<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Chất
-											lượng khoá học</li>
-										<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Giảng
-											viên nhiệt tình</li>
-										<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Bài
-											học dễ hiểu</li>
-										<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Có
-											chứng chỉ sao khi học</li>
-									</ul>
-								</div>
-								<div class="col-lg-5">
-									<div class="card border-0">
-										<div class="card-body rounded-bottom bg-primary p-5">
-											<button class="btn btn-dark btn-block border-0 py-3" type="submit">Đăng ký
-												ngay</button>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
+	<div class="container-fluid bg-registration py-5" style="margin-bottom: 100px;">
+		<div class="container py-5">
+			<div class="row align-items-center">
+				<div class="col-lg-7 mb-5 mb-lg-0">
+					<div class="mb-4">
+						<h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Cần
+							bất kỳ khóa
+							học
+						</h5>
+						<h1 class="text-white">Giảm 30% Cho Học Viên Mới</h1>
 					</div>
-					<!-- Registration End -->
-					<!-- Footer Start -->
-	<div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5" >
+					<p class="text-white">Khi tham gia bạn chỉ cần đăng ký tài
+						khoản các khoá học sẽ có miễn phí và trả phí để học trả phí bạn có
+						thể mua khoá học đó</p>
+					<ul class="list-inline text-white m-0">
+						<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Chất
+							lượng khoá học</li>
+						<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Giảng
+							viên nhiệt tình</li>
+						<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Bài
+							học dễ hiểu</li>
+						<li class="py-2"><i class="fa fa-check text-primary mr-3"></i>Có
+							chứng chỉ sao khi học</li>
+					</ul>
+				</div>
+				<div class="col-lg-5">
+					<div class="card border-0">
+						<div class="card-body rounded-bottom bg-primary p-5">
+							<button class="btn btn-dark btn-block border-0 py-3" type="submit">Đăng ký
+								ngay</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Registration End -->
+	<!-- Footer Start -->
+	<div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5">
 		<div class="row pt-5">
 			<div class="col-lg-7 col-md-12">
 				<div class="row">
 					<div class="col-md-6 mb-5">
-						<h5 class="text-primary text-uppercase mb-4"
-							style="letter-spacing: 5px;">Liên hệ</h5>
+						<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Liên hệ</h5>
 						<p>
 							<i class="fa fa-map-marker-alt mr-2"></i>22 Thường Thạnh, Khu dân
 							cư Hoàng Quân, Q. Cái Răng, TP. Cần Thơ
@@ -388,44 +395,36 @@
 							<i class="fa fa-envelope mr-2"></i>PolyAcademy@fpt.edu.vn
 						</p>
 						<div class="d-flex justify-content-start mt-4">
+							<a class="btn btn-outline-light btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
 							<a class="btn btn-outline-light btn-square mr-2" href="#"><i
-								class="fab fa-twitter"></i></a> <a
-								class="btn btn-outline-light btn-square mr-2" href="#"><i
-								class="fab fa-facebook-f"></i></a> <a
-								class="btn btn-outline-light btn-square mr-2" href="#"><i
-								class="fab fa-linkedin-in"></i></a> <a
-								class="btn btn-outline-light btn-square" href="#"><i
-								class="fab fa-instagram"></i></a>
+									class="fab fa-facebook-f"></i></a> <a class="btn btn-outline-light btn-square mr-2"
+								href="#"><i class="fab fa-linkedin-in"></i></a> <a
+								class="btn btn-outline-light btn-square" href="#"><i class="fab fa-instagram"></i></a>
 						</div>
 					</div>
 					<div class="col-md-6 mb-5">
-						<h5 class="text-primary text-uppercase mb-4"
-							style="letter-spacing: 5px;">Khoá học của chúng tôi</h5>
+						<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Khoá học của chúng tôi
+						</h5>
 						<div class="d-flex flex-column justify-content-start">
-							<a class="text-white mb-2" href="#"><i
-								class="fa fa-angle-right mr-2"></i>Thiết kế trang Web</a> <a
-								class="text-white mb-2" href="#"><i
-								class="fa fa-angle-right mr-2"></i>Phát triển phần mềm</a> <a
-								class="text-white mb-2" href="#"><i
-								class="fa fa-angle-right mr-2"></i>Kỹ năng học tập</a> <a
-								class="text-white mb-2" href="#"><i
-								class="fa fa-angle-right mr-2"></i>Pháp luật</a> <a
-								class="text-white" href="#"><i
-								class="fa fa-angle-right mr-2"></i>Tiếng Anh</a>
+							<a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Thiết kế trang
+								Web</a> <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Phát
+								triển phần mềm</a> <a class="text-white mb-2" href="#"><i
+									class="fa fa-angle-right mr-2"></i>Kỹ năng học tập</a> <a class="text-white mb-2"
+								href="#"><i class="fa fa-angle-right mr-2"></i>Pháp luật</a> <a class="text-white"
+								href="#"><i class="fa fa-angle-right mr-2"></i>Tiếng Anh</a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-5 col-md-12 mb-5">
-				<h5 class="text-primary text-uppercase mb-4"
-					style="letter-spacing: 5px;">PolyAcademy</h5>
+				<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">PolyAcademy</h5>
 				<p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp
 					giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh,
 					sinh viên trên cả nước với chất lượng tốt nhất!</p>
 				<div class="w-100">
 					<div class="input-group">
-						<input type="text" class="form-control border-light"
-							style="padding: 30px;" placeholder="Hãy gửi Email cho chúng tôi">
+						<input type="text" class="form-control border-light" style="padding: 30px;"
+							placeholder="Hãy gửi Email cho chúng tôi">
 						<div class="input-group-append">
 							<button class="btn btn-primary px-4">Đăng ký</button>
 						</div>
@@ -438,14 +437,12 @@
 
 
 	<!-- Back to Top -->
-	<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
-		class="fa fa-angle-double-up"></i></a>
+	<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
 	<!-- JavaScript Libraries -->
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 	<script src="/lib/easing/easing.min.js"></script>
 	<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
 
@@ -455,7 +452,7 @@
 
 	<!-- Template Javascript -->
 	<script src="/js/main.js"></script>
-		<script>
+	<script>
 		var priceElements = document.querySelectorAll("#price");
 		var currencyFormatter = new Intl.NumberFormat("vi-VN", {
 			style: "currency",
@@ -467,4 +464,5 @@
 			element.textContent = formattedPrice;
 		});
 	</script>
+
 </html>

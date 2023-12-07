@@ -153,6 +153,10 @@ app.controller('detail-controller', function ($scope, $http, $window) {
                 // Xử lý lỗi tại đây nếu cần thiết
             });
     };
+    $scope.goToLoginForm = function () {
+        // Chuyển hướng đến form đăng nhập
+        window.location.href = '/courseOnline/dangnhap'; // Thay đổi đường dẫn tùy theo định dạng URL của bạn
+    };
 
 
     $scope.addCourse = function (id) {
@@ -163,12 +167,11 @@ app.controller('detail-controller', function ($scope, $http, $window) {
 
             });
 
-
-        if (value === 0) {
+        var isLogin = document.getElementById("idLogin").value;
+        if (isLogin == 'null') {
             console.log("Bạn chưa đăng nhập");
             window.location.href = 'http://localhost:8080/courseOnline/dangnhap';
         } else {
-
             $http.get("/rest/admin/KhoaHoc/" + id)
                 .then(function (resp) {
                     idKhoaHoc = resp.data.id;
