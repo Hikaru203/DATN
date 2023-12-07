@@ -43,7 +43,8 @@ public class AdminAccountRestController {
     public List<NguoiDung> getAll() {
         return nguoiDungRepository.findAll();
     }
-       @PostMapping("/them")
+
+    @PostMapping("/them")
     public ResponseEntity<?> addNguoiDung(NguoiDung nguoiDung, MultipartFile file) {
         try {
             NguoiDung addedNguoiDung = nguoiDungService.addNguoiDung(nguoiDung, file);
@@ -53,6 +54,11 @@ public class AdminAccountRestController {
         }
     }
 
+    @PostMapping("/them1")
+    public ResponseEntity<?> addNguoiDung1(@RequestBody NguoiDung nguoiDung) {
+        NguoiDung addedNguoiDung = nguoiDungService.save(nguoiDung);
+        return ResponseEntity.ok(addedNguoiDung);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<NguoiDung> layNguoiDung(@PathVariable("id") int id) {
@@ -64,12 +70,9 @@ public class AdminAccountRestController {
         }
     }
 
- 
-
     @DeleteMapping("/{id}")
     public void deleteNguoiDung(@PathVariable("id") int id) {
         nguoiDungRepository.deleteById(id);
     }
-   
 
 }
