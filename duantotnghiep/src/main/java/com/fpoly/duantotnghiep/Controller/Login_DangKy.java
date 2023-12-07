@@ -102,6 +102,13 @@ public class Login_DangKy {
         return "doimk";
     }
 
+    @GetMapping("/courseOnline/FaillOTP")
+    public String failotp(Model model) {
+        model.addAttribute("message", "Sai OTP vui lòng nhập lại ");
+
+        return "nhapmaotp";
+    }
+
     @GetMapping("/courseOnline/huy")
     public String huy(Model model) {
         return "dangnhap";
