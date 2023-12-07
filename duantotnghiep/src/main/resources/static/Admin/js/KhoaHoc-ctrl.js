@@ -9,8 +9,9 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
     $scope.btnSuaKhoaHoc = true;
     $scope.btnXoaKhoaHoc = true;
     $scope.cboloaiKhoaHoc = [];
-
-
+    $scope.modalItem = {};
+    $scope.itemsMucLuc = [];
+    $scope.formMucLuc = {};
     //định dạng tiền
     $scope.formatCurrency = function (amount) {
         // Chuyển đổi số tiền thành chuỗi và loại bỏ số 0 ở cuối
@@ -466,6 +467,84 @@ $scope.xem = function (item) {
     videoIframe.src = "https://www.youtube.com/embed/" + videoUrl;
     $(".nav-tabs button:eq(1)").tab('show');
 }   
+$scope.MucLuc = function (item){
+    $scope.modalItem = angular.copy(item);
+
+    $scope.openModal();
+
+    // load Muc luc
+    $http.get(`/rest/admin/MucLuc/KhoaHoc/${item.id}`).then(resp => {
+        // Chuyển đổi ngày giờ sang múi giờ Việt Nam
+        resp.data.forEach(item => {
+            item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
+        });
+
+        $scope.itemsMucLuc = resp.data;
+    });
+
+}
+$scope.EditMucLuc = function (item){
+    $scope.formMucLuc = angular.copy(item);
+
+}
+
+//Thêm mới
+$scope.createMucLuc = function () {
+   
+    //trạng thái hiển thị khoa học
+    $scope.formMucLuc.nguoiTao.id = $scope.nguoiTao.id;
+    
+
+    var currentDate = new Date();
+    $scope.formMucLuc.ngayTao = currentDate.toISOString();
+
+    $scope.formMucLuc.khoaHoc.id = modalItem.id;
+
+    $http.post('/rest/admin/MucLuc',$scope.formMucLuc).then(resp => {
+        $scope.itemsMucLuc.push(resp.data);
+         // load Khóa học
+        $http.get("/rest/admin/MucLuc").then(resp => {
+            // Chuyển đổi ngày giờ sang múi giờ Việt Nam
+            resp.data.forEach(item => {
+                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
+            });
+
+            $scope.itemsMucLuc = resp.data;
+            
+        });
+        $scope.resetMucLuc();
+        showNotification(2);
+    }).catch(error => {
+        showNotification(6);
+        console.log("Error", error)
+    });
+
+}
+$scope.resetMucLuc = function (){
+    $scope.formMucLuc ={};
+
+    // load thông tin người dùng từ session
+    $http.get("/rest/admin/KhoaHoc/getUserInfo").then(response => {
+            
+        $scope.nguoiTao =response.data ;
+        $scope.formKhoaHoc = {
+            nguoiTao:{
+                id: $scope.nguoiTao.id
+            }
+            
+        } 
+    });
+}
+
+$scope.openModal = function () {
+    document.getElementById('myModal').style.display = 'block';
+};
+
+$scope.closeModal = function () {
+    document.getElementById('myModal').style.display = 'none';
+};
+
+
 })
 app.directive('fileModel', ['$parse', function ($parse) {
     return {
@@ -482,6 +561,8 @@ app.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
+
+
 
 
 // Mảng lưu trữ các thông báo
