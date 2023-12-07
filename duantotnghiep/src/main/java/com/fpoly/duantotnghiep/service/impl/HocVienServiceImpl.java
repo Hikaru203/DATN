@@ -52,7 +52,6 @@ public class HocVienServiceImpl implements HocVienService {
 				hocVienDTO.setId(khoaHoc.getId());
 				hocVienDTO.setTenKhoaHoc(khoaHoc.getTenKhoaHoc());
 				hocVienDTO.setChiPhi(khoaHoc.getChiPhi());
-
 			}
 
 			hocVienList.add(hocVienDTO);

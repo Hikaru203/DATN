@@ -167,12 +167,11 @@ app.controller('detail-controller', function ($scope, $http, $window) {
 
             });
 
-
-        if (value === 0) {
+        var isLogin = document.getElementById("idLogin").value;
+        if (isLogin == 'null') {
             console.log("Bạn chưa đăng nhập");
             window.location.href = 'http://localhost:8080/courseOnline/dangnhap';
         } else {
-
             $http.get("/rest/admin/KhoaHoc/" + id)
                 .then(function (resp) {
                     idKhoaHoc = resp.data.id;
