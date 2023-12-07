@@ -171,9 +171,7 @@
 	<!-- Start Welcome area -->
 	<div class="all-content-wrapper">
 		<div th:replace="Admin/layout :: menutop"></div>
-		<script>
-			var app = angular.module("myApp", []);
-		</script>
+	
 		<!-- Single pro tab review Start-->
 		<div class="single-pro-review-area mt-t-30 mg-b-15">
 			<div class="container-fluid">
@@ -244,9 +242,8 @@
     padding: 20px;
 }
 
-.hd-pro-img {
-    display: none; /* Ẩn input, vì chúng ta chỉ muốn hiển thị hình ảnh trung tâm */
-}
+
+
 																
 																</style>
 																<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -281,7 +278,7 @@
 															<div class="container mt-4">
 																<!-- Nút "Thêm" -->
 																<button class="btn btn-primary mr-2"
-																	ng-click="addNguoiDung()">Thêm</button>
+																 id="addAccountBtn"	ng-click="addNguoiDung()">Thêm</button>
 
 																<!-- Nút "Sửa" -->
 																<button class="btn btn-warning mr-2"
@@ -360,7 +357,10 @@
 			</div>
 		</div>
 	</div>
+	<script src="NguoiDung-ctrl.js"></script>
 	<script type="text/javascript">
+	var app = angular.module('myApp', []);
+
 		var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
 		(function() {
 			var s1 = document.createElement("script"), s0 = document

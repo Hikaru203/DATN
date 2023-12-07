@@ -1,13 +1,22 @@
 package com.fpoly.duantotnghiep.API.AdminRest;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,35 +43,33 @@ public class AdminAccountRestController {
     public List<NguoiDung> getAll() {
         return nguoiDungRepository.findAll();
     }
+       @PostMapping("/them")
+    public ResponseEntity<?> addNguoiDung(NguoiDung nguoiDung, MultipartFile file) {
+        try {
+            NguoiDung addedNguoiDung = nguoiDungService.addNguoiDung(nguoiDung, file);
+            return ResponseEntity.ok(addedNguoiDung);
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Lỗi khi lưu file hình ảnh: " + e.getMessage());
+        }
+    }
+
 
     @GetMapping("/{id}")
-    public Optional<NguoiDung> getById(@PathVariable("id") int id) {
-        return nguoiDungRepository.findById(id);
-    }
-    @PostMapping("/add")
-    public NguoiDung addNguoiDung(@RequestParam("file") MultipartFile file,
-                                  @RequestParam("taiKhoan") String taiKhoan,
-                                  @RequestParam("matKhau") String matKhau,
-                                  @RequestParam("hoTen") String hoTen,
-                                  @RequestParam("email") String email,
-                                  @RequestParam("chucVu") String chucVu,
-                                  @RequestParam("trangThai") String trangThai) throws IOException {
-        NguoiDung nguoiDung = new NguoiDung(taiKhoan, matKhau, hoTen, email, chucVu, trangThai, false, false);
-
-        // Gọi service để thực hiện lưu hình ảnh và thông tin người dùng vào cơ sở dữ liệu
-        return NguoiDung.addNguoiDung(nguoiDung, file);
-    
+    public ResponseEntity<NguoiDung> layNguoiDung(@PathVariable("id") int id) {
+        NguoiDung nguoiDung = nguoiDungService.getNguoiDungById(id);
+        if (nguoiDung != null) {
+            return ResponseEntity.ok(nguoiDung);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PutMapping("/{id}")
-    public NguoiDung updateNguoiDung(@PathVariable("id") int id, @RequestBody NguoiDung nguoiDung) {
-        nguoiDung.setId(id);
-        return nguoiDungRepository.save(nguoiDung);
-    }
+ 
 
     @DeleteMapping("/{id}")
     public void deleteNguoiDung(@PathVariable("id") int id) {
         nguoiDungRepository.deleteById(id);
     }
+   
 
 }
