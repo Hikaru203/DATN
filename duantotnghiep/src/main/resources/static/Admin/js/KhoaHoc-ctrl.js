@@ -31,6 +31,14 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
                     id: $scope.nguoiTao.id
                 }
                 
+            }
+            $scope.formMucLuc = {
+                nguoiTao:{
+                    id: $scope.nguoiTao.id
+                },
+                khoaHoc:{
+                    id: $scope.modalItem.id
+                }
             } 
         });
 
@@ -498,20 +506,19 @@ $scope.createMucLuc = function () {
     var currentDate = new Date();
     $scope.formMucLuc.ngayTao = currentDate.toISOString();
 
-    $scope.formMucLuc.khoaHoc.id = modalItem.id;
+    $scope.formMucLuc.khoaHoc.id = $scope.modalItem.id;
 
     $http.post('/rest/admin/MucLuc',$scope.formMucLuc).then(resp => {
         $scope.itemsMucLuc.push(resp.data);
-         // load Khóa học
-        $http.get("/rest/admin/MucLuc").then(resp => {
-            // Chuyển đổi ngày giờ sang múi giờ Việt Nam
-            resp.data.forEach(item => {
-                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
-            });
-
-            $scope.itemsMucLuc = resp.data;
-            
+         // load Muc luc
+    $http.get(`/rest/admin/MucLuc/KhoaHoc/${$scope.modalItem.id}`).then(resp => {
+        // Chuyển đổi ngày giờ sang múi giờ Việt Nam
+        resp.data.forEach(item => {
+            item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
         });
+
+        $scope.itemsMucLuc = resp.data;
+    });
         $scope.resetMucLuc();
         showNotification(2);
     }).catch(error => {
@@ -520,6 +527,49 @@ $scope.createMucLuc = function () {
     });
 
 }
+
+//Sủa mới
+$scope.suaMucLuc = function (item) {
+   
+    //trạng thái hiển thị khoa học
+    $scope.formMucLuc.nguoiTao.id = $scope.nguoiTao.id;
+        
+    $scope.formMucLuc.ngayTao = moment(item.ngayTao,"DD-MM-YYYY HH:mm:ss");
+
+    $scope.formMucLuc.khoaHoc.id = $scope.modalItem.id;
+
+    $http.put(`/rest/admin/MucLuc/${item.id}`,$scope.formMucLuc).then(resp => {
+        $scope.itemsMucLuc.push(resp.data);
+         // load Muc luc
+         $http.get(`/rest/admin/MucLuc/KhoaHoc/${$scope.modalItem.id}`).then(resp => {
+            // Chuyển đổi ngày giờ sang múi giờ Việt Nam
+            resp.data.forEach(item => {
+                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
+            });
+    
+            $scope.itemsMucLuc = resp.data;
+        });
+        $scope.resetMucLuc();
+        showNotification(4);
+    }).catch(error => {
+        showNotification(6);
+        console.log("Error", error)
+    });
+
+}
+// Xóa 
+$scope.deleteMucLuc = function (item) {
+    $http.delete(`/rest/admin/MucLuc/${item.id}`).then(resp => {
+        var index = $scope.itemsMucLuc.findIndex(
+            p => p.id == item.id);
+        $scope.itemsMucLuc.splice(index, 1);
+        $scope.resetMucLuc();
+        showNotification(3);
+    })
+        .catch(error => {
+            showNotification(7);
+        })
+}
 $scope.resetMucLuc = function (){
     $scope.formMucLuc ={};
 
@@ -527,11 +577,13 @@ $scope.resetMucLuc = function (){
     $http.get("/rest/admin/KhoaHoc/getUserInfo").then(response => {
             
         $scope.nguoiTao =response.data ;
-        $scope.formKhoaHoc = {
+        $scope.formMucLuc = {
             nguoiTao:{
                 id: $scope.nguoiTao.id
+            },
+            khoaHoc:{
+                id: $scope.modalItem.id
             }
-            
         } 
     });
 }
