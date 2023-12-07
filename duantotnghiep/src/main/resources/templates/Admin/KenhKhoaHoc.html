@@ -504,7 +504,7 @@
                                                 padding-left: 50px;
                                             }
 
-                                            <<<<<<< HEAD tbody tr:hover td {
+                                            tr:hover td {
                                                 background-color: #f2f2f2;
                                                 /* Màu nền khi di chuột qua */
                                             }
@@ -519,44 +519,56 @@
                                                 <td style=" font-size: 23px;">Bài {{ $index + 1 }}: {{item.tenVideo}}
                                                 </td>
                                             </tr>
-                                            =======
-                                            /* Định dạng các ô chứa thông tin video */
-                                            .video-item {
-                                            display: flex;
-                                            align-items: center;
-                                            justify-content: space-between;
-                                            border: 1px black solid;
-                                            margin-bottom: 10px; /* Khoảng cách giữa các ô */
-                                            padding: 10px; /* Khoảng cách bên trong mỗi ô */
-                                            }
 
-                                            /* Định dạng icon */
-                                            .video-item .icon {
-                                            flex-shrink: 0; /* Ngăn chặn icon bị bóp méo */
-                                            margin-right: 10px; /* Khoảng cách giữa icon và nội dung văn bản */
-                                            }
+                                            <style>
+                                                .video-item {
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: space-between;
+                                                    border: 1px black solid;
+                                                    margin-bottom: 10px;
+                                                    /* Khoảng cách giữa các ô */
+                                                    padding: 10px;
+                                                    /* Khoảng cách bên trong mỗi ô */
+                                                }
 
-                                            .video-item .icon img {
-                                            width: 30px; /* Độ rộng của icon */
-                                            height: 30px; /* Chiều cao của icon */
-                                            border-radius: 50%; /* Bo tròn icon */
-                                            }
+                                                /* Định dạng icon */
+                                                .video-item .icon {
+                                                    flex-shrink: 0;
+                                                    /* Ngăn chặn icon bị bóp méo */
+                                                    margin-right: 10px;
+                                                    /* Khoảng cách giữa icon và nội dung văn bản */
+                                                }
 
-                                            /* Định dạng nội dung văn bản */
-                                            .video-item .content {
-                                            flex-grow: 1; /* Cho phép nội dung mở rộng để điền vào không gian còn trống
+                                                .video-item .icon img {
+                                                    width: 30px;
+                                                    /* Độ rộng của icon */
+                                                    height: 30px;
+                                                    /* Chiều cao của icon */
+                                                    border-radius: 50%;
+                                                    /* Bo tròn icon */
+                                                }
+
+                                                /* Định dạng nội dung văn bản */
+                                                .video-item .content {
+                                                    flex-grow: 1;
+                                                    /* Cho phép nội dung mở rộng để điền vào không gian còn trống
                                             */
-                                            }
+                                                }
 
-                                            .video-item .video-info {
-                                            font-size: 18px; /* Kích thước font cho nội dung văn bản */
-                                            margin: 0; /* Loại bỏ margin mặc định */
-                                            }
-                                            .video-playlist .videos {
-                                            max-height: 439px; /* Đặt giới hạn chiều cao của phần hiển thị */
-                                            overflow-y: auto; /* Hiển thị thanh cuộn khi nội dung vượt quá giới hạn */
-                                            }
+                                                .video-item .video-info {
+                                                    font-size: 18px;
+                                                    /* Kích thước font cho nội dung văn bản */
+                                                    margin: 0;
+                                                    /* Loại bỏ margin mặc định */
+                                                }
 
+                                                .video-playlist .videos {
+                                                    max-height: 439px;
+                                                    /* Đặt giới hạn chiều cao của phần hiển thị */
+                                                    overflow-y: auto;
+                                                    /* Hiển thị thanh cuộn khi nội dung vượt quá giới hạn */
+                                                }
                                             </style>
                                         <tbody>
                                             <div class="video-item" ng-repeat="item in itemsVideoKhoaHoc"
@@ -570,12 +582,12 @@
                                             </div>
 
 
-                                            >>>>>>> origin/Hào
+
                                         </tbody>
 
                                     </table>
-                                    <<<<<<< HEAD=======</div>
-                                        >>>>>>> origin/Hào
+                                </div>
+
                             </section>
                         </main>
                         <script>
