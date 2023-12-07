@@ -329,7 +329,7 @@
                                     <input type="date" id="end" name="trip-end" ng-model="thoigian.ketThuc" />
                                 </div>
                                 <button id="basicSuccess" class="btn btn-success"
-                                    ng-click="ThongKeTheoThoiGian()">Xem</button>
+                                    ng-click="ThongKeTheoThoiGian()"  style="background-color: #fefefe; color: black;">Xem</button>
                             </form>
 
 
@@ -358,6 +358,8 @@
                         <div class="position-relative mb-4">
                             <canvas id="revenue-chart" height="100"></canvas>
                         </div>
+                        <div class="tenbedo" style=" font-size: 16px; text-align: center;">Biểu đồ tổng doanh thu</div>
+
                     </div>
                 </div>
                 <!-- /.card -->
@@ -408,24 +410,24 @@
                                                                 <td>{{item.tenKhoaHoc}}</td>
                                                                 <td>{{item.nguoiTao.hoTen}}</td>
                                                                 <td><button class="fa fa-cog" aria-hidden="true"
-                                                                        ng-click="editbr(item)">Xem</button></td>
+                                                                        ng-click="editbr(item)"  style="background-color: #fefefe; color: black;"> Xem</button></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
 
                                                     <div class="panel-footer text-center">
-                                                        <button ng-click="pager.first()" class="btn btn-primary">
+                                                        <button ng-click="pager.first()" class="btn btn-primary"  style="background-color: #fefefe; color: black;">
                                                             <i class="fa fa-arrow-circle-up"></i>
                                                         </button>
-                                                        <button ng-click="pager.prev()" class="btn btn-primary">
+                                                        <button ng-click="pager.prev()" class="btn btn-primary"  style="background-color: #fefefe; color: black;">
                                                             <i class="fa fa-arrow-circle-left"></i>
                                                         </button>
-                                                        <button class="btn btn-success">{{pager.page +1}} of
+                                                        <button class="btn btn-success"  style="background-color: #fefefe; color: black;">{{pager.page +1}} of
                                                             {{pager.count}}</button>
-                                                        <button ng-click="pager.next()" class="btn btn-primary">
+                                                        <button ng-click="pager.next()" class="btn btn-primary"  style="background-color: #fefefe; color: black;">
                                                             <i class="fa fa-arrow-circle-right"></i>
                                                         </button>
-                                                        <button ng-click="pager.last()" class="btn btn-primary">
+                                                        <button ng-click="pager.last()" class="btn btn-primary"  style="background-color: #fefefe; color: black;">
                                                             <i class="fa fa-arrow-circle-down"></i>
                                                         </button>
                                                     </div>
@@ -533,8 +535,6 @@
                                     <button id="basicSuccess" class="fa fa-eye" ng-click="ThongKeTheoKhoaHoc()"
                                         style="background-color: #fefefe; color: black;">Xem</button>
                                 </form>
-
-
                             </div>
                         </div>
                     </div>
