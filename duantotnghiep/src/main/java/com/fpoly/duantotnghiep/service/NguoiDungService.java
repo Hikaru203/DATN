@@ -37,6 +37,7 @@ public interface NguoiDungService {
 
 	void capNhatNguoiDung(int id, NguoiDung nguoiDung, MultipartFile file) throws IOException;
 
-	NguoiDung findByTaiKhoan(String currentUsername);
+    NguoiDung findByTaiKhoan(String taiKhoan);
+	
 
 }

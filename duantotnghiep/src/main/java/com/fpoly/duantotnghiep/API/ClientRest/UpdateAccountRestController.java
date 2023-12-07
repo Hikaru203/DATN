@@ -1,4 +1,5 @@
 package com.fpoly.duantotnghiep.API.ClientRest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +20,9 @@ public class UpdateAccountRestController {
         String username = authentication.getName();
         NguoiDung nguoiDung = nguoiDungRepository.findByTaiKhoan(username);
 
-        if (nguoiDung != null) {
-            return ResponseEntity.ok(nguoiDung);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return nguoiDung != null ?
+                ResponseEntity.ok(nguoiDung) :
+                ResponseEntity.notFound().build();
     }
 
     @PutMapping("/update")
@@ -44,4 +43,5 @@ public class UpdateAccountRestController {
             return ResponseEntity.notFound().build();
         }
     }
+
 }

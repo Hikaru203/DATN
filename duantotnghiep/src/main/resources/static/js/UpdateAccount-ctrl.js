@@ -1,9 +1,6 @@
     var taiKhoan = document.getElementById("taiKhoan").value;
 document.getElementById("updateAccountForm").addEventListener("submit", function (event) {
     event.preventDefault();
-
-
-
     var formData = {
         taiKhoan: taiKhoan,
         email: document.getElementById("email").value,
