@@ -22,6 +22,7 @@ import com.fpoly.duantotnghiep.Entity.DanhGia;
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.MucLuc;
+import com.fpoly.duantotnghiep.Entity.NguoiDung;
 import com.fpoly.duantotnghiep.Entity.VideoKhoaHoc;
 import com.fpoly.duantotnghiep.jparepository.LoaiKhoaHocRepository;
 import com.fpoly.duantotnghiep.service.CauHoiService;
@@ -31,6 +32,7 @@ import com.fpoly.duantotnghiep.service.DangKyKhoaHocService;
 import com.fpoly.duantotnghiep.service.DanhGiaService;
 import com.fpoly.duantotnghiep.service.KhoaHocService;
 import com.fpoly.duantotnghiep.service.MucLucService;
+import com.fpoly.duantotnghiep.service.NguoiDungService;
 import com.fpoly.duantotnghiep.service.VideoService;
 
 @Controller
@@ -61,6 +63,9 @@ public class ClientController {
 
 	@Autowired
 	ChungChiService chungchiService;
+
+	@Autowired
+	NguoiDungService dungService;
 
 	@GetMapping("/courseOnline/index")
 	public String index(Model model, @RequestParam("cid") Optional<Integer> cid) {
@@ -252,8 +257,15 @@ public class ClientController {
 	}
 
 	@GetMapping("/courseOnline/contact")
-	public String contact() {
+	public String contact(@RequestParam("idLogin") int idLogin,Model model) {
+		
+		
+		NguoiDung nguoiDung = dungService.findById(idLogin).get();
+	
+		// You can now use 'nguoiDung' in your model or any further processing
+		model.addAttribute("thongTinNguoiDung", nguoiDung);
 		return "contact";
+		
 	}
 
 	@GetMapping("/courseOnline/cart")

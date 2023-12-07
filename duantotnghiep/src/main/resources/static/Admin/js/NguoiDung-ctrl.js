@@ -121,10 +121,6 @@ app.controller('UpdateAccount', function($scope, $http) {
       });
   };
 });
-
-  
-
-
     // Gọi hàm lấy danh sách người dùng khi trang web được tải
     $scope.getAllNguoiDung();
 });

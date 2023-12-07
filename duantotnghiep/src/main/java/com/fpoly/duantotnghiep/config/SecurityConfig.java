@@ -57,7 +57,6 @@ public class SecurityConfig {
     public AuthenticationFailureHandler customAuthenticationFailureHandler() {
         return new CustomAuthenticationFailureHandler();
     }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeHttpRequests().requestMatchers("/Admin/**").hasRole("true")
@@ -68,11 +67,10 @@ public class SecurityConfig {
                 .failureHandler(customAuthenticationFailureHandler())
                 .and().logout().logoutUrl("/logoff").logoutSuccessUrl("/courseOnline/dangnhap").and().oauth2Login()
                 .loginPage("/auth/login/form")
-                .defaultSuccessUrl("/oauth2/login/success", true)
+                .defaultSuccessUrl("/oauth2/login/success",  true)
                 .failureUrl("/auth/login/error")
                 .authorizationEndpoint().baseUri("/oauth2/authorization");
         return http.build();
-
     }
 
 }

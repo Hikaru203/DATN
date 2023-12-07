@@ -40,16 +40,26 @@
                                                         <h1>Tin nhắn</h1>
                                                     </div>
                                                     <ul class="message-menu">
-                                                        <li>
+                                                        <li ng-repeat="notification in notifications| limitTo:10"  style="width: 100%;">
                                                             <a href="#">
                                                                 <div class="message-img">
-                                                                    <img th:src="@{/Admin/img/contact/1.jpg}" alt="">
+                                                                    <img th:src="@{/img/LogoPLA.png}" alt="">
                                                                 </div>
                                                                 <div class="message-content">
-                                                                    <span class="message-date">16 Sept</span>
-                                                                    <h2>Advanda Cro</h2>
-                                                                    <p>Please done this project as soon possible.
+                                                                    <h2 ng-if="notification.type === 'mess'">{{notification.hoTen }}</h2>
+                                                                    <h2 ng-if="notification.type === 'user'">{{notification.hoTen }}</h2>
+                                                                        <span class="notification-date"
+                                                                            style="position: unset;">
+                                                                            {{
+                                                                            calculateTimeDifference(notification.thoiGianTao
+                                                                            || notification.ngayDangKy) }}
+                                                                        </span>
+                                                                    <p>Đã gửi yêu cầu trở thành nhà sáng tạo.
                                                                     </p>
+                                                                    Trạng thái: {{ notification.trangThai }}
+
+                                                                    <!-- Thêm nút "Duyệt" dưới đây -->
+                                                                     <button ng-click="duyetThongBao(notification)">Duyệt</button>
                                                                 </div>
                                                             </a>
                                                         </li>
@@ -128,18 +138,15 @@
                                                 <ul role="menu"
                                                     class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                     <li><a href="#"><span
-                                                                class="edu-icon edu-home-admin author-log-ic"></span>Cập
-                                                            nhật</a>
+                                                                class="edu-icon edu-home-admin author-log-ic"></span>Cập nhật</a>
                                                     </li>
 
                                                     <li><a th:href="@{/courseOnline/index}"><span
-                                                                class="edu-icon edu-money author-log-ic"></span>Qua
-                                                            user</a>
+                                                                class="edu-icon edu-money author-log-ic"></span>Qua user</a>
                                                     </li>
 
                                                     <li><a th:href="@{/logoff}"><span
-                                                                class="edu-icon edu-locked author-log-ic"></span>Đăng
-                                                            xuất</a>
+                                                                class="edu-icon edu-locked author-log-ic"></span>Đăng xuất</a>
                                                     </li>
                                                 </ul>
                                             </li>

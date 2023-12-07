@@ -21,4 +21,5 @@ public interface NguoiDungService {
     void deleteById(int id, String filename);
 
     void updateNguoiDung(int id, NguoiDung updatedNguoiDung);
+
 }

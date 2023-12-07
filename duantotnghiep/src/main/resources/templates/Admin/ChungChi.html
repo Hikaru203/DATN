@@ -341,95 +341,142 @@
                 </div>
             </div>
         </div>
-
+        <style type='text/css'>
+            @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+        
+            body,
+            html {
+                margin: 0;
+                padding: 0;
+            }
+        
+            body {
+                color: black;
+                font-family: 'Roboto', sans-serif;
+                font-size: 30px;
+                text-align: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 100%;
+                width: 100%;
+                overflow-x: hidden; /* Hide horizontal scrollbar */
+            }
+        
+            .topbar {
+                background-color: #d4d5d1;
+                padding: 20px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+        
+            .topbar h1 {
+                margin: 0;
+            }
+        
+            .container {
+                    position: relative;
+                    margin: 20px auto;
+                    max-width: 1500px;
+                    height: 750px;
+                    border: 2px solid #ccc;
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    background-size: cover;
+                    color: #090909;
+                    text-align: center;
+                    background-size: cover;
+                    background-position: center;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    width: 90%;
+                }
+        
+            .logo {
+                background-size: contain;
+                background-repeat: no-repeat;
+                padding: 20px;
+                width: 10%;
+                height: 10%;
+                box-sizing: border-box;
+                margin: 0 auto;
+                position: absolute;
+                top: 50px;
+                left: 50px;
+                border-radius: 50%; /* Thêm thuộc tính bo tròn góc */
+            }
+        
+            .marquee {
+                color: rgb(243, 159, 49);
+                font-size: 80px;
+                margin: 20px;
+            }
+        
+            .assignment {
+                margin: 20px;
+            }
+        
+            .person {
+                border-bottom: 2px solid rgb(0, 0, 0);
+                font-size: 40px;
+                font-style: italic;
+                margin: 20px auto;
+                max-width: 400px;
+            }
+        
+            .reason {
+                margin: 20px;
+                font-size: 35px;
+            }
+        
+            .date {
+                position: absolute;
+                bottom: 10px;
+                left: 400px;
+                text-align: left;
+                width: 100%;
+                
+            }
+        
+            .date p {
+                margin: 25px 0;
+            }
+        </style>
         <div class="certificates-container">
             <div class="navigation-buttons">
                 <button class="navigation-button" ng-click="changeCertificate(-1)" ng-disabled="currentIndex === 0">
                     &lt;&lt;
                 </button>
             </div>
-            <style>
-                .certificate-frame {
-                    margin: 20px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                .certificate-container {
-                    border: 8px solid #3498db;
-                    padding: 60px;
-                    border-radius: 30px;
-                    background-color: #f8f9fa;
-                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-                    width: 600px;
-                }
-
-                .header {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    margin-bottom: 40px;
-                }
-
-                .logo {
-                    max-width: 120px;
-                    margin-right: 20px;
-                }
-
-                .school-name {
-                    font-size: 32px;
-                    color: #3498db;
-                    margin: 0;
-                }
-
-                .certificate-details {
-                    color: #333;
-                }
-
-                .certificate-title {
-                    font-size: 28px;
-                    margin-bottom: 30px;
-                }
-
-                .details {
-                    text-align: left;
-                    font-size: 20px;
-                    line-height: 1.6;
-                }
-
-                .signature {
-                    margin-top: 40px;
-                    display: flex;
-                    align-items: center;
-                }
-
-                .signature p {
-                    margin-right: 20px;
-                    font-size: 20px;
-                }
-
-                .signature-image {
-                    max-width: 150px;
-                }
-            </style>
+            
             <div ng-repeat="certificate in itemsChungChi" ng-show="currentIndex === $index">
-                <div class="certificate-container">
-                    <div class="header">
-                        <img class="logo" th:src="@{Admin/img/logo/logo.png}" alt="PolyAcademy Logo">
-                        <h2 class="school-name">PolyAcademy</h2>
+                <div class="container" th:style="'background-image: url(' + @{/img/chungchi.jpg} + ');'">
+                    <div class="logo">
+                        <img th:src="@{/img/LogoPLA.png}" alt="PolyAcademy Logo" height="150px" width="150px">
                     </div>
-                    <div class="certificate-details">
-                        <h3 class="certificate-title">Chứng chỉ học</h3>
-                        <div class="details">
-                            <p class="info">Tên chứng chỉ: {{certificate.khoaHoc.tenKhoaHoc}}</p>
-                            <p class="info">Người nhận: {{certificate.nguoiDung.hoTen}}</p>
-                            <p class="info">Ngày hoàn thành: {{certificate.ngayCapFormatted}}</p>
-                            <!-- Các thông tin khác liên quan đến chứng chỉ học -->
-                        </div>
+        
+                    <div class="marquee">
+                        Giấy Chứng Nhận
                     </div>
-                </div>
+        
+                    <div class="assignment">
+                        Giấy chứng nhận này được cấp cho:
+                    </div>
+        
+                    <div class="person">
+                        <p >{{certificate.nguoiDung.hoTen}}</p>
+                    </div>
+        
+                    <div class="reason">
+                        Đã xuất sắc hoàn thành khoá học:<br/>
+                        <p>{{certificate.khoaHoc.tenKhoaHoc}}</p>
+                    </div>	
+                    <div class="date">
+                    <p>Ngày cấp: {{certificate.ngayCapFormatted}}</p>
+                    </div>
+                </div> 
             </div>
+            
 
             <div class="navigation-buttons">
                 <button class="navigation-button" ng-click="changeCertificate(1)"
@@ -438,54 +485,7 @@
                 </button>
             </div>
         </div>
-        <style>
-            .certificates-container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin: 10px 0;
-            }
-
-            .certificate-frame {
-                flex: 1;
-                /* Các phần tử chứng chỉ nên được căn chỉnh và có khoảng cách */
-                margin: 0 10px;
-            }
-
-            .navigation-buttons {
-                display: flex;
-                align-items: center;
-            }
-
-            .navigation-button {
-                font-size: 20px;
-                padding: 5px 10px;
-                background: none;
-                border: none;
-                cursor: pointer;
-            }
-
-
-            .certificate-frame {
-                border: 3px solid #0a3d62;
-                /* Màu viền tương tự chứng chỉ */
-                background-color: #f0f0f0;
-                /* Màu nền tương tự chứng chỉ */
-                padding: 20px;
-                margin: 20px auto;
-                max-width: 600px;
-                text-align: center;
-            }
-
-            .certificate-image {
-                max-width: 200px;
-                margin-bottom: 20px;
-            }
-
-            .certificate-details {
-                font-size: 18px;
-            }
-        </style>
+        
         <!--Start of Tawk.to Script-->
         <script type="text/javascript">
             var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();

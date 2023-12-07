@@ -18,6 +18,16 @@ app.controller("thongBaoCtrl", function ($scope, $http, $window) {
         });
         processNotifications();
     });
+    
+    $http.get("/api/nhasangtao").then(resp => {
+        $scope.dangKyKhoaHoc = resp.data;
+        $scope.dangKyKhoaHoc.forEach(course => {
+            course.type = 'course';
+            $scope.notifications.push(course);
+        });
+        processNotifications();
+    });
+
 
     function processNotifications() {
         // lọc theo thời gian của thông báo
