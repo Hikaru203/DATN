@@ -29,4 +29,14 @@ public class MucLucServiceImpl implements MucLucService {
     public MucLuc findById(int id) {
         return mucLucReponsitory.findById(id);
     }
+
+    @Override
+    public MucLuc save(MucLuc mucLuc) {
+        return mucLucReponsitory.save(mucLuc);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        mucLucReponsitory.deleteById(id);
+    }
 }

@@ -9,4 +9,8 @@ public interface MucLucService {
     List<MucLuc> findByKhoaHoc(Integer idKhoaHoc);
 
     MucLuc findById(int id);
+
+    MucLuc save(MucLuc mucLuc);
+
+    void deleteById(int id);
 }
