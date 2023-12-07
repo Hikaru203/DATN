@@ -154,7 +154,37 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
             newAnswerField.appendChild(deleteButton);
         }
     }
+    $scope.trang = {
+        page: 0,
+        size: 5,
+        get itemsCauHoi() {
+            var start = this.page * this.size;
+            return $scope.itemsCauHoi.slice(start, start + this.size);
+        },
 
+        get count() {
+            return Math.ceil(1.0 * $scope.itemsCauHoi.length / this.size);
+        },
+
+        first() {
+            this.page = 0;
+        },
+        prev() {
+            this.page--;
+            if (this.page < 0) {
+                this.last();
+            }
+        },
+        next() {
+            this.page++;
+            if (this.page >= this.count) {
+                this.first();
+            }
+        },
+        last() {
+            this.page = this.count - 1;
+        }
+    }
     $scope.addNewAnswer = function () {
         const newAnswer = document.getElementById('newAnswer').value;
         if (newAnswer !== "") {

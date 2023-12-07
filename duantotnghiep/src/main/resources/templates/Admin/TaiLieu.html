@@ -264,10 +264,10 @@
                         </li>
                         <li><a class="has-arrow" th:href="@{/Admin/ChungChi}" aria-expanded="false"><span
                                     class="educate-icon educate-department icon-wrap"></span> <span
-                                    class="mini-click-non">Chứng Chỉ</span></a>
+                                    class="mini-click-non">Chúng nhận</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="ChungChi List" th:href="@{/Admin/ChungChi}"><span
-                                            class="mini-sub-pro">Chứng Chỉ</span></a></li>
+                                            class="mini-sub-pro">Chúng nhận</span></a></li>
                             </ul>
                         </li>
                         <li><a class="has-arrow" th:href="@{/Admin/Video}" aria-expanded="false"><span
@@ -364,7 +364,7 @@
                                                                                         <th>Tùy chọn</th>
                                                                                     </tr>
                                                                                     <tr
-                                                                                        ng-repeat="item in displayedItems">
+                                                                                        ng-repeat="item in trang.itemsTaiLieu">
                                                                                         <td>{{ item.khoaHoc.tenKhoaHoc |
                                                                                             limitWords: 10 }}</td>
                                                                                         <td>{{ item.tenSlide |
@@ -383,23 +383,31 @@
                                                                                     </tr>
                                                                                 </table>
                                                                             </div>
-                                                                            <button class="btn btn-default" 
-                                                                                type="button" ng-click="goToFirstPage()"
-                                                                                ng-disabled="currentPage === 1">Đầu</button>
-
-                                                                            <button class="btn btn-default"
-                                                                                type="button"
-                                                                                ng-click="goToPreviousPage()"
-                                                                                ng-disabled="currentPage === 1">Trước</button>
-
-                                                                            <button class="btn btn-default"
-                                                                                type="button" ng-click="goToNextPage()"
-                                                                                ng-disabled="currentPage === totalItems / itemsPerPage">Sau</button>
-
-                                                                            <button class="btn btn-default"
-                                                                                type="button" ng-click="goToLastPage()"
-                                                                                ng-disabled="currentPage === totalItems / itemsPerPage">Cuối</button>
-
+                                                                            <div class="panel-footer text-center">
+                                                                                <button ng-click="trang.first()"
+                                                                                    class="btn btn-primary">
+                                                                                    <i
+                                                                                        class="fa fa-arrow-circle-up"></i>
+                                                                                </button>
+                                                                                <button ng-click="trang.prev()"
+                                                                                    class="btn btn-primary">
+                                                                                    <i
+                                                                                        class="fa fa-arrow-circle-left"></i>
+                                                                                </button>
+                                                                                <button
+                                                                                    class="btn btn-success">{{trang.page
+                                                                                    +1}} of {{trang.count}}</button>
+                                                                                <button ng-click="trang.next()"
+                                                                                    class="btn btn-primary">
+                                                                                    <i
+                                                                                        class="fa fa-arrow-circle-right"></i>
+                                                                                </button>
+                                                                                <button ng-click="trang.last()"
+                                                                                    class="btn btn-primary">
+                                                                                    <i
+                                                                                        class="fa fa-arrow-circle-down"></i>
+                                                                                </button>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>

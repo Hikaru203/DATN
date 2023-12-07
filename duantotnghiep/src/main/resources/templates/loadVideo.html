@@ -94,15 +94,11 @@
         /* Video controls styling */
         .video-controls {
             display: flex;
-            align-items: center;
+            align-items: end;
             justify-content: space-between;
-            margin-top: 10px;
         }
 
-        .video-controls button,
-        .video-controls input {
-            margin-right: 10px;
-        }
+
 
         .video-controls input[type="range"] {
             width: 80px;
@@ -242,6 +238,7 @@
 
 
 
+
         /* Để các phần tử video playlist và main video nằm cạnh nhau trên màn hình rộng */
         @media (min-width: 768px) {
             .container {
@@ -268,19 +265,20 @@
 
             .video-controls {
                 position: absolute;
+                width: 100%;
+                height: 100%;
                 bottom: 0px;
-                background-color: rgba(255, 255, 255, 0.5);
+                background-color: rgba(255, 255, 255, 0);
                 padding: 10px;
                 border-radius: 5px;
                 display: none;
-            }
-
-            .video-container:hover .video-controls {
                 display: flex;
-                align-items: center;
+                align-items: end;
                 /* Canh chỉnh các phần tử theo chiều dọc */
                 justify-content: space-between;
             }
+
+
 
             /* Định dạng cho các nút điều chỉnh */
             #volume-control,
@@ -324,34 +322,33 @@
                 <iframe id="video-iframe" width="560" height="315" src="" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen></iframe>
-                <div class="video-controls"  style="width: 100%; height: 130px;">
-                    <!-- Các nút điều chỉnh âm lượng, tốc độ và độ phân giải -->
-                    <button id="pause-video" class="button">
-                        <i id="play-pause-icon" class="fas fa-play"></i>
-                    </button>
-                    <button id="full-screen" class="button"><i class="fas fa-expand"></i></button>
-                    <label for="">Âm lượng</label>
-                    <div class="volume-control-container">
-                        <i class="fas fa-volume-up" id="volume-icon"></i>
-                        <input type="range" id="volume-control" min="0" max="100" step="1" value="100">
-                        <span id="volume-percentage" class="volume-tooltip">100%</span>
-                    </div>
-                    <div id="video-info"></div>
-                    <label for=""> Tốc độ</label>
-                    <select id="playback-speed">
-                        <option value="1">Normal</option>
-                        <option value="1.5">1.5x</option>
-                        <option value="2">2x</option>
-                    </select>
+                <div class="video-controls" style="width: 100%;">
+
                 </div>
 
             </div>
 
-            <div class="video-controls">
-
-                <br>
+            <div>
+                <button id="pause-video" class="button">
+                    <i id="play-pause-icon" class="fas fa-play"></i>
+                </button>
+                <button id="full-screen" class="button"><i class="fas fa-expand"></i></button>
+                <label for="">Âm lượng</label>
+                <div class="volume-control-container">
+                    <i class="fas fa-volume-up" id="volume-icon"></i>
+                    <input type="range" id="volume-control" min="0" max="100" step="1" value="100">
+                    <span id="volume-percentage" class="volume-tooltip">100%</span>
+                </div>
+                <div id="video-info"></div>
+                <label for=""> Tốc độ</label>
+                <select id="playback-speed">
+                    <option value="1">Normal</option>
+                    <option value="1.5">1.5x</option>
+                    <option value="2">2x</option>
+                </select>
             </div>
-            <br>
+
+
             <div style="display: flex; justify-content: space-between;">
                 <button id="prev-video" class="button"><i class="fas fa-step-backward"></i> </button>
 
