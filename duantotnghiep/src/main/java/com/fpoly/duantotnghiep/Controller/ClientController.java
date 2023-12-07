@@ -79,7 +79,7 @@ public class ClientController {
 				distinctCategories.add(khoaHoc);
 			}
 		}
-
+		
 		model.addAttribute("catesName", distinctCategories);
 		model.addAttribute("catesId", findAlIdCategory);
 
