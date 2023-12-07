@@ -84,7 +84,7 @@ public class ClientController {
 				distinctCategories.add(khoaHoc);
 			}
 		}
-		
+
 		model.addAttribute("catesName", distinctCategories);
 		model.addAttribute("catesId", findAlIdCategory);
 
@@ -260,15 +260,9 @@ public class ClientController {
 	}
 
 	@GetMapping("/courseOnline/contact")
-	public String contact(@RequestParam("idLogin") int idLogin,Model model) {
-		
-		
-		NguoiDung nguoiDung = dungService.findById(idLogin).get();
-	
-		// You can now use 'nguoiDung' in your model or any further processing
-		model.addAttribute("thongTinNguoiDung", nguoiDung);
+	public String contact(Model model) {
 		return "contact";
-		
+
 	}
 
 	@GetMapping("/courseOnline/cart")

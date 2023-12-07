@@ -212,11 +212,96 @@
 
         /* Thêm các quy tắc CSS hiện tại của bạn ở đây */
     </style>
+     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
 
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #f3a20d;
+        }
+
+        .video-form {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .tieude {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #343a40;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        #preview img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+
+        .container-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn {
+            cursor: pointer;
+        }
+
+        .course-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #e0ab41;
+            color: #ffffff;
+        }
+
+        .table td {
+            background-color: #ffffff;
+        }
+        
+    </style>
     <!-- Header End -->
     <!-- Courses Start -->
     <!-- Tabs -->
-    <div class="tabs">
+    <div class="tabs" style="width: 50%; margin: auto;">
         <button onclick="openTab('tab1')" class="tab-button active">Tạo khoá học</button>
         <button onclick="openTab('tab2')" class="tab-button">Thêm mục lục</button>
         <button onclick="openTab('tab3')" class="tab-button">Đăng video</button>
@@ -254,7 +339,7 @@
                                         <!-- Hiển thị hình ảnh đã chọn (nếu có) -->
                                         <div id="preview">
                                             <!-- Ảnh mặc định -->
-                                            <img id="defaultImage" ng-src="/Admin/img/gallery.png" alt="Default Image"
+                                            <img id="defaultImage" alt=""
                                                 height="100px" width="100px">
                                         </div>
                                         <input name="hinhAnh" id="imageInput" type="file"
@@ -265,6 +350,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group">
+                                        <br>
                                         <div class="tieude">Mô tả:</div>
                                         <textarea name="moTa" ng-model="formKhoaHoc.moTa"
                                             style="width: 100%; height: 150px;"></textarea>
@@ -476,7 +562,7 @@
                                 <label for="description">Mô tả:</label>
                                 <textarea class="form-control" id="description" name="description" required></textarea>
                             </div>
-                            <div class="form-group" id="form-privacyStatus">
+                            <div class="form-group" id="form-privacyStatus" hidden>
                                 <label for="privacyStatus">Quyền riêng
                                     tư:</label>
                                 <select class="form-control" id="privacyStatus" name="privacyStatus" required>
@@ -530,6 +616,7 @@
         <!-- Đây là nút dẫn đến URL -->
         <div style="text-align: center; padding-top: 60px;">
             <a th:href="${authorizationUrl}" class="btn btn-primary">Vui lòng đăng nhập</a>
+            <p>(Vui lòng đăng nhập bằng tài khoản Gmail để đăng tải video)</p>
         </div>
 
         <div class="form-group" id="accessTokenGroup">
@@ -1014,7 +1101,7 @@
                 var formData = new FormData();
                 formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
                 $scope.formKhoaHoc.hinhAnh = files[0].name;
-
+                console.log(formData);
                 formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type: "application/json" }));
                 $http.post('/api/khoahoc', formData, {
                     transformRequest: angular.identity,
@@ -1025,10 +1112,7 @@
                         $scope.updateUI();
                         $scope.resetKhoaHoc();
                     })
-                    .catch(function (response) {
-                        $scope.hassError = true;
-                        $scope.message1 = "Tên khoá học đã tồn tại";
-                    });
+
 
             }
 
