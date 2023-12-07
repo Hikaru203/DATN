@@ -76,8 +76,10 @@ public class YouTubeController {
         // Lấy thông tin về người dùng đang đăng nhập từ Spring Security
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         NguoiDung user = (NguoiDung) session.getAttribute("user");
-        // Kiểm tra xem người dùng đã được xác thực hay chưa
+
         if (authentication != null && !authentication.getName().equals("anonymousUser") && user != null) {
+            
+            // Kiểm tra xem người dùng đã được xác thực hay chưa
             if (!user.getChucVu().equalsIgnoreCase("true")) {
 
                 String accessToken = (String) session.getAttribute("accessToken");

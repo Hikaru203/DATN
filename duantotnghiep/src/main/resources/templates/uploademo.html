@@ -27,7 +27,7 @@
     <link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 
-<body>
+<body ng-app="myApp" ng-controller="myCtrl">
     <!-- Topbar Start -->
     <div class="container-fluid d-none d-lg-block">
         <div class="row align-items-center py-4 px-xl-5">
@@ -224,7 +224,7 @@
     <!-- Tab Content -->
     <div id="tab1" class="tab-content active">
         <!-- Your provided code goes here -->
-        <div class="container" ng-app="myApp" ng-controller="myCtrl">
+        <div class="container">
             <h1 class="text-center">Tạo Khoá Học</h1>
             <div class="row">
                 <div class="col-md-12">
@@ -369,7 +369,7 @@
     </div>
 
     <div id="tab2" class="tab-content">
-        <div class="container" ng-app="myApp" ng-controller="myCtrl">
+        <div class="container">
             <h1 class="text-center">Thêm mục lục video</h1>
             <div class="row">
                 <div class="col-md-6">
@@ -377,21 +377,23 @@
                         <form action="process_video.php" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="khoaHocSelect">
-                                    <h4>Chọn khoá học cần thêm video:</h4>
+                                    <h4>Chọn khoá học cần thêm mục lục</h4>
                                 </label>
                                 <div>
-                                    <select ng-change="changeLoai(selectedKhoaHoc)" class="form-control"
-                                        id="khoaHocSelect" name="khoaHocSelect" ng-model="selectedKhoaHoc" required>
-                                        <option th:each="khoaHoc : ${tenKhoaHocList}" th:value="${khoaHoc.id}"
-                                            th:text="${khoaHoc.tenLoaiKhoaHoc}"></option>
+                                    <select class="form-control" id="khoaHocSelect" name="khoaHocSelect"
+                                        ng-model="selectedKhoaHoc" required ng-change="changeMucLuc(selectedKhoaHoc)"
+                                        ng-options="khoaHoc.id as khoaHoc.tenKhoaHoc for khoaHoc in khoaHocFindByNguoiTao">
                                     </select>
+
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="videoTitle">
                                     <h4>Tên mục lục:</h4>
                                 </label>
-                                <input type="text" class="form-control" id="tenMucLuc" name="tenMucLuc" required>
+                                <input type="text" class="form-control" ng-model="formMucLuc.tenMucLuc" id="tenMucLuc"
+                                    name="tenMucLuc" required>
+
                             </div>
                         </form>
                     </div>
@@ -404,11 +406,10 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Khoá học</th>
-                                    <th scope="col">Số mục lục</th>
+                                    <th scope="col">Tên mục lục</th>
                                 </tr>
-                                <tr ng-repeat="loai in khoaHocByLoai">
-                                    <td>{{loai.tenKhoaHoc}}</td>
+                                <tr ng-repeat="loai in mucLuc" ng-click="editMucLuc(loai)">
+                                    <td>{{loai.tenMucLuc}}</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -417,11 +418,21 @@
                         </table>
                     </div>
                 </div>
-                <div class="button-container">
-                    <button type="button" class="btn btn-primary" onclick="goBack()">Trở lại</button>
-                </div>
-                <div class="button-container">
-                    <button type="button" class="btn btn-primary" onclick="nextTab('tab3')">Tiếp theo</button>
+                <div class="container mt-4" style="margin-bottom: 20px;">
+                    <!-- Button "Thêm" -->
+                    <button id="basicSuccess" class="btn btn-success" ng-click="createMucLuc()"
+                        ng-disabled="!btnThemMucLuc">Thêm</button>
+
+                    <!-- Button "Sửa" -->
+                    <button class="btn btn-warning mr-2" ng-click="updateKhoaHoc()"
+                        ng-disabled="!btnSuaMucLuc">Sửa</button>
+
+                    <!-- Button "Xóa" -->
+                    <button class="btn btn-danger" ng-click="deleteKhoaHoc(formKhoaHoc)"
+                        ng-disabled="!btnXoaMucLuc">Xóa</button>
+
+                    <!-- Button "làm mới" -->
+                    <button class="btn btn-info" ng-click="resetMucLuc()">Làm mới</button>
                 </div>
 
                 <br><br>
@@ -447,7 +458,7 @@
 
     <div id="tab3" class="tab-content">
         <!-- Content for Tab 3 goes here -->
-        <div class="container" ng-app="myApp" ng-controller="myCtrl" th:if="${accessToken != null}">
+        <div class="container" th:if="${accessToken != null}">
             <h1 class="text-center">Đăng Video Khoá Học</h1>
             <div class="row">
                 <div class="col-md-6">
@@ -772,6 +783,7 @@
             $scope.khoaHoc = {};
             $scope.formKhoaHoc = {};
             $scope.khoaHocFindByNguoiTao = {};
+            $scope.mucLuc = {};
             $scope.selectedKhoaHoc = {}; // Initialize selectedKhoaHoc object
 
             $scope.changeLoai = function (id) {
@@ -779,10 +791,29 @@
                 // Thêm logic xử lý khi giá trị thay đổi
                 $http.get('/api/khoahoc/byLoai/' + id)
                     .then(function (response) {
+
+                    })
+            }
+            $scope.changeKhoaHoc = function (id) {
+                console.log(id);
+                $http.get('/api/khoahoc/' + id)
+                    .then(function (response) {
+                        $scope.khoaHoc = response.data;
+                        console.log($scope.khoaHoc);
                         $scope.khoaHocByLoai = response.data;
                         console.log($scope.khoaHocByLoai);
                     })
             }
+
+            $scope.changeMucLuc = function (id) {
+                console.log(id);
+                $http.get('/rest/admin/MucLuc/KhoaHoc/' + id)
+                    .then(function (response) {
+                        $scope.mucLuc = response.data;
+                        console.log($scope.mucLuc);
+                    })
+            }
+
             const authorizationTokenGroup = document.getElementById('authorizationTokenGroup');
             const accountTokenInput = document.getElementById("accessToken");
 
@@ -815,20 +846,33 @@
                 $scope.btnThemKhoaHoc = false;
                 $scope.btnSuaKhoaHoc = true;
                 $scope.btnXoaKhoaHoc = true;
-
-
+            }
+            $scope.editMucLuc = function (item) {
+                console.log(item);
+                $scope.formMucLuc = angular.copy(item); // Copy khoaHoc object to selectedKhoaHoc
+                $scope.btnThemMucLuc = false;
+                $scope.btnSuaMucLuc = true;
+                $scope.btnXoaMucLuc = true;
             }
             $scope.updateKhoaHoc = function () {
                 $scope.hassError = false;
+                var input = document.getElementById('imageInput');
+                var files = input.files;
                 var item = angular.copy($scope.formKhoaHoc);
                 // Chuyển đổi định dạng của chuỗi ngày tháng
                 console.log(item);
                 var currentDate = new Date();
                 $scope.formKhoaHoc.ngayTao = currentDate.toISOString();
                 var formData = new FormData();
-                formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
-                formData.append('hinhAnh', new Blob([JSON.stringify($scope.formKhoaHoc.hinhAnh)], { type: "application/json" }));
+                if (files[0] != null) {
+                    $scope.formKhoaHoc.hinhAnh = files[0];
+                    var formData = new FormData();
+                    formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
+                } else {
+                    $scope.formKhoaHoc.hinhAnh = $scope.formKhoaHoc.hinhAnh;
+                    formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
 
+                }
                 formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type: "application/json" }));
 
                 $http.put(`/rest/admin/KhoaHoc/${item.id}`, formData, {
@@ -888,26 +932,33 @@
                 $scope.btnThemKhoaHoc = true;
                 $scope.btnSuaKhoaHoc = false;
                 $scope.btnXoaKhoaHoc = false;
+            }
 
-
+            $scope.resetMucLuc = function () {
+                $scope.formMucLuc = {};
+                $scope.btnThemMucLuc = true;
+                $scope.btnSuaMucLuc = false;
+                $scope.btnXoaMucLuc = false;
             }
 
             $scope.create = function () {
                 $scope.idLogin = document.getElementById("idLogin").value;
                 $scope.hassError = false;
                 //trạng thái hiển thị khoa học
-                $scope.formKhoaHoc.trangThai = "true";
+                $scope.formKhoaHoc.trangThai = "false";
                 $scope.formKhoaHoc.duyet = false;
                 var input = document.getElementById('imageInput');
                 var files = input.files;
 
                 var currentDate = new Date();
                 $scope.formKhoaHoc.ngayTao = currentDate.toISOString();
-                $scope.formKhoaHoc.hinhAnh = files[0].name;
+                $scope.formKhoaHoc.hinhAnh = files[0];
                 $scope.formKhoaHoc.nguoiTao = { id: $scope.idLogin };
                 $scope.formKhoaHoc.loaiKhoaHoc = { id: '6' };
+                console.log($scope.formKhoaHoc);
                 var formData = new FormData();
-                formData.append('hinhAnh', new Blob([JSON.stringify($scope.formKhoaHoc.hinhAnh)], { type: "application/json" }));
+                formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
+                $scope.formKhoaHoc.hinhAnh = files[0].name;
 
                 formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type: "application/json" }));
                 console.log(formData.get('khoaHoc'));
@@ -927,6 +978,33 @@
                         console.log(response);
                     });
 
+            }
+
+            $scope.createMucLuc = function () {
+                $scope.hassError = false;
+                $scope.idLogin = document.getElementById("idLogin").value;
+                console.log($scope.selectedKhoaHoc);
+                $http.get('/api/khoahoc/' + $scope.selectedKhoaHoc)
+                    .then(function (response) {
+                        $scope.formMucLuc.khoaHoc = response.data;
+                        console.log($scope.formMucLuc.khoaHoc);
+                        $scope.formMucLuc.nguoiTao = { id: $scope.idLogin };
+                        $scope.formMucLuc.ngayTao = new Date().toISOString();
+                        var item = angular.copy($scope.formMucLuc);
+                        console.log(item);
+                        $http.post('/rest/admin/MucLuc', item)
+                            .then(function (response) {
+                                alert("Thêm thành công");
+                                $scope.updateUI();
+                                $scope.resetMucLuc();
+                            })
+                            .catch(function (response) {
+                                $scope.hassError = true;
+                                $scope.message1 = "Tên khoá học đã tồn tại";
+                                console.log(response);
+                            });
+                    })
+                    
             }
 
 
