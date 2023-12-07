@@ -4,14 +4,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
-
+import java.util.UUID;
+import java.io.InputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fpoly.duantotnghiep.Entity.NguoiDung;
 import com.fpoly.duantotnghiep.jparepository.NguoiDungRepository;
@@ -21,8 +25,11 @@ import com.fpoly.duantotnghiep.service.NguoiDungService;
 @Transactional
 public class NguoiDungServiceImpl implements NguoiDungService {
 
-    @Autowired
-    private NguoiDungRepository nguoiDungRepository;
+	 @Autowired
+	    private NguoiDungRepository nguoiDungRepository;
+
+    private static final String IMAGE_DIRECTORY = "Admin/img/User/";  // 
+
 
     @Override
     public List<NguoiDung> findAll() {
@@ -41,8 +48,8 @@ public class NguoiDungServiceImpl implements NguoiDungService {
     }
 
     @Override
-    public List<NguoiDung> findByHoTen(String kw) {
-        return (List<NguoiDung>) nguoiDungRepository.findByHoTen(kw);
+    public List<NguoiDung> findByHoTen(String hoTen) {
+        return (List<NguoiDung>) nguoiDungRepository.findByHoTen(hoTen);
     }
 
     @Override
@@ -50,61 +57,61 @@ public class NguoiDungServiceImpl implements NguoiDungService {
         return nguoiDungRepository.existsById(id);
     }
 
-    @Override
-    public void deleteById(int id, String filename) {
-        Optional<NguoiDung> nguoiDungOptional = nguoiDungRepository.findById(id);
-
-        if (nguoiDungOptional.isPresent()) {
-            NguoiDung nguoiDung = nguoiDungOptional.get();
-
-            // Xóa file hình ảnh (nếu có)
-            if (filename != null && !filename.isEmpty()) {
-                // Thực hiện logic xóa file dựa trên filename
-                try {
-                    Path imagePath = Paths.get("your_image_directory", filename);
-                    Files.deleteIfExists(imagePath);
-                } catch (IOException e) {
-                    // Xử lý exception nếu có
-                    e.printStackTrace();
-                }
-            }
-
-            // Thực hiện xóa người dùng
-            nguoiDungRepository.deleteById(id);
-        } else {
-            System.out.println("Không tìm thấy tài khoản ");
-        }
-    }
-
-
-    @Override
-    public void updateNguoiDung(int id, NguoiDung nguoiDung) {
-        Optional<NguoiDung> existingNguoiDungOptional = nguoiDungRepository.findById(id);
-
-        if (existingNguoiDungOptional.isPresent()) {
-            NguoiDung existingNguoiDung = existingNguoiDungOptional.get();
-
-            // Thực hiện cập nhật
-            existingNguoiDung.setTaiKhoan(nguoiDung.getTaiKhoan());
-            existingNguoiDung.setMatKhau(nguoiDung.getMatKhau());
-            existingNguoiDung.setHoTen(nguoiDung.getHoTen());
-            existingNguoiDung.setEmail(nguoiDung.getEmail());
-            existingNguoiDung.setSoDienThoai(nguoiDung.getSoDienThoai());
-            existingNguoiDung.setChucVu(nguoiDung.getChucVu());
-            existingNguoiDung.setHinhAnh(nguoiDung.getHinhAnh());
-            existingNguoiDung.setTrangThai(nguoiDung.getTrangThai());
-
-            nguoiDungRepository.save(existingNguoiDung);
-        } else {
-            // Xử lý trường hợp không tìm thấy người dùng với ID tương ứng
-            // Có thể ném một exception hoặc xử lý tùy thuộc vào yêu cầu của bạn
-        	
-        }
-    }
+    	
+   
 
     @Override
     public NguoiDung findNguoiDungById(int id) {
-        Optional<NguoiDung> optionalNguoiDung = nguoiDungRepository.findById(id);
-        return optionalNguoiDung.orElse(null);
+        return nguoiDungRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public NguoiDung getNguoiDungById(int id) {
+        return nguoiDungRepository.findById(id).orElse(null);
+    }
+    @Override
+    public NguoiDung addNguoiDung(NguoiDung nguoiDung, MultipartFile file) throws IOException {
+        String fileName = UUID.randomUUID().toString() + Objects.requireNonNull(file.getOriginalFilename())
+                                                         .substring(file.getOriginalFilename().lastIndexOf("."));
+        Path path = Paths.get(IMAGE_DIRECTORY, fileName);
+        Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        nguoiDung.setHinhAnh("uploads/images/" + fileName);
+        return nguoiDungRepository.save(nguoiDung);
+    }
+       @Override
+    public void deleteNguoiDung(int id) {
+        nguoiDungRepository.deleteById(id);
+    }
+
+        
+
+
+       @Override
+       public void capNhatNguoiDung(int id, NguoiDung nguoiDung, MultipartFile file) throws IOException {
+           NguoiDung existingUser = nguoiDungRepository.findById(id)
+                   .orElseThrow(() -> new RuntimeException("User not found"));
+           // Cập nhật thông tin người dùng
+           existingUser.setTaiKhoan(nguoiDung.getTaiKhoan());
+           existingUser.setMatKhau(nguoiDung.getMatKhau());
+           existingUser.setHoTen(nguoiDung.getHoTen());
+           existingUser.setEmail(nguoiDung.getEmail());
+           // Kiểm tra và cập nhật hình ảnh nếu có
+           if (file != null && !file.isEmpty()) {
+               // Lưu hình ảnh trong project, tên file giữ nguyên
+               String fileName = file.getOriginalFilename();
+               String filePath = "Admin/img/User/" + fileName;
+               // Lưu hình ảnh
+               Files.copy(file.getInputStream(), Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+               // Cập nhật tên hình ảnh trong đối tượng NguoiDung
+               existingUser.setHinhAnh(fileName);
+           }
+
+           nguoiDungRepository.save(existingUser);
+       }
+
+
+       @Override
+       public NguoiDung findByTaiKhoan(String taiKhoan) {
+           return nguoiDungRepository.findByTaiKhoan(taiKhoan);
+       }
 }

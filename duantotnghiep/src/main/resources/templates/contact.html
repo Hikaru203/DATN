@@ -331,7 +331,20 @@
         </div>
     </div>
     <!-- Contact End -->
-
+<style>
+    /* CSS để thêm hiệu ứng mờ cho ảnh */
+    .bg-image {
+        position: absolute;
+        top: 15%;
+        left: 0;
+      width: 110%;
+        height: 110%;
+        background: url('/img/background1.jpg') center center no-repeat;
+        background-size: cover;
+ filter: blur(1px); /* Điều chỉnh giá trị để tăng/giảm độ mờ */
+        z-index: -1; /* Đảm bảo ảnh nằm dưới phần content */
+    }
+</style>
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5">
@@ -386,6 +399,7 @@
         </div>
     </div>
     <!-- Footer End -->
+
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
 

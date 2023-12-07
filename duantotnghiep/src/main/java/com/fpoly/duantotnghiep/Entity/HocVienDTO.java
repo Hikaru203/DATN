@@ -3,12 +3,15 @@ package com.fpoly.duantotnghiep.Entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "hoc_vien")
@@ -27,6 +30,7 @@ public class HocVienDTO {
     private String khoaHoc;
     private String tenKhoaHoc;
     private Double chiPhi;
+  
 
     // Constructors, getters, and setters
 }
