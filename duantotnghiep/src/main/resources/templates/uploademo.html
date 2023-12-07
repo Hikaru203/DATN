@@ -165,18 +165,21 @@
             </div>
         </div>
     </div>
+    
     <!-- Navbar End -->
     <!-- Header Start -->
     <style>
+    
         .tabs {
             display: flex;
             margin-bottom: 20px;
+                margin-top:20px;
         }
 
         .tab-button {
             flex: 1;
-            padding: 5px;
-            cursor: pointer;
+            padding: 8px;
+            cursor:rgb(128, 0, 255)nter;
             text-align: center;
             background-color: #cca85f;
             color: #fff;
@@ -193,6 +196,7 @@
         .active {
             display: block;
             border: 2px solid #fff;
+        
         }
 
         .container {
@@ -201,6 +205,21 @@
         .button-container {
             margin-top: 10px; /* Thay đổi giá trị theo mong muốn của bạn */
         }
+        .tab-button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.tab-button:focus {
+    border: 5px solid #fff;
+}
+    .tab-button.current-tab {
+    border: 2px solid #fff;
+}
+ .tab-button.tab2:focus.active {
+    border: 5px solid #fff;
+}
+
     
         /* Thêm các quy tắc CSS hiện tại của bạn ở đây */
     </style>
@@ -210,14 +229,28 @@
     <!-- Tabs -->
 <div class="tabs">
     <button onclick="openTab('tab1')" class="tab-button active">Tạo khoá học</button>
-    <button onclick="openTab('tab2')" class="tab-button">Thêm mục lục</button>
-    <button onclick="openTab('tab3')" class="tab-button">Đăng video</button>
+    <button onclick="openTab('tab2')" class="tab-button tab2">Thêm mục lục</button>
+    <button onclick="openTab('tab3')" class="tab-button tab3">Đăng video</button>
 </div>
 <!-- Tab Content -->
 <div id="tab1" class="tab-content active">
     <!-- Your provided code goes here -->
+    
     <div class="container" ng-app="myApp" ng-controller="myCtrl">
         <h1 class="text-center">Tạo Khoá Học</h1>
+        <div class="form-group" id="authorizationTokenGroup">
+    <input type="text" class="form-control" id="authorizationUrlInput" name="authorizationUrl" placeholder="URL xác thực" required>
+    <!-- Đây là nút dẫn đến URL -->
+    <div style="text-align: center; padding-top: 60px;">
+        <button type="submit" class="btn btn-primary">Vui lòng đăng nhập</button>
+    </div>
+    
+</div>
+
+<div class="form-group" id="accessTokenGroup">
+    <input type="text" class="form-control" id="accessToken" name="accessToken" placeholder="Mã truy cập" required>
+</div>
+        
         <div class="row">
             <div class="col-md-6">
                 <div class="video-form">
@@ -235,7 +268,7 @@
                             <textarea class="form-control" id="videoDescription" name="videoDescription" rows="4"
                                 required></textarea>
                         </div>
-                        <button type="button" class="btn btn-primary" onclick="nextTab('tab2')">Tiếp theo</button>
+                        <button type="button" class="btn btn-primary " onclick="nextTab('tab2')" >Tiếp theo</button>
 
                         <br><br>
                     </form>
@@ -284,7 +317,7 @@
                     <form action="process_video.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="khoaHocSelect">
-                                <h4>Chọn khoá học cần thêm video:</h4>
+                                <h4>Chọn khoá học cần thêm mục lục:</h4>
                             </label>
                             <div>
                                 <select ng-change="changeLoai(selectedKhoaHoc)" class="form-control" id="khoaHocSelect"
@@ -302,7 +335,6 @@
                         </div>
                     </form>
                 </div>
-
             </div>
             <div class="col-md-6">
                 <br>
@@ -311,15 +343,16 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Khoá học</th>
+                                <th scope="col">Tên khoá học</th>
                                 <th scope="col">Số mục lục</th>
-                            </tr>
-                            <tr ng-repeat="loai in khoaHocByLoai">
-                                <td>{{loai.tenKhoaHoc}}</td>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- Nơi hiển thị danh sách đã đăng -->
+                            <tr ng-repeat="loai in khoaHocByLoai">
+                                <td>{{loai.tenKhoaHoc}}</td>
+                                <td>{{loai.soMucLuc}}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -330,24 +363,24 @@
             <div class="button-container">
                 <button type="button" class="btn btn-primary" onclick="nextTab('tab3')">Tiếp theo</button>
             </div>
-           
-            <br><br>
-                <style>
-                    .course-list {
-                     max-height: 300px; /* Đặt chiều cao tối đa cho phần hiển thị */
-                    overflow-y: auto; /* Tạo thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
-                       }
 
-                   .table {
-                  width: 100%; /* Đảm bảo bảng rộng 100% của phần chứa nó */
-                   }
-                </style>
-            
-           
-            <!-- Thêm phần hiển thị danh sách khoá học sau phần đăng video -->
+            <br><br>
+
+            <style>
+                .course-list {
+                    max-height: 300px; /* Đặt chiều cao tối đa cho phần hiển thị */
+                    overflow-y: auto; /* Tạo thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
+                }
+
+                .table {
+                    width: 100%; /* Đảm bảo bảng rộng 100% của phần chứa nó */
+                }
+            </style>
+
         </div>
     </div>
 </div>
+
 
 <div id="tab3" class="tab-content">
     <!-- Content for Tab 3 goes here -->
@@ -394,9 +427,6 @@
                                         th:text="${khoaHoc.tenLoaiKhoaHoc}"></option>
                                 </select>
                             </div>
-
-
-
                         </div>
                         <br><br>
                         <div class="button-container">
@@ -410,22 +440,6 @@
                 </div>
 
             </div>
-            <div class="form-group" id="authorizationTokenGroup">
-
-                <input type="" class="form-control" id="authorizationUrlInput" name="authorizationUrl"
-                    th:value="${authorizationUrl}">
-                <!-- Đây là nút dẫn đến URL -->
-                <div style="text-align: center; padding-top: 60px;">
-                    <a th:href="${authorizationUrl}" class="btn btn-primary">Vui lòng
-                        đăng nhập</a>
-                </div>
-
-                <div class="form-group" id="accessTokenGroup">
-                    <input type="" class="form-control" id="accessToken" name="accessToken" th:value="${accessToken}">
-                </div>
-
-            </div>
-
             <div class="col-md-6">
                 <div class="image-form-group">
                     <label for="videoThumbnail">
@@ -450,15 +464,43 @@
                                 <th scope="col">Khoá học</th>
                                 <th scope="col">Mô tả</th>
                             </tr>
-                            <tr ng-repeat="loai in khoaHocByLoai">
-                                <td>{{loai.tenKhoaHoc}}</td>
-                            </tr>
                         </thead>
                         <tbody>
                             <!-- Nơi hiển thị danh sách đã đăng -->
+                            <tr ng-repeat="loai in khoaHocByLoai">
+                                <td>{{loai.tenKhoaHoc}}</td>
+                                <!-- Thêm cột mô tả nếu cần -->
+                                <!-- <td>{{loai.moTa}}</td> -->
+                            </tr>
                         </tbody>
                     </table>
                 </div>
+
+              <!--   <!-- Thêm phần tử nhập authorizationUrl và accessToken 
+                <div class="form-group" id="authorizationTokenGroup">
+                    <input type="" class="form-control" id="authorizationUrlInput" name="authorizationUrl"
+                        th:value="${authorizationUrl}">
+                    Đây là nút dẫn đến URL
+                    <div style="text-align: center; padding-top: 60px;">
+                        <a th:href="${authorizationUrl}" class="btn btn-primary">Vui lòng
+                            đăng nhập</a>
+                    </div>
+
+                    <div class="form-group" id="accessTokenGroup">
+                        <input type="" class="form-control" id="accessToken" name="accessToken"
+                            th:value="${accessToken}">
+                    </div> -->
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
                 <style>
                     .course-list {
     max-height: 300px; /* Đặt chiều cao tối đa cho phần hiển thị */
@@ -468,33 +510,50 @@
 .table {
     width: 100%; /* Đảm bảo bảng rộng 100% của phần chứa nó */
 }
+
+
                 </style>
             </div>
             <!-- Thêm phần hiển thị danh sách khoá học sau phần đăng video -->
         </div>
     </div>
     <script>
+    function nextTab() {
+        if (currentTabIndex < 3) {
+            currentTabIndex++;
+            var tabName = 'tab' + currentTabIndex;
+            openTab(tabName);
+            var tabButton = document.querySelector('[onclick="openTab(\'' + tabName + '\')"]');
+            tabButton.classList.add("active");
+        } else {
+            alert("This is the last tab.");
+        }
+    }
+
+
+
+
         var currentTabIndex = 1;
     
         function openTab(tabName) {
-            var i, tabContent, tabButtons;
-            tabContent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabContent.length; i++) {
-                tabContent[i].style.display = "none";
-            }
-            tabButtons = document.getElementsByClassName("tab-button");
-            for (i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].classList.remove("active");
-                tabButtons[i].style.border = "2px solid #007bff";
-                tabButtons[i].style.color = "#007bff";
-            }
-            document.getElementById(tabName).style.display = "block";
-            var clickedButton = document.querySelector('[onclick="openTab(\'' + tabName + '\')"]');
-            clickedButton.classList.add("active");
-            clickedButton.style.border = "2px solid #fff";
-            clickedButton.style.color = "#fff";
-            currentTabIndex = parseInt(tabName.replace('tab', ''));
-        }
+        	  var i, tabs, tabButtons;
+        	    tabs = document.getElementsByClassName("tab-content");
+        	    for (i = 0; i < tabs.length; i++) {
+        	        tabs[i].style.display = "none";
+        	    }
+        	    tabButtons = document.getElementsByClassName("tab-button");
+        	    for (i = 0; i < tabButtons.length; i++) {
+        	        tabButtons[i].classList.remove("active");
+        	        tabButtons[i].style.border = "none";
+        	        tabButtons[i].style.color = "#007bff";
+        	    }
+        	    document.getElementById(tabName).style.display = "block";
+        	    var clickedButton = document.querySelector('[onclick="openTab(\'' + tabName + '\')"]');
+        	    clickedButton.classList.add("active");
+        	    clickedButton.style.border = "2px solid #fff";
+        	    clickedButton.style.color = "#fff";
+        	    currentTabIndex = parseInt(tabName.replace('tab', ''));
+        	}
     
         function goBack() {
             if (currentTabIndex > 1) {
