@@ -85,12 +85,16 @@ public class AccountRestController {
     @GetMapping("/confirm")
     public RedirectView confom(@RequestParam("otp") String otp) {
         String mck = String.valueOf(session.getAttribute("otp"));
+        if (session.getAttribute("otp") == null) {
+
+            return new RedirectView("/courseOnline/ErorOTP");
+        }
         if (otp.equals(mck)) {
             session.setAttribute("kiemtraotp", "KT");
             System.out.println(otp);
             return new RedirectView("/courseOnline/doimk");
         }
-        return new RedirectView("/courseOnline/ErorOTP");
+        return new RedirectView("/courseOnline/FaillOTP");
     }
 
     @GetMapping("/doimaukhau")

@@ -296,7 +296,6 @@
                         // Lấy thẻ input và danh sách các tệp tin đã chọn
                         var input = document.getElementById('imageInput');
                         var files = input.files;
-                        console.log(files);
                         // Kiểm tra xem có tệp tin nào đã chọn hay không
                         if (files.length > 0) {
                             var reader = new FileReader();
@@ -340,7 +339,6 @@
                             </thead>
                             <script>
                                 function handleRowClick(idKhoaHoc) {
-                                    console.log(idKhoaHoc);
 
                                 }
                             </script>
@@ -407,9 +405,14 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Tên mục lục</th>
+                                    <th>Thêm video</th>
                                 </tr>
                                 <tr ng-repeat="loai in mucLuc" ng-click="editMucLuc(loai)">
                                     <td>{{loai.tenMucLuc}}</td>
+                                    <td> <a href="#" class="fa fa-plus" aria-hidden="true"
+                                            ng-click="addNewLoai(loai)"></a>
+
+                                    </td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -424,11 +427,11 @@
                         ng-disabled="!btnThemMucLuc">Thêm</button>
 
                     <!-- Button "Sửa" -->
-                    <button class="btn btn-warning mr-2" ng-click="updateKhoaHoc()"
+                    <button class="btn btn-warning mr-2" ng-click="updateMucLuc()"
                         ng-disabled="!btnSuaMucLuc">Sửa</button>
 
                     <!-- Button "Xóa" -->
-                    <button class="btn btn-danger" ng-click="deleteKhoaHoc(formKhoaHoc)"
+                    <button class="btn btn-danger" ng-click="deleteMucLuc(formMucLuc)"
                         ng-disabled="!btnXoaMucLuc">Xóa</button>
 
                     <!-- Button "làm mới" -->
@@ -462,242 +465,248 @@
             <h1 class="text-center">Đăng Video Khoá Học</h1>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="video-form">
+                    <div class="video-form" id="uploadNewVideoSection">
+                        <input type="text" ng-model="selectedTenMucLuc" hidden>
                         <form action="process_video.php" method="POST" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="videoTitle">
-                                    <h4>Tiêu đề video:</h4>
-                                </label>
-                                <input type="text" class="form-control" id="videoTitle" name="videoTitle" required>
+                            <div class="form-group" id="form-title">
+                                <label for="title">Tiêu đề:</label>
+                                <input type="text" class="form-control" id="title" name="title" required>
                             </div>
-                            <div class="form-group">
-                                <label for="videoDescription">
-                                    <h4>Mô tả:</h4>
-                                </label>
-                                <textarea class="form-control" id="videoDescription" name="videoDescription" rows="4"
-                                    required></textarea>
+                            <div class="form-group" id="form-description">
+                                <label for="description">Mô tả:</label>
+                                <textarea class="form-control" id="description" name="description" required></textarea>
                             </div>
-                            <div class="form-group">
-                                <label for="videoFile">
-                                    <h4>File video:</h4>
-                                </label>
-                                <input type="file" class="form-control-file" id="videoFile" name="videoFile"
-                                    accept="video/*" required>
+                            <div class="form-group" id="form-privacyStatus">
+                                <label for="privacyStatus">Quyền riêng
+                                    tư:</label>
+                                <select class="form-control" id="privacyStatus" name="privacyStatus" required>
+                                    <option value="unlisted">không công
+                                        khai
+                                    </option>
+                                    <option value="public">Công khai
+                                    </option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label for="videoDate">
-                                    <h4>Ngày đăng dự kiến:</h4>
-                                </label>
-                                <input type="text" class="form-control" id="videoDate" name="videoDate" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="khoaHocSelect">
-                                    <h4>Chọn khoá học:</h4>
-                                </label>
-                                <div>
-                                    <select ng-change="changeLoai(selectedKhoaHoc)" class="form-control"
-                                        id="khoaHocSelect" name="khoaHocSelect" ng-model="selectedKhoaHoc" required>
-                                        <option th:each="khoaHoc : ${tenKhoaHocList}" th:value="${khoaHoc.id}"
-                                            th:text="${khoaHoc.tenLoaiKhoaHoc}"></option>
-                                    </select>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="form-file">
+                                <div class="file-upload-inner ts-forms">
+                                    <div class="input prepend-small-btn">
+                                        <div class="file-button">
+                                            Tải Lên
+                                            <input type="file"
+                                                onchange="document.getElementById('prepend-small-btn').value = this.value;"
+                                                id="file" name="file" accept=".mp4">
+
+                                        </div>
+                                        <input type="text" hidden disabled id="prepend-small-btn"
+                                            placeholder="Chưa có file or link nào">
+                                    </div>
                                 </div>
                             </div>
                             <br><br>
-                            <div class="button-container">
-                                <button type="button" class="btn btn-primary" onclick="goBack()">Trở lại</button>
-                            </div>
 
-                            <div class="button-container">
-                                <button type="submit" class="btn btn-primary">Đăng Video</button>
+                            <div class="container mt-4">
+                                <!-- Button "Thêm" -->
+                                <button class="btn btn-primary mr-2" id="addButton">Thêm</button>
+
+                                <!-- Button "Sửa" -->
+                                <button class="btn btn-warning mr-2" onclick="editFunction()">Sửa</button>
                             </div>
                         </form>
                     </div>
-
                 </div>
-
-
                 <div class="col-md-6">
-                    <div class="image-form-group">
-                        <label for="videoThumbnail">
-                            <h5>Kéo và thả hình ảnh hoặc chọn từ máy tính:</h5>
-                        </label>
-                        <label for="videoThumbnail">Chọn hoặc tải một hình ảnh lên để thể hiện nội dung trong video của
-                            bạn.
-                            Hình thu nhỏ hấp dẫn sẽ làm nổi bật video của bạn và thu hút người xem.</label>
-                        <input type="file" class="form-control-file" id="videoThumbnail" name="videoThumbnail"
-                            accept="image/*" style="display: none;">
-                        <div class="image-preview" id="imagePreview" ondragover="onDragOver(event)"
-                            ondragleave="onDragLeave(event)" ondrop="onDrop(event)">
-                            <p id="dropText">Kéo và thả hình ảnh vào đây</p>
-                            <img id="preview" src="#" alt="" class="image-container">
-                        </div>
-                    </div>
-                    <br>
-                    <div class="course-list">
-                        <h4>Danh sách các khoá học cùng loại:</h4>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Khoá học</th>
-                                    <th scope="col">Mô tả</th>
-                                </tr>
-                                <tr ng-repeat="loai in khoaHocByLoai">
-                                    <td>{{loai.tenKhoaHoc}}</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Nơi hiển thị danh sách đã đăng -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <style>
-                        .course-list {
-                            max-height: 300px;
-                            /* Đặt chiều cao tối đa cho phần hiển thị */
-                            overflow-y: auto;
-                            /* Tạo thanh cuộn dọc khi nội dung vượt quá chiều cao tối đa */
-                        }
-
-                        .table {
-                            width: 100%;
-                            /* Đảm bảo bảng rộng 100% của phần chứa nó */
-                        }
-                    </style>
+                    <iframe id="videoPlayer" width="560" height="315" src="" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
                 </div>
-                <!-- Thêm phần hiển thị danh sách khoá học sau phần đăng video -->
-            </div>
+            </div> <!-- Thêm phần hiển thị danh sách khoá học sau phần đăng video -->
+        </div>
+    </div>
+
+    <div class="form-group" id="authorizationTokenGroup">
+        <input type="hidden" class="form-control" id="authorizationUrlInput" name="authorizationUrl"
+            th:value="${authorizationUrl}">
+        <!-- Đây là nút dẫn đến URL -->
+        <div style="text-align: center; padding-top: 60px;">
+            <a th:href="${authorizationUrl}" class="btn btn-primary">Vui lòng đăng nhập</a>
         </div>
 
-        <div class="form-group" id="authorizationTokenGroup">
-            <input type="hidden" class="form-control" id="authorizationUrlInput" name="authorizationUrl"
-                th:value="${authorizationUrl}">
-            <!-- Đây là nút dẫn đến URL -->
-            <div style="text-align: center; padding-top: 60px;">
-                <a th:href="${authorizationUrl}" class="btn btn-primary">Vui lòng đăng nhập</a>
-            </div>
-
-            <div class="form-group" id="accessTokenGroup">
-                <input type="hidden" class="form-control" id="accessToken" name="accessToken" th:value="${accessToken}">
-            </div>
+        <div class="form-group" id="accessTokenGroup">
+            <input type="hidden" class="form-control" id="accessToken" name="accessToken" th:value="${accessToken}">
         </div>
-        <script>
-            var currentTabIndex = 1;
+    </div>
+    <script>
 
-            function openTab(tabName) {
-                var i, tabContent, tabButtons;
-                tabContent = document.getElementsByClassName("tab-content");
-                for (i = 0; i < tabContent.length; i++) {
-                    tabContent[i].style.display = "none";
-                }
-                tabButtons = document.getElementsByClassName("tab-button");
-                for (i = 0; i < tabButtons.length; i++) {
-                    tabButtons[i].classList.remove("active");
-                    tabButtons[i].style.border = "2px solid #007bff";
-                    tabButtons[i].style.color = "#007bff";
-                }
-                document.getElementById(tabName).style.display = "block";
-                var clickedButton = document.querySelector('[onclick="openTab(\'' + tabName + '\')"]');
-                clickedButton.classList.add("active");
-                clickedButton.style.border = "2px solid #fff";
-                clickedButton.style.color = "#fff";
-                currentTabIndex = parseInt(tabName.replace('tab', ''));
+        document.addEventListener("DOMContentLoaded", function () {
+            const uploadNewVideoSection = document.getElementById("uploadNewVideoSection");
+            const addButton = document.getElementById("addButton"); // Thêm khai báo cho addButton
+
+            if (!uploadNewVideoSection || !addButton) {
+                console.error("Không thể tìm thấy các phần tử cần thiết.");
+                return;
             }
 
-            function goBack() {
-                if (currentTabIndex > 1) {
-                    currentTabIndex--;
-                    openTab('tab' + currentTabIndex);
-                } else {
-                    alert("This is the first tab.");
-                }
-            }
+            addButton.addEventListener("click", function (event) { // Thêm sự kiện click cho addButton
+                event.preventDefault(); // Ngăn chặn hành động mặc định của nút
 
-            function nextTab() {
-                if (currentTabIndex < 3) {
-                    currentTabIndex++;
-                    openTab('tab' + currentTabIndex);
-                } else {
-                    alert("This is the last tab.");
-                }
-            }
-        </script>
-        <script>
-            const thumbnailInput = document.getElementById("videoThumbnail");
-            const imagePreview = document.getElementById("imagePreview");
-            const preview = document.getElementById("preview");
-            let dateEntered = false;
-            let imageDropped = false; // Thêm biến imageDropped
+                if (uploadNewVideoSection.style.display !== "none") {
+                    const titleInput = document.getElementById("title");
+                    const descriptionInput = document.getElementById("description");
+                    const privacyStatusInput = document.getElementById("privacyStatus");
+                    const fileInput = document.getElementById("file");
 
+                    if (!titleInput.value || !descriptionInput.value || !privacyStatusInput.value || !fileInput.files[0]) {
+                        console.error("Vui lòng điền đầy đủ thông tin và chọn một file.");
+                        return;
+                    }
 
-            function onDrop(e) {
-                e.preventDefault();
-                imagePreview.classList.remove("drag-over"); // Bỏ lớp khi thả xong
-                const file = e.dataTransfer.files[0];
-                if (file) {
-                    const reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        preview.src = e.target.result;
-                    };
-
-                    reader.readAsDataURL(file);
-
-                    imagePreview.style.display = "block";
-                    imageDropped = true; // Đặt biến imageDropped thành true khi có hình ảnh được thả vào
-                } else {
-                    preview.src = "";
-                    imagePreview.style.display = "none";
-                }
-            }
-            function onDragOver(e) {
-                e.preventDefault();
-                imagePreview.classList.add("drag-over"); // Thêm lớp khi kéo và thả
-                dropText.style.display = "none"; // Ẩn nội dung khi kéo và thả
-            }
-
-            function onDragLeave(e) {
-                e.preventDefault();
-                imagePreview.classList.remove("drag-over"); // Bỏ lớp khi rời đi
-                if (!imageDropped) {
-                    dropText.style.display = "block"; // Hiển thị nội dung khi rời đi (nếu không có hình ảnh)
-                }
-            }
-
-            function onDrop(e) {
-                e.preventDefault();
-                imagePreview.classList.remove("drag-over"); // Bỏ lớp khi thả xong
-                const file = e.dataTransfer.files[0];
-                if (file) {
-                    const reader = new FileReader();
-
-                    reader.onload = function (e) {
-                        preview.src = e.target.result;
-                    };
-
-                    reader.readAsDataURL(file);
-
-                    imagePreview.style.display = "block";
-                    imageDropped = true; // Đặt biến imageDropped thành true khi có hình ảnh được thả vào
-                    dropText.style.display = "none"; // Ẩn nội dung khi có hình ảnh
-                } else {
-                    preview.src = "";
-                    imagePreview.style.display = "none";
-                }
-            }
-            // Tự động nhập ngày hiện tại nếu chưa nhập
-            const videoDate = document.getElementById("videoDate");
-            videoDate.addEventListener("focus", function () {
-                if (!dateEntered) {
-                    const currentDate = new Date().toLocaleDateString();
-                    videoDate.value = currentDate;
-                    dateEntered = true;
+                    const form = new FormData();
+                    form.append("title", titleInput.value);
+                    form.append("description", descriptionInput.value);
+                    form.append("privacyStatus", privacyStatusInput.value);
+                    form.append("file", fileInput.files[0]);
+                    fetch("/youtube/uploadVideo", {
+                        method: "POST",
+                        body: form
+                    })
+                        .then(response => {
+                            console.log(response);
+                            if (response.ok) {
+                                // Code AngularJS - thay thế hoặc điều chỉnh nếu cần
+                                const scope = angular.element(document.querySelector('[ng-controller="myCtrl"]')).scope();
+                                scope.$apply(function () {
+                                    scope.createNewVideo();
+                                    console.log("123352")
+                                });
+                            } else {
+                                console.error("Đã xảy ra lỗi khi tải lên video.");
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Lỗi: " + error);
+                        });
                 }
             });
+        });
+
+        var currentTabIndex = 1;
+
+        function openTab(tabName) {
+            var i, tabContent, tabButtons;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+            tabButtons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+                tabButtons[i].style.border = "2px solid #007bff";
+                tabButtons[i].style.color = "#007bff";
+            }
+            document.getElementById(tabName).style.display = "block";
+            var clickedButton = document.querySelector('[onclick="openTab(\'' + tabName + '\')"]');
+            clickedButton.classList.add("active");
+            clickedButton.style.border = "2px solid #fff";
+            clickedButton.style.color = "#fff";
+            currentTabIndex = parseInt(tabName.replace('tab', ''));
+        }
+
+        function goBack() {
+            if (currentTabIndex > 1) {
+                currentTabIndex--;
+                openTab('tab' + currentTabIndex);
+            } else {
+                alert("This is the first tab.");
+            }
+        }
+
+        function nextTab() {
+            if (currentTabIndex < 3) {
+                currentTabIndex++;
+                openTab('tab' + currentTabIndex);
+            } else {
+                alert("This is the last tab.");
+            }
+        }
+    </script>
+    <script>
+        const thumbnailInput = document.getElementById("videoThumbnail");
+        const imagePreview = document.getElementById("imagePreview");
+        const preview = document.getElementById("preview");
+        let dateEntered = false;
+        let imageDropped = false; // Thêm biến imageDropped
 
 
-        </script>
-        <br>
-        <br>
+        function onDrop(e) {
+            e.preventDefault();
+            imagePreview.classList.remove("drag-over"); // Bỏ lớp khi thả xong
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+
+                imagePreview.style.display = "block";
+                imageDropped = true; // Đặt biến imageDropped thành true khi có hình ảnh được thả vào
+            } else {
+                preview.src = "";
+                imagePreview.style.display = "none";
+            }
+        }
+        function onDragOver(e) {
+            e.preventDefault();
+            imagePreview.classList.add("drag-over"); // Thêm lớp khi kéo và thả
+            dropText.style.display = "none"; // Ẩn nội dung khi kéo và thả
+        }
+
+        function onDragLeave(e) {
+            e.preventDefault();
+            imagePreview.classList.remove("drag-over"); // Bỏ lớp khi rời đi
+            if (!imageDropped) {
+                dropText.style.display = "block"; // Hiển thị nội dung khi rời đi (nếu không có hình ảnh)
+            }
+        }
+
+        function onDrop(e) {
+            e.preventDefault();
+            imagePreview.classList.remove("drag-over"); // Bỏ lớp khi thả xong
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+
+                imagePreview.style.display = "block";
+                imageDropped = true; // Đặt biến imageDropped thành true khi có hình ảnh được thả vào
+                dropText.style.display = "none"; // Ẩn nội dung khi có hình ảnh
+            } else {
+                preview.src = "";
+                imagePreview.style.display = "none";
+            }
+        }
+        // Tự động nhập ngày hiện tại nếu chưa nhập
+        const videoDate = document.getElementById("videoDate");
+        videoDate.addEventListener("focus", function () {
+            if (!dateEntered) {
+                const currentDate = new Date().toLocaleDateString();
+                videoDate.value = currentDate;
+                dateEntered = true;
+            }
+        });
+
+
+    </script>
+    <br>
+    <br>
     </div>
 
     <script>
@@ -775,8 +784,27 @@
             </div>
         </div>
     </div>
-
     <script>
+        const fileInput = document.getElementById("file");
+
+        fileInput.addEventListener("change", function () {
+            const selectedFile = fileInput.files[0];
+
+            if (selectedFile) {
+                if (selectedFile.type === "video/mp4") {
+                    const objectURL = URL.createObjectURL(selectedFile);
+                    videoPlayer.src = objectURL;
+                    youtubeVideoContainer.style.display = "none";
+                } else {
+                    fileInput.value = "";
+                }
+            } else {
+                videoPlayer.src = "";
+            }
+        });
+    </script>
+    <script>
+
         var app = angular.module('myApp', []);
         app.controller('myCtrl', function ($scope, $http, $window) {
             $scope.khoaHocByLoai = {};
@@ -785,9 +813,9 @@
             $scope.khoaHocFindByNguoiTao = {};
             $scope.mucLuc = {};
             $scope.selectedKhoaHoc = {}; // Initialize selectedKhoaHoc object
+            $scope.mucLucDaChon = {};
 
             $scope.changeLoai = function (id) {
-                console.log(id);
                 // Thêm logic xử lý khi giá trị thay đổi
                 $http.get('/api/khoahoc/byLoai/' + id)
                     .then(function (response) {
@@ -795,22 +823,17 @@
                     })
             }
             $scope.changeKhoaHoc = function (id) {
-                console.log(id);
                 $http.get('/api/khoahoc/' + id)
                     .then(function (response) {
                         $scope.khoaHoc = response.data;
-                        console.log($scope.khoaHoc);
                         $scope.khoaHocByLoai = response.data;
-                        console.log($scope.khoaHocByLoai);
                     })
             }
 
             $scope.changeMucLuc = function (id) {
-                console.log(id);
                 $http.get('/rest/admin/MucLuc/KhoaHoc/' + id)
                     .then(function (response) {
                         $scope.mucLuc = response.data;
-                        console.log($scope.mucLuc);
                     })
             }
 
@@ -824,13 +847,10 @@
                     authorizationTokenGroup.style.display = 'none';
                 }
                 $scope.idLogin = document.getElementById("idLogin").value;
-                console.log($scope.idLogin);
                 $http.get('/api/khoahoc')
                     .then(response => {
                         $scope.khoaHoc = response.data;
-                        console.log($scope.khoaHoc);
                         $scope.khoaHocFindByNguoiTao = $scope.khoaHoc.filter(item => item.nguoiTao.id == $scope.idLogin);
-                        console.log($scope.khoaHocFindByNguoiTao);
                     })
                     .catch(error => {
                         // Xử lý lỗi nếu cần
@@ -839,16 +859,18 @@
                 $scope.btnThemKhoaHoc = true;
                 $scope.btnSuaKhoaHoc = false;
                 $scope.btnXoaKhoaHoc = false;
+
+                $scope.btnThemMucLuc = true;
+                $scope.btnSuaMucLuc = false;
+                $scope.btnXoaMucLuc = false;
             };
             $scope.edit = function (item) {
-                console.log(item);
                 $scope.formKhoaHoc = angular.copy(item); // Copy khoaHoc object to selectedKhoaHoc
                 $scope.btnThemKhoaHoc = false;
                 $scope.btnSuaKhoaHoc = true;
                 $scope.btnXoaKhoaHoc = true;
             }
             $scope.editMucLuc = function (item) {
-                console.log(item);
                 $scope.formMucLuc = angular.copy(item); // Copy khoaHoc object to selectedKhoaHoc
                 $scope.btnThemMucLuc = false;
                 $scope.btnSuaMucLuc = true;
@@ -860,7 +882,6 @@
                 var files = input.files;
                 var item = angular.copy($scope.formKhoaHoc);
                 // Chuyển đổi định dạng của chuỗi ngày tháng
-                console.log(item);
                 var currentDate = new Date();
                 $scope.formKhoaHoc.ngayTao = currentDate.toISOString();
                 var formData = new FormData();
@@ -879,7 +900,6 @@
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).then(resp => {
-                    console.log(resp);
                     $scope.resetKhoaHoc();
                     $scope.updateUI();
                 })
@@ -889,6 +909,32 @@
 
 
             }
+            $scope.addNewLoai = function (loai) {
+                // Tạo một loại mới với thông tin từ loai được truyền vào
+                console.log(loai)
+                var newLoai = {
+                    tenMucLuc: loai.tenMucLuc, // Sử dụng thông tin từ loai được truyền vào
+                    // Các thông tin khác về loại mới có thể được thêm ở đây
+                };
+
+                // Thêm loại mới vào mảng mucLuc
+                $scope.selectedTenMucLuc = loai.id;
+
+
+                // Gọi hàm openTab với thông tin của loại mới
+                openTab('tab3');
+            };
+            $scope.updateMucLuc = function () {
+                $http.put(`/rest/admin/MucLuc/${$scope.formMucLuc.id}`, $scope.formMucLuc)
+                    .then(resp => {
+                        $scope.resetMucLuc();
+                        $scope.updateUI();
+                        $scope.changeMucLuc($scope.selectedKhoaHoc)
+                    })
+                    .catch(error => {
+                        console.log("Error", error)
+                    })
+            }
             // Xóa 
             $scope.deleteKhoaHoc = function (item) {
                 $scope.hassError = false;
@@ -896,7 +942,6 @@
 
                 var item = angular.copy($scope.formKhoaHoc);
                 // Chuyển đổi định dạng của chuỗi ngày tháng
-                console.log(item);
                 var currentDate = new Date();
                 $scope.formKhoaHoc.ngayTao = currentDate.toISOString();
                 var formData = new FormData();
@@ -908,10 +953,21 @@
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
                 }).then(resp => {
-                    console.log(resp);
                     $scope.resetKhoaHoc();
                     $scope.updateUI();
                 })
+                    .catch(error => {
+                        console.log("Error", error)
+                    })
+            }
+
+            $scope.deleteMucLuc = function (item) {
+                $http.delete(`/rest/admin/MucLuc/${item.id}`)
+                    .then(resp => {
+                        $scope.resetMucLuc();
+                        $scope.updateUI();
+                        $scope.changeMucLuc($scope.selectedKhoaHoc)
+                    })
                     .catch(error => {
                         console.log("Error", error)
                     })
@@ -955,14 +1011,11 @@
                 $scope.formKhoaHoc.hinhAnh = files[0];
                 $scope.formKhoaHoc.nguoiTao = { id: $scope.idLogin };
                 $scope.formKhoaHoc.loaiKhoaHoc = { id: '6' };
-                console.log($scope.formKhoaHoc);
                 var formData = new FormData();
                 formData.append('hinhAnh', $scope.formKhoaHoc.hinhAnh);
                 $scope.formKhoaHoc.hinhAnh = files[0].name;
 
                 formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type: "application/json" }));
-                console.log(formData.get('khoaHoc'));
-                console.log(formData.get('hinhAnh'));
                 $http.post('/api/khoahoc', formData, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
@@ -975,7 +1028,6 @@
                     .catch(function (response) {
                         $scope.hassError = true;
                         $scope.message1 = "Tên khoá học đã tồn tại";
-                        console.log(response);
                     });
 
             }
@@ -983,20 +1035,18 @@
             $scope.createMucLuc = function () {
                 $scope.hassError = false;
                 $scope.idLogin = document.getElementById("idLogin").value;
-                console.log($scope.selectedKhoaHoc);
                 $http.get('/api/khoahoc/' + $scope.selectedKhoaHoc)
                     .then(function (response) {
                         $scope.formMucLuc.khoaHoc = response.data;
-                        console.log($scope.formMucLuc.khoaHoc);
                         $scope.formMucLuc.nguoiTao = { id: $scope.idLogin };
                         $scope.formMucLuc.ngayTao = new Date().toISOString();
                         var item = angular.copy($scope.formMucLuc);
-                        console.log(item);
                         $http.post('/rest/admin/MucLuc', item)
                             .then(function (response) {
                                 alert("Thêm thành công");
                                 $scope.updateUI();
                                 $scope.resetMucLuc();
+                                $scope.changeMucLuc($scope.selectedKhoaHoc)
                             })
                             .catch(function (response) {
                                 $scope.hassError = true;
@@ -1004,8 +1054,66 @@
                                 console.log(response);
                             });
                     })
-                    
+
             }
+
+            $scope.createNewVideo = function () {
+                const selectedCourseId = $scope.selectedCourse;
+                if (!selectedCourseId) {
+                    return;
+                }
+
+                const usernameCookie = getCookieValue('videoId');
+                // Lấy đối tượng input theo id "title"
+                var inputElement = document.getElementById("title");
+                var videoTitle;
+                // Lấy giá trị từ input khi người dùng nhấn nút "Lấy giá trị"
+                videoTitle = inputElement.value;
+
+                console.log(usernameCookie);
+                console.log(videoTitle);
+
+                $http.get("/rest/admin/MucLuc/" + $scope.selectedMucLuc)
+                    .then(resp => {
+                        $scope.formVideo.mucLuc = resp.data;
+
+                        $http.get("/rest/admin/NguoiDung/" + 1)
+                            .then(resp => {
+                                $scope.formVideo.nguoiTao = resp.data;
+                                $scope.formVideo.linkVideo = usernameCookie;
+                                $scope.formVideo.tenVideo = videoTitle;
+                                $scope.formVideo.thuTu = $scope.order + 1;
+
+                                // Lấy ngày và giờ hiện tại
+                                var currentDate = new Date();
+                                $scope.formVideo.ngayTao = currentDate.toISOString(); // Lưu dưới dạng ISO string
+
+                                deleteCookie('videoId');
+                                deleteCookie('videoTitle');
+
+                                $scope.loadDocuments();
+
+                                // Gửi yêu cầu POST để thêm video mới
+                                console.log($scope.formVideo);
+
+                                $http.post(`/rest/admin/Videos`, $scope.formVideo)
+                                    .then(resp => {
+                                        // Xử lý kết quả thành công nếu cần thiết
+                                        console.log(resp)
+                                    })
+                                    .catch(error => {
+                                        console.log("Error", error);
+                                    });
+
+                            })
+                            .catch(error => {
+                                console.log("Error", error);
+                            });
+                    })
+                    .catch(error => {
+                        console.log("Error", error);
+                    });
+            };
 
 
             $scope.updateUI();
