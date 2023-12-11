@@ -76,27 +76,11 @@ public class YouTubeController {
         // Lấy thông tin về người dùng đang đăng nhập từ Spring Security
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         NguoiDung user = (NguoiDung) session.getAttribute("user");
-        // Kiểm tra xem người dùng đã được xác thực hay chưa
+
         if (authentication != null && !authentication.getName().equals("anonymousUser") && user != null) {
+            
+            // Kiểm tra xem người dùng đã được xác thực hay chưa
             if (!user.getChucVu().equalsIgnoreCase("true")) {
-                // Lấy thông tin người dùng từ database và đặt vào Model
-                // Tiếp tục với việc lấy danh sách và đặt vào Model như bạn đã làm
-                List<LoaiKhoaHoc> list = loaiKhoaHocRepository.findAll();
-                List<KhoaHoc> list2 = daoHocService.findAll();
-                List<MucLuc> list3 = mucLucService.findAll();
-                List<VideoKhoaHoc> list4 = videoService.findAll();
-                List<KhoaHoc> list5 = new ArrayList<>();
-
-                for (KhoaHoc khoaHoc : list2) {
-                    if (khoaHoc.getNguoiTao().getTaiKhoan().equals(authentication.getName())) {
-                        list5.add(khoaHoc);
-                    }
-                }
-
-                model.addAttribute("loaiKhoaHoc", list);
-                model.addAttribute("khoaHoc", list5);
-                model.addAttribute("mucLuc", list3);
-                model.addAttribute("videoKhoaHoc", list4);
 
                 String accessToken = (String) session.getAttribute("accessToken");
 

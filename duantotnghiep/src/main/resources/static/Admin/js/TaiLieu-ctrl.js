@@ -149,7 +149,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
         var tenTaiLieu = $scope.formTaiLieu.tenSlide;
         var selectedFile = document.getElementById('fileInput').files[0];
         var selectedKhoaHoc = $scope.selectedCourse;
-        
+
         // Kiểm tra nếu tên tài liệu không được bỏ trống
         if (!tenTaiLieu) {
             alert("Tên tài liệu không được bỏ trống");
@@ -304,7 +304,37 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
     };
 
 
+    $scope.trang = {
+        page: 0,
+        size: 5,
+        get itemsTaiLieu() {
+            var start = this.page * this.size;
+            return $scope.itemsTaiLieu.slice(start, start + this.size);
+        },
 
+        get count() {
+            return Math.ceil(1.0 * $scope.itemsTaiLieu.length / this.size);
+        },
+
+        first() {
+            this.page = 0;
+        },
+        prev() {
+            this.page--;
+            if (this.page < 0) {
+                this.last();
+            }
+        },
+        next() {
+            this.page++;
+            if (this.page >= this.count) {
+                this.first();
+            }
+        },
+        last() {
+            this.page = this.count - 1;
+        }
+    }
 
     $scope.reset = function () {
         $scope.formTaiLieu = {};

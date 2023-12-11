@@ -79,7 +79,7 @@ public class ClientController {
 				distinctCategories.add(khoaHoc);
 			}
 		}
-
+		
 		model.addAttribute("catesName", distinctCategories);
 		model.addAttribute("catesId", findAlIdCategory);
 
@@ -273,6 +273,7 @@ public class ClientController {
 	public String mucluc() {
 		return "mucluc";
 	}
+	
 
 	@GetMapping("/courseOnline/chungchi/{id}")
 	public String chungchi(@PathVariable("id") String id, Model model) {

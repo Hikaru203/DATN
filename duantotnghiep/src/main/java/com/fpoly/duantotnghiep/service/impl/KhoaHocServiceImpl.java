@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
+import com.fpoly.duantotnghiep.Entity.NguoiDung;
 import com.fpoly.duantotnghiep.jparepository.KhoaHocRepository;
 import com.fpoly.duantotnghiep.jparepository.LoaiKhoaHocRepository;
 import com.fpoly.duantotnghiep.service.KhoaHocService;
@@ -25,6 +26,7 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 	public List<KhoaHoc> findAll() {
 		return khoaHocRepository.findAll();
 	}
+
 	@Override
 	public List<KhoaHoc> findDuyet() {
 		return khoaHocRepository.findByDuyet();
@@ -46,68 +48,76 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 	public List<KhoaHoc> getKhoaHocByLoai(Integer loaiKhoaHoc) {
 		return khoaHocRepository.findByLoaiKhoaHocId(loaiKhoaHoc);
 	}
-    @Override
-    public List<String> findAllTenKhoaHoc() {
-        return khoaHocRepository.findAllTenKhoaHoc();
-    }
 
 	@Override
-    public KhoaHoc create(KhoaHoc khoaHoc) {
-        return khoaHocRepository.save(khoaHoc);
-    }
+	public List<String> findAllTenKhoaHoc() {
+		return khoaHocRepository.findAllTenKhoaHoc();
+	}
 
 	@Override
-    public void deleteById(Integer id) {
-        khoaHocRepository.deleteById(id);
-    }
-
+	public KhoaHoc create(KhoaHoc khoaHoc) {
+		return khoaHocRepository.save(khoaHoc);
+	}
 
 	@Override
-    public KhoaHoc update(KhoaHoc khoaHoc) {
-        // Kiểm tra xem  có tồn tại trong cơ sở dữ liệu không
-        KhoaHoc existingBrand = khoaHocRepository.findById(khoaHoc.getId());
-        if (existingBrand != null) {
+	public void deleteById(Integer id) {
+		khoaHocRepository.deleteById(id);
+	}
+
+	@Override
+	public KhoaHoc update(KhoaHoc khoaHoc) {
+		// Kiểm tra xem có tồn tại trong cơ sở dữ liệu không
+		KhoaHoc existingBrand = khoaHocRepository.findById(khoaHoc.getId());
+		if (existingBrand != null) {
 			existingBrand.setTenKhoaHoc(khoaHoc.getTenKhoaHoc());
 			existingBrand.setChiPhi(khoaHoc.getChiPhi());
 			existingBrand.setMoTa(khoaHoc.getMoTa());
-			if(khoaHoc.getHinhAnh()!=null){
+			if (khoaHoc.getHinhAnh() != null) {
 				existingBrand.setHinhAnh(khoaHoc.getHinhAnh());
 			}
-			if(khoaHoc.isDuyet()!=existingBrand.isDuyet()){
+			if (khoaHoc.isDuyet() != existingBrand.isDuyet()) {
 				existingBrand.setDuyet(khoaHoc.isDuyet());
 			}
-			if(khoaHoc.getTrangThai()!=existingBrand.getTrangThai()){
+			if (khoaHoc.getTrangThai() != existingBrand.getTrangThai()) {
 				existingBrand.setTrangThai(khoaHoc.getTrangThai());
 			}
-			if(khoaHoc.getLoaiKhoaHoc()!=existingBrand.getLoaiKhoaHoc()){
+			if (khoaHoc.getLoaiKhoaHoc() != existingBrand.getLoaiKhoaHoc()) {
 				existingBrand.setLoaiKhoaHoc(khoaHoc.getLoaiKhoaHoc());
 			}
-            return khoaHocRepository.save(existingBrand);
-        } else {
-            // Nếu  không tồn tại, không thực hiện cập nhật và trả về null hoặc thông báo lỗi tùy vào logic ứng dụng của bạn
-            return null;
-        }
-    }
+			return khoaHocRepository.save(existingBrand);
+		} else {
+			// Nếu không tồn tại, không thực hiện cập nhật và trả về null hoặc thông báo lỗi
+			// tùy vào logic ứng dụng của bạn
+			return null;
+		}
+	}
+
 	@Override
-    public List<KhoaHoc> findByCategory(Integer categoryId) {
-        // Triển khai logic tìm kiếm theo danh mục ở đây
-        return khoaHocRepository.findByCategory(categoryId);
-    }
+	public List<KhoaHoc> findByCategory(Integer categoryId) {
+		// Triển khai logic tìm kiếm theo danh mục ở đây
+		return khoaHocRepository.findByCategory(categoryId);
+	}
+
 	@Override
 	public List<String> findAllNameCategory() {
 		// TODO Auto-generated method stub
 		return khoaHocRepository.findAllNameCategory();
 	}
+
 	@Override
 	public List<String> findAlIdCategory() {
 		// TODO Auto-generated method stub
 		return khoaHocRepository.findAllIdCategory();
 	}
-	
+
 	@Override
 	public List<LoaiKhoaHoc> findAllLoaiKhoaHoc() {
 		return loaiKhoaHocRepository.findAll();
 	}
-	
-}
 
+	@Override
+	public List<KhoaHoc> findByNguoiTao(NguoiDung nguoiDung) {
+		return khoaHocRepository.findByNguoiDung(nguoiDung.getId());
+
+	}
+}

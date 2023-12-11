@@ -71,7 +71,7 @@
             margin: 16px;
         }
 
-        .container {
+        .container123 {
             width: 100%;
         }
 
@@ -194,92 +194,65 @@
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a th:href="@{/index}">
-                    <img class="main-logo" th:src="@{/Admin/img/logo/logo.png}" alt="" />
-                </a>
-                <strong>
-                    <a th:href="@{/index}">
-                        <img th:src="@{/Admin/img/logo/logosn.png}" alt="" />
-                    </a>
-                </strong>
+                <a th:href="@{/index}"><img class="main-logo" th:src="@{/img/LogoPLA.png}" style="width: 150px;"
+                        alt="" /></a>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
-                        <li>
-                            <a class="has-arrow" th:href="@{/Admin/index1}">
-                                <span class="educate-icon educate-home icon-wrap"></span>
-                                <span class="mini-click-non">Education</span>
+                        <li><a class="has-arrow" th:href="@{/Admin/index1}"> <span
+                                    class="educate-icon educate-home icon-wrap"></span> <span
+                                    class="mini-click-non">Thống kê</span>
                             </a>
                             <ul class="submenu-angle" aria-expanded="true">
                                 <li><a title="Dashboard v.1" th:href="@{/Admin/ThongKe}"><span
-                                            class="mini-sub-pro">Thống
-                                            Kê</span></a></li>
+                                            class="mini-sub-pro">Thống Kê</span></a></li>
                             </ul>
                         </li>
 
-                        <li>
-                            <a class="has-arrow" th:href="@{/Admin/all-professors}" aria-expanded="false">
-                                <span class="educate-icon educate-professor icon-wrap"></span>
-                                <span class="mini-click-non">User</span>
-                            </a>
+                        <li><a class="has-arrow" th:href="@{/Admin/all-professors}" aria-expanded="false"><span
+                                    class="educate-icon educate-professor icon-wrap"></span>
+                                <span class="mini-click-non">Người dùng</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="Edit Professor" th:href="@{/Admin/User}"><span class="mini-sub-pro">Quản
-                                            lý người
-                                            dùng</span></a></li>
-                                <li><a title="All Students" th:href="@{/Admin/User}"><span class="mini-sub-pro"> Quản Lí
-                                            Sinh
-                                            Viên</span></a></li>
+                                            lý người dùng</span></a></li>
+                                <li><a title="All Students" th:href="@{/Admin/HocVien}"><span class="mini-sub-pro"> Quản
+                                            Lí
+                                            Học Viên</span></a></li>
                             </ul>
                         </li>
-
-                        <li>
-                            <a class="has-arrow" th:href="@{/Admin/KhoaHoc}" aria-expanded="false">
-                                <span class="educate-icon educate-course icon-wrap"></span>
-                                <span class="mini-click-non">Khóa Học</span>
-                            </a>
+                        <li><a class="has-arrow" th:href="@{/Admin/KhoaHoc}" aria-expanded="false"><span
+                                    class="educate-icon educate-course icon-wrap"></span> <span
+                                    class="mini-click-non">Khóa Học</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Courses" th:href="@{/Admin/KhoaHoc}"><span class="mini-sub-pro">Khóa
-                                            Học</span></a></li>
                                 <li><a title="Add Courses" th:href="@{/Admin/EditKhoaHoc}"><span
-                                            class="mini-sub-pro">Thêm Khóa
-                                            Học</span></a></li>
+                                            class="mini-sub-pro">Thêm Khóa Học</span></a></li>
                                 <li><a title="Add Courses" th:href="@{/Admin/KenhKhoaHoc}"><span
-                                            class="mini-sub-pro">Kênh Khóa
-                                            Học</span></a></li>
-                                <li><a title="Thanh Toan" th:href="@{/Admin/ThanhToan}"><span class="mini-sub-pro">Thanh
-                                            Toán</span></a></li>
+                                            class="mini-sub-pro">Kênh Khóa Học</span></a></li>
+
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" th:href="@{/Admin/TaiLieu}" aria-expanded="false">
-                                <span class="educate-icon educate-library icon-wrap"></span>
-                                <span class="mini-click-non">Tài Liệu</span>
-                            </a>
+                        <li><a class="has-arrow" th:href="@{/Admin/TaiLieu}" aria-expanded="false"><span
+                                    class="educate-icon educate-library icon-wrap"></span> <span
+                                    class="mini-click-non">Tài Liệu</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="All Library" th:href="@{/Admin/TaiLieu}"><span class="mini-sub-pro">Quản
-                                            Lí Tài
-                                            Liệu</span></a></li>
+                                            Lí Tài Liệu</span></a></li>
                                 <li><a title="All Library" th:href="@{/Admin/CauHoi}"><span class="mini-sub-pro">Câu
                                             Hỏi</span></a></li>
                             </ul>
                         </li>
-                        <li class="active">
-                            <a class="has-arrow" th:href="@{/Admin/ChungChi}" aria-expanded="false">
-                                <span class="educate-icon educate-department icon-wrap"></span>
-                                <span class="mini-click-non">Chứng Chỉ</span>
-                            </a>
+                        <li class="active"><a class="has-arrow" th:href="@{/Admin/ChungChi}" aria-expanded="false"><span
+                                    class="educate-icon educate-department icon-wrap"></span> <span
+                                    class="mini-click-non">Chúng nhận</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="ChungChi List" th:href="@{/Admin/ChungChi}"><span
-                                            class="mini-sub-pro">Chứng
-                                            Chỉ</span></a></li>
+                                            class="mini-sub-pro">Chúng nhận</span></a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" th:href="@{/Admin/Video}" aria-expanded="false">
-                                <span class="educate-icon educate-message icon-wrap"></span>
-                                <span class="mini-click-non">Video</span>
-                            </a>
+                        <li><a class="has-arrow" th:href="@{/Admin/Video}" aria-expanded="false"><span
+                                    class="educate-icon educate-message icon-wrap"></span> <span
+                                    class="mini-click-non">Video</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="Inbox" th:href="@{/Admin/Video}"><span
                                             class="mini-sub-pro">Video</span></a></li>
@@ -297,7 +270,7 @@
         <div th:replace="Admin/layout :: menutop"></div>
         <br> <br>
         <div class="pdf-viewer-area mg-b-15 row" style="display: flex; justify-content: space-between;">
-            <div class="container col-md-6">
+            <div class="container123 col-md-6">
                 <div class="select-box">
                     <div class="options-container">
                         <div class="option" ng-click="showAllCourses()">
@@ -319,7 +292,7 @@
                 </div>
             </div>
 
-            <div class="container col-md-6">
+            <div class="container123 col-md-6">
                 <div class="select-box">
                     <div class="options-container">
                         <div class="option" ng-click="showAllUsers()">
@@ -341,151 +314,150 @@
                 </div>
             </div>
         </div>
+        <style type='text/css'>
+            @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
 
-        <div class="certificates-container">
-            <div class="navigation-buttons">
+            body,
+            html {
+                margin: 0;
+                padding: 0;
+            }
+
+            .certificates-container {
+                color: black;
+                font-family: 'Roboto', sans-serif;
+                font-size: 30px;
+                text-align: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 100%;
+                width: 100%;
+                overflow-x: hidden;
+                /* Hide horizontal scrollbar */
+            }
+
+
+
+            .topbar h1 {
+                margin: 0;
+            }
+
+            .container {
+                position: relative;
+                margin: 20px auto;
+                max-width: 1500px;
+                height: 750px;
+                border: 2px solid #ccc;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                background-size: cover;
+                color: #090909;
+                text-align: center;
+                background-size: cover;
+                background-position: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 90%;
+            }
+
+            .logo {
+                background-size: contain;
+                background-repeat: no-repeat;
+                padding: 20px;
+                width: 10%;
+                height: 10%;
+                box-sizing: border-box;
+                margin: 0 auto;
+                position: absolute;
+                top: 50px;
+                left: 50px;
+                border-radius: 50%;
+                /* Thêm thuộc tính bo tròn góc */
+            }
+
+            .marquee {
+                color: rgb(243, 159, 49);
+                font-size: 80px;
+                margin: 20px;
+            }
+
+            .assignment {
+                margin: 20px;
+            }
+
+            .person {
+                border-bottom: 2px solid rgb(0, 0, 0);
+                font-size: 40px;
+                font-style: italic;
+                margin: 20px auto;
+                max-width: 400px;
+            }
+
+            .reason {
+                margin: 20px;
+                font-size: 35px;
+            }
+
+            .date {
+                position: absolute;
+                bottom: 10px;
+                left: 400px;
+                text-align: left;
+                width: 100%;
+
+            }
+
+            .date p {
+                margin: 25px 0;
+            }
+        </style>
+        <div class="row">
+            <div class="navigation-buttons col-md-6">
                 <button class="navigation-button" ng-click="changeCertificate(-1)" ng-disabled="currentIndex === 0">
                     &lt;&lt;
                 </button>
             </div>
-            <style>
-                .certificate-frame {
-                    margin: 20px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                .certificate-container {
-                    border: 8px solid #3498db;
-                    padding: 60px;
-                    border-radius: 30px;
-                    background-color: #f8f9fa;
-                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-                    width: 600px;
-                }
-
-                .header {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    margin-bottom: 40px;
-                }
-
-                .logo {
-                    max-width: 120px;
-                    margin-right: 20px;
-                }
-
-                .school-name {
-                    font-size: 32px;
-                    color: #3498db;
-                    margin: 0;
-                }
-
-                .certificate-details {
-                    color: #333;
-                }
-
-                .certificate-title {
-                    font-size: 28px;
-                    margin-bottom: 30px;
-                }
-
-                .details {
-                    text-align: left;
-                    font-size: 20px;
-                    line-height: 1.6;
-                }
-
-                .signature {
-                    margin-top: 40px;
-                    display: flex;
-                    align-items: center;
-                }
-
-                .signature p {
-                    margin-right: 20px;
-                    font-size: 20px;
-                }
-
-                .signature-image {
-                    max-width: 150px;
-                }
-            </style>
-            <div ng-repeat="certificate in itemsChungChi" ng-show="currentIndex === $index">
-                <div class="certificate-container">
-                    <div class="header">
-                        <img class="logo" th:src="@{Admin/img/logo/logo.png}" alt="PolyAcademy Logo">
-                        <h2 class="school-name">PolyAcademy</h2>
-                    </div>
-                    <div class="certificate-details">
-                        <h3 class="certificate-title">Chứng chỉ học</h3>
-                        <div class="details">
-                            <p class="info">Tên chứng chỉ: {{certificate.khoaHoc.tenKhoaHoc}}</p>
-                            <p class="info">Người nhận: {{certificate.nguoiDung.hoTen}}</p>
-                            <p class="info">Ngày hoàn thành: {{certificate.ngayCapFormatted}}</p>
-                            <!-- Các thông tin khác liên quan đến chứng chỉ học -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="navigation-buttons">
+            <div class="navigation-buttons col-md-6" style="left: 40%;">
                 <button class="navigation-button" ng-click="changeCertificate(1)"
                     ng-disabled="currentIndex === itemsChungChi.length - 1">
                     &gt;&gt;
                 </button>
             </div>
         </div>
-        <style>
-            .certificates-container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin: 10px 0;
-            }
+        <div class="">
+            <div class="certificates-container" ng-repeat="certificate in itemsChungChi"
+                ng-show="currentIndex === $index">
+                <div class="container" th:style="'background-image: url(' + @{/img/chungchi.jpg} + ');'">
+                    <div class="logo">
+                        <img th:src="@{/img/LogoPLA.png}" alt="PolyAcademy Logo" height="150px" width="150px">
+                    </div>
 
-            .certificate-frame {
-                flex: 1;
-                /* Các phần tử chứng chỉ nên được căn chỉnh và có khoảng cách */
-                margin: 0 10px;
-            }
+                    <div class="marquee">
+                        Giấy Chứng Nhận
+                    </div>
 
-            .navigation-buttons {
-                display: flex;
-                align-items: center;
-            }
+                    <div class="assignment">
+                        Giấy chứng nhận này được cấp cho:
+                    </div>
 
-            .navigation-button {
-                font-size: 20px;
-                padding: 5px 10px;
-                background: none;
-                border: none;
-                cursor: pointer;
-            }
+                    <div class="person">
+                        <p>{{certificate.nguoiDung.hoTen}}</p>
+                    </div>
+
+                    <div class="reason">
+                        Đã xuất sắc hoàn thành khoá học:<br />
+                        <p>{{certificate.khoaHoc.tenKhoaHoc}}</p>
+                    </div>
+                    <div class="date">
+                        <p>Ngày cấp: {{certificate.ngayCapFormatted}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-            .certificate-frame {
-                border: 3px solid #0a3d62;
-                /* Màu viền tương tự chứng chỉ */
-                background-color: #f0f0f0;
-                /* Màu nền tương tự chứng chỉ */
-                padding: 20px;
-                margin: 20px auto;
-                max-width: 600px;
-                text-align: center;
-            }
-
-            .certificate-image {
-                max-width: 200px;
-                margin-bottom: 20px;
-            }
-
-            .certificate-details {
-                font-size: 18px;
-            }
-        </style>
         <!--Start of Tawk.to Script-->
         <script type="text/javascript">
             var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();

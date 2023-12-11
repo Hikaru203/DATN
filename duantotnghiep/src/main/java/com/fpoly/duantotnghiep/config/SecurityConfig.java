@@ -61,7 +61,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeHttpRequests().requestMatchers("/Admin/**").hasRole("true")
-                .and().authorizeHttpRequests().requestMatchers("/crat")
+                .and().authorizeHttpRequests().requestMatchers("/courseOnline/video/**")
                 .authenticated().and()
                 .authorizeHttpRequests().anyRequest().permitAll().and().exceptionHandling()
                 .accessDeniedPage("/courseOnline/index").and().formLogin().loginPage("/courseOnline/dangnhap")
