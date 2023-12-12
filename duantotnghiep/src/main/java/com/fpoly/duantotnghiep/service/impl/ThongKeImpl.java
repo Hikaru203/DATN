@@ -95,4 +95,21 @@ ThanhToanRepository thanhToanRepository;
     public long countUsersInKhoaHocTG(Long idKhoaHoc,String batDau, String ketThuc) {
         return dangKyKhoaHocRepository.countByKhoaHocIdTG(idKhoaHoc, batDau, ketThuc);
     }
+
+    @Override
+    public List<ThongKeDATA> ThongKeTheoNgay() {
+        List<Object[]> result = thanhToanRepository.ThongKeTrongNgay();
+        List<ThongKeDATA> revenueDataList = new ArrayList<>();
+
+        for (Object[] row : result) {
+            ThongKeDATA revenueData = new ThongKeDATA();
+            revenueData.setYear((int) row[0]);
+            revenueData.setMonth((int) row[1]);
+            revenueData.setTotalRevenue((BigDecimal) row[2]);
+
+            revenueDataList.add(revenueData);
+        }
+
+        return revenueDataList;
+    }
 }

@@ -253,7 +253,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                         <div class="white-box analytics-info-cs">
-                            <h3 class="box-title">Tổng Doanh Thu</h3>
+                            <h3 class="box-title" style="font-size: 18px;">Tổng Doanh Thu  <i class="fa fa-money" aria-hidden="true"></i></h3>
                             <ul class="list-inline  ">
                                 <li>
                                     <div id="sparklinedash"></div>
@@ -267,14 +267,14 @@
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                         <div class="white-box analytics-info-cs">
-                            <h3 class="box-title">Doanh thu trong ngày</h3>
+                            <h3 class="box-title" style="font-size: 18px;">   Doanh thu trong ngày <i class="fa fa-money" aria-hidden="true"></i></h3>
                             <ul class="list-inline  ">
                                 <li>
                                     <div id="sparklinedash"></div>
                                 </li>
                                 <li class="text-right sp-cn-r"><i class="fa fa-level-up" aria-hidden="true"></i> <span
                                         class="counter text-success"><span class="counter">{{
-                                            formatCurrency(totalRevenue)}}</span></span>
+                                            formatCurrency(DoanhThuTrongNgay)}}</span></span>
                                 </li>
                             </ul>
                         </div>
@@ -316,24 +316,59 @@
                             background-color: #218838;
                         }
                     </style>
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <div class="white-box analytics-info-cs res-mg-t-30 res-tablet-mg-t-30 dk-res-t-pro-30">
-                            <form class="custom-form">
-                                <div class="form-group">
-                                    <label for="startDate">Ngày bắt đầu:</label>
-                                    <input type="date" id="start" name="trip-start" ng-model="thoigian.batDau" />
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" style="width: 40%;">
+                    <div class="white-box analytics-info-cs res-mg-t-30 res-tablet-mg-t-30 dk-res-t-pro-30">
+                        <form class="custom-form" style="max-width: 500px;">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <label style="font-size: 18px;"><i class="fa fa-bar-chart" aria-hidden="true"></i> Tra cứu doanh thu</label>
                                 </div>
-                                <div class="form-group">
-                                    <label for="endDate">Ngày kết thúc:</label>
-                                    <input type="date" id="end" name="trip-end" ng-model="thoigian.ketThuc" />
+                                <div class="col-md-2">
+                                    <button id="toggleDateInputs" style="font-size: 12px; background: none; color: #000; border: none;">
+                                        <i id="arrowIcon" class="fa fa-chevron-down"></i>
+                                    </button>
                                 </div>
-                                <button id="basicSuccess" class="btn btn-success"
-                                    ng-click="ThongKeTheoThoiGian()"  style="background-color: #fefefe; color: black;">Xem</button>
-                            </form>
-
-
-                        </div>
+                            </div>
+                            <ul class="list-inline  ">
+                                <li>
+                                    <div id="sparklinedash"></div>
+                                </li>
+                                <li class="text-right sp-cn-r" ><i class="fa fa-level-up" style="color: #fff;" aria-hidden="true"></i> <span
+                                        class="counter text-success"><span class="counter">
+                                          
+                                </li>
+                            </ul>
+                            <div class="date-inputs row" style="display: none;">
+                                <hr>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="startDate">Từ ngày:</label>
+                                        <input type="date" id="start" name="trip-start" ng-model="thoigian.batDau" />
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="endDate">Đến ngày:</label>
+                                        <input type="date" id="end" name="trip-end" ng-model="thoigian.ketThuc" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <button id="basicSuccess" class="btn btn-success" 
+                                        ng-click="ThongKeTheoThoiGian()" 
+                                        style="background-color: #fefefe; color: black; border: 1px #888 solid; margin-top: 58%;margin-left: -33%;"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </form>
                     </div>
+                </div>
+                
+                
+                
+               
+                
                 </div>
             </div>
         </div>
@@ -484,58 +519,91 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                            <div class="white-box analytics-info-cs res-mg-t-30 res-tablet-mg-t-30 dk-res-t-pro-30">
-                                <style>
-                                    .custom-form {
-                                        display: flex;
-                                        flex-direction: column;
-                                        max-width: 300px;
-                                        margin: 0 auto;
-                                    }
-
-                                    .form-group {
-                                        margin-bottom: 15px;
-                                    }
-
-                                    label {
-                                        margin-bottom: 5px;
-                                        display: block;
-                                    }
-
-                                    input[type="date"],
-                                    button {
-                                        padding: 8px;
-                                        font-size: 16px;
-                                        border-radius: 5px;
-                                        border: 1px solid #ccc;
-                                    }
-
-                                    button {
-                                        cursor: pointer;
-                                        transition: background-color 0.3s ease;
-                                    }
-
-                                    button:hover {
-                                        background-color: #ddd;
-                                    }
-                                </style>
-                                <form class="custom-form">
-                                    <div class="form-group">
-                                        <label for="startDate">Ngày bắt đầu:</label>
-                                        <input type="date" id="start2" name="trip-start2"
-                                            ng-model="thoigiankhoahoc.batDau" />
+                        <style>
+                            .custom-form {
+                                display: flex;
+                                flex-direction: column;
+                                max-width: 300px;
+                                margin: 0 auto;
+                            }
+    
+                            .form-group {
+                                margin-bottom: 15px;
+                            }
+    
+                            label {
+                                margin-bottom: 5px;
+                                display: block;
+                            }
+    
+                            input[type="date"],
+                            button {
+                                padding: 8px;
+                                font-size: 16px;
+                                border-radius: 5px;
+                                border: 1px solid #ccc;
+                            }
+    
+                            button {
+                                cursor: pointer;
+                                background-color: #28a745;
+                                color: #fff;
+                                border: none;
+                                transition: background-color 0.3s ease;
+                            }
+    
+                            button:hover {
+                                background-color: #218838;
+                            }
+                        </style>
+                      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" style="width: 40%;">
+                        <div class="white-box analytics-info-cs res-mg-t-30 res-tablet-mg-t-30 dk-res-t-pro-30">
+                            <form class="custom-form" style="max-width: 500px;">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label style="font-size: 18px;"><i class="fa fa-bar-chart" aria-hidden="true"></i> Tra cứu doanh thu</label>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="endDate">Ngày kết thúc:</label>
-                                        <input type="date" id="end2" name="trip-end2"
-                                            ng-model="thoigiankhoahoc.ketThuc" />
+                                    <div class="col-md-2">
+                                        <button id="toggleDateInputs2" style="font-size: 12px; background: none; color: #000; border: none;">
+                                            <i id="arrowIcon2" class="fa fa-chevron-down"></i>
+                                        </button>
                                     </div>
-                                    <button id="basicSuccess" class="fa fa-eye" ng-click="ThongKeTheoKhoaHoc()"
-                                        style="background-color: #fefefe; color: black;">Xem</button>
-                                </form>
-                            </div>
+                                </div>
+                                <ul class="list-inline  ">
+                                    <li>
+                                        <div id="sparklinedash"></div>
+                                    </li>
+                                    <li class="text-right sp-cn-r" ><i class="fa fa-level-up" style="color: #fff;" aria-hidden="true"></i> <span
+                                            class="counter text-success"><span class="counter">
+                                              
+                                    </li>
+                                </ul>
+                                <div class="date-inputs2 row" style="display: none;">
+                                    <hr>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="startDate">Từ ngày:</label>
+                                            <input type="date" id="start2" name="trip-start2" ng-model="thoigiankhoahoc.batDau" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="endDate">Đến ngày:</label>
+                                            <input type="date" id="end2" name="trip-end2" ng-model="thoigiankhoahoc.ketThuc" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <button id="basicSuccess" class="btn btn-success" 
+                                            ng-click="ThongKeTheoKhoaHoc()" 
+                                            style="background-color: #fefefe; color: black; border: 1px #888 solid; margin-top: 69%;margin-left: -3%;"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </form>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -644,6 +712,20 @@
 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js}"></script>
 
 <script th:src="@{/Admin/js/ThongKeDoanhThu.js}"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#toggleDateInputs").click(function () {
+            $(".date-inputs").toggle();
+            $("#arrowIcon").toggleClass("fa-chevron-down fa-chevron-up");
+        });
+        $("#toggleDateInputs2").click(function () {
+            $(".date-inputs2").toggle();
+            $("#arrowIcon2").toggleClass("fa-chevron-down fa-chevron-up");
+        });
+    });
+</script>
+
 
 <script>
     function openTab(evt, tabName) {

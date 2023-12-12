@@ -614,9 +614,6 @@ app.directive('fileModel', ['$parse', function ($parse) {
     };
 }]);
 
-
-
-
 // Mảng lưu trữ các thông báo
 const notifications = [
     { text: "Đã khóa", duration: 3000, type: "success" },//---0---

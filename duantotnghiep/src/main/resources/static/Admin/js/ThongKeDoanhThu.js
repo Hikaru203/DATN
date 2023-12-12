@@ -180,6 +180,11 @@ app.controller("revenue-ctrl", function ($scope, $http, $window) {
             $scope.items = resp.data;
             $scope.renderChart("revenue-chart");
         });
+        $http.get(apiEndpoints.ThongKeTheoNgay).then(resp => {
+             resp.data;
+            // Tính tổng doanh thu trong ngày
+            $scope.DoanhThuTrongNgay = resp.data.reduce((total, item) => total + item.totalRevenue, 0);
+        });
 
         // load Khóa học
         $http.get("/rest/admin/KhoaHoc").then(resp => {
@@ -269,8 +274,8 @@ app.controller("revenue-ctrl", function ($scope, $http, $window) {
         ThongKeKhoaHoc: "/rest/Report/thong-ke-Khoa-hoc",
         ThongKeKhoaHocTG: "/rest/Report/thong-ke-Khoa-hoc-TG",
         ThongKeNguoiHoc: "/rest/Report/thong-ke-nguoi-hoc",
-        ThongKeNguoiHocTG: "/rest/Report/thong-ke-nguoi-hoc-theo-moc-thoi-gian"
-        
+        ThongKeNguoiHocTG: "/rest/Report/thong-ke-nguoi-hoc-theo-moc-thoi-gian",
+        ThongKeTheoNgay: "/rest/Report/thong-ke-theo-ngay"
     };
 
     // Initialize

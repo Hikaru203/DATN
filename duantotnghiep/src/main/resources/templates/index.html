@@ -280,8 +280,8 @@
 
 						</div>
 						<div class="row">
-							<div class="col-lg-4 col-md-6 mb-4" th:each="item, stat : ${courseOnline}">
-								<th:block th:if="${item.trangThai == 'false' and item.duyet == true}">
+							<div th:each="item, stat : ${courseOnline}" th:if="${item.trangThai == 'false' and item.duyet == true}" class="col-lg-4 col-md-6 mb-4">
+								<div>
 									<a th:href="@{'/courseOnline/detail/' + ${item.id}}">
 										<div class="rounded overflow-hidden mb-2" style="height: 400px;">
 											<div class="bg-secondary p-4" style="height: 400px;">
@@ -324,7 +324,7 @@
 											</div>
 										</div>
 									</a>
-								</th:block>
+								</div>
 							</div>
 
 

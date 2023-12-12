@@ -15,4 +15,6 @@ List<ThongKeDATA> getThongKeTheoKhoaHocTG(int idKhoaHoc,String batDau, String ke
 
 long countUsersInKhoaHoc(Long idKhoaHoc);
 long countUsersInKhoaHocTG(Long idKhoaHoc,String batDau, String ketThuc);
+
+ List<ThongKeDATA> ThongKeTheoNgay();
 }
