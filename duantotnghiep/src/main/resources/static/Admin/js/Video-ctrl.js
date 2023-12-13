@@ -19,6 +19,19 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
     $scope.itemsPerPage = 5;
     $scope.totalItems = 0;
     $scope.selectedMucLuc = ""; // Khởi tạo selectedMucLuc trong $scope
+    var value = 0
+
+    var inputElement = document.getElementById('idLogin');
+
+
+
+    if (inputElement == null || inputElement == "") {
+        value = 0;
+    }
+    else {
+        // Lấy giá trị của input
+        value = inputElement.value;
+    }
 
     const accountTokenInput = document.getElementById("accessToken");
     const authorizationTokenGroup = document.getElementById('authorizationTokenGroup');
@@ -255,7 +268,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
             $http.get("/rest/admin/MucLuc/" + $scope.selectedMucLuc)
                 .then(resp => {
                     $scope.formVideo.mucLuc = resp.data;
-                    $http.get("/rest/admin/NguoiDung/" + 1)
+                    $http.get("/rest/admin/NguoiDung/" + value)
                         .then(resp => {
                             $scope.formVideo.nguoiTao = resp.data;
                             $scope.formVideo.linkVideo = videoId;
@@ -316,8 +329,8 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
             .then(resp => {
                 $scope.formVideo.mucLuc = resp.data;
 
-                $http.get("/rest/admin/NguoiDung/" + 1)
-                    .then(resp => {
+                $http.get("/rest/admin/NguoiDung/" + value)
+                    .then(resp => { 
                         $scope.formVideo.nguoiTao = resp.data;
                         $scope.formVideo.linkVideo = usernameCookie;
                         $scope.formVideo.tenVideo = videoTitle;

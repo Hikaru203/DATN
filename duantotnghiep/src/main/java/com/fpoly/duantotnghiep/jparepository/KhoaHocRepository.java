@@ -13,6 +13,12 @@ public interface KhoaHocRepository extends JpaRepository<KhoaHoc, Integer> {
 	@Query("SELECT kh FROM KhoaHoc kh WHERE kh.loaiKhoaHoc = ?1")
 	List<KhoaHoc> findByLoai(String loaiKhoaHoc);
 
+	@Query("SELECT kh FROM KhoaHoc kh  WHERE kh.tenKhoaHoc LIKE '%' + ?1 + '%'")
+	List<KhoaHoc> findByTenKhoaHoc(String tenKhoaHoc);
+
+	@Query("SELECT kh FROM KhoaHoc kh  WHERE kh.tenKhoaHoc LIKE '%' + ?1 + '%' AND kh.duyet = false")
+	List<KhoaHoc> findByTenKhoaHoc2(String tenKhoaHoc);
+
 	@Query("SELECT kh FROM KhoaHoc kh WHERE kh.duyet = false")
 	List<KhoaHoc> findByDuyet();
 

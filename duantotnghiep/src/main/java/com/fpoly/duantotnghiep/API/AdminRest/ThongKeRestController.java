@@ -58,4 +58,24 @@ public class ThongKeRestController {
             @RequestParam(name = "ketThuc", required = false) String ketThuc) {
         return thongKeService.countUsersInKhoaHocTG(idKhoaHoc, batDau, ketThuc);
     }
+
+     @GetMapping("/thong-ke-theo-ngay")
+    public List<ThongKeDATA> ThongKeTheoNgay() {
+        return thongKeService.ThongKeTheoNgay();
+    }
+
+    @GetMapping("/thong-ke-thang-nay")
+    public List<ThongKeDATA> ThongKeThangnay() {
+        return thongKeService.ThongKeThangNay();
+    }
+
+    @GetMapping("/thong-ke-nam-nay")
+    public List<ThongKeDATA> ThongKeNamNay() {
+        return thongKeService.ThongKeNamNay();
+    }
+
+    @GetMapping("/thong-ke-nam-truoc")
+    public List<ThongKeDATA> ThongKeNamTruoc() {
+        return thongKeService.ThongKeNamTruoc();
+    }
 }
