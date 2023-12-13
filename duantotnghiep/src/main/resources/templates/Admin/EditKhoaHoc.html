@@ -102,7 +102,7 @@
             background: #fefefe;
             color: #000;
             border: 2px red solid;
-            background-image: url('/Admin/img/icons8-error-48.png'); 
+            background-image: url('/Admin/img/icons8-error-48.png');
             background-size: 20%;
             background-position: center left;
             background-repeat: no-repeat;
@@ -114,8 +114,8 @@
         .success {
             background: #fefefe;
             color: #000;
-            border: 2px green solid;  
-            background-image: url('/Admin/img/icons8-success-48.png'); 
+            border: 2px green solid;
+            background-image: url('/Admin/img/icons8-success-48.png');
             background-size: 20%;
             background-position: center left;
             background-repeat: no-repeat;
@@ -232,7 +232,36 @@
                                                                     <div class="product-status-wrap drp-lst">
                                                                         <div class="asset-inner row">
                                                                             <div class="container">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-6">
+                                                                                        <form>
+                                                                                            <div class="row">
+                                                                                                <div class="col-md-6">
+                                                                                                    <div
+                                                                                                        class="form-group">
+                                                                                                        <input
+                                                                                                            name="tenKhoaHoc"
+                                                                                                            type="text"
+                                                                                                            ng-model="TimKhoaHoc.tenKhoaHoc"
+                                                                                                            class="form-control" placeholder="Nhập tên khóa học">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-6">
+                                                                                                    <div
+                                                                                                        class="form-group">
 
+                                                                                                        <button
+                                                                                                            ng-click="timKiemKhoaHoc()" style="background-color: #fefefe; color: black; border: 1px #888 solid; margin-top: 2%; margin-left: -10%; height: 30px;"><i class="fa fa-search" aria-hidden="true"></i>Tìm</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            
+                                                                                            </div>
+                                                                                            
+                                                                                                
+
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
                                                                                 <table>
                                                                                     <thead>
                                                                                         <th>No</th>
@@ -256,50 +285,57 @@
                                                                                             </td>
                                                                                             <td>
                                                                                                 <button
-                                                                                                style="background-color: #fefefe; color: black;"
+                                                                                                    style="background-color: #fefefe; color: black;"
                                                                                                     ng-if="item.trangThai === 'false'"
                                                                                                     class="btn btn-success"
                                                                                                     ng-click="trangThaiKhoaHoc(item)"><i
-                                                                                                    class="fa fa-unlock"></i> 
+                                                                                                        class="fa fa-unlock"></i>
                                                                                                     Đang mở
                                                                                                     khóa</button>
                                                                                                 <button
-                                                                                                style="background-color: #fefefe; color: black;"
+                                                                                                    style="background-color: #fefefe; color: black;"
                                                                                                     ng-if="item.trangThai === 'true'"
                                                                                                     class="btn btn-danger"
                                                                                                     ng-click="trangThaiKhoaHoc(item)"><i
-                                                                                                    class="fa fa-lock"></i> 
+                                                                                                        class="fa fa-lock"></i>
                                                                                                     Đã khóa</button>
                                                                                             </td>
                                                                                             <td> <button
                                                                                                     class="btn btn-primary"
                                                                                                     aria-hidden="true"
-                                                                                                    ng-click="MucLuc(item)" style="background-color: #fefefe; color: black;"><i class="fa fa-cog"></i> Mục lục</button>
+                                                                                                    ng-click="MucLuc(item)"
+                                                                                                    style="background-color: #fefefe; color: black;"><i
+                                                                                                        class="fa fa-cog"></i>
+                                                                                                    Mục lục</button>
                                                                                             </td>
                                                                                         </tr>
                                                                                     </tbody>
                                                                                 </table>
                                                                                 <div class="panel-footer text-center">
                                                                                     <button ng-click="pager.first()"
-                                                                                        class="btn btn-primary" style="background-color: #fefefe; color: black;">
+                                                                                        class="btn btn-primary"
+                                                                                        style="background-color: #fefefe; color: black;">
                                                                                         <i
                                                                                             class="fa fa-arrow-circle-up"></i>
                                                                                     </button>
                                                                                     <button ng-click="pager.prev()"
-                                                                                        class="btn btn-primary" style="background-color: #fefefe; color: black;">
+                                                                                        class="btn btn-primary"
+                                                                                        style="background-color: #fefefe; color: black;">
                                                                                         <i
                                                                                             class="fa fa-arrow-circle-left"></i>
                                                                                     </button>
-                                                                                    <button
-                                                                                        class="btn btn-success" style="background-color: #fefefe; color: black;">{{pager.page
+                                                                                    <button class="btn btn-success"
+                                                                                        style="background-color: #fefefe; color: black;">{{pager.page
                                                                                         +1}} of {{pager.count}}</button>
                                                                                     <button ng-click="pager.next()"
-                                                                                        class="btn btn-primary" style="background-color: #fefefe; color: black;">
+                                                                                        class="btn btn-primary"
+                                                                                        style="background-color: #fefefe; color: black;">
                                                                                         <i
                                                                                             class="fa fa-arrow-circle-right"></i>
                                                                                     </button>
                                                                                     <button ng-click="pager.last()"
-                                                                                        class="btn btn-primary" style="background-color: #fefefe; color: black;">
+                                                                                        class="btn btn-primary"
+                                                                                        style="background-color: #fefefe; color: black;">
                                                                                         <i
                                                                                             class="fa fa-arrow-circle-down"></i>
                                                                                     </button>
@@ -428,21 +464,24 @@
                                                         <div class="container mt-4">
                                                             <!-- Button "Thêm" -->
                                                             <button id="basicSuccess" class="btn btn-success"
-                                                                ng-click="create()"
-                                                                ng-disabled="!btnThemKhoaHoc" style="background-color: #fefefe; color: black;">Thêm</button>
+                                                                ng-click="create()" ng-disabled="!btnThemKhoaHoc"
+                                                                style="background-color: #fefefe; color: black;">Thêm</button>
 
                                                             <!-- Button "Sửa" -->
                                                             <button class="btn btn-warning mr-2"
                                                                 ng-click="updateKhoaHoc(formKhoaHoc)"
-                                                                ng-disabled="!btnSuaKhoaHoc" style="background-color: #fefefe; color: black;">Sửa</button>
+                                                                ng-disabled="!btnSuaKhoaHoc"
+                                                                style="background-color: #fefefe; color: black;">Sửa</button>
 
                                                             <!-- Button "Xóa" -->
                                                             <button class="btn btn-danger"
                                                                 ng-click="deleteKhoaHoc(formKhoaHoc)"
-                                                                ng-disabled="!btnXoaKhoaHoc" style="background-color: #fefefe; color: black;">Xóa</button>
+                                                                ng-disabled="!btnXoaKhoaHoc"
+                                                                style="background-color: #fefefe; color: black;">Xóa</button>
 
                                                             <!-- Button "làm mới" -->
-                                                            <button class="btn btn-info" ng-click="resetKhoaHoc()" style="background-color: #fefefe; color: black;">Làm
+                                                            <button class="btn btn-info" ng-click="resetKhoaHoc()"
+                                                                style="background-color: #fefefe; color: black;">Làm
                                                                 mới</button>
                                                         </div>
                                                     </form>
@@ -508,47 +547,47 @@
                                 <ul id="myTabedu1" class="tab-review-design">
                                     <li class="active"><a href="#description">Edit Mục lục</a></li>
 
-                            </ul>
-                            
-                            <div id="myTabContent" class="tab-content custom-product-edit">
-                                <div class="product-tab-list tab-pane fade active in" id="description">
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="review-content-section">
-                                                <div id="dropzone1" class="pro-ad addcoursepro">
-                                                    <form enctype="multipart/form-data"
-                                                        class="dropzone dropzone-custom needsclick addcourse"
-                                                        id="demo1-upload">
-                                                        <div class="row">
-                                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                <div class="form-group">
-                                                                    <div class="tieude">id:</div>
-                                                                    <input name="id" type="text"
-                                                                        ng-model="formMucLuc.id" class="form-control"
-                                                                        readonly>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <div class="tieude">Tên Muc luc:</div>
-                                                                    <input name="tenKhoaHoc" type="text"
-                                                                        ng-model="formMucLuc.tenMucLuc"
-                                                                        class="form-control">
-                                                                    <div ng-show="hassError" style="color: red;">
-                                                                        {{message1}}</div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <div class="tieude">Người tạo:</div>
-                                                                    <input name="nguoiTao" type="text"
-                                                                        ng-model="nguoiTao.hoTen"
-                                                                        class="form-control" readonly>
-                                                                    <input name="nguoiTao" type="text"
-                                                                        ng-model="formMucLuc.nguoiTao.id" value="0"
-                                                                        hidden placeholder="NguoiTao">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input name="ngayTao" id="ngayTao" type="text"
-                                                                        ng-model="formMucLuc.ngayTao" hidden
-                                                                        placeholder="NgayTao">
-                                                                </div>
+                                </ul>
+
+                                <div id="myTabContent" class="tab-content custom-product-edit">
+                                    <div class="product-tab-list tab-pane fade active in" id="description">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="review-content-section">
+                                                    <div id="dropzone1" class="pro-ad addcoursepro">
+                                                        <form enctype="multipart/form-data"
+                                                            class="dropzone dropzone-custom needsclick addcourse"
+                                                            id="demo1-upload">
+                                                            <div class="row">
+                                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                    <div class="form-group">
+                                                                        <div class="tieude">id:</div>
+                                                                        <input name="id" type="text"
+                                                                            ng-model="formMucLuc.id"
+                                                                            class="form-control" readonly>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="tieude">Tên Muc luc:</div>
+                                                                        <input name="tenKhoaHoc" type="text"
+                                                                            ng-model="formMucLuc.tenMucLuc"
+                                                                            class="form-control">
+                                                                        <div ng-show="hassError" style="color: red;">
+                                                                            {{message1}}</div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="tieude">Người tạo:</div>
+                                                                        <input name="nguoiTao" type="text"
+                                                                            ng-model="nguoiTao.hoTen"
+                                                                            class="form-control" readonly>
+                                                                        <input name="nguoiTao" type="text"
+                                                                            ng-model="formMucLuc.nguoiTao.id" value="0"
+                                                                            hidden placeholder="NguoiTao">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input name="ngayTao" id="ngayTao" type="text"
+                                                                            ng-model="formMucLuc.ngayTao" hidden
+                                                                            placeholder="NgayTao">
+                                                                    </div>
 
                                                                 </div>
                                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -557,26 +596,29 @@
                                                                 </div>
                                                             </div>
                                                             <div class="container mt-4">
-                                                            <!-- Button "Thêm" -->
-                                                            <button id="basicSuccess" class="btn btn-success" style="background-color: #fefefe; color: black;"
-                                                                ng-click="createMucLuc()"
-                                                                >Thêm</button>
+                                                                <!-- Button "Thêm" -->
+                                                                <button id="basicSuccess" class="btn btn-success"
+                                                                    style="background-color: #fefefe; color: black;"
+                                                                    ng-click="createMucLuc()">Thêm</button>
 
-                                                            <!-- Button "Sửa" -->
-                                                            <button class="btn btn-warning mr-2" style="background-color: #fefefe; color: black;"
-                                                                ng-click="suaMucLuc(formMucLuc)"
-                                                                >Sửa</button>
+                                                                <!-- Button "Sửa" -->
+                                                                <button class="btn btn-warning mr-2"
+                                                                    style="background-color: #fefefe; color: black;"
+                                                                    ng-click="suaMucLuc(formMucLuc)">Sửa</button>
 
-                                                            <!-- Button "Xóa" -->
-                                                            <button class="btn btn-danger" style="background-color: #fefefe; color: black;"
-                                                                ng-click="deleteMucLuc(formMucLuc)"
-                                                                >Xóa</button>
+                                                                <!-- Button "Xóa" -->
+                                                                <button class="btn btn-danger"
+                                                                    style="background-color: #fefefe; color: black;"
+                                                                    ng-click="deleteMucLuc(formMucLuc)">Xóa</button>
 
-                                                            <!-- Button "làm mới" -->
-                                                            <button class="btn btn-info" style="background-color: #fefefe; color: black;" ng-click="resetMucLuc()">Làm
-                                                                mới</button>
+                                                                <!-- Button "làm mới" -->
+                                                                <button class="btn btn-info"
+                                                                    style="background-color: #fefefe; color: black;"
+                                                                    ng-click="resetMucLuc()">Làm
+                                                                    mới</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -588,8 +630,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Thêm các trường dữ liệu khác bạn muốn hiển thị -->
+        <!-- Thêm các trường dữ liệu khác bạn muốn hiển thị -->
     </div>
     </div>
 

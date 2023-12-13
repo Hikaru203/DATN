@@ -37,10 +37,32 @@ app.controller("revenue-ctrl", function ($scope, $http, $window) {
             $scope.SoNguoi = resp.data;
         });
     }
+    $scope.ThongKeThangNay = function () {
+        $scope.setupHelpers();
+        $http.get(apiEndpoints.ThongKeThangNay).then(resp => {
+            $scope.items = resp.data;
+            $scope.renderChart("revenue-chart");
+        });
+    }
+    $scope.ThongKeNamNay = function () {
+        $scope.setupHelpers();
+        $http.get(apiEndpoints.ThongKeNamNay).then(resp => {
+            $scope.items = resp.data;
+            $scope.renderChart("revenue-chart");
+        });
+    }
+    $scope.ThongKeNamTruoc = function () {
+        $scope.setupHelpers();
+        $http.get(apiEndpoints.ThongKeNamTruoc).then(resp => {
+            $scope.items = resp.data;
+            $scope.renderChart("revenue-chart");
+        });
+    }
 
     $scope.ThongKeTheoKhoaHoc = function () {
 
         $scope.convertToMoment2();
+
         //Thông kê số người học theo mốc thời gian
         $http.get(apiEndpoints.ThongKeNguoiHocTG, {
             params: {
@@ -275,7 +297,10 @@ app.controller("revenue-ctrl", function ($scope, $http, $window) {
         ThongKeKhoaHocTG: "/rest/Report/thong-ke-Khoa-hoc-TG",
         ThongKeNguoiHoc: "/rest/Report/thong-ke-nguoi-hoc",
         ThongKeNguoiHocTG: "/rest/Report/thong-ke-nguoi-hoc-theo-moc-thoi-gian",
-        ThongKeTheoNgay: "/rest/Report/thong-ke-theo-ngay"
+        ThongKeTheoNgay: "/rest/Report/thong-ke-theo-ngay",
+        ThongKeThangNay: "/rest/Report/thong-ke-thang-nay",
+        ThongKeNamNay: "/rest/Report/thong-ke-nam-nay",
+        ThongKeNamTruoc: "/rest/Report/thong-ke-nam-truoc",
     };
 
     // Initialize

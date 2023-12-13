@@ -112,4 +112,55 @@ ThanhToanRepository thanhToanRepository;
 
         return revenueDataList;
     }
+
+    @Override
+    public List<ThongKeDATA> ThongKeThangNay() {
+        List<Object[]> result = thanhToanRepository.ThongKeThangNay();
+        List<ThongKeDATA> revenueDataList = new ArrayList<>();
+
+        for (Object[] row : result) {
+            ThongKeDATA revenueData = new ThongKeDATA();
+            revenueData.setYear((int) row[0]);
+            revenueData.setMonth((int) row[1]);
+            revenueData.setTotalRevenue((BigDecimal) row[2]);
+
+            revenueDataList.add(revenueData);
+        }
+
+        return revenueDataList;
+    }
+
+    @Override
+    public List<ThongKeDATA> ThongKeNamNay() {
+        List<Object[]> result = thanhToanRepository.ThongKeNamNay();
+        List<ThongKeDATA> revenueDataList = new ArrayList<>();
+
+        for (Object[] row : result) {
+            ThongKeDATA revenueData = new ThongKeDATA();
+            revenueData.setYear((int) row[0]);
+            revenueData.setMonth((int) row[1]);
+            revenueData.setTotalRevenue((BigDecimal) row[2]);
+
+            revenueDataList.add(revenueData);
+        }
+
+        return revenueDataList;
+    }
+
+     @Override
+    public List<ThongKeDATA> ThongKeNamTruoc() {
+        List<Object[]> result = thanhToanRepository.ThongKeNamTruoc();
+        List<ThongKeDATA> revenueDataList = new ArrayList<>();
+
+        for (Object[] row : result) {
+            ThongKeDATA revenueData = new ThongKeDATA();
+            revenueData.setYear((int) row[0]);
+            revenueData.setMonth((int) row[1]);
+            revenueData.setTotalRevenue((BigDecimal) row[2]);
+
+            revenueDataList.add(revenueData);
+        }
+
+        return revenueDataList;
+    }
 }

@@ -17,4 +17,7 @@ long countUsersInKhoaHoc(Long idKhoaHoc);
 long countUsersInKhoaHocTG(Long idKhoaHoc,String batDau, String ketThuc);
 
  List<ThongKeDATA> ThongKeTheoNgay();
+ List<ThongKeDATA> ThongKeThangNay();
+ List<ThongKeDATA> ThongKeNamNay();
+ List<ThongKeDATA> ThongKeNamTruoc();
 }
