@@ -1,26 +1,49 @@
-app.controller("thongBaoCtrl", function ($scope, $http, $window) {
-    $scope.notifications = [];
+app.controller("thongBaoCtrl", function ($scope, $http, $window, $interval) {
+    $scope.notifications = []; // Khởi tạo notifications là một mảng rỗng ban đầu
 
-    $http.get("/rest/admin/NguoiDung").then(resp => {
-        $scope.nguoiDung = resp.data;
-        $scope.nguoiDung.forEach(user => {
-            user.type = 'user';
-            $scope.notifications.push(user);
+    // Hàm lấy dữ liệu thông báo từ máy chủ
+    function getNotifications() {
+        var tempNotifications = []; // Tạo một mảng tạm thời
+
+        $http.get("/rest/admin/NguoiDung").then(resp => {
+            $scope.nguoiDung = resp.data;
+            $scope.nguoiDung.forEach(user => {
+                user.type = 'user';
+                tempNotifications.push(user);
+            });
         });
-        processNotifications();
-    });
 
-    $http.get("/api/tiendokhoahoc").then(resp => {
-        $scope.dangKyKhoaHoc = resp.data;
-        $scope.dangKyKhoaHoc.forEach(course => {
-            course.type = 'course';
-            $scope.notifications.push(course);
+        $http.get("/api/tiendokhoahoc").then(resp => {
+            $scope.dangKyKhoaHoc = resp.data;
+            $scope.dangKyKhoaHoc.forEach(course => {
+                course.type = 'course';
+                tempNotifications.push(course);
+            });
+            updateNotifications(tempNotifications); // Gọi hàm cập nhật thông báo với dữ liệu tạm thời
         });
-        processNotifications();
-    });
+    }
 
+    // Gọi hàm lấy dữ liệu thông báo ban đầu
+    getNotifications();
+
+    // Tự động cập nhật thông báo sau mỗi khoảng thời gian
+    var pollingInterval = $interval(getNotifications, 1000); // 60 giây
+    // Cập nhật thông báo mà không xóa và gán lại mảng notifications
+    function updateNotifications(newNotifications) {
+        // Xóa hết dữ liệu đầu trong notifications
+        $scope.notifications = [];
+
+        if (newNotifications.length > 0) { // Nếu có dữ liệu mới
+            $scope.notifications = $scope.notifications.concat(newNotifications); // Nối dữ liệu mới vào mảng notifications
+            processNotifications(); // Gọi hàm xử lý thông báo sau khi cập nhật dữ liệu mới
+        }
+        console.log($scope.notifications);
+    }
+
+    // Xử lý thông báo
+    // Xử lý thông báo khi có dữ liệu mới
+    // Xử lý thông báo
     function processNotifications() {
-        // lọc theo thời gian của thông báo
         $scope.notifications.sort(function (a, b) {
             return new Date(b.thoiGianTao || b.ngayDangKy) - new Date(a.thoiGianTao || a.ngayDangKy);
         });
@@ -28,9 +51,9 @@ app.controller("thongBaoCtrl", function ($scope, $http, $window) {
         $scope.notifications.forEach(notification => {
             notification.timeDifference = $scope.calculateTimeDifference(notification.thoiGianTao || notification.ngayDangKy);
         });
-
     }
-    //tính ngày giờ thời gian chênh lệch
+
+    // Tính thời gian chênh lệch
     $scope.calculateTimeDifference = function (thoiGianTao) {
         var thoiGianHienTai = new Date();
         var thoiGianChenhLech = thoiGianHienTai - new Date(thoiGianTao);
@@ -49,4 +72,12 @@ app.controller("thongBaoCtrl", function ($scope, $http, $window) {
             return "Vừa xong";
         }
     };
+
+    // Xóa interval khi $scope bị destroy (tránh leak memory)
+    $scope.$on('$destroy', function () {
+        if (angular.isDefined(pollingInterval)) {
+            $interval.cancel(pollingInterval);
+            pollingInterval = undefined;
+        }
+    });
 });
