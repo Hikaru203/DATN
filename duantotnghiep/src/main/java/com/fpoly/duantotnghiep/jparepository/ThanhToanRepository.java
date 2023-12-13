@@ -51,5 +51,10 @@ public interface ThanhToanRepository extends JpaRepository<ThanhToan, Integer> {
 			+ "GROUP BY YEAR(thoi_gian), MONTH(thoi_gian) " + "ORDER BY year, month")
 	List<Object[]> ThongKeNamTruoc();
 
+	@Query(nativeQuery = true, value = "Select YEAR(thoi_gian) AS year, MONTH(thoi_gian) AS month, SUM(tong_tien) AS total_revenue  "
+			+ "from dbo.thanh_toan " + "WHERE id_khoa_hoc = ?1 " + "GROUP BY YEAR(thoi_gian), MONTH(thoi_gian) "
+			+ "ORDER BY year, month")
+	List<Object[]> ThongKeTheoKhoaHoc(int idKhoaHoc);
+
 	Optional<ThanhToan> findByKhoaHoc_IdAndNguoiDung_Id(Integer idKhoaHoc, Integer idNguoiDung);
 }
