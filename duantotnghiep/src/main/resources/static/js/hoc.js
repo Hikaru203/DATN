@@ -68,7 +68,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             method: 'GET',
             url: '/api/courseOnline/detail/' + id
         }).then(function (response) {
-           
+            // Gán dữ liệu khóa học cho biến $scope.hoc
             $scope.hoc = response.data;
             idKhoaHoc = $scope.hoc.courseOnline.id;
 
@@ -84,7 +84,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             $http.get("/rest/admin/NguoiDung/" + value)
                 .then(function (resp) {
                     idNguoiDung = resp.data.id;
-                    
+                    console.log(idNguoiDung + " :id Người dùng");
 
                 });
         }
