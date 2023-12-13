@@ -39,6 +39,6 @@ public interface NguoiDungService {
 
 	NguoiDung findByTaiKhoan(String currentUsername);
 
-    void updateNguoiDung(int id, NguoiDung updatedNguoiDung);
+ //   void updateNguoiDung(int id, NguoiDung updatedNguoiDung);
 
 }
