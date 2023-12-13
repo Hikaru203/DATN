@@ -52,7 +52,14 @@ public class AdminKhoaHocRestController {
     public KhoaHoc getById(@PathVariable("id") int id) {
         return khoaHocService.findById(id);
     }
-
+    @GetMapping("/tim-khoa-hoc")
+    public List<KhoaHoc> getByTenKhoaHoc(@RequestParam(name = "tenKhoaHoc", required = false)  String tenKhoaHoc) {
+        return khoaHocService.findByTenKhoaHoc(tenKhoaHoc);
+    }
+    @GetMapping("/tim-kenh-khoa-hoc")
+    public List<KhoaHoc> getByTenKhoaHoc2(@RequestParam(name = "tenKhoaHoc", required = false)  String tenKhoaHoc) {
+        return khoaHocService.findByTenKhoaHoc2(tenKhoaHoc);
+    }
     @PostMapping()
     public KhoaHoc create(@RequestParam("hinhAnh") MultipartFile file, @RequestPart("khoaHoc") KhoaHoc khoaHoc,
             HttpServletRequest request) throws IOException {

@@ -55,13 +55,15 @@ signupForm.addEventListener('submit', function (event) {
   checkIfUsernameExists(username)
     .then(usernameExists => {
       if (usernameExists) {
-        alert('Tài khoản đã tồn tại. Vui lòng chọn tài khoản khác.');
+        showSuccessMessage("error", "Tài khoản đã tồn tại",'Tài khoản đã tồn tại. Vui lòng chọn tài khoản khác.');
+        Noway();
       } else {
 
         checkIfEmailExists(email)
           .then(emailExists => {
             if (emailExists) {
-              alert('Email đã tồn tại. Vui lòng sử dụng email khác.');
+              showSuccessMessage("error", "Email đã tồn tại", 'Email đã tồn tại. Vui lòng sử dụng email khác.');
+              Noway();
             } else {
               // Tiếp tục với đăng ký nếu tên tài khoản không tồn tại
               // Gửi dữ liệu đăng ký đến máy chủ hoặc xử lý chúng theo cách bạn muốn.
@@ -88,11 +90,13 @@ signupForm.addEventListener('submit', function (event) {
                 })
                 .then(data => {
                   if (data) {
-                    alert('Đăng ký thành công');
+                    showSuccessMessage("succes", "Đăng ký thành công", 'Vui lòng xác nhận để đăng nhập')
+          
+                    // alert('Đăng ký thành công');
                     // Redirect người dùng đến trang đăng nhập
                     location.href = 'http://localhost:8080/courseOnline/dangnhap';
                   } else {
-                    alert('Đăng ký không thành công. Vui lòng thử lại sau.');
+                    showSuccessMessage("error", "Đăng ký không thành công", 'Vui lòng thử lại')
 
                   }
                 });
@@ -106,11 +110,22 @@ function isValidPhoneNumber(phone) {
   // Kiểm tra xem chuỗi chỉ chứa các chữ số và có ít nhất 10 ký tự
   return /^[0-9]{10,}$/.test(phone);
 }
+function showSuccessMessage(icon, tile, text,) {
+  Swal.fire({
+      icon: icon,
+      title: tile,
+      text: text,
+      confirmButtonText: 'Đóng',
+  });
 
+  // Additional post-submission processing can be added here if needed
+}
 function toggleSpinner() {
   var spinnerContainer = document.querySelector('.spinner-container');
-
     spinnerContainer.style.display = 'block';
-
   }
 
+  function Noway() {
+    var spinnerContainer = document.querySelector('.spinner-container');
+      spinnerContainer.style.display = 'none';
+    }

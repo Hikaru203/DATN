@@ -104,12 +104,24 @@
             width: 80px;
         }
 
+        .video-controls1 {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+        }
+
+
+
+        .video-controls1 input[type="range"] {
+            width: 80px;
+        }
+
         .video-frame-container {
             position: relative;
             width: 100%;
             height: 500px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-            border: 1px solid #ccc;
+            border: 1px solid #cccccc;
             border-radius: 5px;
             overflow: hidden;
         }
@@ -278,6 +290,23 @@
                 justify-content: space-between;
             }
 
+            .video-controls1 {
+                position: absolute;
+                bottom: 20px;
+                background-color: rgba(255, 255, 255, 0.759);
+                padding: 10px;
+                border-radius: 5px;
+                display: none;
+            }
+
+            .video-container:hover .video-controls1 {
+                display: flex;
+                align-items: center;
+                /* Canh chỉnh các phần tử theo chiều dọc */
+                justify-content: space-between;
+                height: 50px;
+            }
+
 
 
             /* Định dạng cho các nút điều chỉnh */
@@ -325,28 +354,28 @@
                 <div class="video-controls" style="width: 100%;">
 
                 </div>
-
-            </div>
-
-            <div>
-                <button id="pause-video" class="button">
-                    <i id="play-pause-icon" class="fas fa-play"></i>
-                </button>
-                <button id="full-screen" class="button"><i class="fas fa-expand"></i></button>
-                <label for="">Âm lượng</label>
-                <div class="volume-control-container">
-                    <i class="fas fa-volume-up" id="volume-icon"></i>
-                    <input type="range" id="volume-control" min="0" max="100" step="1" value="100">
-                    <span id="volume-percentage" class="volume-tooltip">100%</span>
+                <div class="video-controls1" style="width: 100%; z-index: 999;">
+                    <button id="pause-video" class="button">
+                        <i id="play-pause-icon" class="fas fa-play"></i>
+                    </button>
+                    <button id="full-screen" class="button"><i class="fas fa-expand"></i></button>
+                    <label for="">Âm lượng</label>
+                    <div class="volume-control-container">
+                        <i class="fas fa-volume-up" id="volume-icon"></i>
+                        <input type="range" id="volume-control" min="0" max="100" step="1" value="100">
+                        <span id="volume-percentage" class="volume-tooltip">100%</span>
+                    </div>
+                    <div id="video-info"></div>
+                    <label for=""> Tốc độ</label>
+                    <select id="playback-speed">
+                        <option value="1">Normal</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
                 </div>
-                <div id="video-info"></div>
-                <label for=""> Tốc độ</label>
-                <select id="playback-speed">
-                    <option value="1">Normal</option>
-                    <option value="1.5">1.5x</option>
-                    <option value="2">2x</option>
-                </select>
             </div>
+
+
 
 
             <div style="display: flex; justify-content: space-between;">
@@ -364,6 +393,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const fullScreenButton = document.getElementById('full-screen');
+
             // Function to toggle full screen
             fullScreenButton.addEventListener('click', function () {
                 if (videoIframe.requestFullscreen) {
