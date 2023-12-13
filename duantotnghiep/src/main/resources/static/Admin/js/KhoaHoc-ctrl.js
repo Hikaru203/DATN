@@ -12,6 +12,7 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
     $scope.modalItem = {};
     $scope.itemsMucLuc = [];
     $scope.formMucLuc = {};
+    $scope.TimKhoaHoc = {};
     //định dạng tiền
     $scope.formatCurrency = function (amount) {
         // Chuyển đổi số tiền thành chuỗi và loại bỏ số 0 ở cuối
@@ -79,6 +80,47 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
 
     // Khởi đầu
     $scope.initialize();
+
+    //tìm kiếm khóa học
+    $scope.timKiemKhoaHoc = function () {
+         
+        // load Khóa học
+        $http.get("/rest/admin/KhoaHoc/tim-khoa-hoc", {
+            params: {
+                tenKhoaHoc: $scope.TimKhoaHoc.tenKhoaHoc,
+            }
+        }).then(resp => {
+            // Chuyển đổi ngày giờ sang múi giờ Việt Nam
+            resp.data.forEach(item => {
+                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
+            });
+            $scope.itemsKhoaHoc = resp.data;
+           
+            $scope.btnThemKhoaHoc = true;
+            $scope.btnSuaKhoaHoc = false;
+            $scope.btnXoaKhoaHoc = false;
+            
+        });
+    }
+    //tìm kiếm kênh khóa học
+    $scope.timKiemKenhKhoaHoc = function () {
+         
+        // load Khóa học
+        $http.get("/rest/admin/KhoaHoc/tim-kenh-khoa-hoc", {
+            params: {
+                tenKhoaHoc: $scope.TimKhoaHoc.tenKhoaHoc,
+            }
+        }).then(resp => {
+            // Chuyển đổi ngày giờ sang múi giờ Việt Nam
+            resp.data.forEach(item => {
+                item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
+            });
+           
+            $scope.itemsKenhKhoaHoc = resp.data;
+            
+            
+        });
+    }
 
     // Xóa formKhoaHoc
     $scope.resetKhoaHoc = function () {
@@ -364,34 +406,34 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
 
 //Chuyển trang kênh khóa học
     $scope.trang = {
-        page: 0,
-        size: 5,
+        page2: 0,
+        size2: 5,
         get itemsKenhKhoaHoc() {
-            var start = this.page * this.size;
-            return $scope.itemsKenhKhoaHoc.slice(start, start + this.size);
+            var start = this.page2 * this.size2;
+            return $scope.itemsKenhKhoaHoc.slice(start, start + this.size2);
         },
 
-        get count() {
-            return Math.ceil(1.0 * $scope.itemsKenhKhoaHoc.length / this.size);
+        get count2() {
+            return Math.ceil(1.0 * $scope.itemsKenhKhoaHoc.length / this.size2);
         },
 
         first() {
-            this.page = 0;
+            this.page2 = 0;
         },
         prev() {
-            this.page--;
-            if (this.page < 0) {
+            this.page2--;
+            if (this.page2 < 0) {
                 this.last();
             }
         },
         next() {
-            this.page++;
-            if (this.page >= this.count) {
+            this.page2++;
+            if (this.page2 >= this.count2) {
                 this.first();
             }
         },
         last() {
-            this.page = this.count - 1;
+            this.page2 = this.count2 - 1;
         }
     }
 
@@ -613,9 +655,6 @@ app.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
-
-
-
 
 // Mảng lưu trữ các thông báo
 const notifications = [
