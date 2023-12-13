@@ -76,13 +76,13 @@ public class Login_DangKy {
 
         return "nhapmaotp";
     }
+
     @GetMapping("/courseOnline/FaillOTP")
     public String failotp(Model model) {
         model.addAttribute("message", "Sai OTP vui lòng nhập lại ");
 
         return "nhapmaotp";
     }
-
 
     @RequestMapping("/oauth2/login/success")
     public String success(OAuth2AuthenticationToken oauth2) {
@@ -107,13 +107,6 @@ public class Login_DangKy {
         model.addAttribute("message", "Đổi mật khẩu thất bạn ");
 
         return "doimk";
-    }
-
-    @GetMapping("/courseOnline/FaillOTP")
-    public String failotp(Model model) {
-        model.addAttribute("message", "Sai OTP vui lòng nhập lại ");
-
-        return "nhapmaotp";
     }
 
     @GetMapping("/courseOnline/huy")
