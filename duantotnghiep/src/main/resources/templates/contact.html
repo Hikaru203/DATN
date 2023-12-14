@@ -298,16 +298,27 @@
                                             hoTen: name,
                                             email: email
                                         };
-
-                                        $http.put("/rest/admin/NguoiDung/" + $scope.idLogin, data)
+                                        $http.get('/rest/admin/NguoiDung/' + $scope.idLogin)
                                             .then(function (response) {
-                                                $scope.showSuccessMessage("Thành công", "Bạn đã đăng ký thành công!");
-                                                $window.location.href = "/courseOnline/contact";
+                                                $scope.user = response.data;
+                                                if ($scope.user.nhaSangTao == true) {
+                                                    $scope.showFailureMessage("Lỗi", "Bạn đã là nhà sáng tạo rồi!");
+                                                    return;
+                                                } else {
+                                                    $http.put("/rest/admin/NguoiDung/" + $scope.idLogin, data)
+                                                        .then(function (response) {
+                                                            $scope.showSuccessMessage("Thành công", "Bạn đã đăng ký thành công!");
+                                                        })
+                                                        .catch(function (error) {
+                                                            $scope.showFailureMessage("Lỗi", "Đã có lỗi xảy ra, vui lòng thử lại sau!");
+                                                            console.error('Lỗi khi gửi yêu cầu:', error);
+                                                        });
+                                                }
                                             })
                                             .catch(function (error) {
-                                                $scope.showFailureMessage("Lỗi", "Đã có lỗi xảy ra, vui lòng thử lại sau!");
                                                 console.error('Lỗi khi gửi yêu cầu:', error);
                                             });
+
                                     };
                                 });
 

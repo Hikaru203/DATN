@@ -37,7 +37,6 @@ app.controller("thongBaoCtrl", function ($scope, $http, $window, $interval) {
             $scope.notifications = $scope.notifications.concat(newNotifications); // Nối dữ liệu mới vào mảng notifications
             processNotifications(); // Gọi hàm xử lý thông báo sau khi cập nhật dữ liệu mới
         }
-        console.log($scope.notifications);
     }
 
     // Xử lý thông báo
@@ -52,7 +51,15 @@ app.controller("thongBaoCtrl", function ($scope, $http, $window, $interval) {
             notification.timeDifference = $scope.calculateTimeDifference(notification.thoiGianTao || notification.ngayDangKy);
         });
     }
+    $scope.acceptRequest = function (notification) {
+        if (notification.type === 'user') {
+            $http.put(`/rest/admin/NguoiDung/update/${notification.id}`, notification).then(resp => {
+                $scope.notifications.splice($scope.notifications.indexOf(notification), 1);
+                console.log($scope.notifications);
+            });
 
+        }
+    }
     // Tính thời gian chênh lệch
     $scope.calculateTimeDifference = function (thoiGianTao) {
         var thoiGianHienTai = new Date();
