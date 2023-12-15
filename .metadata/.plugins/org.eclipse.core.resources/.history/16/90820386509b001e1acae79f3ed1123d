@@ -11,7 +11,7 @@ import com.fpoly.duantotnghiep.service.VideoKhoaHocService;
 import com.fpoly.duantotnghiep.jparepository.VideoKhoaHocRepository;
 
 @Service
-public class VideoKhoaHocServiceImpl implements VideoKhoaHocService {
+public class VideoKhoaHocServiceimpl implements VideoKhoaHocService {
 	@Autowired
 	VideoKhoaHocRepository VideoKhoaHocRepository;
 
