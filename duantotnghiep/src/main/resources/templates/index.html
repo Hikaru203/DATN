@@ -9,8 +9,6 @@
 	<meta content="Free HTML Templates" name="description">
 
 	<!-- Favicon -->
-	<link th:href="@{img/favicon.ico}" rel="icon">
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<!-- Google Web Fonts -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -32,7 +30,7 @@
 	<div class="container-fluid d-none d-lg-block">
 		<div class="row align-items-center py-4 px-xl-5">
 			<div class="col-lg-3">
-				<a  th:href="@{/courseOnline/index}" class="text-decoration-none">
+				<a th:href="@{/courseOnline/index}" class="text-decoration-none">
 					<h1 class="m-0">
 						<span class="text-primary">Poly</span>Academy
 					</h1>
@@ -74,7 +72,7 @@
 	<!-- Navbar Start -->
 	<div class="container-fluid">
 		<div class="row border-top px-xl-5">
-			<div class="col-lg-3 d-none d-lg-block">
+			<div class="col-lg-3 d-none d-lg-block" ng-app="myApp" ng-controller="DanhMuc-Ctrl">
 				<a class="d-flex align-items-center justify-content-between bg-secondary w-100 text-decoration-none"
 					data-toggle="collapse" href="#navbar-vertical" style="height: 67px; padding: 0 30px;">
 					<h5 class="text-primary m-0">
@@ -83,22 +81,47 @@
 				</a>
 				<nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light"
 					id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
-					<div class="navbar-nav w-100">
+					<div class="navbar-nav w-100" ng-repeat="loai in danhmuc">
 						<div class="nav-item dropdown">
-							<a href="#" class="nav-link" data-toggle="dropdown">Ứng dụng phần mềm<i
-									class="fa fa-angle-down float-right mt-1"></i>
-							</a>
+							<a href="#" class="nav-link" ng-click="showLoai(loai)"
+								data-toggle="dropdown">{{loai.tenLoaiKhoaHoc}}<i
+									class="fa fa-angle-down float-right mt-1"></i></a>
+
 							<div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-								<a href="detail" class="dropdown-item">HTML</a> <a href="detail"
-									class="dropdown-item">CSS</a> <a href="detail" class="dropdown-item">JavaScript</a>
+								<div ng-repeat="khoahoc in khoaHoc"
+									ng-if="khoahoc.duyet == true && khoahoc.trangThai=='false'">
+									<a href="detail/{{khoahoc.id}}"
+										style="width: 100%; white-space: normal; display: block;"
+										class="dropdown-item">{{khoahoc.tenKhoaHoc}}</a>
+								</div>
 							</div>
 						</div>
-						<a href="detail" class="nav-item nav-link active">Lập trình Web</a> <a href="detail"
-							class="nav-item nav-link active">Marketing</a>
-						<a href="detail" class="nav-item nav-link active">Nhà hàng - Khách sạn</a>
+
 					</div>
 				</nav>
+				<script>
+					var app = angular.module('myApp', []);
+					app.controller('DanhMuc-Ctrl', function ($scope, $http) {
+						$scope.danhmuc = {};
+						$scope.khoaHoc = {};
+						$scope.selectLoai = function () {
+							$http.get("/api/khoahoc/loaiKhoaHoc").then(function (response) {
+								$scope.danhmuc = response.data;
+								console.log($scope.danhmuc);
+							});
+						}
+						$scope.showLoai = function (loai) {
+							$scope.khoaHoc = {};
+							$http.get("/api/khoahoc/byLoai/" + loai.id).then(function (response) {
+								console.log(response.data);
+								$scope.khoaHoc = response.data;
+							})
+						};
+						$scope.selectLoai();
+					});
+				</script>
 			</div>
+
 			<div class="col-lg-9">
 				<nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
 					<a href="" class="text-decoration-none d-block d-lg-none">
@@ -119,16 +142,16 @@
 								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
 									<a th:href="@{/courseOnline/contact}" class="dropdown-item">Đăng ký nhà sáng tạo</a>
 
-									<a th:href="@{/courseOnline/uploademo}"class="dropdown-item">Đăng khoá học</a>
-									<a  th:href="@{/courseOnline/mucluc}" class="dropdown-item">Mục lục</a>
+									<a th:href="@{/courseOnline/uploademo}" class="dropdown-item">Đăng khoá học</a>
+									<a th:href="@{/courseOnline/mucluc}" class="dropdown-item">Mục lục</a>
 								</div>
 							</div>
 						</div>
 						<ul class="navbar-nav">
 							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
-								th:href="@{/courseOnline/dangnhap}">Đăng nhập</a></li>
+									th:href="@{/courseOnline/dangnhap}">Đăng nhập</a></li>
 							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
-								th:href="@{/courseOnline/dangky}">Đăng ký</a></li>
+									th:href="@{/courseOnline/dangky}">Đăng ký</a></li>
 						</ul>
 						<div class="nav-item dropdown" th:if="${session.user != null}">
 							<input type="text" id="idLogin" hidden th:value="${session.user.id}">
@@ -158,7 +181,8 @@
 								style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
 							<div class="dropdown-menu">
 								<a th:href="@{/courseOnline/updateAccount}" class="dropdown-item">Cập nhật tài khoản</a>
-								<a th:href="@{/Admin/User}" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
+								<a th:href="@{/Admin/User}" th:if="${session.admin != null}"
+									class="dropdown-item">Admin</a>
 								<a th:href="@{/logoff}" class="dropdown-item">Đăng xuất</a>
 							</div>
 						</div>
@@ -279,7 +303,9 @@
 
 						</div>
 						<div class="row">
-							<div th:each="item, stat : ${courseOnline}" th:if="${item.trangThai == 'false' and item.duyet == true}" class="col-lg-4 col-md-6 mb-4">
+							<div th:each="item, stat : ${courseOnline}"
+								th:if="${item.trangThai == 'false' and item.duyet == true}"
+								class="col-lg-4 col-md-6 mb-4">
 								<div>
 									<a th:href="@{'/courseOnline/detail/' + ${item.id}}">
 										<div class="rounded overflow-hidden mb-2" style="height: 400px;">
