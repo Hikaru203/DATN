@@ -1,4 +1,3 @@
-var app = angular.module('myApp', []);
 app.controller('DanhMuc-Ctrl', function ($scope, $http) {
     $scope.danhmuc = {};
     $scope.khoaHoc = {};
