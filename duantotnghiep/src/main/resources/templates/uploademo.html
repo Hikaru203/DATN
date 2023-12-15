@@ -10,6 +10,7 @@
 
     <!-- Favicon -->
     <link th:href="@{/img/favicon.ico}" rel="icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
@@ -503,6 +504,7 @@
                                 </div>
                             </div>
                             <br><br>
+                            <p>Giá trị order là: {{order}}</p>
 
                             <div class="container mt-4">
                                 <!-- Button "Thêm" -->
@@ -522,20 +524,21 @@
                 </div>
             </div> <!-- Thêm phần hiển thị danh sách khoá học sau phần đăng video -->
         </div>
+        <div class="form-group" id="authorizationTokenGroup">
+            <input type="hidden" class="form-control" id="authorizationUrlInput" name="authorizationUrl"
+                th:value="${authorizationUrl}">
+            <!-- Đây là nút dẫn đến URL -->
+            <div style="text-align: center; padding-top: 60px;">
+                <a th:href="${authorizationUrl}" class="btn btn-primary">Vui lòng đăng nhập</a>
+            </div>
+
+            <div class="form-group" id="accessTokenGroup">
+                <input type="hidden" class="form-control" id="accessToken" name="accessToken" th:value="${accessToken}">
+            </div>
+        </div>
     </div>
 
-    <div class="form-group" id="authorizationTokenGroup">
-        <input type="hidden" class="form-control" id="authorizationUrlInput" name="authorizationUrl"
-            th:value="${authorizationUrl}">
-        <!-- Đây là nút dẫn đến URL -->
-        <div style="text-align: center; padding-top: 60px;">
-            <a th:href="${authorizationUrl}" class="btn btn-primary">Vui lòng đăng nhập</a>
-        </div>
 
-        <div class="form-group" id="accessTokenGroup">
-            <input type="hidden" class="form-control" id="accessToken" name="accessToken" th:value="${accessToken}">
-        </div>
-    </div>
     <script>
 
         document.addEventListener("DOMContentLoaded", function () {
@@ -566,6 +569,7 @@
                     form.append("description", descriptionInput.value);
                     form.append("privacyStatus", privacyStatusInput.value);
                     form.append("file", fileInput.files[0]);
+
                     fetch("/youtube/uploadVideo", {
                         method: "POST",
                         body: form
@@ -576,6 +580,7 @@
                                 // Code AngularJS - thay thế hoặc điều chỉnh nếu cần
                                 const scope = angular.element(document.querySelector('[ng-controller="myCtrl"]')).scope();
                                 scope.$apply(function () {
+                                    scope.showSuccessMessage("Thành công", "Thêm video thành công");
                                     scope.createNewVideo();
                                     console.log("123352")
                                 });
@@ -814,6 +819,9 @@
             $scope.mucLuc = {};
             $scope.selectedKhoaHoc = {}; // Initialize selectedKhoaHoc object
             $scope.mucLucDaChon = {};
+            $scope.selectedTenMucLuc = null;
+            $scope.formVideo = {};
+            $scope.order = null;
 
             $scope.changeLoai = function (id) {
                 // Thêm logic xử lý khi giá trị thay đổi
@@ -911,7 +919,7 @@
             }
             $scope.addNewLoai = function (loai) {
                 // Tạo một loại mới với thông tin từ loai được truyền vào
-                console.log(loai)
+
                 var newLoai = {
                     tenMucLuc: loai.tenMucLuc, // Sử dụng thông tin từ loai được truyền vào
                     // Các thông tin khác về loại mới có thể được thêm ở đây
@@ -920,7 +928,12 @@
                 // Thêm loại mới vào mảng mucLuc
                 $scope.selectedTenMucLuc = loai.id;
 
-
+                console.log($scope.selectedTenMucLuc);
+                $http.get("/rest/admin/Videos/mucLuc/" + $scope.selectedTenMucLuc).then(resp => {
+                    console.log(resp.data.length);
+                    $scope.order = resp.data.length + 1;
+                    console.log($scope.order);
+                });
                 // Gọi hàm openTab với thông tin của loại mới
                 openTab('tab3');
             };
@@ -1056,12 +1069,42 @@
                     })
 
             }
+            $scope.showSuccessMessage = function (title, message) {
+                Swal.fire({
+                    icon: 'success',
+                    title: title,
+                    text: message,
+                    confirmButtonText: 'Đóng',
+                });
+            };
+
+            function getCookieValue(cookieName) {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.startsWith(cookieName + '=')) {
+                        console.log(cookie.substring(cookieName.length + 1));
+                        return cookie.substring(cookieName.length + 1);
+                    }
+                }
+                return null;
+            }
+
+            function deleteCookie(cookieName) {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.startsWith(cookieName + '=')) {
+                        const cookieParts = cookie.split('=');
+                        const name = cookieParts[0];
+                        // Đặt thời gian hết hạn của cookie thành ngày quá khứ
+                        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                        return;
+                    }
+                }
+            }
 
             $scope.createNewVideo = function () {
-                const selectedCourseId = $scope.selectedCourse;
-                if (!selectedCourseId) {
-                    return;
-                }
 
                 const usernameCookie = getCookieValue('videoId');
                 // Lấy đối tượng input theo id "title"
@@ -1069,15 +1112,13 @@
                 var videoTitle;
                 // Lấy giá trị từ input khi người dùng nhấn nút "Lấy giá trị"
                 videoTitle = inputElement.value;
-
-                console.log(usernameCookie);
-                console.log(videoTitle);
-
-                $http.get("/rest/admin/MucLuc/" + $scope.selectedMucLuc)
+                alert($scope.selectedTenMucLuc);
+                $http.get("/rest/admin/MucLuc/" + $scope.selectedTenMucLuc)
                     .then(resp => {
+                        console.log(resp.data);
                         $scope.formVideo.mucLuc = resp.data;
 
-                        $http.get("/rest/admin/NguoiDung/" + 1)
+                        $http.get("/rest/admin/NguoiDung/" + $scope.idLogin)
                             .then(resp => {
                                 $scope.formVideo.nguoiTao = resp.data;
                                 $scope.formVideo.linkVideo = usernameCookie;
@@ -1091,7 +1132,6 @@
                                 deleteCookie('videoId');
                                 deleteCookie('videoTitle');
 
-                                $scope.loadDocuments();
 
                                 // Gửi yêu cầu POST để thêm video mới
                                 console.log($scope.formVideo);

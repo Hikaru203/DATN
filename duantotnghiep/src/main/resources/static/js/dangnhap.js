@@ -1,15 +1,19 @@
 if(location.href == location.origin + "/auth/blocked"){
-    alert("Thông báo: Tài khoản chưa xác minh")
+
+    showSuccessMessage("error", "Tài khoản chưa được xác minh", 'Vui lòng xác minh tài khoản')
+   
 }
 if(location.href == location.origin + "/auth/login_error"){
-    alert("Sai tài khoản hoặc mật khẩu")
+
+    showSuccessMessage("error", "Đăng nhập thất bại", 'Sai tài khoản hoặc mật khẩu')
 }
 
 if(location.href == location.origin + "/courseOnline/EmailError"){
-    alert("Email không tồn tại")
+  showSuccessMessage("error", "Email không tồi tại", 'Vui lòng kiểm tra lại')
 }
 if(location.href == location.origin + "/courseOnline/OTPError"){
-    alert("Vui lòng nhập OTP trước rồi mới nhập mật khẩu")
+  showSuccessMessage("error", "Vui lòng nhập OTP ", 'Rồi mới đổi mật khẩu')
+
 }
 //Bắt hiển thị với ẩn mật khẩu
 const pass_field = document.querySelector('.pass-key');
@@ -27,3 +31,12 @@ showBtn.addEventListener('click', function () {
   }
 });
 // End Hiển thị mẩu khẩu
+function showSuccessMessage(icon, tile, text,) {
+  Swal.fire({
+      icon: icon,
+      title: tile,
+      text: text,
+      confirmButtonText: 'Đóng',
+  });
+
+}
