@@ -168,20 +168,7 @@
             border: none;
         }
 
-        .button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .button:hover {
-            background-color: #0056b3;
-        }
+        
 
         #full-screen {
             background-color: #28a745;
@@ -192,7 +179,7 @@
         }
 
         #prev-video {
-            background-color: #dc3545;
+            color: #000;
         }
 
         .video[data-disabled="true"] {
@@ -232,22 +219,7 @@
             cursor: pointer;
         }
 
-        .button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            display: flex;
-            align-items: center;
-        }
-
-        .button:hover {
-            background-color: #0056b3;
-        }
+        
 
         #full-screen {
             background-color: #28a745;
@@ -257,9 +229,7 @@
             background-color: #17a2b8;
         }
 
-        #prev-video {
-            background-color: #dc3545;
-        }
+     
 
         .video[data-disabled="true"] {
             pointer-events: none;
@@ -347,12 +317,28 @@
 
         .action-bar {
             display: flex;
-            justify-content: space-between;
+          
             background-color: #f0f0f0;
             /* Màu nền */
             color: white;
             /* Màu chữ */
             padding: 10px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+          
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -401,15 +387,16 @@
             </div>
 
         </section>
-
         <section class="video-playlist">
             <h3 class="title">Các bài học</h3>
             <div class="videos"></div>
         </section>
+                
         <section class="contact">
             <div class="MarkdownParser_wrapper__JYN63" style="--font-size: 1.6rem; --line-height: 2;">
-                <p style="font-weight:bold ;">Tham gia các cộng đồng để cùng học hỏi, chia sẻ và học hỏi nhé!</p>
+                <p style="font-weight:bold ;">{{inputElement1}}</p>
                 <ul style="list-style-type: none;">
+					
                     <li>Email: <a href="" target="_blank"
                             rel="noreferrer">PolyAcademy@fpt.edu.vn</a></li>
                     <li>Phone: <a href="" target="_blank"
@@ -423,9 +410,11 @@
 
         </section>
     </main>
-    <div class="action-bar" style="display: flex; justify-content: space-between;">
-        <button id="prev-video" class="button"><i class="fas fa-step-backward"></i> Previous</button>
-        <button id="next-video" class="button" disabled><i class="fas fa-step-forward"></i> Next</button>
+    <div class="action-bar" style="display: flex;  justify-content: center;">
+        <button id="prev-video" class="button" style="margin-right: 10px;"><i class="fas fa-step-backward"  style="margin-right: 10px;"></i> Bài trước</button>
+        
+        <button id="next-video" class="button" >Bài tiếp theo<i class="fas fa-step-forward"  style="margin-left: 10px;"></i> </button>
+        
     </div>
 
     <script>
@@ -513,7 +502,17 @@
         <!-- Contact Javascript File -->
         <script src="/mail/jqBootstrapValidation.min.js"></script>
         <script src="/mail/contact.js"></script>
-
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/656a307eff45ca7d4785d6d3/1hgjcqs8o';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
 </body>
 
 
