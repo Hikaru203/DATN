@@ -1,4 +1,6 @@
 <div th:fragment="menutop">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -26,7 +28,8 @@
                                 <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
 
                                 </div>
-                                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" ng-controller="thongBaoCtrl">
+                                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" ng-controller="thongBaoCtrl"
+                                    ng-cloak>
                                     <div class="header-right-info">
                                         <ul class="nav navbar-nav mai-top-nav header-right-menu">
                                             <li class="nav-item dropdown">
@@ -39,34 +42,35 @@
                                                     <div class="message-single-top">
                                                         <h1>Tin nhắn</h1>
                                                     </div>
-                                                    <ul class="message-menu">
-                                                        <li ng-repeat="notification in notifications| limitTo:10"  style="width: 100%;">
-                                                            <a href="#">
-                                                                <div class="message-img">
-                                                                    <img th:src="@{/img/LogoPLA.png}" alt="">
-                                                                </div>
-                                                                <div class="message-content">
-                                                                    <h2 ng-if="notification.type === 'mess'">{{notification.hoTen }}</h2>
-                                                                    <h2 ng-if="notification.type === 'user'">{{notification.hoTen }}</h2>
-                                                                        <span class="notification-date"
-                                                                            style="position: unset;">
-                                                                            {{
-                                                                            calculateTimeDifference(notification.thoiGianTao
-                                                                            || notification.ngayDangKy) }}
-                                                                        </span>
-                                                                    <p>Đã gửi yêu cầu trở thành nhà sáng tạo.
-                                                                    </p>
-                                                                    Trạng thái: {{ notification.trangThai }}
 
-                                                                    <!-- Thêm nút "Duyệt" dưới đây -->
-                                                                     <button ng-click="duyetThongBao(notification)">Duyệt</button>
-                                                                </div>
-                                                            </a>
-                                                        </li>
+                                                    <ul class="notification-menu">
+                                                        <ul class="notification-menu">
+                                                            <li ng-repeat="notification in notifications "
+                                                                style="width: 100%;"
+                                                                ng-if="notification.nhaSangTao === false && notification.thongBao === true">
+                                                                <a href="#">
+                                                                    <i class="fa"
+                                                                        ng-class="{'fa-users': notification.type === 'user', 'fa-book': notification.type === 'course'}"
+                                                                        aria-hidden="true"></i>
+                                                                    <div class="notification-icon">
+                                                                        <i class="fa"
+                                                                            ng-class="{'fa-users': notification.type === 'user', 'fa-book': notification.type === 'course'}"
+                                                                            aria-hidden="true"></i>
+                                                                    </div>
+                                                                    <div class="notification-content">
+                                                                        <h2>{{ notification.hoTen }}</h2>
+                                                                        
+                                                                        <p>Yêu cầu lên nhà sáng tạo</p>
+                                                                        <button
+                                                                            ng-click="acceptRequest(notification)">Chấp
+                                                                            nhận</button>
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+
+                                                        </ul>
+
                                                     </ul>
-                                                    <div class="message-view">
-                                                        <a href="#">xem tất cả tin nhắn</a>
-                                                    </div>
                                                 </div>
                                             </li>
                                             <li class="nav-item"><a href="#" data-toggle="dropdown" role="button"
@@ -82,45 +86,41 @@
 
                                                     </style>
                                                     <ul class="notification-menu">
-                                                        <ul class="notification-menu">
-                                                            <li ng-repeat="notification in notifications| limitTo:10"
-                                                                style="width: 100%;">
-                                                                <a href="#">
+                                                        <li ng-repeat="notification in notifications  | limitTo:10"
+                                                            style="width: 100%;">
+                                                            <a href="#">
+                                                                <i class="fa"
+                                                                    ng-class="{'fa-user': notification.type === 'user', 'fa-book': notification.type === 'course'}"
+                                                                    aria-hidden="true"></i>
+                                                                <div class="notification-icon">
                                                                     <i class="fa"
                                                                         ng-class="{'fa-user': notification.type === 'user', 'fa-book': notification.type === 'course'}"
                                                                         aria-hidden="true"></i>
-                                                                    <div class="notification-icon">
-                                                                        <i class="fa"
-                                                                            ng-class="{'fa-user': notification.type === 'user', 'fa-book': notification.type === 'course'}"
-                                                                            aria-hidden="true"></i>
-                                                                    </div>
-                                                                    <div class="notification-content">
-                                                                        <h2 ng-if="notification.type === 'user'">{{
-                                                                            notification.hoTen }}</h2>
-                                                                        <h2 ng-if="notification.type === 'course'">
-                                                                            {{ notification.nguoiDung.hoTen }}</h2>
-                                                                        <span class="notification-date"
-                                                                            style="position: unset;">
-                                                                            {{
-                                                                            calculateTimeDifference(notification.thoiGianTao
-                                                                            || notification.ngayDangKy) }}
-                                                                        </span>
-                                                                        <br> <br>
-                                                                        <p ng-if="notification.type === 'user'">Đã
-                                                                            đăng ký thành công tài khoản mới.</p>
-                                                                        <p ng-if="notification.type === 'course'">Đã
-                                                                            đăng ký khóa học "{{
-                                                                            notification.khoaHoc.tenKhoaHoc }}".</p>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-
+                                                                </div>
+                                                                <div class="notification-content">
+                                                                    <h2 ng-if="notification.type === 'user'">{{
+                                                                        notification.hoTen }}</h2>
+                                                                    <h2 ng-if="notification.type === 'course'">{{
+                                                                        notification.nguoiDung.hoTen }}</h2>
+                                                                    <span class="notification-date"
+                                                                        style="position: unset;">
+                                                                        {{
+                                                                        calculateTimeDifference(notification.thoiGianTao
+                                                                        || notification.ngayDangKy) }}
+                                                                    </span>
+                                                                    <br><br>
+                                                                    <p ng-if="notification.type === 'user'">Đã đăng ký
+                                                                        thành công tài khoản mới.</p>
+                                                                    <p ng-if="notification.type === 'course'">Đã đăng ký
+                                                                        khóa học "{{ notification.khoaHoc.tenKhoaHoc
+                                                                        }}".</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
                                                     </ul>
 
-                                                    <div class="notification-view">
-                                                        <a href="#">Xem tất cả thông báo</a>
-                                                    </div>
+
+
                                                 </div>
                                             </li>
                                             <li class="nav-item">
@@ -138,15 +138,18 @@
                                                 <ul role="menu"
                                                     class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                     <li><a href="#"><span
-                                                                class="edu-icon edu-home-admin author-log-ic"></span>Cập nhật</a>
+                                                                class="edu-icon edu-home-admin author-log-ic"></span>Cập
+                                                            nhật</a>
                                                     </li>
 
                                                     <li><a th:href="@{/courseOnline/index}"><span
-                                                                class="edu-icon edu-money author-log-ic"></span>Qua user</a>
+                                                                class="edu-icon edu-money author-log-ic"></span>Qua
+                                                            user</a>
                                                     </li>
 
                                                     <li><a th:href="@{/logoff}"><span
-                                                                class="edu-icon edu-locked author-log-ic"></span>Đăng xuất</a>
+                                                                class="edu-icon edu-locked author-log-ic"></span>Đăng
+                                                            xuất</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -163,4 +166,3 @@
 
     </div>
 </div>
-

@@ -62,6 +62,7 @@ public class SecurityConfig {
         http.csrf().disable().authorizeHttpRequests().requestMatchers("/Admin/**").hasRole("true")
                 .and().authorizeHttpRequests().requestMatchers("/courseOnline/video/**")
                 .authenticated().and().authorizeHttpRequests().requestMatchers("/courseOnline/tracnghiem/**")
+                .authenticated().and().authorizeHttpRequests().requestMatchers("/courseOnline/contact/**")
                 .authenticated().and()
                 .authorizeHttpRequests().anyRequest().permitAll().and().exceptionHandling()
                 .accessDeniedPage("/courseOnline/index").and().formLogin().loginPage("/courseOnline/dangnhap")

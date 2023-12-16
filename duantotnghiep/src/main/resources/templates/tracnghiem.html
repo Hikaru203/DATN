@@ -81,7 +81,7 @@
     <div class="container-fluid d-none d-lg-block">
 		<div class="row align-items-center py-4 px-xl-5">
 			<div class="col-lg-3">
-				<a href="" class="text-decoration-none">
+				<a  th:href="@{/courseOnline/index}" class="text-decoration-none">
 					<h1 class="m-0">
 						<span class="text-primary">Poly</span>Academy
 					</h1>
@@ -135,20 +135,18 @@
 					<div class="navbar-nav w-100">
 						<div class="nav-item dropdown">
 							<a href="#" class="nav-link" data-toggle="dropdown">Ứng dụng phần mềm<i
-									class="fa fa-angle-down float-right mt-1"></i></a>
+									class="fa fa-angle-down float-right mt-1"></i>
+							</a>
 							<div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-								<a href="course" class="dropdown-item">HTML</a>
-								<a href="course" class="dropdown-item">CSS</a>
-								<a href="course" class="dropdown-item">JavaScript</a>
+								<a href="detail" class="dropdown-item">HTML</a> <a href="detail"
+									class="dropdown-item">CSS</a> <a href="detail" class="dropdown-item">JavaScript</a>
 							</div>
 						</div>
-						<a href="course" class="nav-item nav-link active">Lập trình Web</a>
-						<a href="course" class="nav-item nav-link active">Cơ khí</a>
-						<a href="course" class="nav-item nav-link active">Marketing</a>
-						<a href="course" class="nav-item nav-link active">Nhà hàng - Khách sạn</a>
+						<a href="detail" class="nav-item nav-link active">Lập trình Web</a> <a href="detail"
+							class="nav-item nav-link active">Marketing</a>
+						<a href="detail" class="nav-item nav-link active">Nhà hàng - Khách sạn</a>
 					</div>
 				</nav>
-
 			</div>
 			<div class="col-lg-9">
 				<nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
@@ -162,22 +160,24 @@
 					</button>
 					<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
 						<div class="navbar-nav py-0">
-							<a href="index" class="nav-item nav-link active ">Trang
-								chủ</a> <a href="course" class="nav-item nav-link ">Khoá
+							<a th:href="@{/courseOnline/index}" class="nav-item nav-link active ">Trang
+								chủ</a> <a th:href="@{/courseOnline/course}" class="nav-item nav-link ">Khoá
 								học</a>
 							<div class="nav-item dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Trang</a>
 								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-									<a href="/courseOnline/contact" class="dropdown-item">Đăng ký nhà sáng tạo</a>
-									<a href="uploademo" class="dropdown-item">Đăng khoá học</a>
+									<a th:href="@{/courseOnline/contact}" class="dropdown-item">Đăng ký nhà sáng tạo</a>
+
+									<a th:href="@{/courseOnline/uploademo}"class="dropdown-item">Đăng khoá học</a>
+									<a  th:href="@{/courseOnline/mucluc}" class="dropdown-item">Mục lục</a>
 								</div>
 							</div>
 						</div>
 						<ul class="navbar-nav">
 							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
-									href="/courseOnline/dangnhap">Đăng nhập</a></li>
+								th:href="@{/courseOnline/dangnhap}">Đăng nhập</a></li>
 							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
-									href="/courseOnline/dangky">Đăng ký</a></li>
+								th:href="@{/courseOnline/dangky}">Đăng ký</a></li>
 						</ul>
 						<div class="nav-item dropdown" th:if="${session.user != null}">
 							<input type="text" id="idLogin" hidden th:value="${session.user.id}">
@@ -206,9 +206,9 @@
 							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
 								style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
 							<div class="dropdown-menu">
-								<a href="/courseOnline/updateAccount/{id}" class="dropdown-item">Cập nhật tài khoản</a>
-								<a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
-								<a href="/logoff" class="dropdown-item">Đăng xuất</a>
+								<a th:href="@{/courseOnline/updateAccount}" class="dropdown-item">Cập nhật tài khoản</a>
+								<a th:href="@{/Admin/User}" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
+								<a th:href="@{/logoff}" class="dropdown-item">Đăng xuất</a>
 							</div>
 						</div>
 					</div>
@@ -217,7 +217,7 @@
 
 		</div>
 	</div>
-    <!-- Navbar End -->
+	<!-- Navbar End -->
     <input type="text" th:value="${id}" id="hiddenInputId" hidden>
     <div class="container mt-5">
         <h1 class="mb-4">Trắc nghiệm câu hỏi</h1>
