@@ -80,6 +80,8 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
     // Lấy phần tử input bằng ID
     var inputElement = document.getElementById('idLogin');
+        $scope.inputElement1=null;
+
     var value;
     let currentVideoIndex = 0;
     if (inputElement == null || inputElement == "") {
@@ -171,6 +173,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                 }
             };
 
+
             // Lấy thứ tự video đang phát dựa trên current_player.playerInfo.videoData.video_id
             if (VideoId) {
                 const currentVideoIndex = $scope.data.findIndex(video => video.linkVideo === VideoId);
@@ -178,6 +181,10 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                     currentIndex = currentVideoIndex;
                     $scope.setid($scope.data[currentIndex].mucLuc.id);
                     var idFromSessionStorage = $window.sessionStorage.getItem('MucLuc');
+					console.log($scope.data[currentIndex])
+					        $scope.inputElement1=$scope.data[currentIndex].tenVideo;
+										console.log( $scope.inputElement1)
+
 
                 } else {
                 }
