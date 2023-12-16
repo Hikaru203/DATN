@@ -80,7 +80,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
     // Lấy phần tử input bằng ID
     var inputElement = document.getElementById('idLogin');
-        $scope.inputElement1=null;
+    $scope.inputElement1 = null;
 
     var value;
     let currentVideoIndex = 0;
@@ -181,9 +181,9 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                     currentIndex = currentVideoIndex;
                     $scope.setid($scope.data[currentIndex].mucLuc.id);
                     var idFromSessionStorage = $window.sessionStorage.getItem('MucLuc');
-					console.log($scope.data[currentIndex])
-					        $scope.inputElement1=$scope.data[currentIndex].tenVideo;
-										console.log( $scope.inputElement1)
+                    console.log($scope.data[currentIndex])
+                    $scope.inputElement1 = $scope.data[currentIndex].tenVideo;
+                    console.log($scope.inputElement1)
 
 
                 } else {
@@ -250,10 +250,15 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                         const dialogBox = document.createElement('div');
                         dialogBox.id = 'dialog-box';
                         dialogBox.innerHTML = 'Bạn có muốn tiếp tục học không?';
+
                         const yesButton = document.createElement('button');
+                        yesButton.id = 'yes-button';
                         yesButton.innerHTML = 'Có';
+
                         const noButton = document.createElement('button');
+                        noButton.id = 'no-button';
                         noButton.innerHTML = 'Không';
+
 
                         dialogBox.appendChild(yesButton);
                         dialogBox.appendChild(noButton);
