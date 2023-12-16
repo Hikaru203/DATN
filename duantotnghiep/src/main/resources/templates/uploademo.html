@@ -177,24 +177,32 @@
     <style>
         .tabs {
             display: flex;
+            justify-content: center;
+            /* Canh giữa các tab ngang */
             margin-bottom: 20px;
         }
 
         .tab-button {
-            flex: 1;
-            padding: 5px;
+            padding: 10px 110px;
+            /* Điều chỉnh padding để giảm kích thước chiều ngang */
+            margin: 2 5px;
+            /* Thêm margin giữa các nút tab */
             cursor: pointer;
             text-align: center;
             background-color: #cca85f;
             color: #fff;
             border: none;
-            transition: border 0.3s ease, color 0.3s ease;
-
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .tab-content {
             display: none;
+        }
 
+        /* Hiển thị nội dung của tab đang active */
+        .tab-content.active {
+            display: block;
+            border: 2px solid #fff;
         }
 
         .active {
@@ -212,6 +220,85 @@
         }
 
         /* Thêm các quy tắc CSS hiện tại của bạn ở đây */
+        /* Form Section Styles */
+        .video-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+
+        .btn {
+            margin-right: 10px;
+        }
+
+        /* List Section Styles */
+        .course-list {
+            margin-top: 20px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #ecb92d;
+            color: #fff;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Common Styles */
+        .container {
+            margin: 0 auto;
+        }
+
+        .row {
+            margin: 0 -15px;
+        }
+
+        .col-lg-6,
+        .col-md-6,
+        .col-sm-6,
+        .col-xs-12 {
+            padding: 0 15px;
+        }
     </style>
 
     <!-- Header End -->
@@ -320,7 +407,7 @@
                 </script>
 
                 <div class="col-md-12" style="margin-top: 20px;">
-                    <h4>Danh sách tất cả các khoá học:</h4>
+                    <h4>Danh sách các khoá học đã đăng:</h4>
 
                     <div class="course-list">
                         <table class="table">
@@ -481,7 +568,7 @@
                                 <label for="description">Mô tả:</label>
                                 <textarea class="form-control" id="description" name="description" required></textarea>
                             </div>
-                            <div class="form-group" id="form-privacyStatus">
+                            <div class="form-group" id="form-privacyStatus" hidden>
                                 <label for="privacyStatus">Quyền riêng
                                     tư:</label>
                                 <select class="form-control" id="privacyStatus" name="privacyStatus" required>
