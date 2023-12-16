@@ -136,43 +136,56 @@
                         <div class="nav-item dropdown" th:if="${session.user != null}">
                             <input type="text" id="idLogin" hidden th:value="${session.user.id}">
 
-                            <style>
-                                /* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
-                                .dropdown-menu {
-                                    position: absolute;
-                                    background-color: #ff6600;
-                                    /* Màu nền */
-                                    border: 1px solid #ff6600;
-                                    /* Viền */
-                                    width: 200px;
-                                    /* Độ rộng */
-                                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                                    /* Hiệu ứng bóng đổ */
-                                }
+									<a th:href="@{/courseOnline/uploademo}"class="dropdown-item">Đăng khoá học</a>
+								
+								</div>
+							</div>
+						</div>
+						<ul class="navbar-nav">
+							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
+								th:href="@{/courseOnline/dangnhap}">Đăng nhập</a></li>
+							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
+								th:href="@{/courseOnline/dangky}">Đăng ký</a></li>
+						</ul>
+						<div class="nav-item dropdown" th:if="${session.user != null}">
+							<input type="text" id="idLogin" hidden th:value="${session.user.id}">
 
-                                .dropdown-item {
-                                    color: #fff;
-                                    /* Màu chữ */
-                                    font-size: 14px;
-                                    padding: 10px 20px;
-                                }
-                            </style>
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
-                                style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
-                            <div class="dropdown-menu">
-                                <a th:href="@{/courseOnline/updateAccount}" class="dropdown-item">Cập nhật tài khoản</a>
-                                <a th:href="@{/Admin/User}" th:if="${session.admin != null}"
-                                    class="dropdown-item">Admin</a>
-                                <a th:href="@{/logoff}" class="dropdown-item">Đăng xuất</a>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
+							<style>
+								/* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
+								.dropdown-menu {
+									position: absolute;
+									background-color: #ff6600;
+									/* Màu nền */
+									border: 1px solid #ff6600;
+									/* Viền */
+									width: 200px;
+									/* Độ rộng */
+									box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+									/* Hiệu ứng bóng đổ */
+								}
 
-        </div>
-    </div>
-    <!-- Navbar End -->
+								.dropdown-item {
+									color: #fff;
+									/* Màu chữ */
+									font-size: 14px;
+									padding: 10px 20px;
+								}
+							</style>
+							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+								style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
+							<div class="dropdown-menu">
+								<a th:href="@{/courseOnline/updateAccount}" class="dropdown-item">Cập nhật tài khoản</a>
+								<a th:href="@{/Admin/User}" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
+								<a th:href="@{/logoff}" class="dropdown-item">Đăng xuất</a>
+							</div>
+						</div>
+					</div>
+				</nav>
+			</div>
+
+		</div>
+	</div>
+	<!-- Navbar End -->
 
     <!-- Contact Start -->
     <div class="container-fluid py-5">
