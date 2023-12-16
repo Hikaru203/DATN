@@ -3,6 +3,8 @@ package com.fpoly.duantotnghiep.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -78,24 +80,29 @@ public class YouTubeController {
         NguoiDung user = (NguoiDung) session.getAttribute("user");
 
         if (authentication != null && !authentication.getName().equals("anonymousUser") && user != null) {
-            
+
             // Kiểm tra xem người dùng đã được xác thực hay chưa
             if (!user.getChucVu().equalsIgnoreCase("true")) {
 
-                String accessToken = (String) session.getAttribute("accessToken");
+                if (user.isNhaSangTao() == true) {
+                    String accessToken = (String) session.getAttribute("accessToken");
 
-                if (accessToken == null) {
-                    String authorizationUrl = youTubeService.getAuthorizationUrl();
-                    model.addAttribute("authorizationUrl", authorizationUrl);
-                    model.addAttribute("accessToken", accessToken);
+                    if (accessToken == null) {
+                        String authorizationUrl = youTubeService.getAuthorizationUrl();
+                        model.addAttribute("authorizationUrl", authorizationUrl);
+                        model.addAttribute("accessToken", accessToken);
 
-                    return "uploademo";
+                        return "uploademo";
 
+                    } else {
+                        String authorizationUrl = youTubeService.getAuthorizationUrl();
+                        model.addAttribute("accessToken", accessToken);
+                        model.addAttribute("authorizationUrl", authorizationUrl);
+                        return "uploademo";
+                    }
                 } else {
-                    String authorizationUrl = youTubeService.getAuthorizationUrl();
-                    model.addAttribute("accessToken", accessToken);
-                    model.addAttribute("authorizationUrl", authorizationUrl);
-                    return "uploademo";
+
+                    return "redirect:/courseOnline/index";
                 }
             } else {
                 return "redirect:/Admin/User";

@@ -8,36 +8,63 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Video Playlist UI Design Like Udemy | SkillShare</title>
     <link rel="stylesheet" href="/css/styleloadVideo.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/accordion.min.css">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
     <style>
-        /* Resetting default margin and padding */
-        body,
-        h1,
-        h2,
-        h3,
-        p,
-        ul,
-        li {
+        body {
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
         }
 
-        /* Setting a background color */
-        body {
-            background-color: #f5f5f5;
+        .navbar {
+            background-color: #29303b;
+            padding: 15px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            transition: top 0.3s;
+            z-index: 1000;
+            color: white;
+        }
+
+        .navbar a {
+            color: white;
         }
 
         .container {
             justify-content: space-between;
-            max-width: 1400px;
+            max-width: 100%;
             margin: 0 auto;
             padding: 20px;
             background-color: white;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
+            padding-top: 70px;
+            /* Add padding to the content to prevent it from being overlapped by the fixed navbar */
         }
 
         .main-video {
@@ -62,6 +89,8 @@
             border: 1px solid #e0e0e0;
             border-radius: 5px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            overflow-y: auto;
+            max-height: 500px;
         }
 
         .title {
@@ -91,16 +120,23 @@
             background-color: #f0f0f0;
         }
 
-        /* Video controls styling */
         .video-controls {
             display: flex;
             align-items: end;
             justify-content: space-between;
         }
 
-
-
         .video-controls input[type="range"] {
+            width: 80px;
+        }
+
+        .video-controls1 {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+        }
+
+        .video-controls1 input[type="range"] {
             width: 80px;
         }
 
@@ -109,9 +145,21 @@
             width: 100%;
             height: 500px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-            border: 1px solid #ccc;
+            border: 1px solid #cccccc;
             border-radius: 5px;
             overflow: hidden;
+        }
+
+        .contact {
+            word-wrap: break-word;
+            color: #292929;
+            font-size: 15px;
+            font-size: var(--font-size, 15px);
+            line-height: 2;
+            line-height: var(--line-height, 2);
+ 			
+
+
         }
 
         #video-iframe {
@@ -120,7 +168,6 @@
             border: none;
         }
 
-        /* CSS cho nút Full Screen, Next và Prev */
         .button {
             padding: 10px 20px;
             font-size: 16px;
@@ -138,23 +185,19 @@
 
         #full-screen {
             background-color: #28a745;
-            /* Màu xanh cho nút Full Screen */
         }
 
         #next-video {
             background-color: #17a2b8;
-            /* Màu xanh dương cho nút Next */
         }
 
         #prev-video {
             background-color: #dc3545;
-            /* Màu đỏ cho nút Prev */
         }
 
         .video[data-disabled="true"] {
             pointer-events: none;
             opacity: 0.6;
-            /* Bất kỳ phong cách vô hiệu hóa nào bạn muốn áp dụng */
         }
 
         .ytp-chrome-top-buttons {
@@ -225,43 +268,27 @@
 
         .container {
             flex-direction: column;
-            /* Chuyển layout của container thành dạng cột */
             align-items: center;
-            /* Căn giữa các phần tử trong container */
         }
 
         .main-video {
             margin-bottom: 20px;
-            /* Tạo khoảng cách giữa phần video chính và phần danh sách video */
         }
 
-
-
-
-
-        /* Để các phần tử video playlist và main video nằm cạnh nhau trên màn hình rộng */
         @media (min-width: 768px) {
             .container {
                 flex-direction: row;
-                /* Chuyển layout thành dạng hàng */
-
             }
 
             .main-video {
                 flex: 1;
-                /* Phần video chính sẽ chiếm một phần tử linh hoạt trong container */
                 margin-bottom: 0;
-                /* Bỏ khoảng cách giữa phần video chính và phần danh sách video */
             }
 
             .video-playlist {
                 flex: 1;
-                /* Phần danh sách video chiếm một phần tử linh hoạt trong container */
                 margin-left: 20px;
-                /* Tạo khoảng cách giữa phần video chính và danh sách video */
             }
-
-
 
             .video-controls {
                 position: absolute;
@@ -274,31 +301,39 @@
                 display: none;
                 display: flex;
                 align-items: end;
-                /* Canh chỉnh các phần tử theo chiều dọc */
                 justify-content: space-between;
             }
 
+            .video-controls1 {
+                position: absolute;
+                bottom: 20px;
+                background-color: rgba(255, 255, 255, 0.759);
+                padding: 10px;
+                border-radius: 5px;
+                display: none;
+            }
 
+            .video-container:hover .video-controls1 {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 50px;
+            }
 
-            /* Định dạng cho các nút điều chỉnh */
             #volume-control,
             #playback-speed,
             #resolution {
                 margin-right: 10px;
             }
 
-            /* Đưa phần tử select sang phải bằng cách sử dụng margin-left: auto */
             #playback-speed {
                 margin-left: 0px;
             }
 
-            /* Định dạng cho icon */
             .fa-volume-down::before {
                 content: "\f027";
-                /* Unicode của icon loa nhỏ */
             }
 
-            /* Ẩn tooltip âm lượng ban đầu */
             .volume-tooltip {
                 display: none;
                 position: absolute;
@@ -307,63 +342,96 @@
                 padding: 5px;
                 border-radius: 5px;
                 pointer-events: none;
-                /* Ngăn không cho tooltip chặn sự kiện chuột */
             }
+        }
 
-
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #f0f0f0;
+            /* Màu nền */
+            color: white;
+            /* Màu chữ */
+            padding: 10px;
         }
     </style>
 </head>
 
-<body ng-app="loadVideo-app" ng-controller="loadVideo-app-ctrl" ng-init="loadvideo()">
+<body ng-app="loadVideo-app" ng-controller="loadVideo-app-ctrl" ng-init="loadvideo()" style="display: block;">
+    <div class="navbar" style="padding-bottom: 10px;">
+        <!-- Your navbar content here -->
+
+        <a th:href="@{/courseOnline/index}" class="text-decoration-none">
+            <h3>
+                <span class="text-primary">Poly</span>Academy
+            </h3>
+        </a>
+
+        <a th:href="@{/courseOnline/index}">Home</a>
+    </div>
     <main class="container">
         <section class="main-video">
+
             <div class="video-frame-container video-container">
-                <iframe id="video-iframe" width="560" height="315" src="" frameborder="0"
+                <iframe id="video-iframe" width="550" height="315" src="" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen></iframe>
                 <div class="video-controls" style="width: 100%;">
 
                 </div>
-
-            </div>
-
-            <div>
-                <button id="pause-video" class="button">
-                    <i id="play-pause-icon" class="fas fa-play"></i>
-                </button>
-                <button id="full-screen" class="button"><i class="fas fa-expand"></i></button>
-                <label for="">Âm lượng</label>
-                <div class="volume-control-container">
-                    <i class="fas fa-volume-up" id="volume-icon"></i>
-                    <input type="range" id="volume-control" min="0" max="100" step="1" value="100">
-                    <span id="volume-percentage" class="volume-tooltip">100%</span>
+                <div class="video-controls1" style="width: 100%; z-index: 999;">
+                    <button id="pause-video" class="button">
+                        <i id="play-pause-icon" class="fas fa-play"></i>
+                    </button>
+                    <button id="full-screen" class="button"><i class="fas fa-expand"></i></button>
+                    <label for="">Âm lượng</label>
+                    <div class="volume-control-container">
+                        <i class="fas fa-volume-up" id="volume-icon"></i>
+                        <input type="range" id="volume-control" min="0" max="100" step="1" value="100">
+                        <span id="volume-percentage" class="volume-tooltip">100%</span>
+                    </div>
+                    <div id="video-info"></div>
+                    <label for=""> Tốc độ</label>
+                    <select id="playback-speed">
+                        <option value="1">Normal</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
                 </div>
-                <div id="video-info"></div>
-                <label for=""> Tốc độ</label>
-                <select id="playback-speed">
-                    <option value="1">Normal</option>
-                    <option value="1.5">1.5x</option>
-                    <option value="2">2x</option>
-                </select>
-            </div>
-
-
-            <div style="display: flex; justify-content: space-between;">
-                <button id="prev-video" class="button"><i class="fas fa-step-backward"></i> </button>
-
-                <button id="next-video" class="button" disabled><i class="fas fa-step-forward"></i> </button>
             </div>
 
         </section>
+
         <section class="video-playlist">
             <h3 class="title">Các bài học</h3>
             <div class="videos"></div>
         </section>
+        <section class="contact">
+            <div class="MarkdownParser_wrapper__JYN63" style="--font-size: 1.6rem; --line-height: 2;">
+                <p style="font-weight:bold ;">Tham gia các cộng đồng để cùng học hỏi, chia sẻ và học hỏi nhé!</p>
+                <ul style="list-style-type: none;">
+                    <li>Email: <a href="" target="_blank"
+                            rel="noreferrer">PolyAcademy@fpt.edu.vn</a></li>
+                    <li>Phone: <a href="" target="_blank"
+                            rel="noreferrer">+012 345 6789</a></li>
+                    <li>Youtube: <a href="https://youtube.com/channel/UCt9zv3cYVcvB2YXftdX-3lw"
+                            target="_blank" rel="noreferrer">https://youtube.com/channel/UCt9zv3cYVcvB2YXftdX-3lw</a></li>
+                    <li>Zalo: <a href="https://zalo.me/g/nyjdum737"
+                            target="_blank" rel="noreferrer">https://zalo.me/g/nyjdum737</a></li>
+                </ul>
+            </div>
+
+        </section>
     </main>
+    <div class="action-bar" style="display: flex; justify-content: space-between;">
+        <button id="prev-video" class="button"><i class="fas fa-step-backward"></i> Previous</button>
+        <button id="next-video" class="button" disabled><i class="fas fa-step-forward"></i> Next</button>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const fullScreenButton = document.getElementById('full-screen');
+
             // Function to toggle full screen
             fullScreenButton.addEventListener('click', function () {
                 if (videoIframe.requestFullscreen) {
@@ -375,6 +443,21 @@
                 }
             });
 
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fullScreenButton = document.getElementById('full-screen');
+
+            fullScreenButton.addEventListener('click', function () {
+                if (videoIframe.requestFullscreen) {
+                    videoIframe.requestFullscreen();
+                } else if (videoIframe.mozRequestFullScreen) {
+                    videoIframe.mozRequestFullScreen();
+                } else if (videoIframe.webkitRequestFullscreen) {
+                    videoIframe.webkitRequestFullscreen();
+                }
+            });
         });
     </script>
     <div hidden>
@@ -420,6 +503,17 @@
         <script src="https://www.youtube.com/iframe_api"></script>
 
         <script src="/js/scriptLoadVideo.js"></script>
+        <script th:src="@{/js/loai.js}"></script>
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="/lib/easing/easing.min.js"></script>
+        <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+        <!-- Contact Javascript File -->
+        <script src="/mail/jqBootstrapValidation.min.js"></script>
+        <script src="/mail/contact.js"></script>
+
 </body>
 
 

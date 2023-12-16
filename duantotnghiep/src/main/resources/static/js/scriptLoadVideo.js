@@ -23,7 +23,6 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
     // Sử dụng giá trị lấy được từ sessionStorage theo nhu cầu của bạn trong mã JavaScript của AngularJS
     // Ví dụ:
-    console.log("Giá trị từ sessionStorage là: " + idFromSessionStorage);
 
     // Lấy URL hiện tại
     var currentURL = window.location.href;
@@ -37,7 +36,6 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
     // Lấy phần tử cuối cùng của mảng parts, đó chính là số 1
     var idKhoaHoc = parts[parts.length - 1];
 
-    console.log(idKhoaHoc); // In ra số 1
 
     function setupVideoEvents($scope) {
         // Loại bỏ sự kiện click trên các phần tử video
@@ -107,7 +105,6 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             } else {
                 videoSrc = `https://www.youtube-nocookie.com/embed/${match_video.linkVideo}?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=1`;
             }
-            console.log(match_video.mucLuc.id);
             videoIframe.src = videoSrc;
             videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
             videoIframe.setAttribute("allowfullscreen", "");
@@ -179,13 +176,10 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                 const currentVideoIndex = $scope.data.findIndex(video => video.linkVideo === VideoId);
                 if (currentVideoIndex !== -1) {
                     currentIndex = currentVideoIndex;
-                    console.log($scope.data[currentIndex].mucLuc.id); // Xuất thông tin của video hiện tại
                     $scope.setid($scope.data[currentIndex].mucLuc.id);
                     var idFromSessionStorage = $window.sessionStorage.getItem('MucLuc');
 
-                    console.log(idFromSessionStorage + ' idFromSessionStorage');
                 } else {
-                    console.log('Không tìm thấy video với ID đã cung cấp.');
                 }
             }
 
@@ -193,7 +187,6 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             videos.forEach((video, index) => {
                 video.classList.remove('active');
                 video.querySelector('img').src = '/img/play.svg';
-                console.log(index);
                 if (index === currentIndex) {
                     video.classList.add('active');
                     video.querySelector('img').src = '/img/pause.svg';
@@ -225,16 +218,15 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             let firstVideo = videos[0];
             $http.get('/api/tiendokhoahoc/' + value + '/' + idKhoaHoc).then(function (response) {
                 $scope.tiendokhoahoc = response.data;
-                console.log($scope.tiendokhoahoc.tienDo + "tiendokhoahoc");
 
 
                 if ($scope.tiendokhoahoc.tienDo != 0) {
                     const input = $scope.tiendokhoahoc.tienDo;
-                    console.log(idFromSessionStorage);
+
                     const previousURL = document.referrer;
-                    console.log(previousURL);
                     if (previousURL.includes('tracnghiem')) {
                         // Nếu có, thực hiện các hành động cần thiết ở đây
+                        // Lấy giá trị từ sessionStorage
                         const { videoId, time } = extractVideoIdAndTime(input);
                         changeVideo(firstVideo, videos, $scope, videoId, time);
 
@@ -264,7 +256,6 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                             overlay.style.display = 'none';
                             const { videoId, time } = extractVideoIdAndTime(input);
                             changeVideo(firstVideo, videos, $scope, videoId, time);
-                            console.log(videoId);
 
                         });
 
@@ -418,24 +409,28 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                 // Nếu $scope.hoc tồn tại và có thuộc tính mucLuc
                 // Thực hiện các hành động cần thiết ở đây
                 // Ví dụ:
-                console.log($scope.hoc.mucLuc); // Truy cập thuộc tính mucLuc
             } else {
                 // Nếu $scope.hoc không tồn tại hoặc không có thuộc tính mucLuc
                 // Xử lý lỗi hoặc thực hiện các hành động phù hợp với trường hợp này
                 redirectToQuizPage($scope.hoc.videoKhoaHoc[currentIndex - 1].mucLuc.khoaHoc.id);
                 return;
             }
-            console.log($scope.hoc.videoKhoaHoc[currentIndex - 1].mucLuc.id);
             $scope.setid($scope.hoc.videoKhoaHoc[currentIndex - 1].mucLuc.id);
             idMucluc = $scope.hoc.videoKhoaHoc[currentIndex - 1].mucLuc.id;
-            console.log($scope.hoc);
 
             if ($scope.hoc.videoKhoaHoc[currentIndex].mucLuc.id != $scope.hoc.videoKhoaHoc[currentIndex - 1].mucLuc.id) {
                 $http.put('/api/tiendokhoahoc/' + value + '/' + idKhoaHoc + '/' + $scope.hoc.videoKhoaHoc[currentIndex].linkVideo + '/' + 1).then(function (response) {
                 }, function (response) {
                     console.log(response);
-                });
-                redirectToQuizPage($scope.hoc.videoKhoaHoc[currentIndex].mucLuc.khoaHoc.id);
+                }
+                );
+                for (var i = 0; i < $scope.hoc.cauHois.length; i++) {
+                    if ($scope.hoc.videoKhoaHoc[currentIndex - 1].mucLuc.id == $scope.hoc.cauHois[i].mucLuc.id) {
+                        redirectToQuizPage($scope.hoc.videoKhoaHoc[currentIndex].mucLuc.khoaHoc.id);
+                    } else {
+                        loadNextVideo($scope.hoc.videoKhoaHoc[currentIndex].mucLuc.khoaHoc.id);
+                    }
+                }
             } else {
                 if (currentIndex < $scope.data.length) {
                     loadNextVideo($scope.hoc.videoKhoaHoc[currentIndex].mucLuc.khoaHoc.id);
@@ -450,7 +445,6 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
     prevVideoButton.addEventListener('click', function () {
         currentIndex--;
         loadPrevVideo();
-        console.log(currentIndex);
     });
 
 

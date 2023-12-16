@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Transparent Login Form UI</title>
     <link rel="stylesheet" href="../css/login-signup.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
@@ -32,12 +33,14 @@
         </form>
         <div class="login">Hoặc</div>
         <div class="links">
-          <div class="instagram">
-            <a href="/oauth2/authorization/google" class="fab fa-google"><span style="font-weight: bold; color: #4285F4; font-size: 20px;">Google</span></a>
-
-
+          <div class="instagram" style="background-color: #DB4437;">
+            <a href="/oauth2/authorization/google" class="fab fa-google" style="color: #FFFFFF; font-weight: bold; font-size: 20px;">
+              <span>Đăng nhập bằng Google</span>
+            </a>
           </div>
         </div>
+        
+        
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
