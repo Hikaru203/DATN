@@ -189,7 +189,7 @@
 																<table class="table">
 																	<thead>
 																		<tr>
-																			<th>No</th>
+																			
 																			<th>ID Đăng Ký Khóa Học</th>
 																			<th>ID Người Dùng</th>
 																			<th>Họ Tên</th>
@@ -202,8 +202,8 @@
 																		</tr>
 																	</thead>
 																	<tbody>
-																		<tr ng-repeat="item in itemsHocVien">
-																			<td>{{$index + 1}}</td>
+																		<tr ng-repeat="item in itemsHocVien" ng-click="showDetails(item.id)">
+																		
 																			<td>{{item.id}}</td>
 																			<td>{{item.idNguoiDung}}</td>
 																			<td>{{item.hoTen}}</td>
@@ -223,6 +223,8 @@
 												</div>
 											</div>
 										</div>
+										
+										
 										<div class="text-center">
 											<ul class="pagination">
 												<li ng-class="{disabled: currentPage == 0}">
@@ -241,21 +243,42 @@
 										</div>
 									</div>
 
-
+<div class="product-status-wrap drp-lst">
+    <div class="asset-inner">
+        <table class="table">
+            <thead>
+                <tr>
+                    
+                    <th>ID Khóa Học</th>
+                    <th>Tên Khóa Học</th>
+                    <th>Họ Tên</th>
+                    	<th>Trạng Thái</th>
+                    <!-- Các cột khác nếu cần -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in itemsKhoaHoc" ng-click="showHocVienByKhoaHoc(item.id)">
+                 
+                    <td>{{item.id}}</td>
+                    <td>{{item.tenKhoaHoc}}</td>
+                    			<td>{{item.hoTen}}</td>
+                    				<td>{{item.trangThai}}</td>
+                </tr>
+            </tbody>
+        </table>
+     
+    </div>
+    
+</div>
 
 									<script>
 										var app = angular.module('myApp', []);
 										app.controller('HocVienCtrl', function ($scope) {
-											// ... your existing code ...
-
-											// Pagination
 											$scope.currentPage = 0;
 											$scope.pageSize = 5; // số items trên mỗi trang
-
 											$scope.numberOfPages = function () {
 												return Math.ceil($scope.itemsHocVien.length / $scope.pageSize);
 											};
-
 											$scope.range = function (num) {
 												var arr = [];
 												for (var i = 0; i < num; i++) {
@@ -279,8 +302,6 @@
 													$scope.currentPage++;
 												}
 											};
-
-											// ...
 
 										});
 									</script>

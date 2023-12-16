@@ -11,6 +11,7 @@ import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 public interface HocVienService {
     List<HocVienDTO> layDanhSachHocVien();
 	List<KhoaHoc> layDanhSachKhoaHoc();
+	List<HocVienDTO> layDanhSachHocVienTheoKhoaHoc(int khoaHocId);
 	
 }
 

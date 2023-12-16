@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -43,26 +44,7 @@ public class AdminAccountRestController {
     public List<NguoiDung> getAll() {
         return nguoiDungRepository.findAll();
     }
-       @PostMapping("/them")
-    public ResponseEntity<?> addNguoiDung(NguoiDung nguoiDung, MultipartFile file) {
-        try {
-            NguoiDung addedNguoiDung = nguoiDungService.addNguoiDung(nguoiDung, file);
-            return ResponseEntity.ok(addedNguoiDung);
-        } catch (IOException e) {
-            return ResponseEntity.status(500).body("Lỗi khi lưu file hình ảnh: " + e.getMessage());
-        }
-    }
-
-
-    @PostMapping("/them")
-    public ResponseEntity<?> addNguoiDung(NguoiDung nguoiDung, MultipartFile file) {
-        try {
-            NguoiDung addedNguoiDung = nguoiDungService.addNguoiDung(nguoiDung, file);
-            return ResponseEntity.ok(addedNguoiDung);
-        } catch (IOException e) {
-            return ResponseEntity.status(500).body("Lỗi khi lưu file hình ảnh: " + e.getMessage());
-        }
-    }
+   
 
     @PostMapping("/them1")
     public ResponseEntity<?> addNguoiDung1(@RequestBody NguoiDung nguoiDung) {
@@ -80,12 +62,34 @@ public class AdminAccountRestController {
         }
     }
 
- 
+    
+    @PutMapping("/sua/{id}")
+    public ResponseEntity<NguoiDung> suaNguoiDung(@PathVariable("id") int id, @RequestBody NguoiDung nguoiDung) {
+        Optional<NguoiDung> optionalNguoiDung = nguoiDungRepository.findById(id);
+        if (optionalNguoiDung.isPresent()) {
+            NguoiDung existingNguoiDung = optionalNguoiDung.get();
+            existingNguoiDung.setTaiKhoan(nguoiDung.getTaiKhoan());
+            existingNguoiDung.setMatKhau(nguoiDung.getMatKhau());
+            existingNguoiDung.setHoTen(nguoiDung.getHoTen());
+            existingNguoiDung.setEmail(nguoiDung.getEmail());
+            existingNguoiDung.setSoDienThoai(nguoiDung.getSoDienThoai());
+            existingNguoiDung.setChucVu(nguoiDung.getChucVu());
 
-    @DeleteMapping("/{id}")
-    public void deleteNguoiDung(@PathVariable("id") int id) {
-        nguoiDungRepository.deleteById(id);
+            NguoiDung updatedNguoiDung = nguoiDungRepository.save(existingNguoiDung);
+            return ResponseEntity.ok(updatedNguoiDung);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-   
+    @DeleteMapping("/xoa/{id}")
+    public ResponseEntity<?> xoaNguoiDung(@PathVariable("id") int id) {
+        try {
+            nguoiDungService.deleteNguoiDung(id);
+            return ResponseEntity.ok("Người dùng đã bị xóa thành công");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SC_INTERNAL_SERVER_ERROR).body("Lỗi khi xóa người dùng");
+        }
+    }
+
 
 }

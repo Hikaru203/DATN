@@ -1,139 +1,82 @@
-    var taiKhoan = document.getElementById("taiKhoan").value;
-document.getElementById("updateAccountForm").addEventListener("submit", function (event) {
+function submitForm(event) {
     event.preventDefault();
 
-
+   
+    var email = document.getElementById('email').value;
+    var hoTen = document.getElementById('hoTen').value;
+    var matKhau = document.getElementById('matKhau').value;
+    var soDienThoai = document.getElementById('soDienThoai').value;
 
     var formData = {
-        taiKhoan: taiKhoan,
-        email: document.getElementById("email").value,
-                hoTen: document.getElementById("text-input").value,
-
-        matKhau: document.getElementById("password-input").value,
-        soDienThoai: document.getElementById("phone-input").value,
-        // Các trường thông tin khác
+  
+        email: email,
+        hoTen: hoTen,
+        matKhau: matKhau,
+        soDienThoai: soDienThoai
     };
 
-    fetch("/courseOnline/updateAccount", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json;charset=UTF-8",
-        },
-        body: JSON.stringify(formData),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Cập nhật thành công:", data);
-        // Cập nhật giao diện người dùng nếu cần
-        showSuccessMessage();
-    })
-    .catch(error => {
-        console.error("Lỗi khi cập nhật:", error);
-        // Xử lý lỗi nếu cần
-    });
-});
-      
-function previewImages(input) {
-    var preview = document.getElementById('image-preview');
-    preview.innerHTML = '';
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", "/api/account/update", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-    if (input.files) {
-        for (var i = 0; i < input.files.length; i++) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                var image = document.createElement('img');
-                image.src = e.target.result;
-                image.style.maxWidth = '100%';
-                image.style.marginTop = '10px';
-                preview.appendChild(image);
-            };
-
-            reader.readAsDataURL(input.files[i]);
-        }
+    xhr.onload = function () {
+    if (xhr.status === 200) {
+        var response = JSON.parse(xhr.responseText);
+        console.log("Cập nhật thành công:", response);
+        // Gọi hàm hiển thị thông báo và đăng xuất
+        showSuccessMessageAndLogout();
+    } else {
+        console.error("Lỗi khi cập nhật. Mã lỗi:", xhr.status);
+        showAlert('error', 'Lỗi cập nhật. Mã lỗi: ' + xhr.status);
     }
+};
+    xhr.onerror = function () {
+        console.error("Lỗi mạng khi cập nhật.");
+        showAlert('error', 'Lỗi mạng khi cập nhật.');
+    };
+
+    xhr.send(JSON.stringify(formData));
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("updateAccountButton").addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent default form submission
 
-        // Perform form validation
-        if (validateForm()) {
-            // If validation passes, show success message
-            showSuccessMessage();
+// Hàm lấy thông tin người dùng từ server và hiển thị
+function getAccountInfo() {
+    $.ajax({
+        type: 'GET',
+        url: '/api/account/info',
+        success: function(response) {
+            // Hiển thị tên đăng nhập trong thẻ span
+            $('#spanTaiKhoan').text(response.taiKhoan);
+            // Cập nhật giá trị các trường khác trong form
+            $('#email').val(response.email);
+            $('#hoTen').val(response.hoTen);
+            $('#matKhau').val(response.matKhau);
+            $('#soDienThoai').val(response.soDienThoai);
+            // Các trường khác
+        },
+        error: function(error) {
+            console.error('Lỗi khi lấy thông tin người dùng:', error);
         }
     });
+}
 
-    function validateForm() {
-        const usernameInput = document.getElementById("username");
-        const emailInput = document.getElementById("email");
-        const passwordInput = document.getElementById("password-input");
-        const phoneInput = document.getElementById("phone-input");
-
-        let valid = true;
-
-        // Reset error messages
-        clearErrors();
-
-        // Validate username
-        if (usernameInput && usernameInput.value.trim() === "") {
-            valid = false;
-            displayError(usernameInput, "Vui lòng nhập tên đăng nhập");
-        }
-
-        // Validate email
-        if (emailInput && emailInput.value.trim() === "") {
-            valid = false;
-            displayError(emailInput, "Vui lòng nhập email");
-        } else if (emailInput && !isValidEmail(emailInput.value.trim())) {
-            valid = false;
-            displayError(emailInput, "Vui lòng nhập đúng địa chỉ email");
-        }
-
-        // Validate password
-        if (passwordInput && passwordInput.value.trim() === "") {
-            valid = false;
-            displayError(passwordInput, "Vui lòng nhập mật khẩu");
-        }
-
-        // Validate phone number
-        if (phoneInput && phoneInput.value.trim() === "") {
-            valid = false;
-            displayError(phoneInput, "Vui lòng nhập số điện thoại");
-        }
-
-        return valid; 
-    }
-
-    function displayError(input, message) {
-        const helpBlock = input.nextElementSibling;
-        helpBlock.innerText = message;
-    }
-
-    function clearErrors() {
-        const errorMessages = document.querySelectorAll(".help-block.text-danger");
-        errorMessages.forEach(function (errorMessage) {
-            errorMessage.innerText = "";
-        });
-    }
-
-    function isValidEmail(email) {
-        // A simple email validation regex
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    function showSuccessMessage() {
-        Swal.fire({
-            icon: 'success',
-            title: 'Cập nhật thành công!',
-            text: 'Thông tin tài khoản đã được cập nhật.',
-            confirmButtonText: 'Đóng',
-        }).then(() => {
-            // Sau khi người dùng đóng thông báo thành công
-            // Chuyển hướng đến trang đăng xuất
-            window.location.href = "/logoff";
-        });
-    }
+// Gọi hàm lấy thông tin người dùng khi trang tải
+$(document).ready(function() {
+    getAccountInfo();
 });
+
+
+function showSuccessMessageAndLogout() {
+    // Hiển thị thông báo SweetAlert
+    Swal.fire({
+        icon: 'success',
+        title: 'Cập nhật thành công!',
+        showConfirmButton: false,
+        timer: 2000 // Thời gian hiển thị thông báo (ms)
+    }).then(() => {
+        // Thực hiện chuyển hướng hoặc đăng xuất người dùng
+        window.location.href = '/logoff'; // Điều chỉnh URL tùy thuộc vào cách bạn xử lý đăng xuất
+    });
+}
+
+

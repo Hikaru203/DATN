@@ -26,22 +26,39 @@ public class UpdateAccountRestController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<NguoiDung> updateAccountInfo(Authentication authentication, @RequestBody NguoiDung updatedNguoiDung) {
+    public ResponseEntity<NguoiDung> updateAccountInfo(
+            Authentication authentication,
+            @RequestBody NguoiDung updatedNguoiDung) {
         // Lấy thông tin người dùng từ đối tượng Authentication
         String username = authentication.getName();
         NguoiDung existingNguoiDung = nguoiDungRepository.findByTaiKhoan(username);
 
         if (existingNguoiDung != null) {
-            // Cập nhật thông tin người dùng
-            existingNguoiDung.setHoTen(updatedNguoiDung.getHoTen());
-            existingNguoiDung.setEmail(updatedNguoiDung.getEmail());
-            // Các trường thông tin khác
+            // Cập nhật các trường cần thiết từ updatedNguoiDung
+            if (updatedNguoiDung.getHoTen() != null) {
+                existingNguoiDung.setHoTen(updatedNguoiDung.getHoTen());
+            }
+            if (updatedNguoiDung.getEmail() != null) {
+                existingNguoiDung.setEmail(updatedNguoiDung.getEmail());
+            }
+            if (updatedNguoiDung.getMatKhau() != null) {
+                existingNguoiDung.setMatKhau(updatedNguoiDung.getMatKhau());
+            }
+            if (updatedNguoiDung.getSoDienThoai() != null) {
+                existingNguoiDung.setSoDienThoai(updatedNguoiDung.getSoDienThoai());
+            }
+            if (updatedNguoiDung.getHinhAnh() != null) {
+            	existingNguoiDung.setHinhAnh(updatedNguoiDung.getHinhAnh());
+            }
+            // Các trường thông tin khác có thể được cập nhật tương tự
 
+            // Lưu lại thông tin người dùng
             NguoiDung updatedAccount = nguoiDungRepository.save(existingNguoiDung);
             return ResponseEntity.ok(updatedAccount);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
 
 }

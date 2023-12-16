@@ -63,6 +63,34 @@ public class HocVienServiceImpl implements HocVienService {
 	@Override
 	public List<KhoaHoc> layDanhSachKhoaHoc() {
 		// TODO Auto-generated method stub
-		return null;
+		return khoaHocRepository.findAll();
 	}
+
+	@Override
+	public List<HocVienDTO> layDanhSachHocVienTheoKhoaHoc(int khoaHocId) {
+	    List<HocVienDTO> danhSachHocVien = new ArrayList<>();
+	    List<DangKyKhoaHoc> dangKyKhoaHocList = dangKyKhoaHocRepository.findByKhoaHocId(khoaHocId);
+	    for (DangKyKhoaHoc dangKyKhoaHoc : dangKyKhoaHocList) {
+	        HocVienDTO hocVienDTO = new HocVienDTO();
+	        hocVienDTO.setId(dangKyKhoaHoc.getId());
+	        hocVienDTO.setTrangThai(dangKyKhoaHoc.getTrangThai());
+	        NguoiDung nguoiDung = dangKyKhoaHoc.getNguoiDung();
+	        if (nguoiDung != null) {
+	            hocVienDTO.setIdNguoiDung(nguoiDung.getId());
+	            hocVienDTO.setHoTen(nguoiDung.getHoTen());
+	            hocVienDTO.setSoDienThoai(nguoiDung.getSoDienThoai());
+	            hocVienDTO.setChucVu(nguoiDung.getChucVu());
+	        }
+	        KhoaHoc khoaHoc = dangKyKhoaHoc.getKhoaHoc();
+	        if (khoaHoc != null) {
+	            hocVienDTO.setTenKhoaHoc(khoaHoc.getTenKhoaHoc());
+	            hocVienDTO.setChiPhi(khoaHoc.getChiPhi());
+	        }
+	        danhSachHocVien.add(hocVienDTO);
+	    }
+
+	    return danhSachHocVien;
+	}
+
+	
 }

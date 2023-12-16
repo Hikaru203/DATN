@@ -78,36 +78,38 @@ public class NguoiDungServiceImpl implements NguoiDungService {
         nguoiDung.setHinhAnh("uploads/images/" + fileName);
         return nguoiDungRepository.save(nguoiDung);
     }
-       @Override
+    @Override
     public void deleteNguoiDung(int id) {
         nguoiDungRepository.deleteById(id);
     }
 
+
         
 
+    @Override
+    public void capNhatNguoiDung(int id, NguoiDung nguoiDung, MultipartFile file) throws IOException {
+        NguoiDung existingUser = nguoiDungRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-       @Override
-       public void capNhatNguoiDung(int id, NguoiDung nguoiDung, MultipartFile file) throws IOException {
-           NguoiDung existingUser = nguoiDungRepository.findById(id)
-                   .orElseThrow(() -> new RuntimeException("User not found"));
-           // Cập nhật thông tin người dùng
-           existingUser.setTaiKhoan(nguoiDung.getTaiKhoan());
-           existingUser.setMatKhau(nguoiDung.getMatKhau());
-           existingUser.setHoTen(nguoiDung.getHoTen());
-           existingUser.setEmail(nguoiDung.getEmail());
-           // Kiểm tra và cập nhật hình ảnh nếu có
-           if (file != null && !file.isEmpty()) {
-               // Lưu hình ảnh trong project, tên file giữ nguyên
-               String fileName = file.getOriginalFilename();
-               String filePath = "Admin/img/User/" + fileName;
-               // Lưu hình ảnh
-               Files.copy(file.getInputStream(), Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
-               // Cập nhật tên hình ảnh trong đối tượng NguoiDung
-               existingUser.setHinhAnh(fileName);
-           }
+        // Cập nhật thông tin người dùng
+        existingUser.setTaiKhoan(nguoiDung.getTaiKhoan());
+        existingUser.setMatKhau(nguoiDung.getMatKhau());
+        existingUser.setHoTen(nguoiDung.getHoTen());
+        existingUser.setEmail(nguoiDung.getEmail());
+        existingUser.setSoDienThoai(nguoiDung.getSoDienThoai());
 
-           nguoiDungRepository.save(existingUser);
-       }
+        // Kiểm tra và cập nhật hình ảnh nếu có
+        if (file != null && !file.isEmpty()) {
+            // Lưu hình ảnh trong thư mục đã được cấu hình (IMAGE_DIRECTORY)
+            String fileName = UUID.randomUUID().toString() + Objects.requireNonNull(file.getOriginalFilename())
+                                .substring(file.getOriginalFilename().lastIndexOf("."));
+            Path path = Paths.get(IMAGE_DIRECTORY, fileName);
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            existingUser.setHinhAnh("uploads/images/" + fileName);
+        }
+
+        nguoiDungRepository.save(existingUser);
+    }
 
 
        @Override
