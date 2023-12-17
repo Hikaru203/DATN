@@ -65,6 +65,9 @@ public class TienDoKhoaHocRestController {
         DangKyKhoaHoc dangKyKhoaHoc = dangKyKhoaHocService.findByNguoiDungIdAndKhoaHocId(id, idkhoahoc);
 
         dangKyKhoaHoc.setTienDoToiDa(idvideo);
+        if (dangKyKhoaHoc.getTienDoToiDa() == null) {
+            dangKyKhoaHoc.setTienDoToiDa(idvideo);
+        }
         return dangKyKhoaHocService.save(dangKyKhoaHoc);
 
     }

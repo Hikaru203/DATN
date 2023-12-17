@@ -407,7 +407,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             $scope.countDaHoc = 0;
             $http.get('/api/tiendokhoahoc/' + value + '/' + idKhoaHoc).then(function (response) {
                 $scope.tiendokhoahoc = response.data;
-
+                console.log($scope.tiendokhoahoc);
                 // Find the index of the video with id equal to tiendokhoahoc.tiendotoida
                 $scope.data.forEach((video, i) => {
                     if (video.linkVideo == $scope.tiendokhoahoc.tienDoToiDa) {
@@ -416,13 +416,20 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                     }
                 });
                 $scope.count = $scope.data.length;
+
                 $scope.data.forEach((video) => {
                     let disabled = (foundIndex !== -1 && index > foundIndex + 1);
+                    console.log(disabled);
 
                     if (!disabled) {
                         $scope.countDaHoc++; // Tăng biến đếm nếu video không bị vô hiệu hóa
                     }
 
+                    if (!$scope.tiendokhoahoc.tienDoToiDa || $scope.tiendokhoahoc.tienDoToiDa == null || $scope.tiendokhoahoc.tienDoToiDa == "" || $scope.tiendokhoahoc.tienDoToiDa == 0) {
+                        $scope.countDaHoc = 0;
+                        console.log($scope.countDaHoc);
+                        disabled = true;
+                    }
                     let video_element = `
                         <div class="video ${disabled ? 'disabled' : ''}" data-id="${video.id}" ${disabled ? 'data-disabled="true"' : ''}>
                             <img src="/img/play.svg" alt="">

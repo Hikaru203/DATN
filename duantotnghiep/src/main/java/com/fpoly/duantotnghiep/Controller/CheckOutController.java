@@ -71,7 +71,8 @@ public class CheckOutController {
 			HttpServletRequest request, @CookieValue(value = "username", defaultValue = "0") String userIdCookie,
 			@RequestParam("paymentMethod") String paymentMenThod, @RequestParam("idKhoaHoc") String idKhoaHoc,
 			@RequestParam("idNguoiDung") String idNguoiDung, @ModelAttribute("order") ThanhToan order,
-			@RequestParam("tenKhoaHoc") String tenKhoaHoc,@RequestParam("emailUser") String emailUser) throws UnsupportedEncodingException {
+			@RequestParam("tenKhoaHoc") String tenKhoaHoc, @RequestParam("emailUser") String emailUser)
+			throws UnsupportedEncodingException {
 
 		String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 		String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
@@ -120,7 +121,7 @@ public class CheckOutController {
 		try {
 			Payment payment = service.executePayment(paymentId, payerId);
 			String transactionId = payment.getId();
-			
+
 			if (payment.getState().equals("approved")) {
 
 				HttpSession session = request.getSession();
@@ -130,9 +131,9 @@ public class CheckOutController {
 				Double total = Double.parseDouble(session.getAttribute("totalprice").toString());
 				String tenKhoaHoc = (String) session.getAttribute("tenKhoaHoc".toString());
 				String emailUser = (String) session.getAttribute("emailUser".toString());
-				
+
 				ThanhToan thanhToan = new ThanhToan();
-				
+
 				// Chuyển đối tượng NguoiDung từ idNguoiDung
 				NguoiDung nguoiDung = new NguoiDung();
 				nguoiDung.setId(idNguoiDung);
@@ -154,6 +155,7 @@ public class CheckOutController {
 					dangKyKhoaHoc.setNgayDangKy(new Date());
 					dangKyKhoaHoc.setTienDo(String.valueOf(0));
 					dangKyKhoaHoc.setTrangThai("Đang học");
+					dangKyKhoaHoc.setTienDoToiDa("0");
 					dangKyKhoaHocService.save(dangKyKhoaHoc);
 					DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("vi", "VN"));
 					symbols.setDecimalSeparator(',');
@@ -169,12 +171,13 @@ public class CheckOutController {
 					model.addAttribute("dayTime", formattedDate);
 					model.addAttribute("total", formattedTotalAmount);
 					model.addAttribute("tenKhoaHocPayPal", tenKhoaHoc);
-					
+
 					try {
-			            mailService.checkoutSendEmailPaypal(emailUser,transactionId,tenKhoaHoc,formattedTotalAmount,formattedDate,payerId);
-			        } catch (Exception e) {
-			            // TODO: handle exception
-			        }
+						mailService.checkoutSendEmailPaypal(emailUser, transactionId, tenKhoaHoc, formattedTotalAmount,
+								formattedDate, payerId);
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
 					return "success";
 				}
 			}
@@ -203,7 +206,7 @@ public class CheckOutController {
 			String totalPrice = request.getParameter("vnp_Amount");
 			String orderInfo = URLDecoder.decode(request.getParameter("vnp_OrderInfo"),
 					StandardCharsets.UTF_8.toString());
-			
+
 			double totalAmount = Double.parseDouble(String.valueOf(Double.valueOf(totalPrice) / 100));
 			DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("vi", "VN"));
 			symbols.setDecimalSeparator(',');
@@ -254,12 +257,11 @@ public class CheckOutController {
 			model.addAttribute("paymentTime", formattedPaymentTime);
 			model.addAttribute("Txnref", Txnref);
 			try {
-	            mailService.checkoutSendEmailVnpay(emailUser,Txnref	,formattedTotalAmount,formattedPaymentTime);
-	        } catch (Exception e) {
-	            // TODO: handle exception
-	        }
-			
-			
+				mailService.checkoutSendEmailVnpay(emailUser, Txnref, formattedTotalAmount, formattedPaymentTime);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+
 			// Chuyển hướng đến trang kết quả và hiển thị thông tin
 			return "ordersuccess";
 		}

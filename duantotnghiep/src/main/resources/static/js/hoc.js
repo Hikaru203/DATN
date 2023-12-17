@@ -204,6 +204,7 @@ app.controller('detail-controller', function ($scope, $http, $window) {
                                 $scope.DangKy.ngayDangKy = new Date();
                                 $scope.DangKy.tienDo = 0;
                                 $scope.DangKy.trangThai = 0;
+                                $scope.DangKy.tienDoToiDa = 0;
                                 console.log($scope.DangKy);
                                 // Gửi POST request để đăng ký khóa học
                                 $http.post("/api/courseOnline", $scope.DangKy)
