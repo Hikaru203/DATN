@@ -250,10 +250,15 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                         const dialogBox = document.createElement('div');
                         dialogBox.id = 'dialog-box';
                         dialogBox.innerHTML = 'Bạn có muốn tiếp tục học không?';
+
                         const yesButton = document.createElement('button');
+                        yesButton.id = 'yes-button';
                         yesButton.innerHTML = 'Có';
+
                         const noButton = document.createElement('button');
+                        noButton.id = 'no-button';
                         noButton.innerHTML = 'Không';
+
 
                         dialogBox.appendChild(yesButton);
                         dialogBox.appendChild(noButton);

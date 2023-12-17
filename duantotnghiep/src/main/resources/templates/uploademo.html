@@ -25,6 +25,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link th:href="@{/css/style.css}" rel="stylesheet">
+
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl">
@@ -176,24 +177,32 @@
     <style>
         .tabs {
             display: flex;
+            justify-content: center;
+            /* Canh giữa các tab ngang */
             margin-bottom: 20px;
         }
 
         .tab-button {
-            flex: 1;
-            padding: 5px;
+            padding: 10px 110px;
+            /* Điều chỉnh padding để giảm kích thước chiều ngang */
+            margin: 2 5px;
+            /* Thêm margin giữa các nút tab */
             cursor: pointer;
             text-align: center;
             background-color: #cca85f;
             color: #fff;
             border: none;
-            transition: border 0.3s ease, color 0.3s ease;
-
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .tab-content {
             display: none;
+        }
 
+        /* Hiển thị nội dung của tab đang active */
+        .tab-content.active {
+            display: block;
+            border: 2px solid #fff;
         }
 
         .active {
@@ -211,6 +220,85 @@
         }
 
         /* Thêm các quy tắc CSS hiện tại của bạn ở đây */
+        /* Form Section Styles */
+        .video-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+
+        .btn {
+            margin-right: 10px;
+        }
+
+        /* List Section Styles */
+        .course-list {
+            margin-top: 20px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #ecb92d;
+            color: #fff;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Common Styles */
+        .container {
+            margin: 0 auto;
+        }
+
+        .row {
+            margin: 0 -15px;
+        }
+
+        .col-lg-6,
+        .col-md-6,
+        .col-sm-6,
+        .col-xs-12 {
+            padding: 0 15px;
+        }
     </style>
 
     <!-- Header End -->
@@ -319,7 +407,7 @@
                 </script>
 
                 <div class="col-md-12" style="margin-top: 20px;">
-                    <h4>Danh sách tất cả các khoá học:</h4>
+                    <h4>Danh sách các khoá học đã đăng:</h4>
 
                     <div class="course-list">
                         <table class="table">
@@ -327,16 +415,20 @@
                                 <tr>
                                     <th scope="col">Khoá học</th>
                                     <th scope="col">Mô tả</th>
-                                </tr>
-                                <table>
-                                    <tr ng-repeat="khoaHoc in khoaHocFindByNguoiTao" ng-click="edit(khoaHoc)"
-                                        ng-if="khoaHoc.trangThai !== 'true'">
-                                        <td>{{khoaHoc.tenKhoaHoc}}</td>
-                                        <td>{{khoaHoc.moTa}}</td>
-                                    </tr>
 
-                                </table>
+                                    <th scope="col">Thống kê</th>
+                                </tr>
                             </thead>
+                            <tbody>
+                                <tr ng-repeat="khoaHoc in khoaHocFindByNguoiTao" ng-click="edit(khoaHoc)"
+                                    ng-if="khoaHoc.trangThai !== 'true'">
+                                    <td>{{khoaHoc.tenKhoaHoc}}</td>
+                                    <td>{{khoaHoc.moTa}}</td>
+                                    <td><button aria-hidden="true" class="fa fa-cog" ng-click="editbr(khoaHoc)"
+                                            style="background-color: #fefefe; color: black;"> Xem</button></td>
+                                </tr>
+
+                            </tbody>
                             <script>
                                 function handleRowClick(idKhoaHoc) {
 
@@ -476,7 +568,7 @@
                                 <label for="description">Mô tả:</label>
                                 <textarea class="form-control" id="description" name="description" required></textarea>
                             </div>
-                            <div class="form-group" id="form-privacyStatus">
+                            <div class="form-group" id="form-privacyStatus" hidden>
                                 <label for="privacyStatus">Quyền riêng
                                     tư:</label>
                                 <select class="form-control" id="privacyStatus" name="privacyStatus" required>
@@ -543,26 +635,20 @@
             const uploadNewVideoSection = document.getElementById("uploadNewVideoSection");
             const addButton = document.getElementById("addButton"); // Thêm khai báo cho addButton
 
-            if (!uploadNewVideoSection || !addButton) {
-                console.error("Không thể tìm thấy các phần tử cần thiết.");
-                return;
-            }
 
             addButton.addEventListener("click", function (event) { // Thêm sự kiện click cho addButton
                 event.preventDefault(); // Ngăn chặn hành động mặc định của nút
-
                 if (uploadNewVideoSection.style.display !== "none") {
                     const titleInput = document.getElementById("title");
                     const descriptionInput = document.getElementById("description");
                     const privacyStatusInput = document.getElementById("privacyStatus");
                     const fileInput = document.getElementById("file");
-
                     if (!titleInput.value || !descriptionInput.value || !privacyStatusInput.value || !fileInput.files[0]) {
                         console.error("Vui lòng điền đầy đủ thông tin và chọn một file.");
                         return;
                     }
-
                     const form = new FormData();
+
                     form.append("title", titleInput.value);
                     form.append("description", descriptionInput.value);
                     form.append("privacyStatus", privacyStatusInput.value);
@@ -804,6 +890,210 @@
             }
         });
     </script>
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fffcfc;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #323030;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <!-- Nội dung của modal ở đây -->
+            <span class="close" ng-click="closeModal()">&times;</span>
+            <h2>{{ modalItem.tenKhoaHoc }}</h2>
+            <div class="traffice-source-area mg-b-30">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="white-box analytics-info-cs">
+                                <h3 class="box-title" style="font-size: 18px;">Tổng Doanh Thu</h3>
+                                <ul class="list-inline  ">
+                                    <li>
+                                        <div id="sparklinedash"></div>
+                                    </li>
+                                    <li class="text-right sp-cn-r" style="width: 50%;"><i class="fa fa-level-up"
+                                            aria-hidden="true"></i>
+                                        <span class="counter text-success"><span class="counter">{{
+                                                formatCurrency(totalRevenue2)}}</span></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="white-box analytics-info-cs">
+                                <h3 class="box-title" style="font-size: 18px;">Số người học</h3>
+                                <ul class="list-inline  ">
+                                    <li>
+                                        <div id="sparklinedash"></div>
+                                    </li>
+                                    <li class="text-right sp-cn-r" style="width: 40%;"><i class="fa fa-level-up"
+                                            aria-hidden="true"></i>
+                                        <span class="counter text-success"><span
+                                                class="counter">{{SoNguoi}}</span></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <style>
+                            .custom-form {
+                                display: flex;
+                                flex-direction: column;
+                                max-width: 300px;
+                                margin: 0 auto;
+                            }
+
+                            .form-group {
+                                margin-bottom: 15px;
+                            }
+
+                            label {
+                                margin-bottom: 5px;
+                                display: block;
+                            }
+
+                            input[type="date"],
+                            button {
+                                padding: 8px;
+                                font-size: 16px;
+                                border-radius: 5px;
+                                border: 1px solid #ccc;
+                            }
+
+                            button {
+                                cursor: pointer;
+                                background-color: #28a745;
+                                color: #fff;
+                                border: none;
+                                transition: background-color 0.3s ease;
+                            }
+
+                            button:hover {
+                                background-color: #218838;
+                            }
+                        </style>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="white-box analytics-info-cs res-mg-t-30 res-tablet-mg-t-30 dk-res-t-pro-30"
+                                style="width: 450px;">
+                                <form class="custom-form" style="max-width: 500px;">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <label style="font-size: 18px;"><i class="fa fa-bar-chart"
+                                                    aria-hidden="true"></i> Tra cứu doanh thu</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button id="toggleDateInputs2"
+                                                style="font-size: 12px; background: none; color: #000; border: none;">
+                                                <i id="arrowIcon2" class="fa fa-chevron-down"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <ul class="list-inline  ">
+                                        <li>
+                                            <div id="sparklinedash"></div>
+                                        </li>
+                                        <li class="text-right sp-cn-r"><i class="fa fa-level-up" style="color: #fff;"
+                                                aria-hidden="true"></i> <span class="counter text-success"><span
+                                                    class="counter">
+
+                                        </li>
+                                    </ul>
+                                    <div class="date-inputs2 row" style="display: none;">
+                                        <hr>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="startDate">Từ ngày:</label>
+                                                <input type="date" id="start2" name="trip-start2"
+                                                    ng-model="thoigiankhoahoc.batDau" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label for="endDate">Đến ngày:</label>
+                                                <input type="date" id="end2" name="trip-end2"
+                                                    ng-model="thoigiankhoahoc.ketThuc" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <button id="basicSuccess" class="btn btn-success"
+                                                    ng-click="ThongKeTheoKhoaHoc()"
+                                                    style="background-color: #fefefe; color: black; border: 1px #888 solid; margin-top: 69%;margin-left: -3%;"><i
+                                                        class="fa fa-search" aria-hidden="true"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bieudo" style="height: 400px; width: 100%;">
+                <section class="content">
+                    <!-- /.col-md-6 -->
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header border-0">
+
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <p class="d-flex flex-column">
+
+                                    </p>
+
+                                </div>
+                                <!-- /.d-flex -->
+
+                                <div class="position-relative mb-4">
+                                    <canvas id="revenue-chart2" height="100"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card -->
+                </section>
+            </div>
+            <!-- Main content -->
+
+            <!-- Thêm các trường dữ liệu khác bạn muốn hiển thị -->
+        </div>
+    </div>
     <script>
 
         var app = angular.module('myApp', []);
@@ -815,7 +1105,182 @@
             $scope.mucLuc = {};
             $scope.selectedKhoaHoc = {}; // Initialize selectedKhoaHoc object
             $scope.mucLucDaChon = {};
+            $scope.thoigiankhoahoc = {};
+            $scope.itemsThongKeTheoKhoaHoc = [];
+            $scope.modalItem = {};
+            $scope.formVideo = {};
+            //định dạng tiền
+            $scope.formatCurrency = function (amount) {
+                // Chuyển đổi số tiền thành chuỗi và loại bỏ số 0 ở cuối
+                return numeral(amount).format('0,0') + ' VND';
+            };
+            $scope.ThongKeNguoiHoc = function (id) {
+                $http.get(apiEndpoints.ThongKeNguoiHoc, {
+                    params: {
+                        idKhoaHoc: id
+                    }
+                }).then(resp => {
+                    $scope.SoNguoi = resp.data;
+                });
+            }
+            $scope.ThongKeTheoKhoaHoc = function () {
 
+                $scope.convertToMoment2();
+
+                //Thông kê số người học theo mốc thời gian
+                $http.get(apiEndpoints.ThongKeNguoiHocTG, {
+                    params: {
+                        idKhoaHoc: $scope.modalItem.id,
+                        batDau: $scope.thoigiankhoahoc.batDau,
+                        ketThuc: $scope.thoigiankhoahoc.ketThuc
+                    }
+                }).then(resp => {
+                    $scope.SoNguoi = resp.data;
+                });
+
+                $http.get(apiEndpoints.ThongKeKhoaHocTG, {
+                    params: {
+                        idKhoaHoc: $scope.modalItem.id,
+                        batDau: $scope.thoigiankhoahoc.batDau,
+                        ketThuc: $scope.thoigiankhoahoc.ketThuc
+                    }
+                }).then(resp => {
+                    $scope.itemsThongKeTheoKhoaHoc = resp.data;
+
+                    // Extract data for chart
+                    const labels = $scope.itemsThongKeTheoKhoaHoc.map(item => $scope.formatDate(item.year, item.month));
+                    const data = $scope.itemsThongKeTheoKhoaHoc.map(item => item.totalRevenue);
+                    // Tính tổng doanh thu
+                    $scope.totalRevenue2 = $scope.itemsThongKeTheoKhoaHoc.reduce((total, item) => total + item.totalRevenue, 0);
+                    // Get the canvas element
+                    const canvas = document.getElementById("revenue-chart2");
+                    if ($scope.myChart2) {
+                        $scope.myChart2.destroy();
+                    }
+                    // Create the chart using Chart.js
+                    const ctx = canvas.getContext("2d");
+                    $scope.myChart2 = new Chart(ctx, {
+                        type: "bar",
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: "Tổng doanh thu/tháng",
+                                data: data,
+                                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                                borderColor: "rgba(75, 192, 192, 1)",
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function (value, index, values) {
+                                            return $scope.formatTotalPrice(value);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                });
+
+
+            };
+            $scope.xoaformthongke = function () {
+                $scope.itemsThongKeTheoKhoaHoc = [];
+
+            }
+
+            $scope.editbr = function (item) {
+                $scope.formatTotalPrice = function (totalPrice) {
+                    return numeral(totalPrice).format('0,0') + ' VND';
+                };
+
+                $scope.formatDate = function (year, month) {
+                    const date = moment(`${year}-${month}`, 'YYYY-M').format('MM YYYY');
+                    return date.charAt(0).toUpperCase() + date.slice(1);
+                };
+                $scope.modalItem = angular.copy(item);
+
+                $scope.openModal();
+                $scope.ThongKeNguoiHoc($scope.modalItem.id);
+
+                $http.get(apiEndpoints.ThongKeKhoaHoc, {
+                    params: {
+                        idKhoaHoc: $scope.modalItem.id,
+                    }
+                }).then(resp => {
+                    $scope.itemsThongKeTheoKhoaHoc = resp.data;
+
+                    // Extract data for chart
+                    const labels = $scope.itemsThongKeTheoKhoaHoc.map(item => $scope.formatDate(item.year, item.month));
+                    const data = $scope.itemsThongKeTheoKhoaHoc.map(item => item.totalRevenue);
+                    // Tính tổng doanh thu
+                    $scope.totalRevenue2 = $scope.itemsThongKeTheoKhoaHoc.reduce((total, item) => total + item.totalRevenue, 0);
+
+                    // Get the canvas element
+                    const canvas = document.getElementById("revenue-chart2");
+
+                    // Create the chart using Chart.js
+                    const ctx = canvas.getContext("2d");
+                    $scope.myChart2 = new Chart(ctx, {
+                        type: "bar",
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: "Tổng doanh thu/tháng",
+                                data: data,
+                                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                                borderColor: "rgba(75, 192, 192, 1)",
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        callback: function (value, index, values) {
+                                            return $scope.formatTotalPrice(value);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                });
+
+
+            };
+            $scope.openModal = function () {
+                document.getElementById('myModal').style.display = 'block';
+            };
+            $scope.closeModal = function () {
+                $scope.xoaformthongke();
+                document.getElementById('myModal').style.display = 'none';
+            };
+            $scope.convertToMoment2 = function () {
+
+                $scope.thoigiankhoahoc.batDau = moment($scope.thoigiankhoahoc.batDau).toDate();
+                $scope.thoigiankhoahoc.ketThuc = moment($scope.thoigiankhoahoc.ketThuc).toDate();
+
+            }
+            var apiEndpoints = {
+                report: "/rest/Report",
+                thongKeThoiGian: "/rest/Report/thong-ke-thoi-gian",
+                ThongKeKhoaHoc: "/rest/Report/thong-ke-Khoa-hoc",
+                ThongKeKhoaHocTG: "/rest/Report/thong-ke-Khoa-hoc-TG",
+                ThongKeNguoiHoc: "/rest/Report/thong-ke-nguoi-hoc",
+                ThongKeNguoiHocTG: "/rest/Report/thong-ke-nguoi-hoc-theo-moc-thoi-gian",
+                ThongKeTheoNgay: "/rest/Report/thong-ke-theo-ngay",
+                ThongKeThangNay: "/rest/Report/thong-ke-thang-nay",
+                ThongKeNamNay: "/rest/Report/thong-ke-nam-nay",
+                ThongKeNamTruoc: "/rest/Report/thong-ke-nam-truoc",
+            };
             $scope.changeLoai = function (id) {
                 // Thêm logic xử lý khi giá trị thay đổi
                 $http.get('/api/khoahoc/byLoai/' + id)
@@ -1032,7 +1497,31 @@
                     });
 
             }
+            function getCookieValue(cookieName) {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.startsWith(cookieName + '=')) {
+                        console.log(cookie.substring(cookieName.length + 1));
+                        return cookie.substring(cookieName.length + 1);
+                    }
+                }
+                return null;
+            }
 
+            function deleteCookie(cookieName) {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.startsWith(cookieName + '=')) {
+                        const cookieParts = cookie.split('=');
+                        const name = cookieParts[0];
+                        // Đặt thời gian hết hạn của cookie thành ngày quá khứ
+                        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                        return;
+                    }
+                }
+            }
             $scope.createMucLuc = function () {
                 $scope.hassError = false;
                 $scope.idLogin = document.getElementById("idLogin").value;
@@ -1059,7 +1548,8 @@
             }
 
             $scope.createNewVideo = function () {
-                const selectedCourseId = $scope.selectedCourse;
+                const selectedCourseId = $scope.selectedTenMucLuc;
+                console.log(selectedCourseId)
                 if (!selectedCourseId) {
                     return;
                 }
@@ -1067,6 +1557,7 @@
                 const usernameCookie = getCookieValue('videoId');
                 // Lấy đối tượng input theo id "title"
                 var inputElement = document.getElementById("title");
+                console.log(inputElement)
                 var videoTitle;
                 // Lấy giá trị từ input khi người dùng nhấn nút "Lấy giá trị"
                 videoTitle = inputElement.value;
@@ -1074,7 +1565,7 @@
                 console.log(usernameCookie);
                 console.log(videoTitle);
 
-                $http.get("/rest/admin/MucLuc/" + $scope.selectedMucLuc)
+                $http.get("/rest/admin/MucLuc/" + $scope.selectedTenMucLuc)
                     .then(resp => {
                         $scope.formVideo.mucLuc = resp.data;
 
@@ -1092,7 +1583,6 @@
                                 deleteCookie('videoId');
                                 deleteCookie('videoTitle');
 
-                                $scope.loadDocuments();
 
                                 // Gửi yêu cầu POST để thêm video mới
                                 console.log($scope.formVideo);
@@ -1116,12 +1606,11 @@
                     });
             };
 
-
             $scope.updateUI();
-
 
         });
     </script>
+
     <!-- Footer End -->
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
@@ -1134,7 +1623,22 @@
     <script th:src="@{/js/main.js}"></script>
 
     <script th:src="@{/js/loai.js}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#toggleDateInputs").click(function () {
+                $(".date-inputs").toggle();
+                $("#arrowIcon").toggleClass("fa-chevron-down fa-chevron-up");
+            });
+            $("#toggleDateInputs2").click(function () {
+                $(".date-inputs2").toggle();
+                $("#arrowIcon2").toggleClass("fa-chevron-down fa-chevron-up");
+            });
+        });
+    </script>
 
 </body>
 
