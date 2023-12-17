@@ -3,9 +3,10 @@ const videoPlaylist = document.querySelector('.video-playlist .videos');
 let videoIframe;
 let idMucluc;
 
+
 app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', function ($scope, $http, $cookies, $window) {
     $scope.items = [];
-
+    $scope.tiendokhoahoc = [];
     $scope.getid = function (id) {
         $window.sessionStorage.setItem('videoId', id);
         $window.location.href = '/courseOnline/video';
@@ -37,13 +38,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
     var idKhoaHoc = parts[parts.length - 1];
 
 
-    function setupVideoEvents($scope) {
-        // Loại bỏ sự kiện click trên các phần tử video
-        let videos = document.querySelectorAll('.video');
-        videos.forEach(selected_video => {
-            selected_video.onclick = null;
-        });
-    }
+
 
     let current_player = null;
     let nextButton = document.getElementById('next-video');
@@ -92,6 +87,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         var value = inputElement.value;
         value = inputElement.value;
     }
+    var videoIdMax;
     function changeVideo(selected_video, videos, $scope, VideoId = null, Time = null) {
         // Xóa thông tin video cũ
         const timeInt = Math.floor(Time);
@@ -103,9 +99,9 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             let videoIframe = document.getElementById('video-iframe');
             let videoSrc;
             if (VideoId) {
-                videoSrc = `https://www.youtube-nocookie.com/embed/${VideoId}?start=${timeInt}&modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=1`;
+                videoSrc = `https://www.youtube-nocookie.com/embed/${VideoId}?start=${timeInt}&modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=0`;
             } else {
-                videoSrc = `https://www.youtube-nocookie.com/embed/${match_video.linkVideo}?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=1`;
+                videoSrc = `https://www.youtube-nocookie.com/embed/${match_video.linkVideo}?modestbranding=1&disablekb=1&origin=http://localhost:8080&enablejsapi=1&disablekb=1&controls=0`;
             }
             videoIframe.src = videoSrc;
             videoIframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
@@ -132,7 +128,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                                         }, function (response) {
                                             console.log(response);
                                         });
-
+                                        videoIdMax = VideoId;
                                         if (progressPercentage >= 90) {
                                             nextButton.disabled = false;
                                             nextButton.style.opacity = 1;
@@ -167,12 +163,23 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                             'onReady': function (event) {
                                 event.target.pauseVideo();
                                 event.target.playVideo();
+
                             }
                         }
                     });
                 }
             };
-
+            document.addEventListener("keydown", function (event) {
+                if (event.ctrlKey) {
+                    event.preventDefault();
+                }
+                if (event.keyCode == 123) {
+                    event.preventDefault();
+                }
+            });
+            document.addEventListener('contextmenu', function (e) {
+                e.preventDefault();
+            });
 
             // Lấy thứ tự video đang phát dựa trên current_player.playerInfo.videoData.video_id
             if (VideoId) {
@@ -181,17 +188,15 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                     currentIndex = currentVideoIndex;
                     $scope.setid($scope.data[currentIndex].mucLuc.id);
                     var idFromSessionStorage = $window.sessionStorage.getItem('MucLuc');
-                    console.log($scope.data[currentIndex])
                     $scope.inputElement1 = $scope.data[currentIndex].tenVideo;
-                    console.log($scope.inputElement1)
 
 
                 } else {
                 }
             }
 
-
             videos.forEach((video, index) => {
+
                 video.classList.remove('active');
                 video.querySelector('img').src = '/img/play.svg';
                 if (index === currentIndex) {
@@ -210,6 +215,10 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         if (currentIndex < $scope.data.length) {
             const videos = document.querySelectorAll('.video');
             changeVideo(videos[currentIndex], videos, $scope);
+            $http.put('/api/tiendokhoahoc/uploadTienDoToiDa/' + value + '/' + idKhoaHoc + '/' + $scope.data[currentIndex].linkVideo)
+                .then(function (response) {
+                    console.log(response);
+                });
         }
     }
 
@@ -219,14 +228,13 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
             changeVideo(videos[currentIndex], videos, $scope);
         }
     }
-
+    var tienDoToiDa;
     function loadFirstVideo(videos, $scope) {
         if (videos.length > 0) {
             let firstVideo = videos[0];
             $http.get('/api/tiendokhoahoc/' + value + '/' + idKhoaHoc).then(function (response) {
                 $scope.tiendokhoahoc = response.data;
-
-
+                tienDoToiDa = $scope.tiendokhoahoc.tienDoToiDa;
                 if ($scope.tiendokhoahoc.tienDo != 0) {
                     const input = $scope.tiendokhoahoc.tienDo;
 
@@ -305,7 +313,6 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         }
     }
 
-
     // Hàm định dạng thời gian
     function formatTime(time) {
         let minutes = Math.floor(time / 60);
@@ -353,13 +360,23 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
     function setupVideoEvents($scope) {
         let videos = document.querySelectorAll('.video');
+        videos.forEach((video, index) => {
+            video.onclick = () => {
+                changeVideo(video, videos, $scope);
 
-        videos.forEach(selected_video => {
-            selected_video.onclick = () => {
-                changeVideo(selected_video, videos, $scope);
+                videos.forEach((v, index) => {
+                    v.classList.remove('active');
+                    v.querySelector('img').src = '/img/play.svg';
+                    if (index === currentIndex) {
+                        video.classList.add('active');
+                        video.querySelector('img').src = '/img/pause.svg';
+                    }
+                });
             };
         });
     }
+
+
 
 
 
@@ -383,28 +400,50 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                 }
                 return 0;
             });
-            console.log($scope.data);
+
             let index = 1;
-            $scope.data.forEach((video) => {
-                let video_element = `
-            <div class="video" data-id="${video.id}" data-disabled="true">
-                <img src="/img/play.svg" alt="">
-                <p>${index > 9 ? index : '0' + index}. </p>
-                <h3 class="title">${video.tenVideo}</h3>
-            </div>
-        `;
-                videoPlaylist.innerHTML += video_element;
-                index++;
+            let foundIndex = -1;
+            $scope.count = 0;
+            $scope.countDaHoc = 0;
+            $http.get('/api/tiendokhoahoc/' + value + '/' + idKhoaHoc).then(function (response) {
+                $scope.tiendokhoahoc = response.data;
+
+                // Find the index of the video with id equal to tiendokhoahoc.tiendotoida
+                $scope.data.forEach((video, i) => {
+                    if (video.linkVideo == $scope.tiendokhoahoc.tienDoToiDa) {
+                        foundIndex = i;
+                        return;
+                    }
+                });
+                $scope.count = $scope.data.length;
+                $scope.data.forEach((video) => {
+                    let disabled = (foundIndex !== -1 && index > foundIndex + 1);
+
+                    if (!disabled) {
+                        $scope.countDaHoc++; // Tăng biến đếm nếu video không bị vô hiệu hóa
+                    }
+
+                    let video_element = `
+                        <div class="video ${disabled ? 'disabled' : ''}" data-id="${video.id}" ${disabled ? 'data-disabled="true"' : ''}>
+                            <img src="/img/play.svg" alt="">
+                            <p>${index > 9 ? index : '0' + index}. </p>
+                            <h3 class="title">${video.tenVideo}</h3>
+                            ${disabled ? '<i class="fa fa-lock"></i>' : ''} <!-- Thêm icon khóa nếu video bị vô hiệu hóa -->
+                        </div>
+                    `;
+                    videoPlaylist.innerHTML += video_element;
+                    index++;
+                });
+                let videos = document.querySelectorAll('.video');
+                console.log(videos);
+                setupVideoEvents($scope);
+                loadFirstVideo(videos, $scope);
+            }).catch(error => {
+                console.error(error);
             });
-
-            let videos = document.querySelectorAll('.video');
-            setupVideoEvents($scope);
-            loadFirstVideo(videos, $scope);
-        }).catch(error => {
-            console.error(error);
         });
-
     }
+
 
 
     const nextVideoButton = document.getElementById('next-video');
@@ -452,6 +491,7 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
         }, function (response) {
             console.log(response);
         });
+
     });
 
     prevVideoButton.addEventListener('click', function () {
