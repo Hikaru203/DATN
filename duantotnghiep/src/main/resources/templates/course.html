@@ -172,7 +172,7 @@
 	<!-- Navbar End -->
 
 	<!-- Header Start -->
-	<div class="container-fluid page-header" style="margin-bottom: 90px;">
+	<div class="container-fluid page-header" style="margin-bottom: 20px;">
 		<div class="container">
 			<div class="d-flex flex-column justify-content-center" style="min-height: 200px">
 				<h3 class="display-4 text-white text-uppercase">Khoá học</h3>
@@ -190,11 +190,69 @@
 	<!-- Courses Start -->
 	<div class="container-fluid py-5">
 		<div class="container py-5">
-			<div class="text-center mb-5">
-				<h3 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các loại khóa học</h3>
+			<div class="row" style="background-color: #F2F1F8; align-items: center; height: 50px; margin-bottom: 20px;">
+				
+					<div class="col-md-7" ><label style="font-weight: bold;"><i class="fa fa-sort" aria-hidden="true"></i> Sắp xếp</label>
+						<button style="background: none; border: none;" onclick="sortTheoNguoi()">Học nhiều nhất</button>
+						<button style="background: none; border: none;" onclick="sortTheoNgay()">Mới nhất</button>
+						<button style="background: none; border: none;" onclick="sortTheoGiaTangDan()">Giá thấp đến cao</button>
+						<button style="background: none; border: none;" onclick="sortTheoGiaGiamDan()">Giá cao đến thấp</button>
+					</div>	
+					<div class="col-md-4" >
+						<form id="searchForm"  onsubmit="event.preventDefault(); searchCourses();">
+							<input type="text" class="timKiemKhoaHoc" id="keywordInput" placeholder="Tìm kiếm">
+							<button type="submit" class="btnTimKiemKhoaHoc"><i class="fa fa-search" aria-hidden="true"></i></button>
+						</form>
+						</div>
+					
+			</div>	
+				<div class=" text-center md-5">
+					<h3 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các loại khóa học</h3>
+				</div>			
+			
+			<style>
+				form{
+					
+					display: flex;
+					align-items: center;
+					margin-top: 0%;
 
-			</div>
-			<div class="row">
+				}
+				.selectgia{
+					margin-left: 100%;
+					width: 100px;
+					
+				}
+				.timKiemKhoaHoc {
+					border: 1px solid #000;
+					border-radius: 5px 0 0 5px;
+					padding: 8px;
+					font-size: 14px;
+					margin-right: 0; /* Đảm bảo không có margin bên phải */
+					outline: none; /* Loại bỏ đường viền khi focus */
+					width: 350px;
+				}
+		
+				.btnTimKiemKhoaHoc {
+					background-color: #ff6600;
+					color: #fff;
+					border: 1px solid #ff6600;
+					border-radius: 0 5px 5px 0;
+					padding: 8px 12px;
+					font-size: 14px;
+					cursor: pointer;
+					outline: none; /* Loại bỏ đường viền khi focus */
+				}
+		
+				/* Hover effect */
+				.btnTimKiemKhoaHoc:hover {
+					background-color: #b33f00;
+					border-color: #b33f00;
+				}
+			</style>
+			
+			
+			<div id="tte" class="row">
 				<div class="col-lg-4 col-md-6 mb-4" th:each="item, stat : ${courseOnline}">
 					<a th:href="@{'/courseOnline/detail/' + ${item.id}}">
 						<div class="rounded overflow-hidden mb-2" style="height: 400px;">
@@ -240,7 +298,18 @@
 						</div>
 					</a>
 				</div>
-
+				<script>
+					var priceElements = document.querySelectorAll("#price");
+					var currencyFormatter = new Intl.NumberFormat("vi-VN", {
+						style: "currency",
+						currency: "VND"
+					});
+					priceElements.forEach(function (element) {
+						var rawPrice = element.textContent.trim();
+						var formattedPrice = currencyFormatter.format(parseFloat(rawPrice));
+						element.textContent = formattedPrice;
+					});
+				</script>
 
 			</div>
 
@@ -311,6 +380,82 @@
 
 	<!-- JavaScript Libraries -->
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	
+<!-- Script xử lý AJAX -->
+<script>
+	function searchCourses() {
+		var keyword = $("#keywordInput").val();
+		// Gửi yêu cầu AJAX
+		$.ajax({
+			type: "GET",
+			url: "/courseOnline/index",
+			data: { keyword: keyword },
+			success: function(response) {
+				var newContent = $(response).find("#tte").html();
+				$("#tte").html(newContent);
+				// document.open();
+				// document.write(response);
+			},
+			error: function(error) {
+				console.log("Error:", error);
+			}
+		});
+		
+	}   
+	function sortTheoNguoi() {
+		$.ajax({
+			type: "GET",
+			url: "/courseOnline/Hot",
+			success: function(response) {
+				var newContent = $(response).find("#tte").html();
+				$("#tte").html(newContent);
+			},
+			error: function(error) {
+				console.log("Error:", error);
+			}
+		});
+	}
+	function sortTheoNgay() {
+		$.ajax({
+			type: "GET",
+			url: "/courseOnline/sapXepTheoNgay",
+			success: function(response) {
+				var newContent = $(response).find("#tte").html();
+				$("#tte").html(newContent);
+			},
+			error: function(error) {
+				console.log("Error:", error);
+			}
+		});
+	}
+	function sortTheoGiaGiamDan() {
+		$.ajax({
+			type: "GET",
+			url: "/courseOnline/sapXepGiaGiamDan",
+			success: function(response) {
+				var newContent = $(response).find("#tte").html();
+				$("#tte").html(newContent);
+			},
+			error: function(error) {
+				console.log("Error:", error);
+			}
+		});
+	}
+	function sortTheoGiaTangDan() {
+		$.ajax({
+			type: "GET",
+			url: "/courseOnline/sapXepGiaTangDan",
+			success: function(response) {
+				var newContent = $(response).find("#tte").html();
+				$("#tte").html(newContent);
+			},
+			error: function(error) {
+				console.log("Error:", error);
+			}
+		});
+	}
+	
+</script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 	<script src="/lib/easing/easing.min.js"></script>
 	<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
@@ -321,22 +466,12 @@
 
 	<!-- Template Javascript -->
 	<script src="/js/main.js"></script>
-	<script>
-		var priceElements = document.querySelectorAll("#price");
-		var currencyFormatter = new Intl.NumberFormat("vi-VN", {
-			style: "currency",
-			currency: "VND"
-		});
-		priceElements.forEach(function (element) {
-			var rawPrice = element.textContent.trim();
-			var formattedPrice = currencyFormatter.format(parseFloat(rawPrice));
-			element.textContent = formattedPrice;
-		});
-	</script>
+	
 	<script>
 		var app = angular.module('myApp', []);
 
 	</script>
+	
 	<script th:src="@{/js/loai.js}"></script>
 
 </body>
