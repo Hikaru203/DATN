@@ -71,12 +71,9 @@ public class CheckOutController {
 			HttpServletRequest request, @CookieValue(value = "username", defaultValue = "0") String userIdCookie,
 			@RequestParam("paymentMethod") String paymentMenThod, @RequestParam("idKhoaHoc") String idKhoaHoc,
 			@RequestParam("idNguoiDung") String idNguoiDung, @ModelAttribute("order") ThanhToan order,
-<<<<<<< HEAD
+
 			@RequestParam("tenKhoaHoc") String tenKhoaHoc,@RequestParam("emailUser") String emailUser) throws UnsupportedEncodingException {
-=======
-			@RequestParam("tenKhoaHoc") String tenKhoaHoc, @RequestParam("emailUser") String emailUser)
-			throws UnsupportedEncodingException {
->>>>>>> dev
+
 
 		String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 		String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
@@ -125,11 +122,7 @@ public class CheckOutController {
 		try {
 			Payment payment = service.executePayment(paymentId, payerId);
 			String transactionId = payment.getId();
-<<<<<<< HEAD
-			
-=======
 
->>>>>>> dev
 			if (payment.getState().equals("approved")) {
 
 				HttpSession session = request.getSession();
@@ -139,11 +132,7 @@ public class CheckOutController {
 				Double total = Double.parseDouble(session.getAttribute("totalprice").toString());
 				String tenKhoaHoc = (String) session.getAttribute("tenKhoaHoc".toString());
 				String emailUser = (String) session.getAttribute("emailUser".toString());
-<<<<<<< HEAD
-				
-=======
 
->>>>>>> dev
 				ThanhToan thanhToan = new ThanhToan();
 				
 				// Chuyển đối tượng NguoiDung từ idNguoiDung
@@ -183,14 +172,13 @@ public class CheckOutController {
 					model.addAttribute("dayTime", formattedDate);
 					model.addAttribute("total", formattedTotalAmount);
 					model.addAttribute("tenKhoaHocPayPal", tenKhoaHoc);
-<<<<<<< HEAD
+
 					
 					try {
 			            mailService.checkoutSendEmailPaypal(emailUser,transactionId,tenKhoaHoc,formattedTotalAmount,formattedDate,payerId);
 			        } catch (Exception e) {
 			            // TODO: handle exception
 			        }
-=======
 
 					try {
 						mailService.checkoutSendEmailPaypal(emailUser, transactionId, tenKhoaHoc, formattedTotalAmount,
@@ -198,7 +186,7 @@ public class CheckOutController {
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
->>>>>>> dev
+
 					return "success";
 				}
 			}
@@ -278,20 +266,13 @@ public class CheckOutController {
 			model.addAttribute("paymentTime", formattedPaymentTime);
 			model.addAttribute("Txnref", Txnref);
 			try {
-<<<<<<< HEAD
+
 	            mailService.checkoutSendEmailVnpay(emailUser,Txnref	,formattedTotalAmount,formattedPaymentTime);
 	        } catch (Exception e) {
 	            // TODO: handle exception
 	        }
-			
-			
-=======
-				mailService.checkoutSendEmailVnpay(emailUser, Txnref, formattedTotalAmount, formattedPaymentTime);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
 
->>>>>>> dev
+
 			// Chuyển hướng đến trang kết quả và hiển thị thông tin
 			return "ordersuccess";
 		}
