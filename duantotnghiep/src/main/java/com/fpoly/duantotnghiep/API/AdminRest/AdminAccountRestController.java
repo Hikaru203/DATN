@@ -75,4 +75,29 @@ public class AdminAccountRestController {
         nguoiDungRepository.deleteById(id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateNguoiDung(@PathVariable("id") int id, @RequestBody NguoiDung nguoiDung) {
+        NguoiDung currentNguoiDung = nguoiDungService.getNguoiDungById(id);
+        if (currentNguoiDung != null) {
+            currentNguoiDung.setThongBao(true);
+            NguoiDung updatedNguoiDung = nguoiDungService.save(currentNguoiDung);
+            return ResponseEntity.ok(updatedNguoiDung);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateNguoiDung1(@PathVariable("id") int id, @RequestBody NguoiDung nguoiDung) {
+        NguoiDung currentNguoiDung = nguoiDungService.getNguoiDungById(id);
+        if (currentNguoiDung != null) {
+            currentNguoiDung.setThongBao(true);
+            currentNguoiDung.setNhaSangTao(true);
+            NguoiDung updatedNguoiDung = nguoiDungService.save(currentNguoiDung);
+            return ResponseEntity.ok(updatedNguoiDung);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

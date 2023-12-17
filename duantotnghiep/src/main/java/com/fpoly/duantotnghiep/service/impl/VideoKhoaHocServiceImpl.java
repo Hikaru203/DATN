@@ -17,7 +17,6 @@ public class VideoKhoaHocServiceImpl implements VideoKhoaHocService {
 
 	@Override
 	public VideoKhoaHoc findByVideoKhoaHocId(Integer id) {
-		// TODO Auto-generated method stub
 		return VideoKhoaHocRepository.findById(id).get();
 	}
 

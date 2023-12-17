@@ -248,7 +248,7 @@
         <div class="buttons">
             <!-- Trong template HTML -->
             <!-- Button ban đầu sẽ bị vô hiệu hóa -->
-            <button ng-click="checkAnswers(); showErrors = true"
+            <button ng-click="checkAnswers(); showErrors = true" ng-show="showNopBai"
                 class="btn btn-success mx-auto d-block text-center mt-2" ng-disabled="isResultChecked">Nộp bài</button>
             <div class="text-center mt-2">
                 <!--<p ng-if="soCauDung !== undefined">Số câu đúng: {{soCauDung}}</p>
