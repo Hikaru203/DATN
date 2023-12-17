@@ -24,6 +24,7 @@ import com.fpoly.duantotnghiep.Entity.DangKyKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 import com.fpoly.duantotnghiep.Entity.NguoiDung;
 import com.fpoly.duantotnghiep.Entity.ThanhToan;
+import com.fpoly.duantotnghiep.config.MailService;
 import com.fpoly.duantotnghiep.config.VNPayService;
 import com.fpoly.duantotnghiep.service.DangKyKhoaHocService;
 import com.fpoly.duantotnghiep.service.PaypalService;
@@ -49,6 +50,9 @@ public class CheckOutController {
 	@Autowired
 	PaypalService service;
 
+	@Autowired
+	MailService mailService;
+
 	public static final String SUCCESS_URL = "success";
 	public static final String CANCEL_URL = "cancel";
 
@@ -67,7 +71,7 @@ public class CheckOutController {
 			HttpServletRequest request, @CookieValue(value = "username", defaultValue = "0") String userIdCookie,
 			@RequestParam("paymentMethod") String paymentMenThod, @RequestParam("idKhoaHoc") String idKhoaHoc,
 			@RequestParam("idNguoiDung") String idNguoiDung, @ModelAttribute("order") ThanhToan order,
-			@RequestParam("tenKhoaHoc") String tenKhoaHoc) throws UnsupportedEncodingException {
+			@RequestParam("tenKhoaHoc") String tenKhoaHoc,@RequestParam("emailUser") String emailUser) throws UnsupportedEncodingException {
 
 		String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 		String vnpayUrl = vnPayService.createOrder(orderTotal, orderInfo, baseUrl);
@@ -85,7 +89,7 @@ public class CheckOutController {
 						session.setAttribute("idKhoaHoc", idKhoaHoc);
 						session.setAttribute("totalprice", orderTotal);
 						session.setAttribute("tenKhoaHoc", tenKhoaHoc);
-
+						session.setAttribute("emailUser", emailUser);
 						return "redirect:" + link.getHref();
 					}
 				}
@@ -96,6 +100,7 @@ public class CheckOutController {
 			}
 			return "redirect:/";
 		} else {
+			session.setAttribute("emailUser", emailUser);
 			session.setAttribute("idNguoiDung", idNguoiDung);
 			session.setAttribute("idKhoaHoc", idKhoaHoc);
 			session.setAttribute("totalprice", orderTotal);
@@ -115,6 +120,7 @@ public class CheckOutController {
 		try {
 			Payment payment = service.executePayment(paymentId, payerId);
 			String transactionId = payment.getId();
+			
 			if (payment.getState().equals("approved")) {
 
 				HttpSession session = request.getSession();
@@ -123,8 +129,10 @@ public class CheckOutController {
 				Integer idKhoaHoc = Integer.parseInt(session.getAttribute("idKhoaHoc").toString());
 				Double total = Double.parseDouble(session.getAttribute("totalprice").toString());
 				String tenKhoaHoc = (String) session.getAttribute("tenKhoaHoc".toString());
+				String emailUser = (String) session.getAttribute("emailUser".toString());
+				
 				ThanhToan thanhToan = new ThanhToan();
-
+				
 				// Chuyển đối tượng NguoiDung từ idNguoiDung
 				NguoiDung nguoiDung = new NguoiDung();
 				nguoiDung.setId(idNguoiDung);
@@ -156,10 +164,17 @@ public class CheckOutController {
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					String formattedDate = dateFormat.format(new Date());
 
+					model.addAttribute("payerId", payerId);
 					model.addAttribute("transactionId", transactionId);
 					model.addAttribute("dayTime", formattedDate);
 					model.addAttribute("total", formattedTotalAmount);
 					model.addAttribute("tenKhoaHocPayPal", tenKhoaHoc);
+					
+					try {
+			            mailService.checkoutSendEmailPaypal(emailUser,transactionId,tenKhoaHoc,formattedTotalAmount,formattedDate,payerId);
+			        } catch (Exception e) {
+			            // TODO: handle exception
+			        }
 					return "success";
 				}
 			}
@@ -181,14 +196,14 @@ public class CheckOutController {
 			Integer idNguoiDung = Integer.parseInt(session.getAttribute("idNguoiDung").toString());
 			Integer idKhoaHoc = Integer.parseInt(session.getAttribute("idKhoaHoc").toString());
 			Double total = Double.parseDouble(session.getAttribute("totalprice").toString());
-
+			String emailUser = (String) session.getAttribute("emailUser".toString());
 			// Lấy thông tin từ request
 			String paymentTimeString = request.getParameter("vnp_PayDate");
 			String Txnref = request.getParameter("vnp_TxnRef");
 			String totalPrice = request.getParameter("vnp_Amount");
 			String orderInfo = URLDecoder.decode(request.getParameter("vnp_OrderInfo"),
 					StandardCharsets.UTF_8.toString());
-
+			
 			double totalAmount = Double.parseDouble(String.valueOf(Double.valueOf(totalPrice) / 100));
 			DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("vi", "VN"));
 			symbols.setDecimalSeparator(',');
@@ -238,7 +253,13 @@ public class CheckOutController {
 			model.addAttribute("totalPrice", formattedTotalAmount);
 			model.addAttribute("paymentTime", formattedPaymentTime);
 			model.addAttribute("Txnref", Txnref);
-
+			try {
+	            mailService.checkoutSendEmailVnpay(emailUser,Txnref	,formattedTotalAmount,formattedPaymentTime);
+	        } catch (Exception e) {
+	            // TODO: handle exception
+	        }
+			
+			
 			// Chuyển hướng đến trang kết quả và hiển thị thông tin
 			return "ordersuccess";
 		}

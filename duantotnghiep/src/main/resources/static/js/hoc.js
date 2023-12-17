@@ -220,8 +220,25 @@ app.controller('detail-controller', function ($scope, $http, $window) {
 
         }
     }
+      // Khai báo giá trị mặc định cho biến email
+    $scope.email = 'giatri_email_macdinh';
 
+    $scope.selectUser = function () {
+        $scope.idLogin = document.getElementById("idLogin").value;
+        $http.get('/rest/admin/NguoiDung/' + $scope.idLogin)
+            .then(function (response) {
+                $scope.user = response.data;
+                console.log($scope.user);
+                $scope.name = $scope.user.hoTen;
+                $scope.email = $scope.user.email;
+            })
+            .catch(function (error) {
+                console.error('Lỗi khi gửi yêu cầu:', error);
+            });
+    };
 
+   
+	$scope.selectUser();
     // Gọi hàm init để khởi tạo thông tin khóa học
     $scope.init();
 });
