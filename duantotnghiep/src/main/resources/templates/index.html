@@ -14,7 +14,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
-
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 	<!-- Font Awesome -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
@@ -131,27 +131,7 @@
 						<div class="nav-item dropdown" th:if="${session.user != null}">
 							<input type="text" id="idLogin" hidden th:value="${session.user.id}">
 
-							<style>
-								/* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
-								.dropdown-menu {
-									position: absolute;
-									background-color: #ff6600;
-									/* Màu nền */
-									border: 1px solid #ff6600;
-									/* Viền */
-									width: 200px;
-									/* Độ rộng */
-									box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-									/* Hiệu ứng bóng đổ */
-								}
-
-								.dropdown-item {
-									color: #fff;
-									/* Màu chữ */
-									font-size: 14px;
-									padding: 10px 20px;
-								}
-							</style>
+						
 							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
 								style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
 							<div class="dropdown-menu">
@@ -452,6 +432,14 @@
 
 	<!-- Template Javascript -->
 	<script src="/js/main.js"></script>
+	
+	<script>
+    // Thêm class animate__animated và animate__fadeIn khi trang được tải
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector('.container-fluid.d-none.d-lg-block').classList.add('animate__animated', 'animate__fadeIn');
+        document.querySelector('.container-fluid').classList.add('animate__animated', 'animate__fadeIn');
+    });
+</script>
 	<script>
 		var priceElements = document.querySelectorAll("#price");
 		var currencyFormatter = new Intl.NumberFormat("vi-VN", {

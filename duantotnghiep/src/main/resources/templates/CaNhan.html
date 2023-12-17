@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<title>PolyAcademy</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="Free HTML Templates" name="keywords">
+<meta content="Free HTML Templates" name="description">
+
+<!-- Favicon -->
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<!-- Font Awesome -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+	rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="/css/style.css" rel="stylesheet">
+</head>
+<style>
+     body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+  .background-section {
+    background-image: url('/img/1293108.jpg');
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 20px; /* Bo tròn cạnh viền */
+    width: 1100px;
+    height: 380px;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+
+     .user-info {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+   margin-left: 0px;
+    text-align: left;
+}
+
+.user-avatar-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #fff;
+    background-color: #fff;
+    margin-right: 16px; 
+    
+}
+
+.user-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    
+    
+        align-items: center;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+  
+    justify-content: center;
+ 
+
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column; /* Align username vertically */
+}
+
+.username {
+    font-size: 1.6rem;
+    margin: 0; /* Remove default margin */
+}
+
+
+        .navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-item {
+    margin-right: 10px; /* Điều chỉnh khoảng cách giữa các mục menu */
+}
+ .box-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .box {
+            width: 48%; /* Điều chỉnh độ rộng của box theo ý muốn */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1), 0 0 1px 0 rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 18px 14px;
+            word-break: break-word;
+        }
+        .user-avatar-container1 {
+         position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #fff;
+    background-color: #fff;
+    margin-right: 16px; /* Adjust the margin to create space between avatar and username */
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+.arrow-down {
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    transform: translate(50%, -50%);
+    cursor: pointer;
+}
+        
+</style>
+<body>
+
+
+
+
+    <div class="container-fluid d-none d-lg-block">
+    <div class="row align-items-center py-4 px-xl-5">
+        <div class="col-lg-3">
+            <a class="text-decoration-none" th:href="@{/courseOnline/index}" id="logoLink">
+                <h1 class="m-0">
+                    <span class="text-primary">Poly</span>Academy <i class="fas fa-arrow-left ml-2"></i>
+                </h1>
+            </a>
+        </div>
+        <ul class="navbar-nav ml-auto">
+      
+
+<div class="user-avatar-container1" id="userAvatarContainer1" onclick="toggleDropdown()">
+    <img class="user-avatar" src="/img/1293108.jpg" alt="User Avatar">
+   	<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+   	style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
+
+    <div class="dropdown-menu" id="dropdownMenu">
+        <a th:href="@{/courseOnline/updateAccount}" class="dropdown-item">Cập nhật tài khoản</a>
+        <a th:href="@{/Admin/User}" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
+        <a th:href="@{/logoff}" class="dropdown-item">Đăng xuất</a>
+    </div>
+</div>
+
+        </ul>
+    </div>
+</div>
+	<!-- Topbar End -->
+
+	<style>
+#logoLink:hover i {
+	transform: translateX(-5px); /* Di chuyển mũi tên sang trái khi hover */
+	transition: transform 0.3s ease; /* Hiệu ứng di chuyển mềm mại */
+}
+
+/* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
+.user-avatar-container1:hover .dropdown-menu {
+    display: block;
+}
+
+   
+
+        .dropdown-item {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #333;
+        }
+.navbar {
+	background-color: #3498db;
+}
+
+
+.box {
+            width: 48%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1), 0 0 1px 0 rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 18px 14px;
+            word-break: break-word;
+        }
+
+h2, .h2 {
+    font-size: 1.6rem;
+}
+  .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #fff;
+            background-color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .FallbackAvatar_avatar__gmj3S {
+            --font-size: 17.2px; /* Có thể cần chỉnh sửa dựa trên yêu cầu cụ thể */
+        }
+        
+        .FallbackAvatar_avatar__gmj3S img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .container {
+            width: 1912px;
+            height: 1000px;
+            overflow: hidden;
+        }
+</style>
+	<!-- Body -->
+<!-- Body -->
+    <div class="container">
+<div class="background-section">
+</div>
+
+<div class="user-info">
+    <div class="user-avatar-container">
+        <img class="user-avatar" src="/img/1293108.jpg" alt="User Avatar">
+    </div>
+    <div class="user-details">
+        <h2 th:if="${session.user != null}" class="username" th:text="${session.user.hoTen}">
+            Tên Người Dùng
+        </h2>
+    </div>
+</div>
+</div>
+
+		<!-- Phần avatar -->
+		
+	<!-- Footer Start -->
+	<div class="footer">
+
+		<div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5">
+			<div class="row pt-5">
+				<div class="col-lg-7 col-md-12">
+					<div class="row">
+						<div class="col-md-6 mb-5">
+							<h5 class="text-primary text-uppercase mb-4"
+								style="letter-spacing: 5px;">Liên hệ</h5>
+							<p>
+								<i class="fa fa-map-marker-alt mr-2"></i>22 Thường Thạnh, Khu
+								dân cư Hoàng Quân, Q. Cái Răng, TP. Cần Thơ
+							</p>
+							<p>
+								<i class="fa fa-phone-alt mr-2"></i>+012 345 67890
+							</p>
+							<p>
+								<i class="fa fa-envelope mr-2"></i>PolyAcademy@fpt.edu.vn
+							</p>
+							<div class="d-flex justify-content-start mt-4">
+								<a class="btn btn-outline-light btn-square mr-2" href="#"><i
+									class="fab fa-twitter"></i></a> <a
+									class="btn btn-outline-light btn-square mr-2" href="#"><i
+									class="fab fa-facebook-f"></i></a> <a
+									class="btn btn-outline-light btn-square mr-2" href="#"><i
+									class="fab fa-linkedin-in"></i></a> <a
+									class="btn btn-outline-light btn-square" href="#"><i
+									class="fab fa-instagram"></i></a>
+							</div>
+						</div>
+						<div class="col-md-6 mb-5">
+							<h5 class="text-primary text-uppercase mb-4"
+								style="letter-spacing: 5px;">Khoá học của chúng tôi</h5>
+							<div class="d-flex flex-column justify-content-start">
+								<a class="text-white mb-2" href="#"><i
+									class="fa fa-angle-right mr-2"></i>Thiết kế trang Web</a> <a
+									class="text-white mb-2" href="#"><i
+									class="fa fa-angle-right mr-2"></i>Phát triển phần mềm</a> <a
+									class="text-white mb-2" href="#"><i
+									class="fa fa-angle-right mr-2"></i>Kỹ năng học tập</a> <a
+									class="text-white mb-2" href="#"><i
+									class="fa fa-angle-right mr-2"></i>Pháp luật</a> <a
+									class="text-white" href="#"><i
+									class="fa fa-angle-right mr-2"></i>Tiếng Anh</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-5 col-md-12 mb-5">
+					<h5 class="text-primary text-uppercase mb-4"
+						style="letter-spacing: 5px;">PolyAcademy</h5>
+					<p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp
+						giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh,
+						sinh viên trên cả nước với chất lượng tốt nhất!</p>
+					<div class="w-100">
+						<div class="input-group">
+							<input type="text" class="form-control border-light"
+								style="padding: 30px;" placeholder="Hãy gửi Email cho chúng tôi">
+							<div class="input-group-append">
+								<button class="btn btn-primary px-4">Đăng ký</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script>
+
+
+function toggleDropdown() {
+    var dropdownMenu = document.getElementById("dropdownMenu");
+    dropdownMenu.classList.toggle("show");
+    var username = document.getElementById("username");
+    username.style.display = "none"; // Hide text when showing image
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function (event) {
+    if (!event.target.matches('.user-avatar')) {
+        var dropdowns = document.getElementsByClassName("dropdown-menu");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+                var username = document.getElementById("username");
+                username.style.display = "block"; // Show text when hiding image
+            }
+        }
+    }
+}
+
+
+</script>
+
+	<!-- Footer End -->
+
+	<!-- Footer End -->
+
+
+	<!-- Back to Top -->
+	<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+		class="fa fa-angle-double-up"></i></a>
+
+
+	<!-- JavaScript Libraries -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+	<script src="/lib/easing/easing.min.js"></script>
+	<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+	<!-- Contact Javascript File -->
+	<script src="/mail/jqBootstrapValidation.min.js"></script>
+	<script src="/mail/contact.js"></script>
+
+	<!-- Template Javascript -->
+	<script src="/js/main.js"></script>
+
+	<script>
+		// Thêm class animate__animated và animate__fadeIn khi trang được tải
+		document
+				.addEventListener(
+						"DOMContentLoaded",
+						function() {
+							document
+									.querySelector('.container-fluid.d-none.d-lg-block').classList
+									.add('animate__animated', 'animate__fadeIn');
+							document.querySelector('.container-fluid').classList
+									.add('animate__animated', 'animate__fadeIn');
+						});
+	</script>
+	<script>
+	function toggleDropdown() {
+	    var dropdownMenu = document.getElementById("dropdownMenu");
+	    dropdownMenu.classList.toggle("show");
+	}
+
+		var priceElements = document.querySelectorAll("#price");
+		var currencyFormatter = new Intl.NumberFormat("vi-VN", {
+			style : "currency",
+			currency : "VND"
+		});
+		priceElements
+				.forEach(function(element) {
+					var rawPrice = element.textContent.trim();
+					var formattedPrice = currencyFormatter
+							.format(parseFloat(rawPrice));
+					element.textContent = formattedPrice;
+				});
+	</script>
+	<script>
+		var app = angular.module('myApp', []);
+	</script>
+	<script th:src="@{/js/loai.js}"></script>
+</html>
