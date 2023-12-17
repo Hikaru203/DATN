@@ -67,7 +67,7 @@
                             <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
                                 <div ng-repeat="khoahoc in khoaHoc" style="color: black;"
                                     ng-if="khoahoc.duyet == true && khoahoc.trangThai=='false'">
-                                    <a href="detail/{{khoahoc.id}}"
+                                    <a th:href="@{/courseOnline/detail/{{khoahoc.id}}}"
                                         style="width: 100%; white-space: normal; display: block; color: black;"
                                         class="dropdown-item">{{khoahoc.tenKhoaHoc}}</a>
                                 </div>

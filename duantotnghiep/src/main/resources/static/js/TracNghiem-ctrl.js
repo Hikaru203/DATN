@@ -76,6 +76,7 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
     $scope.chungChi = {};
     // Để ẩn nút "Tiếp tục"
     $scope.showContinueButton = false;
+    $scope.showNopBai=true;
 
     // Hàm tính điểm
     $scope.checkAnswers = function () {
@@ -102,6 +103,7 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
                         console.log("Bạn đã hoàn thành bài thi");
                         // Hàm xử lý khi thay đổi khoá học
                         $scope.showContinueButton = true; // Nếu muốn hiển thị ban đầu
+                        $scope.showNopBai=false
                     } else {
                         $scope.msg = 'Bạn đã không hoàn thành bài thi';
                         console.log("Bạn đã không hoàn thành bài thi");

@@ -119,10 +119,10 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Trang</a>
                                 <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                    <a th:href="@{/courseOnline/contact}" class="dropdown-item active">Đăng ký nhà sáng
-                                        tạo</a>
+                                    <a th:href="@{/courseOnline/contact}" class="dropdown-item">Đăng ký nhà sáng tạo</a>
 
-                                    <a th:href="@{/courseOnline/uploademo}" class="dropdown-item">Đăng khoá học</a>
+                                    <a th:href="@{/courseOnline/uploademo}" class="dropdown-item active">Đăng khoá
+                                        học</a>
 
                                 </div>
                             </div>
@@ -171,7 +171,9 @@
             </div>
 
         </div>
+        <hr>
     </div>
+    
     <!-- Navbar End -->
 
     <!-- Contact Start -->
@@ -187,13 +189,11 @@
                 </h2>
                 <p class="lead">Hãy xác nhận để trở thành nhà sáng tạo của chúng tôi.</p>
             </div>
-
-
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" >
                 <div class="col-lg-8">
-                    <div class="contact-form bg-secondary rounded p-5">
+                    <div class="contact-form bg-secondary rounded p-5" style="background-color: #ff6600;">
                         <div id="success"></div>
-                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <form name="sentMessage" id="contactForm" novalidate="novalidate" >
                             <div class="control-group">
                                 <label for="videoTitle">
                                     <h4>Nhập tên của bạn:</h4>
@@ -326,22 +326,7 @@
         </div>
     </div>
     <!-- Contact End -->
-    <style>
-        /* CSS để thêm hiệu ứng mờ cho ảnh */
-        .bg-image {
-            position: absolute;
-            top: 15%;
-            left: 0;
-            width: 110%;
-            height: 115%;
-            background: url('/img/background1.jpg') center center no-repeat;
-            background-size: cover;
-            filter: blur(1px);
-            /* Điều chỉnh giá trị để tăng/giảm độ mờ */
-            z-index: -1;
-            /* Đảm bảo ảnh nằm dưới phần content */
-        }
-    </style>
+
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5">
