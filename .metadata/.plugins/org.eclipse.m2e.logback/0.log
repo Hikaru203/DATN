@@ -1577,3 +1577,15 @@
 2023-12-17 23:02:36,748 [Worker-241: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
 2023-12-17 23:02:36,858 [Worker-241: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
 2023-12-17 23:02:36,861 [Worker-241: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\pubgv\OneDrive\TaÌi liêòu\GitHub\DATN\duantotnghiep\src\test\resources
+2023-12-18 01:03:10,025 [Worker-258: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2023-12-18 01:03:10,207 [Worker-258: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 778 resources from src\main\resources to target\classes
+2023-12-18 01:03:10,720 [Worker-258: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\pubgv\OneDrive\TaÌi liêòu\GitHub\DATN\duantotnghiep\src\test\resources
+2023-12-18 01:12:18,862 [Worker-263: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2023-12-18 01:12:18,995 [Worker-263: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2023-12-18 01:12:19,000 [Worker-263: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\pubgv\OneDrive\TaÌi liêòu\GitHub\DATN\duantotnghiep\src\test\resources
+2023-12-18 01:23:03,746 [Worker-265: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2023-12-18 01:23:03,863 [Worker-265: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2023-12-18 01:23:03,866 [Worker-265: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\pubgv\OneDrive\TaÌi liêòu\GitHub\DATN\duantotnghiep\src\test\resources
+2023-12-18 01:24:00,608 [Worker-272: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2023-12-18 01:24:00,724 [Worker-272: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 10 resources from src\main\resources to target\classes
+2023-12-18 01:24:00,737 [Worker-272: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\pubgv\OneDrive\TaÌi liêòu\GitHub\DATN\duantotnghiep\src\test\resources
