@@ -255,77 +255,63 @@
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a th:href="@{/index}"><img class="main-logo" th:src="@{/Admin/img/logo/logo.png}" alt="" /></a>
-                <strong><a th:href="@{/index}"><img th:src="@{/Admin/img/logo/logosn.png}" alt="" /></a></strong>
+                <a th:href="@{/index}"><img class="main-logo" th:src="@{/img/LogoPLA.png}" style="width: 150px;"
+                        alt="" /></a>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
-                        <li>
-                            <a class="has-arrow" th:href="@{/Admin/index1}">
-                                <span class="educate-icon educate-home icon-wrap"></span>
-                                <span class="mini-click-non">Dashboard</span>
+                        <li><a class="has-arrow" th:href="@{/Admin/index1}"> <span
+                                    class="educate-icon educate-home icon-wrap"></span> <span
+                                    class="mini-click-non">Thống kê</span>
                             </a>
                             <ul class="submenu-angle" aria-expanded="true">
                                 <li><a title="Dashboard v.1" th:href="@{/Admin/ThongKe}"><span
-                                            class="mini-sub-pro">Thống
-                                            Kê</span></a></li>
+                                            class="mini-sub-pro">Thống Kê</span></a></li>
                             </ul>
                         </li>
 
-                        <li>
-                            <a class="has-arrow" th:href="@{/Admin/all-professors}" aria-expanded="false"><span
-                                    class="educate-icon educate-professor icon-wrap"></span> <span
-                                    class="mini-click-non">Professors</span></a>
+                        <li><a class="has-arrow" th:href="@{/Admin/all-professors}" aria-expanded="false"><span
+                                    class="educate-icon educate-professor icon-wrap"></span>
+                                <span class="mini-click-non">Người dùng</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="Edit Professor" th:href="@{/Admin/User}"><span class="mini-sub-pro">Quản
-                                            lý người
-                                            dùng</span></a></li>
-                                <li><a title="All Students" th:href="@{/Admin/User}"><span class="mini-sub-pro"> Quản Lí
-                                            Sinh
-                                            Viên</span></a></li>
+                                            lý người dùng</span></a></li>
+                                <li><a title="All Students" th:href="@{/Admin/HocVien}"><span class="mini-sub-pro"> Quản
+                                            Lí
+                                            Học Viên</span></a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" th:href="@{/Admin/KhoaHoc}" aria-expanded="false"><span
+                        <li><a class="has-arrow" th:href="@{/Admin/KhoaHoc}" aria-expanded="false"><span
                                     class="educate-icon educate-course icon-wrap"></span> <span
                                     class="mini-click-non">Khóa Học</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                               
                                 <li><a title="Add Courses" th:href="@{/Admin/EditKhoaHoc}"><span
-                                            class="mini-sub-pro">Thêm Khóa
-                                            Học</span></a></li>
+                                            class="mini-sub-pro">Thêm Khóa Học</span></a></li>
                                 <li><a title="Add Courses" th:href="@{/Admin/KenhKhoaHoc}"><span
-                                            class="mini-sub-pro">Kênh Khóa
-                                            Học</span></a></li>
-                                
+                                            class="mini-sub-pro">Kênh Khóa Học</span></a></li>
+
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" th:href="@{/Admin/TaiLieu}" aria-expanded="false"><span
+                        <li><a class="has-arrow" th:href="@{/Admin/TaiLieu}" aria-expanded="false"><span
                                     class="educate-icon educate-library icon-wrap"></span> <span
                                     class="mini-click-non">Tài Liệu</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="All Library" th:href="@{/Admin/TaiLieu}"><span class="mini-sub-pro">Quản
-                                            Lí Tài
-                                            Liệu</span></a></li>
+                                            Lí Tài Liệu</span></a></li>
                                 <li><a title="All Library" th:href="@{/Admin/CauHoi}"><span class="mini-sub-pro">Câu
-                                            Hỏi</span></a>
-                                </li>
+                                            Hỏi</span></a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a class="has-arrow" th:href="@{/Admin/ChungChi}" aria-expanded="false"><span
+                        <li><a class="has-arrow" th:href="@{/Admin/ChungChi}" aria-expanded="false"><span
                                     class="educate-icon educate-department icon-wrap"></span> <span
-                                    class="mini-click-non">Chứng Chỉ</span></a>
+                                    class="mini-click-non">Chúng nhận</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="ChungChi List" th:href="@{/Admin/ChungChi}"><span
-                                            class="mini-sub-pro">Chứng
-                                            Chỉ</span></a></li>
+                                            class="mini-sub-pro">Chúng nhận</span></a></li>
                             </ul>
                         </li>
-                        <li class="active">
-                            <a class="has-arrow" th:href="@{/Admin/Video}" aria-expanded="false"><span
+                        <li class="active"><a class="has-arrow" th:href="@{/Admin/Video}" aria-expanded="false"><span
                                     class="educate-icon educate-message icon-wrap"></span> <span
                                     class="mini-click-non">Video</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
@@ -338,7 +324,6 @@
             </div>
         </nav>
     </div>
-
 
     <script>
         // Lấy danh sách tất cả các mục menu có lớp "has-arrow"
@@ -619,7 +604,7 @@
                                                                             Video</button>
                                                                     </div>
                                                                 </div>
-                                                                <p>Giá trị order là: {{order}}</p>
+                                                                <p hidden>Giá trị order là: {{order}}</p>
 
                                                             </div>
                                                         </div>
@@ -627,10 +612,12 @@
                                                         <div class="container mt-4">
                                                             <!-- Button "Thêm" -->
                                                             <button class="btn btn-primary mr-2"
+                                                                style="background-color: #fefefe; color: black;"
                                                                 id="addButton">Thêm</button>
 
                                                             <!-- Button "Sửa" -->
                                                             <button class="btn btn-warning mr-2"
+                                                                style="background-color: #fefefe; color: black;"
                                                                 onclick="editFunction()">Sửa</button>
                                                         </div>
                                                     </div>
@@ -643,6 +630,8 @@
                                                     allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                                     allowfullscreen></iframe>
                                             </div>
+                                            <input type="text" id="idLogin" hidden th:value="${session.user.id}">
+
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="product-status mg-b-15">
                                                     <div class="container-fluid">
@@ -655,7 +644,6 @@
                                                                         <tr>
                                                                             <th>Khóa học</th>
                                                                             <th>tên Video</th>
-                                                                            <th>Thu Tu</th>
                                                                             <th>Tùy chỉnh</th>
                                                                         </tr>
                                                                         <tr ng-repeat="VideoWithTen in displayedItems">
@@ -665,9 +653,7 @@
                                                                                 {{VideoWithTen.tenVideo}}
                                                                             </td>
 
-                                                                            <td>
-                                                                                {{VideoWithTen.thuTu}}
-                                                                            </td>
+
                                                                             <td>
                                                                                 <span><a class="fa fa-trash-o"
                                                                                         aria-hidden="true"

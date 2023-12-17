@@ -52,6 +52,12 @@ public class KhoaHocClientRestController {
         return new ResponseEntity<>(khoaHocList, HttpStatus.OK);
     }
 
+    @GetMapping("/loaiKhoaHoc")
+    public ResponseEntity<List<LoaiKhoaHoc>> getAllLoaiKhoaHoc() {
+        List<LoaiKhoaHoc> loaiKhoaHocList = loaiKhoaHocRepository.findAll();
+        return new ResponseEntity<>(loaiKhoaHocList, HttpStatus.OK);
+    }
+
     @GetMapping("/loai/{loai}")
     public ResponseEntity<List<LoaiKhoaHoc>> getAllKhoaHocDuyet(@PathVariable Integer loai) {
         List<LoaiKhoaHoc> khoaHocList = loaiKhoaHocRepository.findAllById(loai);

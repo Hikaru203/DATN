@@ -65,12 +65,28 @@
         }
 
         .error {
-            background: linear-gradient(to right, #e12e1d, #f07c74);
+            background: #fefefe;
+            color: #000;
+            border: 2px red solid;
+            background-image: url('/Admin/img/icons8-error-48.png'); 
+            background-size: 20%;
+            background-position: center left;
+            background-repeat: no-repeat;
+            padding-left: 50px;
+            background-position-x: 10%;
             /* Gradient màu đỏ cho lỗi */
         }
 
         .success {
-            background: linear-gradient(to right, #00b09b, #96c93d);
+            background: #fefefe;
+            color: #000;
+            border: 2px green solid;  
+            background-image: url('/Admin/img/icons8-success-48.png'); 
+            background-size: 20%;
+            background-position: center left;
+            background-repeat: no-repeat;
+            padding-left: 50px;
+            background-position-x: 10%;
             /* Gradient màu xanh cho thành công */
         }
     </style>
@@ -138,7 +154,7 @@
             transition: background-color 0.2s;
         }
 
-        
+
 
         .video .title {
             font-size: 16px;
@@ -345,10 +361,10 @@
                         </li>
                         <li><a class="has-arrow" th:href="@{/Admin/ChungChi}" aria-expanded="false"><span
                                     class="educate-icon educate-department icon-wrap"></span> <span
-                                    class="mini-click-non">Chứng Chỉ</span></a>
+                                    class="mini-click-non">Chúng nhận</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="ChungChi List" th:href="@{/Admin/ChungChi}"><span
-                                            class="mini-sub-pro">Chứng Chỉ</span></a></li>
+                                            class="mini-sub-pro">Chúng nhận</span></a></li>
                             </ul>
                         </li>
                         <li><a class="has-arrow" th:href="@{/Admin/Video}" aria-expanded="false"><span
@@ -387,9 +403,41 @@
                                                     <div class="product-status mg-b-15">
                                                         <div class="container-fluid">
                                                             <div class="row">
+                                                                
                                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                                     <div class="product-status-wrap drp-lst">
+                                                                        
                                                                         <div class="asset-inner row">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <form>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-6">
+                                                                                                <div
+                                                                                                    class="form-group">
+                                                                                                    <input
+                                                                                                        name="tenKhoaHoc"
+                                                                                                        type="text"
+                                                                                                        ng-model="TimKhoaHoc.tenKhoaHoc"
+                                                                                                        class="form-control" placeholder="Nhập tên khóa học">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-md-6">
+                                                                                                <div
+                                                                                                    class="form-group">
+
+                                                                                                    <button
+                                                                                                        ng-click="timKiemKenhKhoaHoc()" style="background-color: #fefefe; color: black; border: 1px #888 solid; margin-top: 2%; margin-left: -10%; height: 30px;"><i class="fa fa-search" aria-hidden="true"></i>Tìm</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        
+                                                                                        </div>
+                                                                                        
+                                                                                            
+
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
                                                                             <div class="container">
 
                                                                                 <table>
@@ -401,8 +449,6 @@
 
                                                                                         <th>Người tạo</th>
                                                                                         <th>Image</th>
-                                                                                        <th>Duyệt</th>
-                                                                                        <th>Trạng thái</th>
                                                                                         <th>Tùy chỉnh </th>
                                                                                     </thead>
                                                                                     <tbody>
@@ -411,28 +457,13 @@
                                                                                             <td>{{ $index + 1 }}</td>
 
                                                                                             <td>{{item.tenKhoaHoc}}</td>
-                                                                                            <td>{{
-                                                                                                formatCurrency(item.chiPhi)
-                                                                                                }}</td>
-                                                                                            <td>{{item.nguoiTao.hoTen}}
-                                                                                            </td>
-                                                                                            <td> <img
-                                                                                                    ng-src="/Admin/img/{{item.hinhAnh}}"
-                                                                                                    alt=""> </td>
-                                                                                            <td>{{item.duyet}} <a
-                                                                                                    class="fa fa-lock"
-                                                                                                    aria-hidden="true"></a>
-                                                                                            </td>
-                                                                                            <td>{{item.trangThai}}</td>
-                                                                                            <td> <button
-                                                                                                    class="fa fa-eye"
-                                                                                                    aria-hidden="true"
-                                                                                                    ng-click="loadVideoKhoaHoc(item)">
-                                                                                                    Xem</button> ||
-                                                                                                <a class="fa fa-unlock"
-                                                                                                    aria-hidden="true"
-                                                                                                    ng-click="duyet(item)">
-                                                                                                    Duyệt</a>
+                                                                                            <td>{{ formatCurrency(item.chiPhi) }}</td>
+                                                                                            <td>{{item.nguoiTao.hoTen}} </td>
+                                                                                            <td> <img ng-src="/img/{{item.hinhAnh}}" alt=""> </td>
+                                                                                            <td> <button  class="btn btn-primary"
+                                                                                                    aria-hidden="true" ng-click="loadVideoKhoaHoc(item)" style="background-color: #fefefe; color: black;"><i class="fa fa-eye"></i> Xem</button> ||
+                                                                                                    <button class="btn btn-primary"
+                                                                                                    aria-hidden="true" ng-click="duyet(item)" style="background-color: #fefefe; color: black;"><i class="fa fa-check"></i> Duyệt</button>
                                                                                             </td>
                                                                                         </tr>
                                                                                     </tbody>
@@ -441,28 +472,18 @@
 
                                                                             </div>
                                                                             <div class="panel-footer text-center">
-                                                                                <button ng-click="trang.first()"
-                                                                                    class="btn btn-primary">
-                                                                                    <i
-                                                                                        class="fa fa-arrow-circle-up"></i>
+                                                                                <button ng-click="trang.first()" class="btn btn-primary" style="background-color: #fefefe; color: black;">
+                                                                                  <i class="fa fa-arrow-circle-up"></i>
                                                                                 </button>
-                                                                                <button ng-click="trang.prev()"
-                                                                                    class="btn btn-primary">
-                                                                                    <i
-                                                                                        class="fa fa-arrow-circle-left"></i>
+                                                                                <button ng-click="trang.prev()" class="btn btn-primary" style="background-color: #fefefe; color: black;">
+                                                                                  <i class="fa fa-arrow-circle-left"></i>
                                                                                 </button>
-                                                                                <button
-                                                                                    class="btn btn-success">{{pager.page
-                                                                                    +1}} of {{pager.count}}</button>
-                                                                                <button ng-click="trang.next()"
-                                                                                    class="btn btn-primary">
-                                                                                    <i
-                                                                                        class="fa fa-arrow-circle-right"></i>
+                                                                                <button class="btn btn-success" style="background-color: #fefefe; color: black;">{{trang.page2 +1}} of {{trang.count2}}</button>
+                                                                                <button ng-click="trang.next()" class="btn btn-primary" style="background-color: #fefefe; color: black;">
+                                                                                  <i class="fa fa-arrow-circle-right"></i>
                                                                                 </button>
-                                                                                <button ng-click="trang.last()"
-                                                                                    class="btn btn-primary">
-                                                                                    <i
-                                                                                        class="fa fa-arrow-circle-down"></i>
+                                                                                <button ng-click="trang.last()" class="btn btn-primary" style="background-color: #fefefe; color: black;">
+                                                                                  <i class="fa fa-arrow-circle-down"></i>
                                                                                 </button>
                                                                             </div>
 
@@ -494,32 +515,67 @@
                             </section>
                             <section class="video-playlist">
                                 <h3 class="title">Các bài học</h3>
-                                <div class="videos"></div>
+                                <div class="videos">
                                 <table>
                                     <style>
-                                        .tieude {
+                                        .tieude{
                                             font-size: 23px;
                                             padding-left: 50px;
                                         }
+                                       
 
-                                        tbody tr:hover td {
-                                            background-color: #f2f2f2;
-                                            /* Màu nền khi di chuột qua */
-                                        }
+                                    /* Định dạng các ô chứa thông tin video */
+                                    .video-item {
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: space-between;
+                                        border: 1px black solid;
+                                        margin-bottom: 10px; /* Khoảng cách giữa các ô */
+                                        padding: 10px; /* Khoảng cách bên trong mỗi ô */
+                                    }
 
-                                        tbody tr:hover td:hover {
-                                            background-color: #d9d9d9;
-                                            /* Màu nền khi di chuột qua và click */
-                                        }
+                                    /* Định dạng icon */
+                                    .video-item .icon {
+                                        flex-shrink: 0; /* Ngăn chặn icon bị bóp méo */
+                                        margin-right: 10px; /* Khoảng cách giữa icon và nội dung văn bản */
+                                    }
+
+                                    .video-item .icon img {
+                                        width: 30px; /* Độ rộng của icon */
+                                        height: 30px; /* Chiều cao của icon */
+                                        border-radius: 50%; /* Bo tròn icon */
+                                    }
+
+                                    /* Định dạng nội dung văn bản */
+                                    .video-item .content {
+                                        flex-grow: 1; /* Cho phép nội dung mở rộng để điền vào không gian còn trống */
+                                    }
+
+                                    .video-item .video-info {
+                                        font-size: 18px; /* Kích thước font cho nội dung văn bản */
+                                        margin: 0; /* Loại bỏ margin mặc định */
+                                    }
+                                    .video-playlist .videos {
+                                        max-height: 439px; /* Đặt giới hạn chiều cao của phần hiển thị */
+                                        overflow-y: auto; /* Hiển thị thanh cuộn khi nội dung vượt quá giới hạn */
+                                    }
+
                                     </style>
                                     <tbody>
-                                        <tr ng-repeat="item in itemsVideoKhoaHoc" ng-click="xem(item)">
-                                            <td style=" font-size: 23px;">Bài {{ $index + 1 }}: {{item.tenVideo}}</td>
-                                        </tr>
+                                        <div class="video-item" ng-repeat="item in itemsVideoKhoaHoc" ng-click="xem(item)">
+                                            <div class="icon">
+                                                <img src="/Admin/img/play.jpg" alt="Gallery Icon">
+                                            </div>
+                                            <div class="content">
+                                                <p class="video-info">Bài {{ $index + 1 }}: {{item.tenVideo}}</p>
+                                            </div>
+                                        </div>
+                                        
+                                                                             
                                     </tbody>
-
+                                    
                                 </table>
-
+                                </div>
                             </section>
                         </main>
                         <script>

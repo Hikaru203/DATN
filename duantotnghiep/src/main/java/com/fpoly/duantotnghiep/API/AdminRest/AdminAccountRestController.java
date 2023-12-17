@@ -52,6 +52,22 @@ public class AdminAccountRestController {
         return ResponseEntity.ok(addedNguoiDung);
     }
 
+    @PostMapping("/them")
+    public ResponseEntity<?> addNguoiDung(NguoiDung nguoiDung, MultipartFile file) {
+        try {
+            NguoiDung addedNguoiDung = nguoiDungService.addNguoiDung(nguoiDung, file);
+            return ResponseEntity.ok(addedNguoiDung);
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body("Lỗi khi lưu file hình ảnh: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/them1")
+    public ResponseEntity<?> addNguoiDung1(@RequestBody NguoiDung nguoiDung) {
+        NguoiDung addedNguoiDung = nguoiDungService.save(nguoiDung);
+        return ResponseEntity.ok(addedNguoiDung);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<NguoiDung> layNguoiDung(@PathVariable("id") int id) {
         NguoiDung nguoiDung = nguoiDungService.getNguoiDungById(id);
@@ -91,5 +107,30 @@ public class AdminAccountRestController {
         }
     }
 
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateNguoiDung(@PathVariable("id") int id, @RequestBody NguoiDung nguoiDung) {
+        NguoiDung currentNguoiDung = nguoiDungService.getNguoiDungById(id);
+        if (currentNguoiDung != null) {
+            currentNguoiDung.setThongBao(true);
+            NguoiDung updatedNguoiDung = nguoiDungService.save(currentNguoiDung);
+            return ResponseEntity.ok(updatedNguoiDung);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateNguoiDung1(@PathVariable("id") int id, @RequestBody NguoiDung nguoiDung) {
+        NguoiDung currentNguoiDung = nguoiDungService.getNguoiDungById(id);
+        if (currentNguoiDung != null) {
+            currentNguoiDung.setThongBao(true);
+            currentNguoiDung.setNhaSangTao(true);
+            NguoiDung updatedNguoiDung = nguoiDungService.save(currentNguoiDung);
+            return ResponseEntity.ok(updatedNguoiDung);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 }
