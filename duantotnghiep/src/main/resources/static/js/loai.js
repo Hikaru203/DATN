@@ -28,3 +28,27 @@ app.controller('DanhMuc-Ctrl', function ($scope, $http) {
 		
     $scope.selectLoai();
 });
+document.addEventListener("keydown", function (event) {
+    if (event.ctrlKey) {
+        event.preventDefault();
+    }
+    if (event.keyCode == 123) {
+        event.preventDefault();
+    }
+});
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+});
+function killCopy(e) {
+    return false;
+}
+
+function reEnable() {
+    return true;
+}
+document.onselectstart = new Function("return false");
+
+if (window.sidebar) {
+    document.onmousedown = killCopy;
+    document.onclick = reEnable;
+}
