@@ -3,3 +3,7 @@
 2023-12-16 01:39:58,933 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
 2023-12-16 01:39:58,957 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 774 resources from src\main\resources to target\classes
 2023-12-16 01:39:59,990 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\pubgv\OneDrive\TaÌi liêòu\GitHub\DATN\duantotnghiep\src\test\resources
+2023-12-17 14:14:17,832 [Worker-8: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2023-12-17 14:14:25,100 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2023-12-17 14:14:25,148 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 775 resources from src\main\resources to target\classes
+2023-12-17 14:14:26,521 [Worker-2: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\pubgv\OneDrive\TaÌi liêòu\GitHub\DATN\duantotnghiep\src\test\resources
