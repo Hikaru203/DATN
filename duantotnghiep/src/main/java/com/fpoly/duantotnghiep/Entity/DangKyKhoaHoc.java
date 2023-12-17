@@ -43,5 +43,10 @@ public class DangKyKhoaHoc {
 	
     @Column(name = "trang_thai")
     private String trangThai;
+
+	@Column(name = "tien_do_toi_da")
+    private String tienDoToiDa;
 	// Getters and Setters
+
+
 }
