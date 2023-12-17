@@ -90,11 +90,13 @@ signupForm.addEventListener('submit', function (event) {
                 })
                 .then(data => {
                   if (data) {
-                    showSuccessMessage("succes", "Đăng ký thành công", 'Vui lòng xác nhận để đăng nhập')
-          
-                    // alert('Đăng ký thành công');
-                    // Redirect người dùng đến trang đăng nhập
-                    location.href = 'http://localhost:8080/courseOnline/dangnhap';
+                    showSuccessMessage("success", "Đăng ký thành công", 'Vui lòng xác nhận để đăng nhập')
+  
+                    Noway();
+                    setTimeout(function() {
+                      window.location.href = '/courseOnline/dangnhap'; // Replace with the actual path to your login page
+                  }, 2000);
+
                   } else {
                     showSuccessMessage("error", "Đăng ký không thành công", 'Vui lòng thử lại')
 
