@@ -1,17 +1,27 @@
 package com.fpoly.duantotnghiep.config;
 
+
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class MailService {
+	public static final String EMAIL_TEMPLATE = "emailtemplate";
+	public static final String EMAIL_TEMPLATE2 = "emailtemplate2";
     @Autowired
     JavaMailSender sender;
-
+    private final TemplateEngine templateEngine;
+    
     public void activeAccountEmail(String email, String fullName, String url) throws Exception {
         try {
             // Tạo message
@@ -21,6 +31,8 @@ public class MailService {
             helper.setFrom("phuongnhpc03087@fpt.edu.vn");
             helper.setTo(email);
             helper.setSubject("XÁC MINH TÀI KHOẢN");
+            Context context = new Context();
+            String text = templateEngine.process(EMAIL_TEMPLATE, context);
             helper.setText("<!DOCTYPE html>\r\n" + "<html>\r\n" + "<head>\r\n"
                     + "    <title>Xác minh tài khoản</title>\r\n" + "    <style>\r\n" + "        body {\r\n"
                     + "            font-family: Arial, sans-serif;\r\n" + "            color: #333333;\r\n"
@@ -124,5 +136,46 @@ public class MailService {
         } catch (Exception e) {
             throw e;
         }
+    }
+    public void checkoutSendEmailPaypal(String email,String transactionId,String tenKhoaHoc,String formattedTotalAmount,String formattedDate,String payerId) throws Exception {
+    	try {
+    		  // Tạo message
+            MimeMessage message = sender.createMimeMessage();
+            // Sử dụng Helper để thiết lập các thông tin cần thiết cho message
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            Context context = new Context();
+            context.setVariables(Map.of("transactionId", transactionId, "tenKhoaHoc",tenKhoaHoc,"formattedTotalAmount",formattedTotalAmount,"formattedDate",formattedDate,"payerId",payerId ));
+            String text = templateEngine.process(EMAIL_TEMPLATE, context);
+            
+            helper.setFrom("phuongnhpc03087@fpt.edu.vn");
+            helper.setTo(email);
+            helper.setSubject("Đơn hàng tại Polyacademy đã được thanh toán!");
+            helper.setText(text,true);
+            sender.send(message);
+		} catch (Exception e) {
+			throw e;
+		}
+    	
+    }
+    
+    public void checkoutSendEmailVnpay(String email,String Txnref,String formattedTotalAmount,String formattedDate) throws Exception {
+    	try {
+    		  // Tạo message
+            MimeMessage message = sender.createMimeMessage();
+            // Sử dụng Helper để thiết lập các thông tin cần thiết cho message
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            Context context = new Context();
+            context.setVariables(Map.of("Txnref", Txnref,"formattedTotalAmount",formattedTotalAmount,"formattedDate",formattedDate ));
+            String text = templateEngine.process(EMAIL_TEMPLATE2, context);
+            
+            helper.setFrom("phuongnhpc03087@fpt.edu.vn");
+            helper.setTo(email);
+            helper.setSubject("Đơn hàng tại Polyacademy đã được thanh toán!");
+            helper.setText(text,true);
+            sender.send(message);
+		} catch (Exception e) {
+			throw e;
+		}
+    	
     }
 }
