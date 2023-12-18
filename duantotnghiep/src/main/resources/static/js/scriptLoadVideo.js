@@ -7,6 +7,8 @@ let idMucluc;
 app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', function ($scope, $http, $cookies, $window) {
     $scope.items = [];
     $scope.tiendokhoahoc = [];
+    var idKhoaHocTuDetail = sessionStorage.getItem('khoaHocId');
+    var idVideoTuDetail = sessionStorage.getItem('videoIdKhoaHoc');
     $scope.getid = function (id) {
         $window.sessionStorage.setItem('videoId', id);
         $window.location.href = '/courseOnline/video';
@@ -14,6 +16,9 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
     $scope.setid = function (id) {
         $window.sessionStorage.setItem('MucLuc', id);
+    }
+    $scope.deletesession = function (id) {
+        $window.sessionStorage.removeItem();
     }
 
 
@@ -248,46 +253,53 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                         return;
                     }
                     let needConfirmation = true; // Biến kiểm tra cần hiển thị hộp thoại hay không
+                    if (idKhoaHocTuDetail) {
+                        const { videoId, time } = extractVideoIdAndTime(input);
+                        changeVideo(firstVideo, videos, $scope, idVideoTuDetail, time);
+                        sessionStorage.removeItem('videoIdKhoaHoc');
+                        sessionStorage.removeItem('khoaHocId');
 
-                    // Kiểm tra điều kiện nếu cần hiển thị hộp thoại
-                    if (needConfirmation) {
-                        const overlay = document.createElement('div');
-                        overlay.id = 'overlay';
-                        document.body.appendChild(overlay);
+                    } else {
+                        // Kiểm tra điều kiện nếu cần hiển thị hộp thoại
+                        if (needConfirmation) {
+                            const overlay = document.createElement('div');
+                            overlay.id = 'overlay';
+                            document.body.appendChild(overlay);
 
-                        const dialogBox = document.createElement('div');
-                        dialogBox.id = 'dialog-box';
-                        dialogBox.innerHTML = 'Bạn có muốn tiếp tục học không?';
+                            const dialogBox = document.createElement('div');
+                            dialogBox.id = 'dialog-box';
+                            dialogBox.innerHTML = 'Bạn có muốn tiếp tục học không?';
 
-                        const yesButton = document.createElement('button');
-                        yesButton.id = 'yes-button';
-                        yesButton.innerHTML = 'Có';
+                            const yesButton = document.createElement('button');
+                            yesButton.id = 'yes-button';
+                            yesButton.innerHTML = 'Có';
 
-                        const noButton = document.createElement('button');
-                        noButton.id = 'no-button';
-                        noButton.innerHTML = 'Không';
+                            const noButton = document.createElement('button');
+                            noButton.id = 'no-button';
+                            noButton.innerHTML = 'Không';
 
 
-                        dialogBox.appendChild(yesButton);
-                        dialogBox.appendChild(noButton);
-                        overlay.appendChild(dialogBox);
+                            dialogBox.appendChild(yesButton);
+                            dialogBox.appendChild(noButton);
+                            overlay.appendChild(dialogBox);
 
-                        yesButton.addEventListener('click', function () {
-                            overlay.style.display = 'none';
+                            yesButton.addEventListener('click', function () {
+                                overlay.style.display = 'none';
+                                const { videoId, time } = extractVideoIdAndTime(input);
+                                changeVideo(firstVideo, videos, $scope, videoId, time);
+
+                            });
+
+                            noButton.addEventListener('click', function () {
+                                overlay.style.display = 'none';
+                                const { videoId, time } = extractVideoIdAndTime(input);
+                                changeVideo(firstVideo, videos, $scope);
+                            });
+                        } else {
+                            // Nếu không cần hiển thị hộp thoại, thực hiện các hành động khác trực tiếp
                             const { videoId, time } = extractVideoIdAndTime(input);
                             changeVideo(firstVideo, videos, $scope, videoId, time);
-
-                        });
-
-                        noButton.addEventListener('click', function () {
-                            overlay.style.display = 'none';
-                            const { videoId, time } = extractVideoIdAndTime(input);
-                            changeVideo(firstVideo, videos, $scope);
-                        });
-                    } else {
-                        // Nếu không cần hiển thị hộp thoại, thực hiện các hành động khác trực tiếp
-                        const { videoId, time } = extractVideoIdAndTime(input);
-                        changeVideo(firstVideo, videos, $scope, videoId, time);
+                        }
                     }
                 } else {
                     firstVideo = videos[0];
@@ -378,13 +390,12 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
 
 
 
-
-
-
-
     $scope.loadvideo = function () {
         var storedId = $window.sessionStorage.getItem('videoId');
         var url = `/rest/loadVideo/get-video-id/${storedId}`;
+        if (idKhoaHoc != null) {
+            url = `/rest/loadVideo/get-video-id/${idKhoaHoc}`;
+        }
         $http.get(url).then(response => {
             $scope.data = response.data;
 

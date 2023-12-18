@@ -77,6 +77,9 @@ public class CourseOnlineRestController {
 			listCauHoi.addAll(mucLucCauHoi);
 
 		}
+		List<DangKyKhoaHoc> listDangKy = dangKyKhoaHocService.findBykhHocId(id);
+
+		response.setDangKyKhoaHoc(listDangKy);
 
 		response.setVideoKhoaHoc(listVideo);
 		response.setCourseOnline(khoaHoc);

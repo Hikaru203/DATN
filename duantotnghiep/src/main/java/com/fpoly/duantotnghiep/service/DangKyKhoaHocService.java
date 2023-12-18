@@ -10,4 +10,6 @@ public interface DangKyKhoaHocService {
     List<DangKyKhoaHoc> findAll();
 
     DangKyKhoaHoc findByNguoiDungIdAndKhoaHocId(int idNguoiDung, int idKhoaHoc);
+
+    List<DangKyKhoaHoc> findBykhHocId(int id);
 }

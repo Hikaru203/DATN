@@ -357,14 +357,24 @@
                                                             <i class="fa fa-video-camera"></i>
                                                         </div>
 
-                                                        <span ng-bind="video.tenVideo" ng-value="video.id"
-                                                            class="videoLink " ng-click="getId(video.id)"
-                                                            style="padding-left: 0px; cursor: pointer; color: black;"
-                                                            ng-mouseover="video.color = 'red'"
-                                                            ng-mouseout="video.color = 'black'"
-                                                            ng-style="{'color': video.color || 'black'}"></span>
+                                                        <!-- Kiểm tra nếu video có trong slicedArray thì cho nhấn, ngược lại là bị khóa -->
+                                                        <a href=""
+                                                            ng-click="getid2(video.mucLuc.khoaHoc.id, video.linkVideo)"
+                                                            ng-if="slicedArray.indexOf(video) !== -1">
+                                                            <span ng-bind="video.tenVideo" ng-value="video.id"
+                                                                class="videoLink"
+                                                                style="padding-left: 0px; cursor: pointer; color: black;"
+                                                                ng-mouseover="video.color = 'red'"
+                                                                ng-mouseout="video.color = 'black'"
+                                                                ng-style="{'color': video.color || 'black'}"></span>
+                                                        </a>
+
+                                                        <span ng-if="slicedArray.indexOf(video) === -1"
+                                                            ng-bind="video.tenVideo" class="videoLink"
+                                                            style="padding-left: 0px; color: gray;"></span>
                                                     </div>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -489,6 +499,18 @@
                                             style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden;"
                                             alt="old avatar" />
                                     </div>
+                                    <style>
+                                        .inline-buttons {
+                                            display: flex;
+                                            align-items: center;
+                                            /* Căn các phần tử theo chiều dọc */
+                                        }
+
+                                        .inline-buttons a {
+                                            margin-right: 10px;
+                                            /* Khoảng cách giữa các nút */
+                                        }
+                                    </style>
                                     <div style="margin-top: 15px;">
                                         <strong ng-bind="dienDan.nguoiDang.hoTen"></strong>
                                         <!-- Viết hoa tên người dùng -->
@@ -498,10 +520,11 @@
                                         <div class="inline-buttons">
                                             <a class="reply-button" type="submit"
                                                 ng-click="toggleReplyInput(dienDan)">Trả lời</a>
-                                            <div ng-if="dienDan.nguoiDang.id === NguoiDung.id">
+                                            <div ng-if="dienDan.nguoiDang.id == NguoiDung.id">
                                                 <a class="reply-button" ng-click="deleteDienDan(dienDan)">Xóa</a>
                                             </div>
                                         </div>
+
 
 
                                     </div>
@@ -814,7 +837,7 @@
                                             const element = document.getElementById('certificateContent');
 
                                             const options = {
-                                                filename: 'chung_chi.pdf',
+                                                filename: 'chung_nhan.pdf',
                                                 image: { type: 'jpeg', quality: 0.98 },
                                                 html2canvas: { scale: 1 }, // Điều chỉnh scale tại đây để nội dung vừa với trang giấy
                                                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
@@ -837,7 +860,7 @@
                                 align-items: center;
                             }
 
-                            
+
 
                             .qr-code-container {
                                 width: 200px;

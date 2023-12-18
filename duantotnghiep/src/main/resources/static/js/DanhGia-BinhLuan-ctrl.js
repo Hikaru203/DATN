@@ -68,12 +68,13 @@ app.controller('DanhGia-BinhLuan-ctrl', function ($scope, $http, $window) {
         return new Array(roundedRating);
     };
 
-
+    $scope.NguoiDung = [];
     $scope.init = function () {
         $http.get('/rest/admin/NguoiDung/' + value)
             .then(function (response) {
                 $scope.nguoiDang = response.data;
                 console.log($scope.nguoiDang);
+                $scope.NguoiDung = response.data;
             });
 
 
@@ -180,51 +181,87 @@ app.controller('DanhGia-BinhLuan-ctrl', function ($scope, $http, $window) {
     }
 
     $scope.deleteDienDan = function (dienDan) {
-        if (confirm("Bạn có chắc chắn muốn xóa bài đăng này?")) {
-            // Lấy danh sách bình luận liên quan đến bài đăng
-            $http.get('/api/binhluan')
-                .then(function (response) {
-                    $scope.BinhLuanList = response.data;
-                    var deletePromises = [];
+        $scope.showSuccessMessage(
+            "Xác nhận xóa bài đăng",
+            "Bạn có chắc chắn muốn xóa bài đăng này?",
+            function () {
+                // Lấy danh sách bình luận liên quan đến bài đăng
+                $http.get('/api/binhluan')
+                    .then(function (response) {
+                        $scope.BinhLuanList = response.data;
+                        var deletePromises = [];
 
-                    // Tạo một mảng các promise cho việc xóa bình luận
-                    for (var j = 0; j < $scope.BinhLuanList.length; j++) {
-                        if ($scope.BinhLuanList[j].baiDang.id === dienDan.id) {
-                            deletePromises.push(
-                                $http.delete('/api/binhluan/' + $scope.BinhLuanList[j].id)
-                            );
+                        // Tạo một mảng các promise cho việc xóa bình luận
+                        for (var j = 0; j < $scope.BinhLuanList.length; j++) {
+                            if ($scope.BinhLuanList[j].baiDang.id === dienDan.id) {
+                                deletePromises.push(
+                                    $http.delete('/api/binhluan/' + $scope.BinhLuanList[j].id)
+                                );
+                            }
                         }
-                    }
 
-                    // Sử dụng Promise.all để chờ tất cả các promise hoàn thành
-                    Promise.all(deletePromises)
-                        .then(function (responses) {
-                            console.log(responses); // In ra kết quả của việc xóa bình luận
-                        })
-                        .catch(function (error) {
-                            console.error(error); // Xử lý lỗi nếu có
-                        });
+                        // Sử dụng Promise.all để chờ tất cả các promise hoàn thành
+                        Promise.all(deletePromises)
+                            .then(function (responses) {
+                                console.log(responses); // In ra kết quả của việc xóa bình luận
+                            })
+                            .catch(function (error) {
+                                console.error(error); // Xử lý lỗi nếu có
+                            });
 
-                    // Sau khi xóa bình luận, bạn có thể xóa diễn đàn ở đây
-                    $http.delete('/api/diendan/' + dienDan.id)
-                        .then(function (response) {
-                            console.log(response);
-                            $scope.reset();
-                            $scope.init();
-                        });
-                });
-        }
-    }
+                        // Sau khi xóa bình luận, bạn có thể xóa diễn đàn ở đây
+                        $http.delete('/api/diendan/' + dienDan.id)
+                            .then(function (response) {
+                                console.log(response);
+                                $scope.reset();
+                                $scope.init();
+                            });
+                    });
+            },
+            function () {
+                // Hành động khi người dùng hủy bỏ
+                console.log("Hủy bỏ xóa bài đăng");
+                // Có thể thêm hành động khác nếu người dùng hủy bỏ xóa bài đăng
+            }
+        );
+    };
+    $scope.showSuccessMessage = function (title, message, onConfirm, onCancel) {
+        Swal.fire({
+            icon: 'question', // Thay đổi icon thành 'question' cho hiển thị biểu tượng suy nghĩ
+            title: title,
+            text: message,
+            showCancelButton: true,
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed && typeof onConfirm === 'function') {
+                onConfirm(); // Gọi hàm callback khi người dùng xác nhận
+            } else if (result.dismiss === Swal.DismissReason.cancel && typeof onCancel === 'function') {
+                onCancel(); // Gọi hàm callback khi người dùng hủy
+            }
+        });
+    };
+
     $scope.deleteBinhLuan = function (binhLuan) {
-        if (confirm("Bạn có chắc chắn muốn xóa bình luận này?")) {
-            $http.delete('/api/binhluan/' + binhLuan.id)
-                .then(function (response) {
-                    console.log(response);
-                    $scope.reset();
-                    $scope.init();
-                });
-        }
-    }
+        $scope.showSuccessMessage(
+            "Xác nhận xóa bình luận",
+            "Bạn có chắc chắn muốn xóa bình luận này?",
+            function () {
+                $http.delete('/api/binhluan/' + binhLuan.id)
+                    .then(function (response) {
+                        console.log(response);
+                        $scope.reset();
+                        $scope.init();
+                    });
+            },
+            function () {
+                // Hành động khi người dùng hủy bỏ
+                console.log("Hủy bỏ xóa bình luận");
+                // Có thể thêm hành động khác nếu người dùng hủy bỏ xóa bình luận
+            }
+        );
+    };
+
 
     $scope.reset = function () {
         $scope.DanhGiaList = [];

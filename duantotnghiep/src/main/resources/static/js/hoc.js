@@ -60,7 +60,9 @@ app.controller('detail-controller', function ($scope, $http, $window) {
 
 
     }
-
+    $scope.slicedArray = {};
+    $scope.remainingArray = {};
+    $scope.videoDaXem = {};
     // Hàm để khởi tạo thông tin khóa học
     $scope.init = function () {
         // Gửi yêu cầu GET đến API với id lấy từ cookie
@@ -71,6 +73,48 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             // Gán dữ liệu khóa học cho biến $scope.hoc
             $scope.hoc = response.data;
             idKhoaHoc = $scope.hoc.courseOnline.id;
+            console.log($scope.hoc)
+            $scope.hoc.dangKyKhoaHoc.forEach(function (khoaHoc) {
+                if (value == khoaHoc.nguoiDung.id) {
+                    $scope.videoDaXem = khoaHoc.tienDoToiDa;
+                    console.log($scope.videoDaXem);
+                }
+            });
+
+            // Tìm chỉ số của phần tử trong mảng có linkVideo tương đương với $scope.videoDaXem
+            var index = $scope.hoc.videoKhoaHoc.findIndex(function (item) {
+                return item.linkVideo === $scope.videoDaXem;
+            });
+
+            if (index !== -1 && $scope.videoDaXem != null) {
+                // Lấy linkVideo từ phần tử cuối cùng của slicedArray
+                var linkVideoSlicedArray = $scope.hoc.videoKhoaHoc[index].linkVideo;
+                // Kiểm tra xem linkVideo của video đó có tương đương với tienDoToiDa hay không
+                if (linkVideoSlicedArray === $scope.videoDaXem) {
+                    // Cắt chuỗi từ $scope.hoc.videoKhoaHoc đến linkVideoSlicedArray (tienDoToiDa)
+                    if (Array.isArray($scope.hoc.videoKhoaHoc)) {
+                        $scope.slicedArray = $scope.hoc.videoKhoaHoc.slice(0, index + 1); // Cắt mảng từ vị trí 0 đến index + 1
+
+                        // In ra phần tử đã cắt
+                        console.log($scope.slicedArray);
+
+                        // In ra phần còn lại của mảng sau vị trí index + 1
+                        $scope.remainingArray = $scope.hoc.videoKhoaHoc.slice(index + 1);
+                        console.log($scope.remainingArray);
+                    } else {
+                        console.log("$scope.hoc.videoKhoaHoc không phải là một mảng.");
+                    }
+
+                } else {
+                    console.log("Không tìm thấy linkVideo tương đương với $scope.videoDaXem làm tienDoToiDa.");
+                }
+            } else if ($scope.videoDaXem == null) {
+                $scope.slicedArray = [];
+            } else {
+                console.log("Không tìm thấy linkVideo tương đương với $scope.videoDaXem trong mảng.");
+            }
+
+
 
             $scope.checkCourse(value, idKhoaHoc);
             $scope.showTaiLieu(idKhoaHoc);
@@ -128,8 +172,16 @@ app.controller('detail-controller', function ($scope, $http, $window) {
         $window.location.href = '/courseOnline/video/' + id;
     }
 
+    $scope.getid2 = function (id, id2) {
+        console.log(id);
+        $window.location.href = '/courseOnline/video/' + id;
+        $window.sessionStorage.setItem('khoaHocId', id);
+        $window.sessionStorage.setItem('videoIdKhoaHoc', id2);
+    }
+
     $scope.continueCourse = function (id) {
         $scope.getid(id);
+        $window.location.href = '/courseOnline/video/' + id;
     }
 
     $scope.showTaiLieu = function (id) {

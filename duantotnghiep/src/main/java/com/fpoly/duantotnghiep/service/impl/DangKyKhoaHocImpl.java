@@ -28,4 +28,9 @@ public class DangKyKhoaHocImpl implements DangKyKhoaHocService {
     public DangKyKhoaHoc findByNguoiDungIdAndKhoaHocId(int idNguoiDung, int idKhoaHoc) {
         return dangKyKhoaHocRepository.findByNguoiDungIdAndKhoaHocId(idNguoiDung, idKhoaHoc);
     }
+
+    @Override
+    public List<DangKyKhoaHoc> findBykhHocId(int id) {
+        return dangKyKhoaHocRepository.findByKhoaHocId(id);
+    }
 }
