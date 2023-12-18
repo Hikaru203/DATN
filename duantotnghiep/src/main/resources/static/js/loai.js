@@ -1,21 +1,26 @@
 app.controller('DanhMuc-Ctrl', function ($scope, $http) {
     $scope.danhmuc = {};
     $scope.khoaHoc = {};
-         $scope.idLogin = document.getElementById("idLogin").value;
- $scope.email = document.getElementById("email");
+
+    $scope.email = document.getElementById("email");
+    idLoginElement = document.getElementById("idLogin");
     $scope.selectLoai = function () {
         $http.get("/api/khoahoc/loaiKhoaHoc").then(function (response) {
             $scope.danhmuc = response.data;
             console.log($scope.danhmuc);
         });
-        $http.get('/rest/admin/NguoiDung/' + $scope.idLogin)
-                                            .then(function (response) {
-                                                $scope.user = response.data;
-                                                console.log($scope.user);
-                                            })
-                                            .catch(function (error) {
-                                                console.error('Lỗi khi gửi yêu cầu:', error);
-                                            });
+        if (idLoginElement !== null) {
+            $scope.value = $scope.idLogin.value;
+
+            $http.get('/rest/admin/NguoiDung/' + $scope.value)
+                .then(function (response) {
+                    $scope.user = response.data;
+                    console.log($scope.user);
+                })
+                .catch(function (error) {
+                    console.error('Lỗi khi gửi yêu cầu:', error);
+                });
+        }
     }
     $scope.showLoai = function (loai) {
         $scope.khoaHoc = {};
@@ -25,7 +30,7 @@ app.controller('DanhMuc-Ctrl', function ($scope, $http) {
         })
     };
 
-		
+
     $scope.selectLoai();
 });
 document.addEventListener("keydown", function (event) {

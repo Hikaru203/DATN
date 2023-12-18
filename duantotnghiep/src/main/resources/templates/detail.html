@@ -16,6 +16,8 @@
         rel="stylesheet">
 
     <!-- Font Awesome -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css}" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
@@ -249,7 +251,7 @@
                         <!-- Giả sử giá trị 'Đã hoàn thành' được lưu trong biến trangThai -->
                         <!-- Sử dụng AngularJS để kiểm tra và hiển thị mã HTML -->
                         <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-4"
-                            ng-if="trangThai === 'Đã hoàn thành'">Chứng chỉ</a>
+                            ng-if="trangThai === 'Đã hoàn thành'">Chứng nhận</a>
                     </div>
                     <div class="tab-content">
                         <style>
@@ -622,99 +624,154 @@
 
 
                         </div>
-                        <style>
-                            .certificate-frame {
-                                margin: 20px;
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
+                        <style type='text/css'>
+                            @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+
+                            body,
+                            html {
+                                margin: 0;
+                                padding: 0;
                             }
 
-                            .certificate-container {
-                                border: 8px solid #e1b531;
-                                padding: 60px;
-                                border-radius: 30px;
-                                background-color: #f8f9fa;
-                                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-                                width: 600px;
+                            .certificates-container {
+                                color: black;
+                                font-family: 'Roboto', sans-serif;
+                                font-size: 30px;
+                                text-align: center;
+                                background-size: cover;
+                                background-repeat: no-repeat;
+                                height: 100%;
+                                width: 100%;
+                                overflow-x: hidden;
+                                /* Hide horizontal scrollbar */
                             }
 
-                            .header {
-                                display: flex;
-                                align-items: center;
-                                justify-content: space-between;
-                                margin-bottom: 40px;
-                            }
 
-                            .logo {
-                                max-width: 120px;
-                                margin-right: 20px;
-                            }
 
-                            .school-name {
-                                font-size: 32px;
-                                color: #f8a602;
+                            .topbar h1 {
                                 margin: 0;
                             }
 
-                            .certificate-details {
-                                color: #333;
-                            }
-
-                            .certificate-title {
-                                font-size: 28px;
-                                margin-bottom: 30px;
-                            }
-
-                            .details {
-                                text-align: left;
-                                font-size: 20px;
-                                line-height: 1.6;
-                            }
-
-                            .signature {
-                                margin-top: 40px;
+                            .container {
+                                position: relative;
+                                margin: 20px auto;
+                                max-width: 1500px;
+                                border: 2px solid #ccc;
+                                border-radius: 10px;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                background-size: cover;
+                                color: #090909;
+                                text-align: center;
+                                background-size: cover;
+                                background-position: center;
                                 display: flex;
+                                flex-direction: column;
                                 align-items: center;
+                                justify-content: center;
+                                width: 90%;
                             }
 
-                            .signature p {
-                                margin-right: 20px;
-                                font-size: 20px;
+                            .logo {
+                                background-size: contain;
+                                background-repeat: no-repeat;
+                                padding: 20px;
+                                width: 10%;
+                                height: 10%;
+                                box-sizing: border-box;
+                                margin: 0 auto;
+                                position: absolute;
+                                top: 30px;
+                                left: 30px;
+                                border-radius: 50%;
+                                /* Thêm thuộc tính bo tròn góc */
                             }
 
-                            .signature-image {
-                                max-width: 150px;
+                            .marquee {
+                                color: rgb(243, 159, 49);
+                                font-size: 80px;
+                                margin: 20px;
+                            }
+
+                            .assignment {
+                                margin: 20px;
+                            }
+
+                            .person {
+                                border-bottom: 2px solid rgb(0, 0, 0);
+                                font-size: 40px;
+                                font-style: italic;
+                                margin: 20px auto;
+                                max-width: 400px;
+                            }
+
+                            .reason {
+                                margin: 20px;
+                                font-size: 35px;
+                            }
+
+                            .date {
+                                position: absolute;
+                                bottom: 10px;
+                                left: 400px;
+                                text-align: left;
+                                width: 100%;
+
+                            }
+
+                            .date p {
+                                margin: 25px 0;
                             }
                         </style>
                         <!-- Thêm thư viện QRious -->
                         <div class="tab-pane fade" id="tab-pane-4">
                             <!-- Nút để tải về PDF -->
-                            <button onclick="printToPDF()">Tải về PDF</button>
+                            <button onclick="printToPDF()" class="btn-primary">Tải về PDF</button>
 
                             <!-- Đoạn mã HTML bạn muốn chuyển đổi thành PDF -->
                             <div id="certificateContent">
                                 <div class="certificate-frame" ng-repeat="chungChi in chungChiList">
-                                    <div class="certificate-container">
-                                        <div class="header">
-                                            <!-- Đưa hình ảnh logo và mã QR vào cùng hàng -->
-                                            <div class="logo-qr-container">
-                                                <div class="qr-code-container">
-                                                    <canvas id="qrCanvas" width="200" height="200"></canvas>
+                                    <div class="">
+                                        <div class="certificates-container">
+                                            <div class="container"
+                                                style="height: 190mm; background-image: url('/img/chungchi.jpg'); background-size: cover; background-repeat: no-repeat;">
+
+                                                <div class="logo">
+                                                    <div class="qr-code-container">
+                                                        <canvas id="qrCanvas" width="100px" height="100px"></canvas>
+                                                    </div>
+                                                </div>
+
+                                                <div class="marquee" style="font-size: 8vw;">
+                                                    <!-- Điều chỉnh kích thước chữ ở đây -->
+                                                    <p style="font-size: 4vw;">Giấy Chứng Nhận</p>
+                                                </div>
+
+                                                <div class="assignment">
+                                                    <p style="font-size: 2.8vw;">Giấy chứng nhận này được cấp cho:
+                                                    </p>
+                                                </div>
+
+                                                <div class="person">
+                                                    <p style="font-size: 2.5vw;">{{chungChi.nguoiDung.hoTen}}</p>
+                                                </div>
+
+                                                <div class="reason">
+                                                    <p style="font-size: 2.8vw;">Đã xuất sắc hoàn thành khoá
+                                                        học:<br />
+                                                        <span
+                                                            style="font-size: 2.5vw;">{{chungChi.khoaHoc.tenKhoaHoc}}</span>
+                                                    </p>
+                                                </div>
+
+                                                <div class="date">
+                                                    <p style="font-size: 2vw;">Ngày cấp:
+                                                        {{chungChi.ngayCapFormatted}}
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <h2 class="school-name">PolyAcademy</h2>
-                                        </div>
-                                        <div class="certificate-details">
-                                            <h3 class="certificate-title">Chứng nhận học</h3>
-                                            <div class="details">
-                                                <p class="info">Tên chứng nhận: {{chungChi.khoaHoc.tenKhoaHoc}}</p>
-                                                <p class="info">Người nhận: {{chungChi.nguoiDung.hoTen}}</p>
-                                                <p class="info">Ngày hoàn thành: {{chungChi.ngayCapFormatted}}</p>
-                                                <input id="certificateIdInput" type="text" ng-model="chungChi.id"
-                                                    ng-init="setCertificateId(chungChi.id)" hidden>
-                                                <!-- Các thông tin khác liên quan đến chứng chỉ học -->
-                                            </div>
+                                            <input id="certificateIdInput" type="text" ng-model="chungChi.id"
+                                                ng-init="setCertificateId(chungChi.id)" hidden>
+
                                         </div>
                                     </div>
                                     <script>
@@ -722,7 +779,7 @@
                                             const qr = new QRious({
                                                 element: document.getElementById('qrCanvas'),
                                                 value: content,
-                                                size: 200
+                                                size: 150
                                             });
                                         }
 
@@ -757,15 +814,16 @@
                                             const element = document.getElementById('certificateContent');
 
                                             const options = {
-                                                margin: 10,
                                                 filename: 'chung_chi.pdf',
                                                 image: { type: 'jpeg', quality: 0.98 },
-                                                html2canvas: { scale: 2 },
-                                                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                                                html2canvas: { scale: 1 }, // Điều chỉnh scale tại đây để nội dung vừa với trang giấy
+                                                jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
                                             };
 
                                             html2pdf().from(element).set(options).save();
                                         }
+
+
 
                                     </script>
                                 </div>
@@ -779,13 +837,7 @@
                                 align-items: center;
                             }
 
-                            .logo {
-                                width: 100px;
-                                /* Thay đổi kích thước hình ảnh logo tùy thuộc vào kích thước mong muốn */
-                                height: auto;
-                                margin-right: 20px;
-                                /* Khoảng cách giữa hình ảnh logo và mã QR */
-                            }
+                            
 
                             .qr-code-container {
                                 width: 200px;

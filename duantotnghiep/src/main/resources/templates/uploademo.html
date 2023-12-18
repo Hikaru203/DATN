@@ -25,7 +25,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link th:href="@{/css/style.css}" rel="stylesheet">
-
+    
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl">
@@ -240,7 +240,7 @@
 
         .form-control {
             width: 100%;
-            padding: 10px;
+
             border: 1px solid #ced4da;
             border-radius: 4px;
         }
@@ -311,8 +311,21 @@
     </div>
     <!-- Tab Content -->
     <div id="tab1" class="tab-content active">
+        <div class="form-group" id="authorizationTokenGroup">
+            <input type="hidden" class="form-control" id="authorizationUrlInput" name="authorizationUrl"
+                th:value="${authorizationUrl}">
+            <!-- Đây là nút dẫn đến URL -->
+            <div style="text-align: center; padding-top: 60px;">
+                <a th:href="${authorizationUrl}" class="btn btn-primary">Vui lòng đăng nhập</a>
+                <p>(Vui lòng đăng nhập bằng tài khoản gmail để đăng video)</p>
+            </div>
+
+            <div class="form-group" id="accessTokenGroup">
+                <input type="hidden" class="form-control" id="accessToken" name="accessToken" th:value="${accessToken}">
+            </div>
+        </div>
         <!-- Your provided code goes here -->
-        <div class="container">
+        <div class="container" th:if="${accessToken != null}">
             <h1 class="text-center">Tạo Khoá Học</h1>
             <div class="row">
                 <div class="col-md-12">
@@ -350,6 +363,7 @@
                                             onchange="handleFileSelect()" placeholder="Hình ảnh">
                                         <div ng-show="hassError" style="color: red;">{{message3}}</div>
                                     </div>
+
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group">
@@ -381,28 +395,41 @@
 
                 <script>
                     function handleFileSelect() {
-                        // Lấy thẻ input và danh sách các tệp tin đã chọn
                         var input = document.getElementById('imageInput');
                         var files = input.files;
-                        // Kiểm tra xem có tệp tin nào đã chọn hay không
+
                         if (files.length > 0) {
-                            var reader = new FileReader();
+                            var file = files[0];
+                            var fileType = file.type;
 
-                            // Đọc dữ liệu của tệp tin đã chọn
-                            reader.onload = function (e) {
-                                // Hiển thị hình ảnh đã chọn trong thẻ <img>
+                            if (fileType.indexOf('image') === -1) {
+                                document.getElementById('imageInput').value = '';
+                                var defaultImage = document.getElementById('defaultImage');
+                                defaultImage.style.display = 'block';
+
+                                // Thay thế alert bằng SweetAlert2
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Lỗi',
+                                    text: 'Vui lòng chỉ chọn hình ảnh.',
+                                });
+                            } else {
+                                var reader = new FileReader();
                                 var preview = document.getElementById('preview');
-                                preview.innerHTML = '<img src="' + e.target.result + '" alt="Selected Image" style="height: 300px;">';
-                            };
 
-                            // Đọc tệp tin làm nguồn dữ liệu
-                            reader.readAsDataURL(files[0]);
+                                reader.onload = function (e) {
+                                    preview.innerHTML = '<img src="' + e.target.result + '" alt="Selected Image" style="height: 300px;">';
+                                };
+
+                                reader.readAsDataURL(file);
+                            }
                         } else {
-                            // Nếu không có tệp tin nào được chọn, hiển thị ảnh mặc định
                             var defaultImage = document.getElementById('defaultImage');
                             defaultImage.style.display = 'block';
                         }
                     }
+
+
 
                 </script>
 
@@ -415,22 +442,22 @@
                                 <tr>
                                     <th scope="col">Khoá học</th>
                                     <th scope="col">Mô tả</th>
-
-                                    <th scope="col">Thống kê</th>
+                                    
+                                    <th scope="col">Số người học</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="khoaHoc in khoaHocFindByNguoiTao" ng-click="edit(khoaHoc)"
                                     ng-if="khoaHoc.trangThai !== 'true'">
+                                    
                                     <td>{{khoaHoc.tenKhoaHoc}}</td>
                                     <td>{{khoaHoc.moTa}}</td>
-                                    <td><button aria-hidden="true" class="fa fa-cog" ng-click="editbr(khoaHoc)"
-                                            style="background-color: #fefefe; color: black;"> Xem</button></td>
+                                    <td><button ng-click="editbr(khoaHoc)"></button></td>
                                 </tr>
 
                             </tbody>
                             <script>
-                                function handleRowClick(idKhoaHoc) {
+                                function handleRowClick(idKhoaHoc) {    
 
                                 }
                             </script>
@@ -459,7 +486,7 @@
     </div>
 
     <div id="tab2" class="tab-content">
-        <div class="container">
+        <div class="container" th:if="${accessToken != null}">
             <h1 class="text-center">Thêm mục lục video</h1>
             <div class="row">
                 <div class="col-md-6">
@@ -597,11 +624,11 @@
                             <br><br>
 
                             <div class="container mt-4">
+                                <button class="btn btn-warning mr-2" onclick="goBack()">Quay lại</button>
                                 <!-- Button "Thêm" -->
                                 <button class="btn btn-primary mr-2" id="addButton">Thêm</button>
 
-                                <!-- Button "Sửa" -->
-                                <button class="btn btn-warning mr-2" onclick="editFunction()">Sửa</button>
+
                             </div>
                         </form>
                     </div>
@@ -614,18 +641,7 @@
                 </div>
             </div> <!-- Thêm phần hiển thị danh sách khoá học sau phần đăng video -->
         </div>
-        <div class="form-group" id="authorizationTokenGroup">
-            <input type="hidden" class="form-control" id="authorizationUrlInput" name="authorizationUrl"
-                th:value="${authorizationUrl}">
-            <!-- Đây là nút dẫn đến URL -->
-            <div style="text-align: center; padding-top: 60px;">
-                <a th:href="${authorizationUrl}" class="btn btn-primary">Vui lòng đăng nhập</a>
-            </div>
 
-            <div class="form-group" id="accessTokenGroup">
-                <input type="hidden" class="form-control" id="accessToken" name="accessToken" th:value="${accessToken}">
-            </div>
-        </div>
     </div>
 
 
@@ -636,7 +652,8 @@
             const addButton = document.getElementById("addButton"); // Thêm khai báo cho addButton
 
 
-            addButton.addEventListener("click", function (event) { // Thêm sự kiện click cho addButton
+            addButton.addEventListener("click", function (event) {
+                // Thêm sự kiện click cho addButton
                 event.preventDefault(); // Ngăn chặn hành động mặc định của nút
                 if (uploadNewVideoSection.style.display !== "none") {
                     const titleInput = document.getElementById("title");
@@ -647,12 +664,23 @@
                         console.error("Vui lòng điền đầy đủ thông tin và chọn một file.");
                         return;
                     }
+
+                    // Hiển thị loading
+                    Swal.fire({
+                        icon: 'info', // Biểu tượng loading
+                        title: 'Đang tải lên...',
+                        allowOutsideClick: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
                     const form = new FormData();
 
                     form.append("title", titleInput.value);
                     form.append("description", descriptionInput.value);
                     form.append("privacyStatus", privacyStatusInput.value);
                     form.append("file", fileInput.files[0]);
+
                     fetch("/youtube/uploadVideo", {
                         method: "POST",
                         body: form
@@ -660,11 +688,18 @@
                         .then(response => {
                             console.log(response);
                             if (response.ok) {
+                                // Đóng loading và hiển thị thông báo thành công
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Thành công!',
+                                    text: 'Video đã được tải lên thành công.'
+                                });
+
                                 // Code AngularJS - thay thế hoặc điều chỉnh nếu cần
                                 const scope = angular.element(document.querySelector('[ng-controller="myCtrl"]')).scope();
                                 scope.$apply(function () {
                                     scope.createNewVideo();
-                                    console.log("123352")
+                                    console.log("123352");
                                 });
                             } else {
                                 console.error("Đã xảy ra lỗi khi tải lên video.");
@@ -675,6 +710,8 @@
                         });
                 }
             });
+
+
         });
 
         var currentTabIndex = 1;
@@ -708,14 +745,7 @@
             }
         }
 
-        function nextTab() {
-            if (currentTabIndex < 3) {
-                currentTabIndex++;
-                openTab('tab' + currentTabIndex);
-            } else {
-                alert("This is the last tab.");
-            }
-        }
+
     </script>
     <script>
         const thumbnailInput = document.getElementById("videoThumbnail");
@@ -927,8 +957,6 @@
             cursor: pointer;
         }
     </style>
-
-
     <div id="myModal" class="modal">
         <div class="modal-content">
             <!-- Nội dung của modal ở đây -->
@@ -1122,6 +1150,7 @@
                 }).then(resp => {
                     $scope.SoNguoi = resp.data;
                 });
+                return $scope.SoNguoi;
             }
             $scope.ThongKeTheoKhoaHoc = function () {
 
@@ -1281,6 +1310,7 @@
                 ThongKeNamNay: "/rest/Report/thong-ke-nam-nay",
                 ThongKeNamTruoc: "/rest/Report/thong-ke-nam-truoc",
             };
+            
             $scope.changeLoai = function (id) {
                 // Thêm logic xử lý khi giá trị thay đổi
                 $http.get('/api/khoahoc/byLoai/' + id)
@@ -1317,6 +1347,8 @@
                     .then(response => {
                         $scope.khoaHoc = response.data;
                         $scope.khoaHocFindByNguoiTao = $scope.khoaHoc.filter(item => item.nguoiTao.id == $scope.idLogin);
+                        
+                        
                     })
                     .catch(error => {
                         // Xử lý lỗi nếu cần
@@ -1365,13 +1397,17 @@
                 $http.put(`/rest/admin/KhoaHoc/${item.id}`, formData, {
                     transformRequest: angular.identity,
                     headers: { 'Content-Type': undefined }
-                }).then(resp => {
-                    $scope.resetKhoaHoc();
-                    $scope.updateUI();
                 })
-                    .catch(error => {
-                        console.log("Error", error)
+                    .then(function (response) {
+                        // Thành công
+                        $scope.showSuccessMessage('Thành công!', 'Cập nhật thành công');
+                        $scope.updateUI();
+                        $scope.resetKhoaHoc();
                     })
+                    .catch(function (error) {
+                        // Lỗi
+                        $scope.showFailureMessage('Lỗi!', 'Đã xảy ra lỗi khi cập nhật dữ liệu.');
+                    });
 
 
             }
@@ -1393,51 +1429,109 @@
             $scope.updateMucLuc = function () {
                 $http.put(`/rest/admin/MucLuc/${$scope.formMucLuc.id}`, $scope.formMucLuc)
                     .then(resp => {
+                        // Thành công
+                        $scope.showSuccessMessage('Thành công!', 'Cập nhật Mục lục thành công');
                         $scope.resetMucLuc();
                         $scope.updateUI();
-                        $scope.changeMucLuc($scope.selectedKhoaHoc)
+                        $scope.changeMucLuc($scope.selectedKhoaHoc);
                     })
                     .catch(error => {
-                        console.log("Error", error)
-                    })
-            }
+                        // Lỗi
+                        $scope.showFailureMessage('Lỗi!', 'Đã xảy ra lỗi khi cập nhật Mức lực.');
+                        console.log("Error", error);
+                    });
+            };
+
             // Xóa 
             $scope.deleteKhoaHoc = function (item) {
-                $scope.hassError = false;
-                $scope.formKhoaHoc.trangThai = true;
+                // Sử dụng SweetAlert để hiển thị cảnh báo xác nhận
+                Swal.fire({
+                    title: 'Bạn chắc chắn muốn xóa?',
+                    text: 'Hành động này sẽ xóa Khóa học!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Đồng ý',
+                    cancelButtonText: 'Hủy bỏ'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Nếu người dùng nhấn Đồng ý, thực hiện xóa
+                        $scope.hassError = false;
+                        $scope.formKhoaHoc.trangThai = true;
 
-                var item = angular.copy($scope.formKhoaHoc);
-                // Chuyển đổi định dạng của chuỗi ngày tháng
-                var currentDate = new Date();
-                $scope.formKhoaHoc.ngayTao = currentDate.toISOString();
-                var formData = new FormData();
-                formData.append('hinhAnh', new Blob([JSON.stringify($scope.formKhoaHoc.hinhAnh)], { type: "application/json" }));
+                        var itemCopy = angular.copy($scope.formKhoaHoc);
+                        // Chuyển đổi định dạng của chuỗi ngày tháng
+                        var currentDate = new Date();
+                        $scope.formKhoaHoc.ngayTao = currentDate.toISOString();
+                        var formData = new FormData();
+                        formData.append('hinhAnh', new Blob([JSON.stringify($scope.formKhoaHoc.hinhAnh)], { type: "application/json" }));
+                        formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type: "application/json" }));
 
-                formData.append('khoaHoc', new Blob([JSON.stringify($scope.formKhoaHoc)], { type: "application/json" }));
+                        $http.put(`/rest/admin/KhoaHoc/${itemCopy.id}`, formData, {
+                            transformRequest: angular.identity,
+                            headers: { 'Content-Type': undefined }
+                        })
+                            .then(function (response) {
+                                // Hiển thị thông báo thành công
+                                Swal.fire(
+                                    'Thành công!',
+                                    'Khóa học đã được xóa thành công.',
+                                    'success'
+                                );
+                                $scope.updateUI();
+                                $scope.resetKhoaHoc();
+                            })
+                            .catch(function (error) {
+                                // Hiển thị thông báo lỗi
+                                Swal.fire(
+                                    'Lỗi!',
+                                    'Đã xảy ra lỗi khi xóa Khóa học.',
+                                    'error'
+                                );
+                                console.log("Error", error);
+                            });
+                    }
+                });
+            };
 
-                $http.put(`/rest/admin/KhoaHoc/${item.id}`, formData, {
-                    transformRequest: angular.identity,
-                    headers: { 'Content-Type': undefined }
-                }).then(resp => {
-                    $scope.resetKhoaHoc();
-                    $scope.updateUI();
-                })
-                    .catch(error => {
-                        console.log("Error", error)
-                    })
-            }
 
             $scope.deleteMucLuc = function (item) {
-                $http.delete(`/rest/admin/MucLuc/${item.id}`)
-                    .then(resp => {
-                        $scope.resetMucLuc();
-                        $scope.updateUI();
-                        $scope.changeMucLuc($scope.selectedKhoaHoc)
-                    })
-                    .catch(error => {
-                        console.log("Error", error)
-                    })
-            }
+                // Sử dụng SweetAlert để hiển thị cảnh báo xác nhận
+                Swal.fire({
+                    title: 'Bạn chắc chắn muốn xóa?',
+                    text: 'Hành động này sẽ xóa Mục lục!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Đồng ý',
+                    cancelButtonText: 'Hủy bỏ'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Nếu người dùng nhấn Đồng ý, thực hiện xóa
+                        $http.delete(`/rest/admin/MucLuc/${item.id}`)
+                            .then(resp => {
+                                // Hiển thị thông báo thành công
+                                Swal.fire(
+                                    'Thành công!',
+                                    'Mục lục đã được xóa thành công.',
+                                    'success'
+                                );
+                                $scope.resetMucLuc();
+                                $scope.updateUI();
+                                $scope.changeMucLuc($scope.selectedKhoaHoc);
+                            })
+                            .catch(error => {
+                                // Hiển thị thông báo lỗi
+                                Swal.fire(
+                                    'Lỗi!',
+                                    'Đã xảy ra lỗi khi xóa Mức lực.',
+                                    'error'
+                                );
+                                console.log("Error", error);
+                            });
+                    }
+                });
+            };
+
+
             $scope.resetKhoaHoc = function () {
                 $scope.formKhoaHoc = {};
                 // Xóa giá trị của input file
@@ -1462,7 +1556,25 @@
                 $scope.btnSuaMucLuc = false;
                 $scope.btnXoaMucLuc = false;
             }
+            // Hàm hiển thị thông báo thành công
+            $scope.showSuccessMessage = function (title, message) {
+                Swal.fire({
+                    icon: 'success',
+                    title: title,
+                    text: message,
+                    confirmButtonText: 'Đóng',
+                });
+            };
 
+            // Hàm hiển thị thông báo lỗi
+            $scope.showFailureMessage = function (title, message) {
+                Swal.fire({
+                    icon: 'error',
+                    title: title,
+                    text: message,
+                    confirmButtonText: 'Đóng',
+                });
+            };
             $scope.create = function () {
                 $scope.idLogin = document.getElementById("idLogin").value;
                 $scope.hassError = false;
@@ -1487,13 +1599,14 @@
                     headers: { 'Content-Type': undefined }
                 })
                     .then(function (response) {
-                        alert("Thêm thành công");
+                        // Thành công
+                        $scope.showSuccessMessage('Thành công!', 'Thêm thành công');
                         $scope.updateUI();
                         $scope.resetKhoaHoc();
                     })
-                    .catch(function (response) {
-                        $scope.hassError = true;
-                        $scope.message1 = "Tên khoá học đã tồn tại";
+                    .catch(function (error) {
+                        // Lỗi
+                        $scope.showFailureMessage('Lỗi!', 'Đã xảy ra lỗi khi thêm dữ liệu.');
                     });
 
             }
@@ -1533,19 +1646,22 @@
                         var item = angular.copy($scope.formMucLuc);
                         $http.post('/rest/admin/MucLuc', item)
                             .then(function (response) {
-                                alert("Thêm thành công");
+                                // Thành công
+                                $scope.showSuccessMessage('Thành công!', 'Thêm Mục lục mới thành công');
                                 $scope.updateUI();
                                 $scope.resetMucLuc();
-                                $scope.changeMucLuc($scope.selectedKhoaHoc)
+                                $scope.changeMucLuc($scope.selectedKhoaHoc);
                             })
                             .catch(function (response) {
+                                // Lỗi
+                                $scope.showFailureMessage('Lỗi!', 'Đã xảy ra lỗi khi thêm Mức lực mới.');
                                 $scope.hassError = true;
                                 $scope.message1 = "Tên khoá học đã tồn tại";
                                 console.log(response);
                             });
-                    })
+                    });
+            };
 
-            }
 
             $scope.createNewVideo = function () {
                 const selectedCourseId = $scope.selectedTenMucLuc;
@@ -1607,7 +1723,7 @@
             };
 
             $scope.updateUI();
-
+   
         });
     </script>
 
@@ -1618,7 +1734,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
-
+    <!-- Thêm thư viện SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Template Javascript -->
     <script th:src="@{/js/main.js}"></script>
 

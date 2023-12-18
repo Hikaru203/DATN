@@ -139,10 +139,11 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             });
     }
 
-    $scope.baseFileURL = '/Admin/pdf/'; // Đường dẫn cơ sở tới thư mục chứa file
+    $scope.baseFileURL = '/pdf/'; // Đường dẫn cơ sở tới thư mục chứa file
 
     $scope.downloadPDF = function (fileName, tentailieu) {
         var fileURL = $scope.baseFileURL + fileName;
+        console.log(fileURL)
         fetch(fileURL)
             .then(response => response.blob())
             .then(blob => {
@@ -156,6 +157,23 @@ app.controller('detail-controller', function ($scope, $http, $window) {
     $scope.goToLoginForm = function () {
         // Chuyển hướng đến form đăng nhập
         window.location.href = '/courseOnline/dangnhap'; // Thay đổi đường dẫn tùy theo định dạng URL của bạn
+    };
+
+    $scope.showSuccessMessage = function (title, message, onConfirm, onCancel) {
+        Swal.fire({
+            icon: 'success',
+            title: title,
+            text: message,
+            showCancelButton: true,
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed && typeof onConfirm === 'function') {
+                onConfirm(); // Gọi hàm callback khi người dùng xác nhận
+            } else if (result.dismiss === Swal.DismissReason.cancel && typeof onCancel === 'function') {
+                onCancel(); // Gọi hàm callback khi người dùng hủy
+            }
+        });
     };
 
 
@@ -179,67 +197,89 @@ app.controller('detail-controller', function ($scope, $http, $window) {
                     $scope.khoaHoc = resp.data;
 
                     console.log($scope.khoaHoc.chiPhi);
-                    alert("Bạn có muốn đăng ký khóa học này không?");
+                    $scope.showSuccessMessage("Thông báo", "Bạn có chắc muốn đăng ký khóa học?", function () {
+                        // Thực hiện hành động khi người dùng xác nhận
+                        console.log('Người dùng đã xác nhận');
+                        // Thêm code của bạn tại đây
+                        if ($scope.khoaHoc.chiPhi != 0) {
+                            $http({
+                                method: 'GET',
+                                url: '/api/Checkout/check/' + value + '/' + id
+                            }).then(function (response) {
+                                console.log(response.data);
+                                if (!response.data.trangThai) {
+                                    // Chưa thanh toán, chuyển hướng đến trang Checkout
+                                    window.location.href = '/courseOnline/CheckOut';
+                                } else {
 
-                    if ($scope.khoaHoc.chiPhi != 0) {
-                        $http({
-                            method: 'GET',
-                            url: '/api/Checkout/check/' + value + '/' + id
-                        }).then(function (response) {
-                            console.log(response.data);
-                            if (!response.data.trangThai) {
-                                // Chưa thanh toán, chuyển hướng đến trang Checkout
-                                window.location.href = '/courseOnline/CheckOut';
-                            } else {
-
-                            }
-                        }, function (response) {
-                            console.log(response);
-                        });
-                    } else {
-                        $http.get("/rest/admin/NguoiDung/" + value)
-                            .then(function (resp) {
-                                $scope.DangKy.nguoiDung = resp.data;
-                                $scope.DangKy.khoaHoc = $scope.hoc.courseOnline;
-                                $scope.DangKy.ngayDangKy = new Date();
-                                $scope.DangKy.tienDo = 0;
-                                $scope.DangKy.trangThai = 0;
-                                $scope.DangKy.tienDoToiDa = 0;
-                                console.log($scope.DangKy);
-                                // Gửi POST request để đăng ký khóa học
-                                $http.post("/api/courseOnline", $scope.DangKy)
-                                    .then(function (response) {
-                                        $scope.init();
-                                        console.log(response);
-                                        $scope.getid(id);
-                                    }, function (response) {
-                                        console.log(response);
-                                    });
+                                }
+                            }, function (response) {
+                                console.log(response);
                             });
-                    }
+                        } else {
+                            $http.get("/rest/admin/NguoiDung/" + value)
+                                .then(function (resp) {
+                                    $scope.DangKy.nguoiDung = resp.data;
+                                    $scope.DangKy.khoaHoc = $scope.hoc.courseOnline;
+                                    $scope.DangKy.ngayDangKy = new Date();
+                                    $scope.DangKy.tienDo = 0;
+                                    $scope.DangKy.trangThai = 0;
+                                    $scope.DangKy.tienDoToiDa = 0;
+                                    console.log($scope.DangKy);
+                                    // Gửi POST request để đăng ký khóa học
+                                    $http.post("/api/courseOnline", $scope.DangKy)
+                                        .then(function (response) {
+                                            $scope.init();
+                                            console.log(response);
+                                            $scope.getid(id);
+                                        }, function (response) {
+                                            console.log(response);
+                                        });
+                                });
+                        }
+                    }, function () {
+                        // Thực hiện hành động khi người dùng hủy
+                        console.log('Người dùng đã hủy');
+                        // Thêm code của bạn tại đây
+                    });
+
                 });
 
         }
     }
-      // Khai báo giá trị mặc định cho biến email
+    // Khai báo giá trị mặc định cho biến email
     $scope.email = 'giatri_email_macdinh';
 
     $scope.selectUser = function () {
-        $scope.idLogin = document.getElementById("idLogin").value;
-        $http.get('/rest/admin/NguoiDung/' + $scope.idLogin)
-            .then(function (response) {
-                $scope.user = response.data;
-                console.log($scope.user);
-                $scope.name = $scope.user.hoTen;
-                $scope.email = $scope.user.email;
-            })
-            .catch(function (error) {
-                console.error('Lỗi khi gửi yêu cầu:', error);
-            });
+        var idLoginElement = document.getElementById("idLogin");
+
+        if (idLoginElement !== null) {
+            $scope.idLogin = idLoginElement.value;
+
+            if ($scope.idLogin !== null) {
+                $http.get('/rest/admin/NguoiDung/' + $scope.idLogin)
+                    .then(function (response) {
+                        $scope.user = response.data;
+                        console.log($scope.user);
+                        $scope.name = $scope.user.hoTen;
+                        $scope.email = $scope.user.email;
+                    })
+                    .catch(function (error) {
+                        console.error('Lỗi khi gửi yêu cầu:', error);
+                    });
+            } else {
+                console.log('Giá trị login là null. Không gọi $http.get.');
+                // Thực hiện các hành động khác khi login là null nếu cần thiết
+            }
+        } else {
+            console.log("Không tìm thấy phần tử có id là 'idLogin'");
+            // Thực hiện xử lý khi phần tử không tồn tại trong DOM
+        }
     };
 
-   
-	$scope.selectUser();
+
+
+    $scope.selectUser();
     // Gọi hàm init để khởi tạo thông tin khóa học
     $scope.init();
 });
