@@ -144,7 +144,7 @@
                                     th:href="@{/courseOnline/dangky}">Đăng ký</a></li>
                         </ul>
                         <div class="nav-item dropdown" th:if="${session.user != null}">
-                            <input type="text" id="idLogin" hidden th:value="${session.user.id}">
+                            <input type="text" id="idLogin" th:value="${session.user.id}">
 
                             <style>
                                 /* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
