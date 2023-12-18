@@ -17,6 +17,7 @@
 
     <!-- Font Awesome -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css}" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
@@ -145,7 +146,7 @@
                                     th:href="@{/courseOnline/dangky}">Đăng ký</a></li>
                         </ul>
                         <div class="nav-item dropdown" th:if="${session.user != null}">
-                            <input type="text" id="idLogin" th:value="${session.user.id}">
+                            <input type="text" id="idLogin" hidden th:value="${session.user.id}">
 
                             <style>
                                 /* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
