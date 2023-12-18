@@ -452,7 +452,7 @@
                                     
                                     <td>{{khoaHoc.tenKhoaHoc}}</td>
                                     <td>{{khoaHoc.moTa}}</td>
-                                    <td><button ng-click="editbr(khoaHoc)"><i class="fa fa-eye" aria-hidden="true"></i>Xem</button></td>
+                                    <td><button class="btn btn-none"  ng-click="editbr(khoaHoc)"><i class="fa fa-eye" aria-hidden="true"></i>Xem</button></td>
                                 </tr>
 
                             </tbody>
@@ -942,7 +942,7 @@
             margin: 5% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
+            width: 50%;
         }
 
         .close {
@@ -967,21 +967,7 @@
             <div class="traffice-source-area mg-b-30">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                            <div class="white-box analytics-info-cs">
-                                <h3 class="box-title" style="font-size: 18px;">Tổng Doanh Thu</h3>
-                                <ul class="list-inline  ">
-                                    <li>
-                                        <div id="sparklinedash"></div>
-                                    </li>
-                                    <li class="text-right sp-cn-r" style="width: 50%;"><i class="fa fa-level-up"
-                                            aria-hidden="true"></i>
-                                        <span class="counter text-success"><span class="counter">{{
-                                                formatCurrency(totalRevenue2)}}</span></span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        
 
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                             <div class="white-box analytics-info-cs">
@@ -1016,6 +1002,7 @@
                                 display: block;
                             }
 
+
                             input[type="date"],
                             button {
                                 padding: 8px;
@@ -1033,7 +1020,7 @@
                             }
 
                             button:hover {
-                                background-color: #218838;
+                                
                             }
                         </style>
                         
