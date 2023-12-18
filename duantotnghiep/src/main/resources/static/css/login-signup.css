@@ -6,7 +6,7 @@
   user-select: none;
 }
 .bg-img{
-  background: url(../img/bg.jpg);
+  background: url(../img/bg1.jpg);
   height: 100vh;
   background-size: cover;
   background-position: center;
@@ -18,7 +18,7 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.5);
 }
 .content{
   position: absolute;
@@ -32,22 +32,22 @@
   background: rgba(255,255,255,0.09);
   box-shadow: -1px 4px 28px 0px rgba(0,0,0,0.75);
   backdrop-filter: blur(42px);
-  border-radius: 5px;
+  border-radius: 20px;
 }
-.content header{
+.content header {
   color: white;
   font-size: 33px;
   font-weight: 600;
   margin: 0 0 35px 0;
-  font-family: 'Montserrat',sans-serif;
 }
+
 .field{
   position: relative;
   height: 45px;
   width: 100%;
   display: flex;
   background: rgba(255,255,255,0.94);
-  border-radius: 5px;
+  border-radius: 10px;
 }
 .field span{
   color: #222;
@@ -62,6 +62,7 @@
   outline: none;
   color: #222;
   font-size: 16px;
+  border-radius: 10px;
   font-family: 'Poppins',sans-serif;
 }
 .space{
@@ -177,17 +178,53 @@ header {
   padding: 20px;
   text-transform: uppercase;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease-in-out; /* Hiệu ứng màu nền */
 }
 .spinner-container {
-  position: fixed; /* Thiết lập phần tử cố định (fixed) */
-  top: 40%; /* Đặt vị trí theo chiều cao 50% của màn hình */
-  left: 50%; /* Đặt vị trí theo chiều rộng 50% của màn hình */
-  transform: translate(-50%, -50%); /* Dịch chuyển phần tử ngược lại 50% của chính nó */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translate(0, 0);
   z-index: 999999;
-  font-size: 200px;
-  color: #3498db;
   display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
 }
+
+.loader {
+  position: relative;
+  width: 108px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.loader::after,
+.loader::before {
+  content: '';
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  background-color: #FFF;
+  background-image: radial-gradient(circle 14px, #0d161b 100%, transparent 0);
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  animation: eyeMove 10s infinite, blink 10s infinite;
+}
+
+@keyframes eyeMove {
+  0% , 10% { background-position: 0px 0px }
+  13% , 40% { background-position: -15px 0px }
+  43% , 70% { background-position: 15px 0px }
+  73% , 90% { background-position: 0px 15px }
+  93% , 100% { background-position: 0px 0px }
+}
+
+@keyframes blink {
+  0%, 10%, 12%, 20%, 22%, 40%, 42%, 60%, 62%, 70%, 72%, 90%, 92%, 98%, 100% { height: 48px }
+  11%, 21%, 41%, 61%, 71%, 91%, 99% { height: 18px }
+}
+
 

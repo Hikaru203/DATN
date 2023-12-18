@@ -288,6 +288,7 @@
                                     value="{{hoc.courseOnline.tenKhoaHoc}}">
                                 <input type="hidden" class="form-control" id="idKhoaHoc" name="idKhoaHoc" required
                                     value="{{hoc.courseOnline.id}}">
+                                    
                                 <input type="hidden" class="form-control" id="idNguoiDung" name="idNguoiDung" required
                                     ng-init="getIdNguoiDung()" value="{{idNguoiDung2}}">
                                 <input type="hidden" class="form-control" id="tenNguoiDung" name="tenNguoiDung" required
@@ -298,7 +299,8 @@
                                 <input type="hidden" id="method" name="method" placeholder="Payment Method"
                                     value="paypal">
                                 <input type="hidden" id="intent" name="intent" value="sale">
-
+                                 <input type="hidden" name="emailUser" id="emailUser" ng-value="email" />
+ 								
                             </div>
                         </div>
                         <br>
@@ -399,8 +401,9 @@
 
 
     </form>
-    </div>
-    </div>
+  
+   
+	 
 
     <input type="text" id="idLogin" hidden th:value="${session.user.id}">
 
@@ -424,7 +427,7 @@
     <script src="/js/accordion.min.js"></script>
 
 
-
+	
     <script>
         function toggleRadio(radioId) {
             var radio = document.getElementById(radioId);
