@@ -303,18 +303,103 @@
  								
                             </div>
                         </div>
-                        <div>
-                            <span>Bằng việc hoàn tất giao dịch mua, bạn đồng ý với <a href="#" class="bold"
-                                    target="_blank" rel="noopener noreferrer">Điều khoản dịch vụ</a> trên.</span>
+                        <br>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="acceptTerms" ng-model="acceptTerms"
+                                required />
+                            <label class="form-check-label" for="acceptTerms">
+                                Bằng việc hoàn tất giao dịch mua, bạn đồng ý với <a href="#" ng-click="showTermsModal()" id="termsLink">Điều khoản dịch vụ</a>
+                            </label>
                         </div>
-                        <button class="btn btn-block btn-primary font-weight-bold py-3">Hoàn tất thanh toán</button>
-						 
+                        <br>
+                        <div class="text-center">
+                            <button class="btn btn-block btn-primary font-weight-bold py-3" ng-click="submit()" 
+                                ng-disabled="!acceptTerms">Hoàn tất thanh toán</button>
+                        </div>
+                   
                     </div>
 
                 </div>
 
             </div>
         </div>
+        <script>
+            document.getElementById('termsLink').addEventListener('click', function (event) {
+                event.preventDefault();
+
+                Swal.fire({
+                    title: 'Điều khoản dịch vụ',
+                    html: `
+                        <div class="terms-modal-container">
+                            <p class="modal-heading">Chúng tôi xin gửi đến quý khách hàng các điều khoản và dịch vụ khi thanh toán tại website khoá học trực tuyến của chúng tôi:</p>
+                            <div class="terms-modal-content modal-content-left">
+                                <ul class="modal-list">
+                                    <li class="modal-item modal-bold">Điều khoản 1: 1. Quy định thanh toán:
+                                        - Quý khách hàng có thể thanh toán bằng các phương thức như chuyển khoản ngân hàng, thanh toán qua cổng thanh toán trực tuyến, hoặc thanh toán khi nhận hàng.
+                                        - Chúng tôi cam kết bảo mật thông tin thanh toán của quý khách và không chia sẻ thông tin này với bất kỳ bên thứ ba nào.
+                                    </li>
+                                    <li class="modal-item modal-bold">Điều khoản 2: 2. Chính sách hủy đơn hàng và hoàn tiền:
+                                        - Trong trường hợp quý khách muốn hủy đơn hàng, vui lòng liên hệ với chúng tôi theo thông tin liên lạc được cung cấp trên website.
+                                        - Chúng tôi sẽ áp dụng chính sách hoàn tiền theo quy định của từng khoá học cụ thể.
+                                    </li>
+                                    <li class="modal-item modal-bold">Điều khoản 3: 3. Bảo mật thanh toán:
+                                        - Chúng tôi sử dụng các phương pháp bảo mật hiện đại để đảm bảo an toàn cho thông tin thanh toán của quý khách hàng.
+                                        - Quý khách hàng có thể yên tâm khi thực hiện thanh toán trực tuyến tại website của chúng tôi.
+                                    </li>
+                                    <li class="modal-item modal-bold">Chúng tôi hy vọng rằng quý khách hàng sẽ hiểu rõ và đồng ý với các điều khoản và dịch vụ khi thanh toán tại website khoá học trực tuyến của chúng tôi. Trân trọng cảm ơn!</li>
+                                    <!-- Thêm các điều khoản và nội dung khác nếu cần -->
+                                </ul>
+                            </div>
+                        </div>
+                    `,
+                    showCloseButton: true,
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    confirmButtonText: 'Đóng',
+                    customClass: {
+                        popup: 'terms-modal-container',
+                    },
+                });
+            });
+        </script>
+
+        <style>
+            .terms-modal-container {
+                width: 80%;
+                max-width: 800px;
+            }
+
+            .terms-modal-content {
+                max-height: 400px;
+                overflow-y: auto;
+            }
+
+            .modal-heading {
+                font-weight: bold;
+                font-size: 18px;
+            }
+
+            .modal-list {
+                list-style-type: none;
+                padding-left: 0;
+            }
+
+            .modal-item {
+                margin-bottom: 10px;
+                font-size: 16px;
+            }
+
+            .modal-bold {
+                font-weight: bold;
+            }
+
+            /* Thêm lớp CSS mới để căn lề trái */
+            .modal-content-left {
+                text-align: left;
+            }
+        </style>
+
+
     </form>
   
    
@@ -332,7 +417,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="/lib/easing/easing.min.js"></script>
     <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- Contact Javascript File -->
     <script src="/mail/jqBootstrapValidation.min.js"></script>
     <script src="/mail/contact.js"></script>

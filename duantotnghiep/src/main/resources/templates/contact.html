@@ -173,7 +173,7 @@
         </div>
         <hr>
     </div>
-    
+
     <!-- Navbar End -->
 
     <!-- Contact Start -->
@@ -189,16 +189,16 @@
                 </h2>
                 <p class="lead">Hãy xác nhận để trở thành nhà sáng tạo của chúng tôi.</p>
             </div>
-            <div class="row justify-content-center" >
+            <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <div class="contact-form bg-secondary rounded p-5" style="background-color: #ff6600;">
+                    <div class="contact-form bg-secondary rounded p-5" >
                         <div id="success"></div>
-                        <form name="sentMessage" id="contactForm" novalidate="novalidate" >
+                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
                             <div class="control-group">
                                 <label for="videoTitle">
-                                    <h4>Nhập tên của bạn:</h4>
+                                    <h4>Tên của bạn:</h4>
                                 </label>
-                                <input type="text" class="form-control border-0 p-4" id="name"
+                                <input type="text" readonly class="form-control border-0 p-4" id="name"
                                     placeholder="Tên của bạn..." required="required"
                                     data-validation-required-message="Please enter your name" ng-model="name" />
                                 <p class="help-block text-danger"></p>
@@ -206,17 +206,26 @@
 
                             <div class="control-group">
                                 <label for="videoTitle">
-                                    <h4>Nhập Email của bạn:</h4>
+                                    <h4>Email của bạn:</h4>
                                 </label>
-                                <input type="email" class="form-control border-0 p-4" id="email"
+
+                                <input type="email" readonly class="form-control border-0 p-4" id="email"
                                     placeholder="Email của bạn..." required="required"
                                     data-validation-required-message="Please enter your email" ng-model="email" />
                                 <p class="help-block text-danger"></p>
                             </div>
-
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="acceptTerms" ng-model="acceptTerms"
+                                    required />
+                                <label class="form-check-label" for="acceptTerms">
+                                    Tôi đồng ý với các <a href="#" ng-click="showTermsModal()">điều khoản và chính
+                                        sách</a>
+                                </label>
+                            </div>
+                            <br>
                             <div class="text-center">
-                                <button class="btn btn-primary py-3 px-5" ng-click="submit()" id="sendMessageButton">Gửi
-                                    xác nhận</button>
+                                <button class="btn btn-primary py-3 px-5" ng-click="submit()" id="sendMessageButton"
+                                    ng-disabled="!acceptTerms">Gửi xác nhận</button>
                             </div>
 
                             <script>
@@ -233,7 +242,41 @@
                                         name: '',
                                         email: ''
                                     };
-
+                                    $scope.showTermsModal = function () {
+                                        Swal.fire({
+                                            title: 'Điều khoản và Chính sách',
+                                            html: `
+            <div class="terms-modal-content">
+                <p class="modal-heading">Để trở thành nhà sáng tạo của khoá học PolyAcademy, bạn cần tuân theo các điều kiện và chính sách sau đây:</p>
+                <ul class="modal-list">
+                    <li class="modal-item">
+                        <span class="modal-bold">Điều khoản 1:</span> Kiến thức và kỹ năng: Bạn cần có kiến thức chuyên môn sâu về lĩnh vực mà bạn muốn đóng góp cho khoá học. 
+                    </li>
+                    <li class="modal-item">
+                        <span class="modal-bold">Điều khoản 2:</span> Sáng tạo và đổi mới: PolyAcademy đánh giá cao sự sáng tạo và khả năng đổi mới trong giảng dạy. Bạn cần có khả năng tạo ra những nội dung giáo dục mới mẻ, hấp dẫn và phù hợp với xu hướng hiện đại
+                    </li>
+                    <li class="modal-item">
+                        <span class="modal-bold">Điều khoản 3:</span> Cam kết chất lượng: Bạn cần cam kết cung cấp nội dung giáo dục chất lượng cao, đáp ứng được nhu cầu và mong muốn học tập của học viên.
+                    </li>
+                    <li class="modal-item">
+                        <span class="modal-bold">Điều khoản 4:</span> Tuân thủ quy định: Bạn cần tuân thủ các quy định và chính sách của PolyAcademy, bao gồm quy định về bản quyền, đạo đức nghề nghiệp và quyền lợi của học viên.
+                    </li>
+                    <li class="modal-item">
+                        <span class="modal-bold">Điều khoản 5:</span> Tinh thần hợp tác: Để trở thành nhà sáng tạo của khoá học PolyAcademy, bạn cần có tinh thần hợp tác, sẵn sàng làm việc cùng đồng nghiệp và ban quản lý để phát triển khoá học một cách bền vững.
+                    </li>
+                    <li class="modal-item">
+                        <span class="modal-bold">Điều khoản 6:</span> Đánh giá và cải tiến: Bạn cần sẵn sàng tiếp nhận phản hồi từ học viên và cơ quan quản lý để có thể đánh giá và cải tiến khoá học một cách liên tục.
+                    </li>
+                    <!-- Thêm các điều khoản và nội dung khác nếu cần -->
+                </ul>
+            </div>
+        `,
+                                            showCloseButton: true,
+                                            showCancelButton: false,
+                                            focusConfirm: false,
+                                            confirmButtonText: 'Đóng',
+                                        });
+                                    };
                                     $scope.selectUser = function () {
                                         $http.get('/rest/admin/NguoiDung/' + $scope.idLogin)
                                             .then(function (response) {
@@ -308,8 +351,7 @@
 
                                         $http.put("/rest/admin/NguoiDung/" + $scope.idLogin, data)
                                             .then(function (response) {
-                                                $scope.showSuccessMessage("Thành công", "Bạn đã đăng ký thành công!");
-                                                
+                                                $scope.showSuccessMessage("Thành công", "Chúng tôi sẽ phản hồi lại bạn sớm nhất!");
                                             })
                                             .catch(function (error) {
                                                 $scope.showFailureMessage("Lỗi", "Đã có lỗi xảy ra, vui lòng thử lại sau!");
@@ -319,6 +361,39 @@
                                 });
 
                             </script>
+                            <style>
+                                /* Thêm đoạn mã CSS sau vào phần style của trang của bạn hoặc vào file CSS riêng biệt */
+
+                                .terms-modal-container {
+    width: 100%; /* Điều chỉnh chiều rộng của modal container theo mong muốn */
+    max-width: 1800px; /* Điều chỉnh chiều rộng tối đa của modal container theo mong muốn */
+}
+
+.terms-modal-content {
+    max-height: 400px; /* Điều chỉnh chiều cao tối đa trước khi xuất hiện thanh cuộn */
+    overflow-y: auto; /* Tạo thanh cuộn khi nội dung vượt quá chiều cao tối đa */
+}
+
+.modal-heading {
+    font-weight: bold;
+    font-size: 18px; /* Điều chỉnh kích thước của tiêu đề theo mong muốn */
+}
+
+.modal-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.modal-item {
+    margin-bottom: 10px;
+    font-size: 16px; /* Điều chỉnh kích thước của mục nội dung theo mong muốn */
+}
+
+.modal-bold {
+    font-weight: bold;
+}
+
+                            </style>
                         </form>
                     </div>
                 </div>

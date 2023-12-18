@@ -139,10 +139,11 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             });
     }
 
-    $scope.baseFileURL = '/Admin/pdf/'; // Đường dẫn cơ sở tới thư mục chứa file
+    $scope.baseFileURL = '/pdf/'; // Đường dẫn cơ sở tới thư mục chứa file
 
     $scope.downloadPDF = function (fileName, tentailieu) {
         var fileURL = $scope.baseFileURL + fileName;
+        console.log(fileURL)
         fetch(fileURL)
             .then(response => response.blob())
             .then(blob => {
