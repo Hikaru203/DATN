@@ -416,7 +416,7 @@
                                                                                                     class="form-group">
                                                                                                     <input
                                                                                                         name="tenKhoaHoc"
-                                                                                                        type="text"
+                                                                                                        type="text" style="border-radius: 5px;"
                                                                                                         ng-model="TimKhoaHoc.tenKhoaHoc"
                                                                                                         class="form-control" placeholder="Nhập tên khóa học">
                                                                                                 </div>
@@ -426,7 +426,7 @@
                                                                                                     class="form-group">
 
                                                                                                     <button
-                                                                                                        ng-click="timKiemKenhKhoaHoc()" style="background-color: #fefefe; color: black; border: 1px #888 solid; margin-top: 2%; margin-left: -10%; height: 30px;"><i class="fa fa-search" aria-hidden="true"></i>Tìm</button>
+                                                                                                        ng-click="timKiemKenhKhoaHoc()" class="btn btn-primary" style="height: 33px; background-color: #fefefe; color: black; border: 1px #888 solid; margin-top: 2%; margin-left: -10%; "><i class="fa fa-search" aria-hidden="true"></i>Tìm</button>
                                                                                                 </div>
                                                                                             </div>
                                                                                         
@@ -463,6 +463,8 @@
                                                                                                     aria-hidden="true" ng-click="loadVideoKhoaHoc(item)" style="background-color: #fefefe; color: black;"><i class="fa fa-eye"></i> Xem</button> ||
                                                                                                     <button class="btn btn-primary"
                                                                                                     aria-hidden="true" ng-click="duyet(item)" style="background-color: #fefefe; color: black;"><i class="fa fa-check"></i> Duyệt</button>
+                                                                                                    <button class="btn btn-danger"
+                                                                                                    aria-hidden="true" ng-click="trangThaiKhoaHoc2(item)" style="background-color: #fefefe; color: black;"><i class="fa fa-check"></i> Bỏ qua</button>
                                                                                             </td>
                                                                                         </tr>
                                                                                     </tbody>

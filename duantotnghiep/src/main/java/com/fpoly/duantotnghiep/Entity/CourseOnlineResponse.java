@@ -7,13 +7,14 @@ public class CourseOnlineResponse {
     private KhoaHoc courseOnline;
     private List<MucLuc> mucLuc;
     private List<CauHoi> cauHois;
+    private List<DangKyKhoaHoc> dangKyKhoaHoc;
 
     // Constructors, getters, and setters
 
     public List<VideoKhoaHoc> getVideoKhoaHoc() {
-    	return videoKhoaHoc;
+        return videoKhoaHoc;
     }
-    
+
     public void setVideoKhoaHoc(List<VideoKhoaHoc> videoKhoaHoc) {
         this.videoKhoaHoc = videoKhoaHoc;
     }
@@ -40,5 +41,13 @@ public class CourseOnlineResponse {
 
     public void setCauHois(List<CauHoi> cauHois) {
         this.cauHois = cauHois;
+    }
+
+    public List<DangKyKhoaHoc> getDangKyKhoaHoc() {
+        return dangKyKhoaHoc;
+    }
+
+    public void setDangKyKhoaHoc(List<DangKyKhoaHoc> dangKyKhoaHoc) {
+        this.dangKyKhoaHoc = dangKyKhoaHoc;
     }
 }
