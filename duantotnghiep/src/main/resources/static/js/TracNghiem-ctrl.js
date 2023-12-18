@@ -76,7 +76,7 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
     $scope.chungChi = {};
     // Để ẩn nút "Tiếp tục"
     $scope.showContinueButton = false;
-    $scope.showNopBai=true;
+    $scope.showNopBai = true;
 
     // Hàm tính điểm
     $scope.checkAnswers = function () {
@@ -103,7 +103,7 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
                         console.log("Bạn đã hoàn thành bài thi");
                         // Hàm xử lý khi thay đổi khoá học
                         $scope.showContinueButton = true; // Nếu muốn hiển thị ban đầu
-                        $scope.showNopBai=false
+                        $scope.showNopBai = false
                     } else {
                         $scope.msg = 'Bạn đã không hoàn thành bài thi';
                         console.log("Bạn đã không hoàn thành bài thi");
@@ -217,3 +217,27 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
     }
     $scope.initialize();
 });
+document.addEventListener("keydown", function (event) {
+    if (event.ctrlKey) {
+        event.preventDefault();
+    }
+    if (event.keyCode == 123) {
+        event.preventDefault();
+    }
+});
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+});
+function killCopy(e) {
+    return false;
+}
+
+function reEnable() {
+    return true;
+}
+document.onselectstart = new Function("return false");
+
+if (window.sidebar) {
+    document.onmousedown = killCopy;
+    document.onclick = reEnable;
+}
