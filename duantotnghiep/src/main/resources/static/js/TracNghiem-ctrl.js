@@ -184,6 +184,7 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
                             ngayCap: new Date(),
                         }
                     }).then(function (response) {
+                        console.log(response.data);
                         console.log("Thêm thành công");
                         window.location.href = '/courseOnline/detail/' + idKhoaHoc; // Ví dụ: chuyển đến trang trắc nghiệm
                     });
