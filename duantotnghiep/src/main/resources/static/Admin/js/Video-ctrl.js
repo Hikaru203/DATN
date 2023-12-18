@@ -330,7 +330,7 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
                 $scope.formVideo.mucLuc = resp.data;
 
                 $http.get("/rest/admin/NguoiDung/" + value)
-                    .then(resp => { 
+                    .then(resp => {
                         $scope.formVideo.nguoiTao = resp.data;
                         $scope.formVideo.linkVideo = usernameCookie;
                         $scope.formVideo.tenVideo = videoTitle;
@@ -406,11 +406,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     addButton.addEventListener("click", function () {
+        const uploadNewVideoSection = document.getElementById("uploadNewVideoSection");
+
         if (uploadNewVideoSection.style.display !== "none") {
             const titleInput = document.getElementById("title");
             const descriptionInput = document.getElementById("description");
             const privacyStatusInput = document.getElementById("privacyStatus");
             const fileInput = document.getElementById("file");
+            const progressBar = document.getElementById("progressBar");
+            const progress = document.getElementById("progress");
 
             if (!titleInput.value) {
                 showNotification(16);
@@ -432,43 +436,51 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
+            progressBar.style.display = "block"; // Hiển thị thanh tiến trình khi bắt đầu upload
+
             const form = new FormData();
             form.append("title", titleInput.value);
             form.append("description", descriptionInput.value);
             form.append("privacyStatus", privacyStatusInput.value);
             form.append("file", fileInput.files[0]);
-            fetch("/youtube/uploadVideo", {
-                method: "POST",
-                body: form
-            })
-                .then(response => {
-                    console.log(response);
-                    if (response.ok) {
 
-                        const scope = angular.element(document.querySelector('[ng-controller="Video-ctrl"]')).scope();
-                        scope.$apply(function () {
-                            scope.createNewVideo();
-                            showNotification(10);
-                        });
-
-                    } else {
-                        showNotification(11);
-                    }
-                })
-                .catch(error => {
-                    console.error("Lỗi: " + error);
-                });
+            // Gọi hàm uploadVideo để bắt đầu upload và lấy % tiến độ upload video
+            uploadVideo(form, progress, progressBar);
         } else {
             const scope = angular.element(document.querySelector('[ng-controller="Video-ctrl"]')).scope();
             scope.$apply(function () {
-
                 scope.create();
             });
         }
     });
 
+    function uploadVideo(form, progress, progressBar) {
+        // Sử dụng Axios
+        axios.post('/youtube/uploadVideo', form, {
+            onUploadProgress: function (progressEvent) {
+                if (progressEvent.lengthComputable) {
+                    const percentCompleted = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+                    progress.style.width = percentCompleted + "%";
+                    console.log(percentCompleted);
+                }
+            }
+        })
+            .then(response => {
+                // Xử lý khi upload thành công
+                progressBar.style.display = "none";
+                progress.style.width = "0%";
+            })
+            .catch(error => {
+                console.error("Lỗi: " + error);
+            });
+
+        // Hoặc sử dụng WebSockets để cập nhật tiến độ upload video
+        // Code xử lý % tiến độ upload video bằng WebSockets ở đây
+    }
+
 
 });
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById("file");
