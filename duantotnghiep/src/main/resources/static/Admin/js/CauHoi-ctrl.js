@@ -224,9 +224,28 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
             deleteButton.classList.add('btn', 'btn-danger', 'ml-2');
             deleteButton.textContent = 'Xóa';
             deleteButton.addEventListener('click', function () {
-                // Xóa input câu trả lời khi nút xóa được nhấn
-                dynamicAnswers.removeChild(newAnswerField);
-                answerCount--;
+                // Sử dụng SweetAlert2 để hiển thị thông báo xác nhận
+                Swal.fire({
+                    title: 'Xác nhận xóa câu trả lời',
+                    text: 'Bạn có chắc muốn xóa câu trả lời này không?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xóa',
+                    cancelButtonText: 'Hủy',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Xóa input câu trả lời khi người dùng xác nhận
+                        dynamicAnswers.removeChild(newAnswerField);
+                        answerCount--;
+                        // Hiển thị thông báo thành công (có thể sử dụng hàm showSuccessMessage)
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: 'Câu trả lời đã được xóa thành công!',
+                            confirmButtonText: 'Đóng',
+                        });
+                    }
+                });
 
                 // Cập nhật biến chuỗi câu trả lời sau khi xóa
                 const deletedAnswerValue = newAnswerField.querySelector('input[type="text"]').value;
@@ -262,40 +281,53 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
         });
 
         if (selectedAnswer !== "") {
-            alert(`Đáp án đã chọn: ${selectedAnswer}`);
+            // Hiển thị thông báo thành công
+            Swal.fire({
+                icon: 'success',
+                title: 'Đáp án đã chọn',
+                text: `Đáp án đã chọn: ${selectedAnswer}`,
+                confirmButtonText: 'Đóng',
+            });
         } else {
-            alert("Bạn chưa chọn đáp án nào.");
+            // Hiển thị thông báo khi chưa chọn đáp án
+            Swal.fire({
+                icon: 'warning',
+                title: 'Chưa chọn đáp án',
+                text: 'Bạn chưa chọn đáp án nào.',
+                confirmButtonText: 'Đóng',
+            });
         }
     }
 
-
-    $scope.showSelectedAnswer = function () {
-        const answerRadios = document.querySelectorAll('.answer-radio'); // Lấy tất cả các radio buttons
-
-        answerRadios.forEach(radio => {
-            if (radio.checked) {
-                // Nếu radio được chọn, lấy giá trị của nó
-                selectedAnswer = radio.nextElementSibling.value;
-            }
-        });
-
-        if (selectedAnswer !== "") {
-            alert(`Đáp án đã chọn: ${selectedAnswer}`);
-        } else {
-            alert("Bạn chưa chọn đáp án nào.");
-        }
-    }
     // Trong hàm $scope.create
     $scope.create = function () {
         if ($scope.formCauHoi.cauHoi === "" || $scope.formCauHoi.cauHoi === undefined) {
-            alert("Vui lòng nhập câu hỏi.");
-            return; // Dừng hàm nếu selectedAnswer không hợp lệ
+            // Hiển thị thông báo lỗi khi không nhập câu hỏi
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Vui lòng nhập câu hỏi.',
+                confirmButtonText: 'Đóng',
+            });
+            return;
         } else if (document.getElementById('cauHoiInput').value === "") {
-            alert("Vui lòng nhập câu trả lời.");
-            return; // Dừng hàm nếu cauTraLoi không hợp lệ
+            // Hiển thị thông báo lỗi khi không nhập câu trả lời
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Vui lòng nhập câu trả lời.',
+                confirmButtonText: 'Đóng',
+            });
+            return;
         } else if (selectedAnswer === "") {
-            alert("Vui lòng chọn đáp án.");
-            return; // Dừng hàm nếu selectedAnswer không hợp lệ
+            // Hiển thị thông báo lỗi khi không chọn đáp án
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Vui lòng chọn đáp án.',
+                confirmButtonText: 'Đóng',
+            });
+            return;
         }
 
         $http.get("/rest/admin/MucLuc/" + $scope.selectedMucLuc).then(function (resp) {
@@ -305,25 +337,32 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
             $scope.formCauHoi.dapAn = selectedAnswer;
             $scope.formCauHoi.ngayTao = new Date();
             $scope.formCauHoi.mucLuc = $scope.MucLuc;
-            console.log($scope.formCauHoi);
-
 
             $http.post(`/rest/admin/CauHoi`, $scope.formCauHoi)
                 .then(function (resp) {
                     $scope.itemsCauHoi.push(resp.data);
                     $scope.formCauHoi = {};
                     $scope.initialize();
-                    alert("Thêm mới thành công");
+                    // Hiển thị thông báo thành công
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thành công',
+                        text: 'Thêm mới thành công!',
+                        confirmButtonText: 'Đóng',
+                    });
                     $scope.reset();
                 })
                 .catch(function (err) {
-                    alert("Error: " + err);
+                    // Hiển thị thông báo lỗi khi có lỗi trong quá trình thêm mới
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Error: ' + err,
+                        confirmButtonText: 'Đóng',
+                    });
                 });
         });
-
     };
-
-
     $scope.reset = function () {
         $scope.formCauHoi = {};
     }
@@ -347,22 +386,45 @@ app.controller("CauHoi-ctrl", function ($scope, $http, $window) {
     };
 
     $scope.delete = function (item) {
-        var isConfirmed = confirm(`Bạn có chắc chắn muốn xóa tài liệu "${item.cauHoi}"?`);
-        if (isConfirmed) {
-            $http.delete(`/rest/admin/CauHoi/${item.id}`)
-                .then(function (resp) {
-                    var index = $scope.itemsCauHoi.findIndex(item => item.id == resp.data.id);
-                    $scope.itemsCauHoi.splice(index, 1);
-                    $scope.initialize();
-                    alert("Xóa thành công");
-                    $scope.reset();
-                    $scope.loadDocuments();
-                })
-                .catch(function (err) {
-                    alert("Error: " + err);
-                });
-        }
-    }
+        // Sử dụng SweetAlert2 để hiển thị thông báo xác nhận
+        Swal.fire({
+            title: 'Xác nhận xóa câu hỏi',
+            text: `Bạn có chắc chắn muốn xóa câu hỏi "${item.cauHoi}"?`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng xác nhận, thực hiện hành động xóa ở đây
+                $http.delete(`/rest/admin/CauHoi/${item.id}`)
+                    .then(function (resp) {
+                        var index = $scope.itemsCauHoi.findIndex(item => item.id == resp.data.id);
+                        $scope.itemsCauHoi.splice(index, 1);
+                        $scope.initialize();
+                        // Hiển thị thông báo thành công
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: 'Xóa thành công!',
+                            confirmButtonText: 'Đóng',
+                        });
+                        $scope.reset();
+                        $scope.loadDocuments();
+                    })
+                    .catch(function (err) {
+                        // Hiển thị thông báo lỗi khi có lỗi trong quá trình xóa
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: 'Error: ' + err,
+                            confirmButtonText: 'Đóng',
+                        });
+                    });
+            }
+        });
+    };
+
 });
 const selected = document.querySelector(".selected");
 const optionsContainer = document.querySelector(".options-container");

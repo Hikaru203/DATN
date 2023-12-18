@@ -152,19 +152,19 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
 
         // Kiểm tra nếu tên tài liệu không được bỏ trống
         if (!tenTaiLieu) {
-            alert("Tên tài liệu không được bỏ trống");
+            $scope.showErrorMessage("Lỗi", "Tên tài liệu không được bỏ trống");
             return;
         }
 
         // Kiểm tra nếu khóa học đã được chọn
         if (!selectedKhoaHoc) {
-            alert("Vui lòng chọn một khóa học");
+            $scope.showErrorMessage("Lỗi", "Vui lòng chọn một khóa học");
             return;
         }
 
         // Kiểm tra nếu người dùng đã chọn một tệp tin
         if (!selectedFile) {
-            alert("Vui lòng chọn tệp tin");
+            $scope.showErrorMessage("Lỗi", "Vui lòng chọn tệp tin");
             return;
         }
 
@@ -173,7 +173,7 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
         var fileNameParts = selectedFile.name.split(".");
         var fileExtension = fileNameParts[fileNameParts.length - 1].toLowerCase();
         if (allowedFileExtensions.indexOf(fileExtension) === -1) {
-            alert("Loại tệp tài liệu không hợp lệ. Hãy chọn tệp .pdf, .docx hoặc .pptx.");
+            $scope.showErrorMessage("Lỗi", "Loại tệp tài liệu không hợp lệ. Hãy chọn tệp .pdf, .docx hoặc .pptx.");
             return;
         }
 
@@ -191,21 +191,41 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).then(function (uploadResp) {
-            console.log(uploadResp.data);
-
             $http.post(`/rest/admin/TaiLieu`, item).then(function (resp) {
                 $scope.itemsTaiLieu.push(resp.data);
-                alert("Thêm mới thành công");
-                $scope.reset();
+
+                // Cập nhật trạng thái và hiển thị thông báo thành công
+                $scope.reset(); // Đảm bảo reset các trạng thái cần thiết
+
+                // Hiển thị thông báo thành công
+                $scope.showSuccessMessage("Thành công", "Thêm mới thành công");
             }).catch(function (error) {
-                alert("Lỗi thêm mới tài liệu");
+                $scope.showErrorMessage("Lỗi", "Lỗi thêm mới tài liệu");
                 console.log("Error", error);
             });
         }).catch(function (uploadError) {
-            alert("Lỗi tải lên tệp tin");
+            $scope.showErrorMessage("Lỗi", "Lỗi tải lên tệp tin");
             console.log("Upload Error", uploadError);
         });
     };
+    $scope.showErrorMessage = function (title, message) {
+        Swal.fire({
+            icon: 'error',
+            title: title,
+            text: message,
+            confirmButtonText: 'Đóng',
+        });
+    };
+
+    $scope.showSuccessMessage = function (title, message) {
+        Swal.fire({
+            icon: 'success',
+            title: title,
+            text: message,
+            confirmButtonText: 'Đóng',
+        });
+    };
+
 
 
     $scope.edit = function (item) {
@@ -241,19 +261,16 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
         $scope.formErrors = {};
         var item = angular.copy($scope.formTaiLieu);
         var selectedKhoaHoc = $scope.formTaiLieu.khoaHoc;
-        console.log(selectedKhoaHoc);
-
-
-
 
         if (document.getElementById('fileInput').files[0]) {
-            selectedFile = document.getElementById('fileInput').files[0];
+            var selectedFile = document.getElementById('fileInput').files[0];
+
             // Kiểm tra nếu tệp tài liệu có phải là một loại tệp hợp lệ (ví dụ: .pdf, .docx)
             var allowedFileExtensions = ["pdf", "docx", "pptx"]; // Các phần mở rộng tệp hợp lệ
             var fileNameParts = selectedFile.name.split(".");
             var fileExtension = fileNameParts[fileNameParts.length - 1].toLowerCase();
             if (allowedFileExtensions.indexOf(fileExtension) === -1) {
-                alert("Loại tệp tài liệu không hợp lệ. Hãy chọn tệp .pdf, .docx hoặc .pptx.");
+                $scope.showErrorMessage("Lỗi", "Loại tệp tài liệu không hợp lệ. Hãy chọn tệp .pdf, .docx hoặc .pptx.");
                 return;
             }
 
@@ -274,15 +291,15 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
                 $http.put(`/rest/admin/TaiLieu/${item.id}`, item).then(function (resp) {
                     var index = $scope.itemsTaiLieu.findIndex(p => p.id == item.id);
                     $scope.itemsTaiLieu[index] = item;
-                    alert("Cập nhật thành công");
+                    $scope.showSuccessMessage("Thành công", "Cập nhật thành công");
                     $scope.loadDocuments();
                     $scope.reset();
                 }).catch(function (error) {
-                    alert("Lỗi cập nhật tài liệu");
+                    $scope.showErrorMessage("Lỗi", "Lỗi cập nhật tài liệu");
                     console.log("Error", error);
                 });
             }).catch(function (uploadError) {
-                alert("Lỗi tải lên tệp tin1");
+                $scope.showErrorMessage("Lỗi", "Lỗi tải lên tệp tin");
                 console.log("Upload Error", uploadError);
             });
         } else {
@@ -292,16 +309,34 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
             $http.put(`/rest/admin/TaiLieu/${item.id}`, item).then(function (resp) {
                 var index = $scope.itemsTaiLieu.findIndex(p => p.id == item.id);
                 $scope.itemsTaiLieu[index] = item;
-                alert("Cập nhật thành công");
+                $scope.showSuccessMessage("Thành công", "Cập nhật thành công");
                 $scope.loadDocuments();
                 $scope.reset();
             }).catch(function (error) {
-                alert("Lỗi cập nhật tài liệu2");
+                $scope.showErrorMessage("Lỗi", "Lỗi cập nhật tài liệu");
                 console.log("Error", error);
             });
         }
-
     };
+
+    $scope.showErrorMessage = function (title, message) {
+        Swal.fire({
+            icon: 'error',
+            title: title,
+            text: message,
+            confirmButtonText: 'Đóng',
+        });
+    };
+
+    $scope.showSuccessMessage = function (title, message) {
+        Swal.fire({
+            icon: 'success',
+            title: title,
+            text: message,
+            confirmButtonText: 'Đóng',
+        });
+    };
+
 
 
     $scope.trang = {
@@ -352,25 +387,51 @@ app.controller("TaiLieu-ctrl", function ($scope, $http, $window) {
     };
 
     $scope.delete = function (item) {
-
         if ($scope.formTaiLieu.tenSlide) {
             item = angular.copy($scope.formTaiLieu);
-            console.log(item);
         }
-        var isConfirmed = confirm(`Bạn có chắc chắn muốn xóa tài liệu "${item.tenSlide}"?`);
-        if (isConfirmed) {
-            $http.delete(`/rest/admin/TaiLieu/${item.id}`).then(function (resp) {
-                var index = $scope.itemsTaiLieu.findIndex(p => p.id == item.id);
-                $scope.itemsTaiLieu.splice(index, 1);
-                alert("Xóa thành công");
-                $scope.loadDocuments();
-                $scope.reset();
-            }).catch(function (error) {
-                alert("Lỗi xóa tài liệu");
-                console.log("Error", error);
-            });
-        }
+
+        Swal.fire({
+            title: 'Xác nhận xóa tài liệu',
+            text: `Bạn có chắc chắn muốn xóa tài liệu "${item.tenSlide}"?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Xóa',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $http.delete(`/rest/admin/TaiLieu/${item.id}`).then(function (resp) {
+                    var index = $scope.itemsTaiLieu.findIndex(p => p.id == item.id);
+                    $scope.itemsTaiLieu.splice(index, 1);
+                    $scope.showSuccessMessage("Thành công", "Xóa thành công");
+                    $scope.loadDocuments();
+                    $scope.reset();
+                }).catch(function (error) {
+                    $scope.showErrorMessage("Lỗi", "Lỗi xóa tài liệu");
+                    console.log("Error", error);
+                });
+            }
+        });
     };
+
+    $scope.showErrorMessage = function (title, message) {
+        Swal.fire({
+            icon: 'error',
+            title: title,
+            text: message,
+            confirmButtonText: 'Đóng',
+        });
+    };
+
+    $scope.showSuccessMessage = function (title, message) {
+        Swal.fire({
+            icon: 'success',
+            title: title,
+            text: message,
+            confirmButtonText: 'Đóng',
+        });
+    };
+
 
 
     $scope.itemsKhoaHoc = []; // Danh sách khóa học của bạn
