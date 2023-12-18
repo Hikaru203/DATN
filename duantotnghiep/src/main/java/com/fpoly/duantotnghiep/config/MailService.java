@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class MailService {
 	public static final String EMAIL_TEMPLATE = "emailtemplate";
 	public static final String EMAIL_TEMPLATE2 = "emailtemplate2";
+    public static final String EMAIL_TEMPLATE3 = "emailtemplate3";
     @Autowired
     JavaMailSender sender;
     private final TemplateEngine templateEngine;
@@ -171,6 +172,27 @@ public class MailService {
             helper.setFrom("phuongnhpc03087@fpt.edu.vn");
             helper.setTo(email);
             helper.setSubject("Đơn hàng tại Polyacademy đã được thanh toán!");
+            helper.setText(text,true);
+            sender.send(message);
+		} catch (Exception e) {
+			throw e;
+		}
+    	
+    }
+
+    public void sendEmailDuyet(String email,String Txnref,String formattedDate) throws Exception {
+    	try {
+    		  // Tạo message
+            MimeMessage message = sender.createMimeMessage();
+            // Sử dụng Helper để thiết lập các thông tin cần thiết cho message
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            Context context = new Context();
+            context.setVariables(Map.of("Txnref", Txnref,"formattedDate",formattedDate ));
+            String text = templateEngine.process(EMAIL_TEMPLATE3, context);
+            
+            helper.setFrom("phuongnhpc03087@fpt.edu.vn");
+            helper.setTo(email);
+            helper.setSubject("Khóa học tại Polyacademy đã được duyệt thành công!");
             helper.setText(text,true);
             sender.send(message);
 		} catch (Exception e) {

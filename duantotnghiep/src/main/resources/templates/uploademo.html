@@ -425,7 +425,7 @@
                                     
                                     <td>{{khoaHoc.tenKhoaHoc}}</td>
                                     <td>{{khoaHoc.moTa}}</td>
-                                    <td>{{ ThongKeNguoiHoc(khoaHoc.id) }}</td>
+                                    <td><button ng-click="editbr(khoaHoc)"><i class="fa fa-eye" aria-hidden="true"></i>Xem</button></td>
                                 </tr>
 
                             </tbody>
@@ -890,6 +890,7 @@
             }
         });
     </script>
+    
     <style>
         .modal {
             display: none;
@@ -903,6 +904,7 @@
             background-color: rgb(0, 0, 0);
             background-color: rgba(0, 0, 0, 0.4);
             padding-top: 60px;
+            align-items: center;
         }
 
         .modal-content {
@@ -1004,89 +1006,11 @@
                                 background-color: #218838;
                             }
                         </style>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                            <div class="white-box analytics-info-cs res-mg-t-30 res-tablet-mg-t-30 dk-res-t-pro-30"
-                                style="width: 450px;">
-                                <form class="custom-form" style="max-width: 500px;">
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <label style="font-size: 18px;"><i class="fa fa-bar-chart"
-                                                    aria-hidden="true"></i> Tra cứu doanh thu</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <button id="toggleDateInputs2"
-                                                style="font-size: 12px; background: none; color: #000; border: none;">
-                                                <i id="arrowIcon2" class="fa fa-chevron-down"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <ul class="list-inline  ">
-                                        <li>
-                                            <div id="sparklinedash"></div>
-                                        </li>
-                                        <li class="text-right sp-cn-r"><i class="fa fa-level-up" style="color: #fff;"
-                                                aria-hidden="true"></i> <span class="counter text-success"><span
-                                                    class="counter">
-
-                                        </li>
-                                    </ul>
-                                    <div class="date-inputs2 row" style="display: none;">
-                                        <hr>
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label for="startDate">Từ ngày:</label>
-                                                <input type="date" id="start2" name="trip-start2"
-                                                    ng-model="thoigiankhoahoc.batDau" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label for="endDate">Đến ngày:</label>
-                                                <input type="date" id="end2" name="trip-end2"
-                                                    ng-model="thoigiankhoahoc.ketThuc" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-group">
-                                                <button id="basicSuccess" class="btn btn-success"
-                                                    ng-click="ThongKeTheoKhoaHoc()"
-                                                    style="background-color: #fefefe; color: black; border: 1px #888 solid; margin-top: 69%;margin-left: -3%;"><i
-                                                        class="fa fa-search" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
-            <div class="bieudo" style="height: 400px; width: 100%;">
-                <section class="content">
-                    <!-- /.col-md-6 -->
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header border-0">
-
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <p class="d-flex flex-column">
-
-                                    </p>
-
-                                </div>
-                                <!-- /.d-flex -->
-
-                                <div class="position-relative mb-4">
-                                    <canvas id="revenue-chart2" height="100"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card -->
-                </section>
-            </div>
+           
             <!-- Main content -->
 
             <!-- Thêm các trường dữ liệu khác bạn muốn hiển thị -->

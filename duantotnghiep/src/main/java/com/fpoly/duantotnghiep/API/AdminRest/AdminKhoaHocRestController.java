@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.NguoiDung;
+import com.fpoly.duantotnghiep.config.MailService;
 import com.fpoly.duantotnghiep.service.KhoaHocService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,6 +38,7 @@ import java.nio.file.Paths;
 public class AdminKhoaHocRestController {
     @Autowired
     KhoaHocService khoaHocService;
+   
 
     @GetMapping()
     public List<KhoaHoc> getAll() {
@@ -45,6 +47,7 @@ public class AdminKhoaHocRestController {
 
     @GetMapping("/Duyet")
     public List<KhoaHoc> getDuyet() {
+       
         return khoaHocService.findDuyet();
     }
 
