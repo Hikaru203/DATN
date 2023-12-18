@@ -65,10 +65,7 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
             });
 
             $scope.itemsKenhKhoaHoc = resp.data;
-            
-            
         });
-
         // load loại khóa học
         $http.get("/rest/admin/KhoaHoc/loaiKhoaHoc").then(resp => {
             $scope.cboloaiKhoaHoc = resp.data;
@@ -282,7 +279,6 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         item.duyet = true;
 
         var formData = new FormData();
-
         formData.append('hinhAnh', item.hinhAnh);
         
     
@@ -314,6 +310,62 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
                 console.log("Error", error)
         })
 }
+// Cập nhật trạng thái khóa học
+$scope.trangThaiKhoaHoc2 = function (items) {
+    var item = angular.copy(items);
+    
+    item.ngayTao = moment(item.ngayTao,"DD-MM-YYYY HH:mm:ss");
+    
+
+    if(item.trangThai == "true"){
+        item.trangThai = "false";
+    }
+    else if(item.trangThai == "false"){
+        item.trangThai = "true";
+    }
+
+    var formData = new FormData();
+
+    formData.append('hinhAnh', item.hinhAnh);
+
+    formData.append('khoaHoc', new Blob([JSON.stringify(item)], { type: "application/json" }));
+
+    
+    $http.put(`/rest/admin/KhoaHoc/${item.id}`, formData, {
+        transformRequest: angular.identity,
+        headers: { 'Content-Type': undefined }
+    }).then(resp => {
+        var index = $scope.itemsKhoaHoc.findIndex(
+            p => p.id == item.id);
+        $scope.itemsKhoaHoc[index] = item;
+
+       // load kênh Khóa học
+       $http.get("/rest/admin/KhoaHoc/Duyet").then(resp => {
+        // Chuyển đổi ngày giờ sang múi giờ Việt Nam
+        resp.data.forEach(item => {
+            item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
+        });
+
+        $scope.itemsKenhKhoaHoc = resp.data;
+            
+        });
+        
+        if(item.trangThai == "true"){
+            
+            showNotification(10);
+        }
+        else if(item.trangThai == "false"){
+            showNotification(1);
+        }
+        
+    })
+    .catch(error => {
+        showNotification(6);
+            console.log("Error", error)
+    })
+}
+
+
 
  // Cập nhật trạng thái khóa học
  $scope.trangThaiKhoaHoc = function (items) {
@@ -326,8 +378,9 @@ app.controller("KhoaHoc-ctrl", function ($scope, $http, $window) {
         item.trangThai = "false";
     }
     else if(item.trangThai == "false"){
-        item.trangThai = "true"; 
+        item.trangThai = "true";
     }
+
     var formData = new FormData();
 
     formData.append('hinhAnh', item.hinhAnh);
@@ -667,7 +720,8 @@ const notifications = [
     { text: "Lỗi thêm mới", duration: 3000, type: "error" },//---6---
     { text: "Lỗi xóa", duration: 3000, type: "error" },//---7---
     { text: "Lỗi cập nhật", duration: 3000, type: "error" },//---8---
-    { text: "Duyệt thành công", duration: 3000, type: "success" }//---9---
+    { text: "Duyệt thành công", duration: 3000, type: "success" },//---9---
+    { text: "Bỏ qua thành công", duration: 3000, type: "success" }//---10---
   ];
 
   // Hàm hiển thị thông báo

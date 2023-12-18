@@ -33,7 +33,7 @@ public interface KhoaHocRepository extends JpaRepository<KhoaHoc, Integer> {
 	@Query("select kh from KhoaHoc kh order by kh.chiPhi asc")
 	List<KhoaHoc> findBySapXepGiaTangDan();
 
-	@Query("SELECT kh FROM KhoaHoc kh WHERE kh.duyet = false")
+	@Query("SELECT kh FROM KhoaHoc kh WHERE kh.duyet = false AND kh.trangThai = 'false'")
 	List<KhoaHoc> findByDuyet();
 
 	List<KhoaHoc> findAll();
