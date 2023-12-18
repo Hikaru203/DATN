@@ -309,7 +309,7 @@
                                         $http.put("/rest/admin/NguoiDung/" + $scope.idLogin, data)
                                             .then(function (response) {
                                                 $scope.showSuccessMessage("Thành công", "Bạn đã đăng ký thành công!");
-                                                $window.location.href = "/courseOnline/contact";
+                                                
                                             })
                                             .catch(function (error) {
                                                 $scope.showFailureMessage("Lỗi", "Đã có lỗi xảy ra, vui lòng thử lại sau!");

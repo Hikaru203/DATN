@@ -158,6 +158,23 @@ app.controller('detail-controller', function ($scope, $http, $window) {
         window.location.href = '/courseOnline/dangnhap'; // Thay đổi đường dẫn tùy theo định dạng URL của bạn
     };
 
+    $scope.showSuccessMessage = function (title, message, onConfirm, onCancel) {
+        Swal.fire({
+            icon: 'success',
+            title: title,
+            text: message,
+            showCancelButton: true,
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed && typeof onConfirm === 'function') {
+                onConfirm(); // Gọi hàm callback khi người dùng xác nhận
+            } else if (result.dismiss === Swal.DismissReason.cancel && typeof onCancel === 'function') {
+                onCancel(); // Gọi hàm callback khi người dùng hủy
+            }
+        });
+    };
+
 
     $scope.addCourse = function (id) {
         $http.get("/rest/admin/NguoiDung/" + value)
@@ -179,44 +196,52 @@ app.controller('detail-controller', function ($scope, $http, $window) {
                     $scope.khoaHoc = resp.data;
 
                     console.log($scope.khoaHoc.chiPhi);
-                    alert("Bạn có muốn đăng ký khóa học này không?");
+                    $scope.showSuccessMessage("Thông báo", "Bạn có chắc muốn đăng ký khóa học?", function () {
+                        // Thực hiện hành động khi người dùng xác nhận
+                        console.log('Người dùng đã xác nhận');
+                        // Thêm code của bạn tại đây
+                        if ($scope.khoaHoc.chiPhi != 0) {
+                            $http({
+                                method: 'GET',
+                                url: '/api/Checkout/check/' + value + '/' + id
+                            }).then(function (response) {
+                                console.log(response.data);
+                                if (!response.data.trangThai) {
+                                    // Chưa thanh toán, chuyển hướng đến trang Checkout
+                                    window.location.href = '/courseOnline/CheckOut';
+                                } else {
 
-                    if ($scope.khoaHoc.chiPhi != 0) {
-                        $http({
-                            method: 'GET',
-                            url: '/api/Checkout/check/' + value + '/' + id
-                        }).then(function (response) {
-                            console.log(response.data);
-                            if (!response.data.trangThai) {
-                                // Chưa thanh toán, chuyển hướng đến trang Checkout
-                                window.location.href = '/courseOnline/CheckOut';
-                            } else {
-
-                            }
-                        }, function (response) {
-                            console.log(response);
-                        });
-                    } else {
-                        $http.get("/rest/admin/NguoiDung/" + value)
-                            .then(function (resp) {
-                                $scope.DangKy.nguoiDung = resp.data;
-                                $scope.DangKy.khoaHoc = $scope.hoc.courseOnline;
-                                $scope.DangKy.ngayDangKy = new Date();
-                                $scope.DangKy.tienDo = 0;
-                                $scope.DangKy.trangThai = 0;
-                                $scope.DangKy.tienDoToiDa = 0;
-                                console.log($scope.DangKy);
-                                // Gửi POST request để đăng ký khóa học
-                                $http.post("/api/courseOnline", $scope.DangKy)
-                                    .then(function (response) {
-                                        $scope.init();
-                                        console.log(response);
-                                        $scope.getid(id);
-                                    }, function (response) {
-                                        console.log(response);
-                                    });
+                                }
+                            }, function (response) {
+                                console.log(response);
                             });
-                    }
+                        } else {
+                            $http.get("/rest/admin/NguoiDung/" + value)
+                                .then(function (resp) {
+                                    $scope.DangKy.nguoiDung = resp.data;
+                                    $scope.DangKy.khoaHoc = $scope.hoc.courseOnline;
+                                    $scope.DangKy.ngayDangKy = new Date();
+                                    $scope.DangKy.tienDo = 0;
+                                    $scope.DangKy.trangThai = 0;
+                                    $scope.DangKy.tienDoToiDa = 0;
+                                    console.log($scope.DangKy);
+                                    // Gửi POST request để đăng ký khóa học
+                                    $http.post("/api/courseOnline", $scope.DangKy)
+                                        .then(function (response) {
+                                            $scope.init();
+                                            console.log(response);
+                                            $scope.getid(id);
+                                        }, function (response) {
+                                            console.log(response);
+                                        });
+                                });
+                        }
+                    }, function () {
+                        // Thực hiện hành động khi người dùng hủy
+                        console.log('Người dùng đã hủy');
+                        // Thêm code của bạn tại đây
+                    });
+
                 });
 
         }
