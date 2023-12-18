@@ -93,23 +93,22 @@
 					<ul class="metismenu" id="menu1">
 						<li><a class="has-arrow" th:href="@{/Admin/index1}"> <span
 									class="educate-icon educate-home icon-wrap"></span> <span
-									class="mini-click-non">Thống kê</span>
+									class="mini-click-non">Thống Kê</span>
 							</a>
 							<ul class="submenu-angle" aria-expanded="true">
 								<li><a title="Dashboard v.1" th:href="@{/Admin/ThongKe}"><span
-											class="mini-sub-pro">Thống Kê</span></a></li>
+											class="mini-sub-pro">Thống kê</span></a></li>
 							</ul>
 						</li>
 
 						<li class="active"><a class="has-arrow" th:href="@{/Admin/all-professors}"
 								aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span>
-								<span class="mini-click-non">Người dùng</span></a>
+								<span class="mini-click-non">Người Dùng</span></a>
 							<ul class="submenu-angle" aria-expanded="false">
 								<li><a title="Edit Professor" th:href="@{/Admin/User}"><span class="mini-sub-pro">Quản
 											lý người dùng</span></a></li>
-								<li><a title="All Students" th:href="@{/Admin/HocVien}"><span class="mini-sub-pro"> Quản
-											Lí
-											Học viên</span></a></li>
+								<li><a title="All Students" th:href="@{/Admin/HocVien}"><span class="mini-sub-pro">Quản
+											lí học viên</span></a></li>
 							</ul>
 						</li>
 						<li><a class="has-arrow" th:href="@{/Admin/KhoaHoc}" aria-expanded="false"><span
@@ -117,9 +116,9 @@
 									class="mini-click-non">Khóa Học</span></a>
 							<ul class="submenu-angle" aria-expanded="false">
 								<li><a title="Add Courses" th:href="@{/Admin/EditKhoaHoc}"><span
-											class="mini-sub-pro">Thêm Khóa Học</span></a></li>
+											class="mini-sub-pro">Thêm khóa học</span></a></li>
 								<li><a title="Add Courses" th:href="@{/Admin/KenhKhoaHoc}"><span
-											class="mini-sub-pro">Kênh Khóa Học</span></a></li>
+											class="mini-sub-pro">Kênh khóa học</span></a></li>
 
 							</ul>
 						</li>
@@ -128,17 +127,17 @@
 									class="mini-click-non">Tài Liệu</span></a>
 							<ul class="submenu-angle" aria-expanded="false">
 								<li><a title="All Library" th:href="@{/Admin/TaiLieu}"><span class="mini-sub-pro">Quản
-											Lí Tài Liệu</span></a></li>
+											lí tài liệu</span></a></li>
 								<li><a title="All Library" th:href="@{/Admin/CauHoi}"><span class="mini-sub-pro">Câu
-											Hỏi</span></a></li>
+											hỏi</span></a></li>
 							</ul>
 						</li>
 						<li><a class="has-arrow" th:href="@{/Admin/ChungChi}" aria-expanded="false"><span
 									class="educate-icon educate-department icon-wrap"></span> <span
-									class="mini-click-non">Chúng nhận</span></a>
+									class="mini-click-non">Chứng Nhận</span></a>
 							<ul class="submenu-angle" aria-expanded="false">
 								<li><a title="ChungChi List" th:href="@{/Admin/ChungChi}"><span
-											class="mini-sub-pro">Chúng nhận</span></a></li>
+											class="mini-sub-pro">Chứng nhận</span></a></li>
 							</ul>
 						</li>
 						<li><a class="has-arrow" th:href="@{/Admin/Video}" aria-expanded="false"><span
@@ -189,7 +188,7 @@
 																<table class="table">
 																	<thead>
 																		<tr>
-																			<th>No</th>
+																			<th>STT</th>
 																			<th>ID Đăng Ký Khóa Học</th>
 																			<th>ID Người Dùng</th>
 																			<th>Họ Tên</th>
@@ -197,12 +196,12 @@
 
 																			<th>Tên Khóa Học</th>
 																			<th>Chi Phí</th>
-																			<th>Chức Vụ</th>
+                                                                             
 																			<th>Trạng Thái</th>
 																		</tr>
 																	</thead>
 																	<tbody>
-																		<tr ng-repeat="item in itemsHocVien">
+																		<tr ng-repeat="item in pager.itemsHocVien">
 																			<td>{{$index + 1}}</td>
 																			<td>{{item.id}}</td>
 																			<td>{{item.idNguoiDung}}</td>
@@ -211,7 +210,7 @@
 
 																			<td>{{item.tenKhoaHoc}}</td>
 																			<td>{{item.chiPhi}}</td>
-																			<td>{{item.chucVu}}</td>
+																	
 																			<td>{{item.trangThai}}</td>
 																		</tr>
 																	</tbody>
@@ -223,21 +222,34 @@
 												</div>
 											</div>
 										</div>
-										<div class="text-center">
-											<ul class="pagination">
-												<li ng-class="{disabled: currentPage == 0}">
-													<a href="#" ng-click="prevPage()"><i
-															class="fas fa-chevron-left"></i> Previous</a>
-												</li>
-												<li ng-repeat="n in range(pagedItems.length)"
-													ng-class="{active: n == currentPage}">
-													<a href="#" ng-click="setPage(n)">{{n + 1}}</a>
-												</li>
-												<li ng-class="{disabled: currentPage == pagedItems.length - 1}">
-													<a href="#" ng-click="nextPage()">Next <i
-															class="fas fa-chevron-right"></i></a>
-												</li>
-											</ul>
+										<div class="panel-footer text-center">
+											<button ng-click="pager.first()"
+												class="btn btn-primary"
+												style="background-color: #fefefe; color: black;">
+												<i
+													class="fa fa-arrow-circle-up"></i>
+											</button>
+											<button ng-click="pager.prev()"
+												class="btn btn-primary"
+												style="background-color: #fefefe; color: black;">
+												<i
+													class="fa fa-arrow-circle-left"></i>
+											</button>
+											<button class="btn btn-success"
+												style="background-color: #fefefe; color: black;">{{pager.page
+												+1}} of {{pager.count}}</button>
+											<button ng-click="pager.next()"
+												class="btn btn-primary"
+												style="background-color: #fefefe; color: black;">
+												<i
+													class="fa fa-arrow-circle-right"></i>
+											</button>
+											<button ng-click="pager.last()"
+												class="btn btn-primary"
+												style="background-color: #fefefe; color: black;">
+												<i
+													class="fa fa-arrow-circle-down"></i>
+											</button>
 										</div>
 									</div>
 
@@ -246,41 +258,9 @@
 									<script>
 										var app = angular.module('myApp', []);
 										app.controller('HocVienCtrl', function ($scope) {
-											// ... your existing code ...
+											
 
-											// Pagination
-											$scope.currentPage = 0;
-											$scope.pageSize = 5; // số items trên mỗi trang
-
-											$scope.numberOfPages = function () {
-												return Math.ceil($scope.itemsHocVien.length / $scope.pageSize);
-											};
-
-											$scope.range = function (num) {
-												var arr = [];
-												for (var i = 0; i < num; i++) {
-													arr.push(i);
-												}
-												return arr;
-											};
-
-											$scope.setPage = function (n) {
-												$scope.currentPage = n;
-											};
-
-											$scope.prevPage = function () {
-												if ($scope.currentPage > 0) {
-													$scope.currentPage--;
-												}
-											};
-
-											$scope.nextPage = function () {
-												if ($scope.currentPage < $scope.numberOfPages() - 1) {
-													$scope.currentPage++;
-												}
-											};
-
-											// ...
+											
 
 										});
 									</script>

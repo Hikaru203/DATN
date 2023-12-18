@@ -65,7 +65,11 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 		// TODO Auto-generated method stub
 		return khoaHocRepository.findByTenKhoaHoc2(tenKhoaHoc);
 	}
-	
+	@Override
+	public List<KhoaHoc> findByTenKhoaHoc3(String tenKhoaHoc,Integer idNguoiDung) {
+		// TODO Auto-generated method stub
+		return khoaHocRepository.findByTenKhoaHoc3( tenKhoaHoc, idNguoiDung);
+	}
 
 	@Override
 	public KhoaHoc findById(int id) {

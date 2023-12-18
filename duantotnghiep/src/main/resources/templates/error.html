@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lỗi Truy Cập</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .error-container {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #e74c3c;
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .icon {
+            color: #e74c3c;
+            font-size: 50px;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        .redirect-button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .redirect-button:hover {
+            background-color: #2980b9;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="error-container">
+    <i class="fas fa-exclamation-triangle icon"></i>
+    <h1>Lỗi Truy Cập</h1>
+    <p id="errorMessage"></p>
+    <br>
+    <button class="redirect-button" onclick="redirectToIndex()">Quay lại Trang Chủ</button>
+</div>
+
+<script>
+    // Sử dụng JavaScript để cập nhật thông báo trên trang
+    document.getElementById("errorMessage").innerText = "Bạn không có quyền truy cập vào trang này, hãy đăng ký nhà sáng tạo ngay bạn nhé!";
+
+    function redirectToIndex() {
+        window.location.href = "/courseOnline/index"; // Điều hướng đến trang index
+    }
+</script>
+
+</body>
+</html>

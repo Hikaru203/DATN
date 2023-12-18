@@ -89,23 +89,22 @@
 					<ul class="metismenu" id="menu1">
 						<li><a class="has-arrow" th:href="@{/Admin/index1}"> <span
 									class="educate-icon educate-home icon-wrap"></span> <span
-									class="mini-click-non">Thống kê</span>
+									class="mini-click-non">Thống Kê</span>
 							</a>
 							<ul class="submenu-angle" aria-expanded="true">
 								<li><a title="Dashboard v.1" th:href="@{/Admin/ThongKe}"><span
-											class="mini-sub-pro">Thống Kê</span></a></li>
+											class="mini-sub-pro">Thống kê</span></a></li>
 							</ul>
 						</li>
 
 						<li class="active"><a class="has-arrow" th:href="@{/Admin/all-professors}"
 								aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span>
-								<span class="mini-click-non">Người dùng</span></a>
+								<span class="mini-click-non">Người Dùng</span></a>
 							<ul class="submenu-angle" aria-expanded="false">
 								<li><a title="Edit Professor" th:href="@{/Admin/User}"><span class="mini-sub-pro">Quản
 											lý người dùng</span></a></li>
-								<li><a title="All Students" th:href="@{/Admin/HocVien}"><span class="mini-sub-pro"> Quản
-											Lí
-											Học viên</span></a></li>
+								<li><a title="All Students" th:href="@{/Admin/HocVien}"><span class="mini-sub-pro">Quản
+											lí học viên</span></a></li>
 							</ul>
 						</li>
 						<li><a class="has-arrow" th:href="@{/Admin/KhoaHoc}" aria-expanded="false"><span
@@ -113,9 +112,9 @@
 									class="mini-click-non">Khóa Học</span></a>
 							<ul class="submenu-angle" aria-expanded="false">
 								<li><a title="Add Courses" th:href="@{/Admin/EditKhoaHoc}"><span
-											class="mini-sub-pro">Thêm Khóa Học</span></a></li>
+											class="mini-sub-pro">Thêm khóa học</span></a></li>
 								<li><a title="Add Courses" th:href="@{/Admin/KenhKhoaHoc}"><span
-											class="mini-sub-pro">Kênh Khóa Học</span></a></li>
+											class="mini-sub-pro">Kênh khóa học</span></a></li>
 
 							</ul>
 						</li>
@@ -124,14 +123,14 @@
 									class="mini-click-non">Tài Liệu</span></a>
 							<ul class="submenu-angle" aria-expanded="false">
 								<li><a title="All Library" th:href="@{/Admin/TaiLieu}"><span class="mini-sub-pro">Quản
-											Lí Tài Liệu</span></a></li>
+											lí tài liệu</span></a></li>
 								<li><a title="All Library" th:href="@{/Admin/CauHoi}"><span class="mini-sub-pro">Câu
-											Hỏi</span></a></li>
+											hỏi</span></a></li>
 							</ul>
 						</li>
 						<li><a class="has-arrow" th:href="@{/Admin/ChungChi}" aria-expanded="false"><span
 									class="educate-icon educate-department icon-wrap"></span> <span
-									class="mini-click-non">Chứng nhận</span></a>
+									class="mini-click-non">Chứng Nhận</span></a>
 							<ul class="submenu-angle" aria-expanded="false">
 								<li><a title="ChungChi List" th:href="@{/Admin/ChungChi}"><span
 											class="mini-sub-pro">Chứng nhận</span></a></li>
@@ -187,13 +186,13 @@
 																			value="">
 																	</div>
 																	<div class="form-group">
-																		<label for="">Mật Khẩu</label>
+																		<label for="">Mật khẩu</label>
 																		<input type="text" id="matKhauInput"
 																			class="form-control" placeholder="Mật Khẩu"
 																			value="">
 																	</div>
 																	<div class="form-group">
-																		<label for="">Họ Tên</label>
+																		<label for="">Họ tên</label>
 																		<input type="text" id="hoTenInput"
 																			class="form-control" placeholder="Họ Tên"
 																			value="">
@@ -227,17 +226,17 @@
 																	</div>
 																	<div class="form-group edit-ta-resize res-mg-t-15">
 																		<div class="form-group">
-																			<label for="">Số Điện Thoại</label>
+																			<label for="">Số điện thoại</label>
 																			<input type="text" id="soDienThoaiInput"
 																				class="form-control"
 																				placeholder="Số Điện Thoại" value="">
 																		</div>
 																	</div>
 
-																	<div class="form-group">
-																		<label for="">Chức Vụ</label>
+																	<div class="form-group"> 
+																		<label for="">Chức vụ</label>
 																		<select id="chucVuInput" class="form-control">
-																			<option value="false">User</option>
+																			<option value="false">Học viên</option>
 																			<option value="true">Admin</option>
 																		</select>
 																		<input type="hidden" name="selectedValue"
@@ -287,18 +286,18 @@
 											<div class="row">
 												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 													<div class="product-status-wrap drp-lst">
-														<h4>Danh Sách User</h4>
+														<h4>Danh Sách Người Dùng</h4>
 
 														<div class="asset-inner">
 															<table>
 																<tr>
-																	<th>No</th>
-																	<th>Tài Khoản</th>
-																	<th>Họ Tên</th>
+																	<th>STT</th>
+																	<th>Tài khoản</th>
+																	<th>Họ tên</th>
 																	<th>Email</th>
-																	<th>Số Điện Thoại</th>
-																	<th>Chức Vụ</th>
-																	<th>Xác Minh</th>
+																	<th>Số điện thoại</th>
+																	<th>Chức vụ</th>
+																	<th>Xác minh</th>
 
 																</tr>
 																<tr ng-repeat="nguoiDung in nguoiDungList">
@@ -308,9 +307,9 @@
 																	<td>{{ nguoiDung.email }}</td>
 																	<td>{{ nguoiDung.soDienThoai }}</td>
 																	<td>
-																		{{ nguoiDung.chucVu === 'true' ? 'admin' :
-																		(nguoiDung.nhaSangTao ? 'nhà sáng
-																		tạo' : 'học viên') }}
+																		{{ nguoiDung.chucVu === 'true' ? 'Admin' :
+																		(nguoiDung.nhaSangTao ? 'Nhà sáng
+																		tạo' : 'Học viên') }}
 																	</td>
 
 																	<td>{{nguoiDung.xac_minh ? 'Đã xác minh' : 'Chưa

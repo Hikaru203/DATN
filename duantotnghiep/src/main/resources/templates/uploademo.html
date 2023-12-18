@@ -25,7 +25,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link th:href="@{/css/style.css}" rel="stylesheet">
-    
+
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl">
@@ -355,8 +355,8 @@
                                         <!-- Hiển thị hình ảnh đã chọn (nếu có) -->
                                         <div id="preview">
                                             <!-- Ảnh mặc định -->
-                                            <img id="defaultImage" ng-src="/Admin/img/gallery.png" alt="Default Image"
-                                                height="100px" width="100px">
+                                            <img id="defaultImage" alt="Thêm hình ảnh tại đây." height="100px"
+                                                width="100px">
                                         </div>
                                         <input name="hinhAnh" id="imageInput" type="file"
                                             file-model="formKhoaHoc.hinhAnh" class="form-control"
@@ -434,33 +434,40 @@
                 </script>
 
                 <div class="col-md-12" style="margin-top: 20px;">
+                    <div class="row search-bar">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input name="tenKhoaHoc" type="text" onsubmit="timKiemKhoaHoc()"
+                                    ng-model="TimKhoaHoc.tenKhoaHoc" class="form-control search-input"
+                                    placeholder="Nhập tên khóa học">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <button ng-click="timKiemKhoaHoc()" class="search-button">
+                                    <i class="fa fa-search" aria-hidden="true"></i>Tìm
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <h4>Danh sách các khoá học đã đăng:</h4>
-
                     <div class="course-list">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">Khoá học</th>
                                     <th scope="col">Mô tả</th>
-                                    
                                     <th scope="col">Số người học</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="khoaHoc in khoaHocFindByNguoiTao" ng-click="edit(khoaHoc)"
                                     ng-if="khoaHoc.trangThai !== 'true'">
-                                    
                                     <td>{{khoaHoc.tenKhoaHoc}}</td>
                                     <td>{{khoaHoc.moTa}}</td>
                                     <td><button ng-click="editbr(khoaHoc)"></button></td>
                                 </tr>
-
                             </tbody>
-                            <script>
-                                function handleRowClick(idKhoaHoc) {    
-
-                                }
-                            </script>
                             <tbody>
                                 <!-- Nơi hiển thị danh sách đã đăng -->
                                 <tr ng-repeat="loai in khoaHocByLoai">
@@ -470,17 +477,38 @@
                             </tbody>
                         </table>
                     </div>
-                    <style>
-                        .course-list {
-                            max-height: 300px;
-                            overflow-y: auto;
-                        }
-
-                        .table {
-                            width: 100%;
-                        }
-                    </style>
                 </div>
+                <style>
+                    /* Thêm đoạn CSS sau vào stylesheet của bạn hoặc vào thẻ <style> trong trang HTML */
+                    .search-bar {
+                        align-items: center;
+                        /* Căn giữa theo chiều dọc */
+                    }
+
+                    .search-input {
+                        border-radius: 5px;
+                        /* Bo góc input */
+                        padding: 10px;
+                        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+                        /* Hiệu ứng bóng đổ */
+                    }
+
+                    .search-button {
+                        background-color: #4CAF50;
+                        color: white;
+                        border: none;
+                        border-radius: 5px;
+                        /* Bo góc nút */
+                        height: 40px;
+                        width: 80px;
+                        cursor: pointer;
+                    }
+
+                    .search-button:hover {
+                        background-color: #45a049;
+                        /* Màu nền khi hover */
+                    }
+                </style>
             </div>
         </div>
     </div>
@@ -624,11 +652,9 @@
                             <br><br>
 
                             <div class="container mt-4">
+                                <button class="btn btn-primary mr-2" id="addButton">Thêm</button>
                                 <button class="btn btn-warning mr-2" onclick="goBack()">Quay lại</button>
                                 <!-- Button "Thêm" -->
-                                <button class="btn btn-primary mr-2" id="addButton">Thêm</button>
-
-
                             </div>
                         </form>
                     </div>
@@ -712,6 +738,7 @@
             });
 
 
+
         });
 
         var currentTabIndex = 1;
@@ -736,6 +763,9 @@
             currentTabIndex = parseInt(tabName.replace('tab', ''));
         }
 
+        // Đảm bảo khai báo currentTabIndex trước khi sử dụng hàm goBack
+        var currentTabIndex = 1;
+
         function goBack() {
             if (currentTabIndex > 1) {
                 currentTabIndex--;
@@ -743,6 +773,12 @@
             } else {
                 alert("This is the first tab.");
             }
+        }
+
+        // Giả sử bạn có hàm openTab, bạn cần định nghĩa nó trước khi sử dụng
+        function openTab(tabId) {
+            // Logic mở tab ở đây
+            console.log("Opening tab:", tabId);
         }
 
 
@@ -1137,6 +1173,26 @@
             $scope.itemsThongKeTheoKhoaHoc = [];
             $scope.modalItem = {};
             $scope.formVideo = {};
+            $scope.TimKhoaHoc = {};
+            $scope.timKiemKhoaHoc = function () {
+                $scope.khoaHocFindByNguoiTao = $scope.khoaHoc.filter(item => item.nguoiTao.id == $scope.idLogin);
+
+
+                // load Khóa học
+                $http.get("/rest/admin/KhoaHoc/tim-khoa-hoc-nguoi-dung", {
+                    params: {
+                        tenKhoaHoc: $scope.TimKhoaHoc.tenKhoaHoc,
+                        idNguoiDung: $scope.idLogin
+                    }
+                }).then(resp => {
+                    // Chuyển đổi ngày giờ sang múi giờ Việt Nam
+                    resp.data.forEach(item => {
+                        item.ngayTao = moment(item.ngayTao).utcOffset(7).format('DD-MM-YYYY HH:mm:ss');
+                    });
+                    $scope.khoaHocFindByNguoiTao = resp.data;
+
+                });
+            }
             //định dạng tiền
             $scope.formatCurrency = function (amount) {
                 // Chuyển đổi số tiền thành chuỗi và loại bỏ số 0 ở cuối
@@ -1310,7 +1366,7 @@
                 ThongKeNamNay: "/rest/Report/thong-ke-nam-nay",
                 ThongKeNamTruoc: "/rest/Report/thong-ke-nam-truoc",
             };
-            
+
             $scope.changeLoai = function (id) {
                 // Thêm logic xử lý khi giá trị thay đổi
                 $http.get('/api/khoahoc/byLoai/' + id)
@@ -1347,8 +1403,8 @@
                     .then(response => {
                         $scope.khoaHoc = response.data;
                         $scope.khoaHocFindByNguoiTao = $scope.khoaHoc.filter(item => item.nguoiTao.id == $scope.idLogin);
-                        
-                        
+
+
                     })
                     .catch(error => {
                         // Xử lý lỗi nếu cần
@@ -1654,7 +1710,7 @@
                             })
                             .catch(function (response) {
                                 // Lỗi
-                                $scope.showFailureMessage('Lỗi!', 'Đã xảy ra lỗi khi thêm Mức lực mới.');
+                                $scope.showFailureMessage('Lỗi!', 'Đã xảy ra lỗi khi thêm Mục lục mới.');
                                 $scope.hassError = true;
                                 $scope.message1 = "Tên khoá học đã tồn tại";
                                 console.log(response);
@@ -1723,7 +1779,7 @@
             };
 
             $scope.updateUI();
-   
+
         });
     </script>
 
@@ -1738,7 +1794,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Template Javascript -->
     <script th:src="@{/js/main.js}"></script>
-
     <script th:src="@{/js/loai.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
