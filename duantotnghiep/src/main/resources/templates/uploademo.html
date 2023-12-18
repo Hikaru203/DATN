@@ -25,7 +25,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link th:href="@{/css/style.css}" rel="stylesheet">
-
+    
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl">
@@ -415,22 +415,22 @@
                                 <tr>
                                     <th scope="col">Khoá học</th>
                                     <th scope="col">Mô tả</th>
-
-                                    <th scope="col">Thống kê</th>
+                                    
+                                    <th scope="col">Số người học</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="khoaHoc in khoaHocFindByNguoiTao" ng-click="edit(khoaHoc)"
                                     ng-if="khoaHoc.trangThai !== 'true'">
+                                    
                                     <td>{{khoaHoc.tenKhoaHoc}}</td>
                                     <td>{{khoaHoc.moTa}}</td>
-                                    <td><button aria-hidden="true" class="fa fa-cog" ng-click="editbr(khoaHoc)"
-                                            style="background-color: #fefefe; color: black;"> Xem</button></td>
+                                    <td>{{ ThongKeNguoiHoc(khoaHoc.id) }}</td>
                                 </tr>
 
                             </tbody>
                             <script>
-                                function handleRowClick(idKhoaHoc) {
+                                function handleRowClick(idKhoaHoc) {    
 
                                 }
                             </script>
@@ -927,8 +927,6 @@
             cursor: pointer;
         }
     </style>
-
-
     <div id="myModal" class="modal">
         <div class="modal-content">
             <!-- Nội dung của modal ở đây -->
@@ -1122,6 +1120,7 @@
                 }).then(resp => {
                     $scope.SoNguoi = resp.data;
                 });
+                return $scope.SoNguoi;
             }
             $scope.ThongKeTheoKhoaHoc = function () {
 
@@ -1281,6 +1280,7 @@
                 ThongKeNamNay: "/rest/Report/thong-ke-nam-nay",
                 ThongKeNamTruoc: "/rest/Report/thong-ke-nam-truoc",
             };
+            
             $scope.changeLoai = function (id) {
                 // Thêm logic xử lý khi giá trị thay đổi
                 $http.get('/api/khoahoc/byLoai/' + id)
@@ -1317,6 +1317,8 @@
                     .then(response => {
                         $scope.khoaHoc = response.data;
                         $scope.khoaHocFindByNguoiTao = $scope.khoaHoc.filter(item => item.nguoiTao.id == $scope.idLogin);
+                        
+                        
                     })
                     .catch(error => {
                         // Xử lý lỗi nếu cần
@@ -1607,7 +1609,7 @@
             };
 
             $scope.updateUI();
-
+   
         });
     </script>
 
@@ -1618,7 +1620,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 
-
+    
     <!-- Template Javascript -->
     <script th:src="@{/js/main.js}"></script>
 

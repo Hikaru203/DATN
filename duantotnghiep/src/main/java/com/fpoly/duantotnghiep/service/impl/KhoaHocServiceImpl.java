@@ -3,6 +3,8 @@ package com.fpoly.duantotnghiep.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +28,22 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 	public List<KhoaHoc> findAll() {
 		return khoaHocRepository.findAll();
 	}
+	@Override
+	public List<KhoaHoc> findByKhoaHocHot() {
+		return khoaHocRepository.findByKhoaHocHot();
+	}
+	@Override
+	public List<KhoaHoc> findBySapXepTheoNgay() {
+		return khoaHocRepository.findBySapXepTheoNgay();
+	}
+	@Override
+	public List<KhoaHoc> findBySapXepGiaGiamDan() {
+		return khoaHocRepository.findBySapXepGiaGiamDan();
+	}
+	@Override
+	public List<KhoaHoc> findBySapXepGiaTangDan() {
+		return khoaHocRepository.findBySapXepGiaTangDan();
+	}
 
 	@Override
 	public List<KhoaHoc> findDuyet() {
@@ -47,6 +65,7 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 		// TODO Auto-generated method stub
 		return khoaHocRepository.findByTenKhoaHoc2(tenKhoaHoc);
 	}
+	
 
 	@Override
 	public KhoaHoc findById(int id) {

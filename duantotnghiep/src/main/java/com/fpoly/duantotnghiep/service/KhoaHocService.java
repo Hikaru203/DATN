@@ -2,6 +2,8 @@ package com.fpoly.duantotnghiep.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,9 +14,11 @@ import com.fpoly.duantotnghiep.Entity.NguoiDung;
 public interface KhoaHocService {
 
 	List<KhoaHoc> findByCategory(Integer categoryId);
-
+	List<KhoaHoc> findByKhoaHocHot();
 	List<KhoaHoc> findAll();
-
+	List<KhoaHoc> findBySapXepTheoNgay();
+	List<KhoaHoc> findBySapXepGiaGiamDan();
+	List<KhoaHoc> findBySapXepGiaTangDan();
 	List<KhoaHoc> findDuyet();
 
 	KhoaHoc findByKhoaHocId(Integer id);
@@ -41,4 +45,5 @@ public interface KhoaHocService {
 
 	List<KhoaHoc> findByTenKhoaHoc(String tenKhoaHoc);
 	List<KhoaHoc> findByTenKhoaHoc2(String tenKhoaHoc);
+	
 }
