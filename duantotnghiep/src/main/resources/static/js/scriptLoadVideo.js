@@ -134,7 +134,34 @@ app.controller("loadVideo-app-ctrl", ['$scope', '$http', '$cookies', '$window', 
                                             console.log(response);
                                         });
                                         videoIdMax = VideoId;
-                                        
+                                        if (progressPercentage >= 90) {
+                                            nextButton.disabled = false;
+                                            nextButton.style.opacity = 1;
+                                            nextButton.style.cursor = 'pointer';
+                                            nextButton.style.pointerEvents = 'auto';
+                                            nextButton.style.backgroundColor = '#ff0000';
+                                            nextButton.style.color = '#fff';
+                                            nextButton.style.border = 'none';
+                                            nextButton.style.borderRadius = '5px';
+                                            nextButton.style.padding = '10px 20px';
+                                            nextButton.style.margin = '0 10px';
+                                            nextButton.style.fontSize = '16px';
+                                            nextButton.style.fontWeight = 'bold';
+                                            nextButton.style.textTransform = 'uppercase';
+                                        } else {
+                                            nextButton.disabled = true;
+                                            nextButton.style.opacity = 0.5;
+                                            nextButton.style.cursor = 'not-allowed';
+                                            nextButton.style.pointerEvents = 'none';
+                                            nextButton.style.backgroundColor = '#fff';
+                                            nextButton.style.color = '#000';
+                                            nextButton.style.border = '1px solid #000';
+                                            nextButton.style.borderRadius = '5px';
+                                            nextButton.style.padding = '10px 20px';
+                                            nextButton.style.margin = '0 10px';
+                                            nextButton.style.fontSize = '16px';
+                                            nextButton.style.fontWeight = 'bold';
+                                        }
                                     }, 1000);
                                 }
                             },
