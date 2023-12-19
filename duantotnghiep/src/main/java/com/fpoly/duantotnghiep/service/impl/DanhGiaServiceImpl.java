@@ -25,4 +25,9 @@ public class DanhGiaServiceImpl implements DanhGiaService {
         return danhGiaRepository.save(danhGia);
     }
 
+    @Override
+    public List<DanhGia> findByIdKhoaHoc(int id) {
+        return danhGiaRepository.findByKhoaHocId(id);
+    }
+
 }

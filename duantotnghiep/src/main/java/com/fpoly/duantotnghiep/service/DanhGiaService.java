@@ -9,4 +9,6 @@ public interface DanhGiaService {
 
     DanhGia save(DanhGia danhGia);
 
+    List<DanhGia> findByIdKhoaHoc(int id);
+
 }

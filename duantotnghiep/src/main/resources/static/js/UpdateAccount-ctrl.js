@@ -1,139 +1,153 @@
-    var taiKhoan = document.getElementById("taiKhoan").value;
-document.getElementById("updateAccountForm").addEventListener("submit", function (event) {
-    event.preventDefault();
+var app = angular.module('myApp', []);
+app.controller('MyController', ['$scope', '$http', function($scope, $http) {
+	$scope.itemuser = {};
 
+	$scope.formuser = {};
+	$scope.selectedFileName = {};
 
+	$scope.initialize  = function() {
+		$http.get("/api/account/info").then(resp => {
+			$scope.itemuser = resp.data;
+			
+		});
+		$scope.itemuser
 
-    var formData = {
-        taiKhoan: taiKhoan,
-        email: document.getElementById("email").value,
-                hoTen: document.getElementById("text-input").value,
+	}
+$scope.initialize();
+$scope.fileChanged = function () {
+    var fileInput = document.getElementById('avatarInput');
+    var selectedFileName = fileInput.files[0] ? fileInput.files[0].name : '';
+    $scope.selectedFileName = selectedFileName;
+     alert($scope.selectedFileName)
+    $scope.formuser.hinhAnh = fileInput.files[0]; // Lưu đối tượng file vào $scope.formuser.hinhAnh
+};
+$scope.update = function () {
+    var email = document.getElementById('email').value;
+    var hoTen = document.getElementById('hoTen').value;
+    var matKhau = document.getElementById('matKhau').value;
+    var soDienThoai = document.getElementById('soDienThoai').value;
 
-        matKhau: document.getElementById("password-input").value,
-        soDienThoai: document.getElementById("phone-input").value,
-        // Các trường thông tin khác
-    };
+    $scope.formuser.email = email;
+    $scope.formuser.hoTen = hoTen;
+    $scope.formuser.matKhau = matKhau;
+    $scope.formuser.soDienThoai = soDienThoai;
+	
+    var formData = new FormData();
+    formData.append('hinhAnh', $scope.formuser.hinhAnh);
+            $scope.formuser.hinhAnh = $scope.formuser.hinhAnh.name;
 
-    fetch("/courseOnline/updateAccount", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json;charset=UTF-8",
-        },
-        body: JSON.stringify(formData),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Cập nhật thành công:", data);
-        // Cập nhật giao diện người dùng nếu cần
-        showSuccessMessage();
-    })
-    .catch(error => {
-        console.error("Lỗi khi cập nhật:", error);
-        // Xử lý lỗi nếu cần
+    formData.append('user', new Blob([JSON.stringify($scope.formuser)], { type: "application/json" }));
+
+    $http.put("/api/account/update", formData, {
+        transformRequest: angular.identity,
+        headers: { 'Content-Type': undefined }
+    }).then(resp => {
+		showSuccessMessageAndLogout();
+        console.log(1);
     });
-});
-      
-function previewImages(input) {
-    var preview = document.getElementById('image-preview');
-    preview.innerHTML = '';
+};
 
-    if (input.files) {
-        for (var i = 0; i < input.files.length; i++) {
-            var reader = new FileReader();
+	// Hàm hiển thị thông báo
+	function showAlert(type, message) {
+		// Thực hiện hiển thị thông báo dựa trên loại (type)
+		// Ví dụ: Sử dụng thư viện SweetAlert
+		Swal.fire({
+			icon: type,
+			title: message,
+			showConfirmButton: false,
+			timer: 2000 // Thời gian hiển thị thông báo (ms)
+		});
+	}
 
-            reader.onload = function (e) {
-                var image = document.createElement('img');
-                image.src = e.target.result;
-                image.style.maxWidth = '100%';
-                image.style.marginTop = '10px';
-                preview.appendChild(image);
-            };
+	// Rest of your code...
 
-            reader.readAsDataURL(input.files[i]);
-        }
-    }
+
+	// Hàm lấy thông tin người dùng từ server và hiển thị
+	function getAccountInfo() {
+		$.ajax({
+			type: 'GET',
+			url: '/api/account/info',
+			success: function(response) {
+				// Hiển thị tên đăng nhập trong thẻ span
+				$('#spanTaiKhoan').text(response.taiKhoan);
+				// Cập nhật giá trị các trường khác trong form
+				$('#email').val(response.email);
+				$('#hoTen').val(response.hoTen);
+				$('#matKhau').val(response.matKhau);
+				$('#soDienThoai').val(response.soDienThoai);
+
+				// Các trường khác
+			},
+			error: function(error) {
+				console.error('Lỗi khi lấy thông tin người dùng:', error);
+			}
+		});
+	}
+
+	// Gọi hàm lấy thông tin người dùng khi trang tải
+	$(document).ready(function() {
+		getAccountInfo();
+	});
+
+
+	
+
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("updateAccountButton").addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent default form submission
+]);
 
-        // Perform form validation
-        if (validateForm()) {
-            // If validation passes, show success message
-            showSuccessMessage();
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function () {
+                scope.$apply(function () {
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
         }
-    });
+    };
+}]);
 
-    function validateForm() {
-        const usernameInput = document.getElementById("username");
-        const emailInput = document.getElementById("email");
-        const passwordInput = document.getElementById("password-input");
-        const phoneInput = document.getElementById("phone-input");
-
-        let valid = true;
-
-        // Reset error messages
-        clearErrors();
-
-        // Validate username
-        if (usernameInput && usernameInput.value.trim() === "") {
-            valid = false;
-            displayError(usernameInput, "Vui lòng nhập tên đăng nhập");
+function showSuccessMessageAndLogout() {
+		// Hiển thị thông báo SweetAlert
+		Swal.fire({
+			icon: 'success',
+			title: 'Cập nhật thành công!',
+			showConfirmButton: false,
+			timer: 2000 // Thời gian hiển thị thông báo (ms)
+		}).then(() => {
+			// Thực hiện chuyển hướng hoặc đăng xuất người dùng
+			window.location.href = '/logoff'; // Điều chỉnh URL tùy thuộc vào cách bạn xử lý đăng xuất
+		});
+	}
+	
+  $scope.update = function() {
+               if (!$scope.email || !$scope.hoTen || !$scope.matKhau || !$scope.soDienThoai || !$scope.formuser.hinhAnh) {
+            showAlert('error', 'Vui lòng nhập đầy đủ thông tin.');
+            return;
         }
-
-        // Validate email
-        if (emailInput && emailInput.value.trim() === "") {
-            valid = false;
-            displayError(emailInput, "Vui lòng nhập email");
-        } else if (emailInput && !isValidEmail(emailInput.value.trim())) {
-            valid = false;
-            displayError(emailInput, "Vui lòng nhập đúng địa chỉ email");
+                if (!isValidEmail($scope.email)) {
+            showAlert('error', 'Định dạng email không hợp lệ.');
+            return;
         }
-
-        // Validate password
-        if (passwordInput && passwordInput.value.trim() === "") {
-            valid = false;
-            displayError(passwordInput, "Vui lòng nhập mật khẩu");
+                if ($scope.matKhau.length < 6) {
+            showAlert('error', 'Mật khẩu phải có ít nhất 6 ký tự.');
+            return;
         }
-
-        // Validate phone number
-        if (phoneInput && phoneInput.value.trim() === "") {
-            valid = false;
-            displayError(phoneInput, "Vui lòng nhập số điện thoại");
+        if (!isValidPhoneNumber($scope.soDienThoai)) {
+            showAlert('error', 'Số điện thoại không hợp lệ.');
+            return;
         }
-
-        return valid; 
-    }
-
-    function displayError(input, message) {
-        const helpBlock = input.nextElementSibling;
-        helpBlock.innerText = message;
-    }
-
-    function clearErrors() {
-        const errorMessages = document.querySelectorAll(".help-block.text-danger");
-        errorMessages.forEach(function (errorMessage) {
-            errorMessage.innerText = "";
-        });
-    }
-
+    };
+ // Hàm kiểm tra định dạng email
     function isValidEmail(email) {
-        // A simple email validation regex
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
+           return /\S+@\S+\.\S+/.test(email);
     }
-
-    function showSuccessMessage() {
-        Swal.fire({
-            icon: 'success',
-            title: 'Cập nhật thành công!',
-            text: 'Thông tin tài khoản đã được cập nhật.',
-            confirmButtonText: 'Đóng',
-        }).then(() => {
-            // Sau khi người dùng đóng thông báo thành công
-            // Chuyển hướng đến trang đăng xuất
-            window.location.href = "/logoff";
-        });
+ // Hàm kiểm tra định dạng số điện thoại
+    function isValidPhoneNumber(phoneNumber) {
+              return /^\d{10}$/.test(phoneNumber);
     }
-});

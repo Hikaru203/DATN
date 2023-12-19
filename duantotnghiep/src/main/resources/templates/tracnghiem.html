@@ -2,86 +2,98 @@
 <html xmlns:th="http://www.thymeleaf.org" th:lang="en">
 
 <head>
-    <meta charset="utf-8">
+	<meta charset="utf-8">
 	<title>PolyAcademy</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<meta content="Free HTML Templates" name="keywords">
 	<meta content="Free HTML Templates" name="description">
 
-    <!-- Favicon -->
-    <link th:href="@{/img/favicon.ico}" rel="icon">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+	<!-- Favicon -->
+	<link th:href="@{/img/favicon.ico}" rel="icon">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<!-- Google Web Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link th:href="@{/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+	<!-- Libraries Stylesheet -->
+	<link th:href="@{/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link th:href="@{/css/style.css}" rel="stylesheet">
+	<!-- Customized Bootstrap Stylesheet -->
+	<link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
-  <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1, h3 {
-            color: #333;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="radio"] {
-            margin-right: 5px;
-        }
-        p {
-            margin: 5px 0;
-        }
-        .buttons {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .btn {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .btn-success {
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-        }
-        #next-cauhoi {
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            display: none;
-        }
-        .result {
-            margin-top: 20px;
-        }
-    </style>
+<style>
+	body {
+		font-family: 'Arial', sans-serif;
+		background-color: #f4f4f4;
+		margin: 0;
+		padding: 0;
+	}
+
+	.container {
+		max-width: 800px;
+		margin: 0 auto;
+		background-color: #fff;
+		padding: 20px;
+		border-radius: 8px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	}
+
+	h1,
+	h3 {
+		color: #333;
+	}
+
+	label {
+		display: block;
+		margin-bottom: 5px;
+	}
+
+	input[type="radio"] {
+		margin-right: 5px;
+	}
+
+	p {
+		margin: 5px 0;
+	}
+
+	.buttons {
+		text-align: center;
+		margin-top: 20px;
+	}
+
+	.btn {
+		padding: 10px 20px;
+		font-size: 16px;
+		cursor: pointer;
+	}
+
+	.btn-success {
+		background-color: #28a745;
+		color: #fff;
+		border: none;
+	}
+
+	#next-cauhoi {
+		background-color: #28a745;
+		color: #fff;
+		border: none;
+		display: none;
+	}
+
+	.result {
+		margin-top: 20px;
+	}
+</style>
+
 <body ng-app="myApp" ng-controller="TracNghiem-ctrl">
-    <div class="container-fluid d-none d-lg-block">
+	<div class="container-fluid d-none d-lg-block">
 		<div class="row align-items-center py-4 px-xl-5">
 			<div class="col-lg-3">
-				<a  th:href="@{/courseOnline/index}" class="text-decoration-none">
+				<a th:href="@{/courseOnline/index}" class="text-decoration-none">
 					<h1 class="m-0">
 						<span class="text-primary">Poly</span>Academy
 					</h1>
@@ -117,11 +129,107 @@
 			</div>
 		</div>
 	</div>
-    <!-- Topbar End -->
+	<!-- Topbar End -->
 
+	<!-- Topbar End -->
 
-    <!-- Navbar Start -->
-    <div class="container-fluid">
+	<!-- Các thẻ <style> và mã HTML không thay đổi -->
+	<style>
+		/* Màu sao bạc */
+		.rating .fa-star {
+			color: #ccc;
+			/* Màu sao bạc */
+			transition: color 0.3s;
+			/* Thời gian chuyển đổi màu khi hover */
+			cursor: pointer;
+			/* Chuyển đổi con trỏ khi hover */
+		}
+
+		/* Màu sao vàng */
+		.rating .fa-star.fa-star-yellow {
+			color: yellow;
+			/* Hoặc màu vàng bạn muốn áp dụng */
+		}
+	</style>
+	<div>
+
+		<div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="ratingModalLabel">Chọn số sao đánh giá</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="rating">
+						<span class="fa fa-star" data-rating="1"></span>
+						<span class="fa fa-star" data-rating="2"></span>
+						<span class="fa fa-star" data-rating="3"></span>
+						<span class="fa fa-star" data-rating="4"></span>
+						<span class="fa fa-star" data-rating="5"></span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" ng-click="out()" data-dismiss="modal">Đóng</button>
+					<button type="button" class="btn btn-primary" id="confirmRating">Xác nhận</button>
+				</div>
+			</div>
+			<input type="text" hidden id="ratingInput" value="">
+
+		</div>
+	</div>
+	<!-- Script để xử lý đánh giá số sao -->
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const stars = document.querySelectorAll('.fa-star');
+			const confirmBtn = document.getElementById('confirmRating');
+
+			stars.forEach(star => {
+				star.addEventListener('click', function () {
+					const rating = parseInt(star.getAttribute('data-rating'));
+					confirmBtn.innerHTML = `Xác nhận (${rating} sao)`;
+					document.getElementById('ratingInput').value = rating;
+
+					confirmBtn.dataset.selected = rating;
+					console.log(rating);
+					highlightStars(star);
+					// Thực hiện hành động khi người dùng chọn số sao (ví dụ: Gửi thông tin đánh giá)
+				});
+
+				star.addEventListener('mouseover', function () {
+					highlightStars(star);
+				});
+
+				star.addEventListener('mouseleave', function () {
+					const currentRating = parseInt(confirmBtn.dataset.selected) || 0;
+					stars.forEach(star => {
+						const starRating = parseInt(star.getAttribute('data-rating'));
+						if (starRating <= currentRating) {
+							star.classList.add('fa-star-yellow');
+						} else {
+							star.classList.remove('fa-star-yellow');
+						}
+					});
+				});
+			});
+
+			function highlightStars(clickedStar) {
+				const rating = parseInt(clickedStar.getAttribute('data-rating'));
+				stars.forEach(star => {
+					const starRating = parseInt(star.getAttribute('data-rating'));
+					if (starRating <= rating) {
+						star.classList.add('fa-star-yellow');
+					} else {
+						star.classList.remove('fa-star-yellow');
+					}
+				});
+			}
+		});
+
+	</script>
+	<!-- Navbar Start -->
+	<div class="container-fluid">
 		<div class="row border-top px-xl-5">
 			<div class="col-lg-3 d-none d-lg-block">
 				<a class="d-flex align-items-center justify-content-between bg-secondary w-100 text-decoration-none"
@@ -168,16 +276,16 @@
 								<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
 									<a th:href="@{/courseOnline/contact}" class="dropdown-item">Đăng ký nhà sáng tạo</a>
 
-									<a th:href="@{/courseOnline/uploademo}"class="dropdown-item">Đăng khoá học</a>
-									<a  th:href="@{/courseOnline/mucluc}" class="dropdown-item">Mục lục</a>
+									<a th:href="@{/courseOnline/uploademo}" class="dropdown-item">Đăng khoá học</a>
+									<a th:href="@{/courseOnline/mucluc}" class="dropdown-item">Mục lục</a>
 								</div>
 							</div>
 						</div>
 						<ul class="navbar-nav">
 							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
-								th:href="@{/courseOnline/dangnhap}">Đăng nhập</a></li>
+									th:href="@{/courseOnline/dangnhap}">Đăng nhập</a></li>
 							<li th:if="${session.user} == null" class="nav-item"><a class="nav-link"
-								th:href="@{/courseOnline/dangky}">Đăng ký</a></li>
+									th:href="@{/courseOnline/dangky}">Đăng ký</a></li>
 						</ul>
 						<div class="nav-item dropdown" th:if="${session.user != null}">
 							<input type="text" id="idLogin" hidden th:value="${session.user.id}">
@@ -207,7 +315,8 @@
 								style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
 							<div class="dropdown-menu">
 								<a th:href="@{/courseOnline/updateAccount}" class="dropdown-item">Cập nhật tài khoản</a>
-								<a th:href="@{/Admin/User}" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
+								<a th:href="@{/Admin/User}" th:if="${session.admin != null}"
+									class="dropdown-item">Admin</a>
 								<a th:href="@{/logoff}" class="dropdown-item">Đăng xuất</a>
 							</div>
 						</div>
@@ -218,145 +327,153 @@
 		</div>
 	</div>
 	<!-- Navbar End -->
-    <input type="text" th:value="${id}" id="hiddenInputId" hidden>
-    <div class="container mt-5">
-        <h1 class="mb-4">Trắc nghiệm câu hỏi</h1>
-        <div ng-repeat="question in questionAnswerArray">
-            <h3>Câu Hỏi {{$index + 1}}: {{question.cauHoi}}</h3>
-            <div ng-repeat="answer in question.cauTraLoi">
-                <label>
-                    <input type="radio" ng-model="question.selectedAnswer" ng-value="answer"
-                        ng-disabled="question.isAnswered">
-                    {{answer}}
-                </label><br>
-            </div>
+	<input type="text" th:value="${id}" id="hiddenInputId" hidden>
+	<div class="container mt-5">
+		<h1 class="mb-4">Trắc nghiệm câu hỏi</h1>
+		<div ng-repeat="question in questionAnswerArray">
+			<h3>Câu Hỏi {{$index + 1}}: {{question.cauHoi}}</h3>
+			<div ng-repeat="answer in question.cauTraLoi">
+				<label>
+					<input type="radio" ng-model="question.selectedAnswer" ng-value="answer"
+						ng-disabled="question.isAnswered">
+					{{answer}}
+				</label><br>
+			</div>
 
-            <!-- Hiển thị thông báo nếu câu hỏi chưa được chọn -->
-            <!-- Sử dụng ng-if để chỉ hiển thị thông báo khi có câu hỏi bị bỏ sót -->
-            <!-- Hiển thị thông báo khi chọn sai -->
-<p ng-if="showErrors && !question.isCorrect && question.selectedAnswer" style="font-weight: bold; color: red;">
-    Bạn chọn đáp án sai.
-</p>
+			<!-- Hiển thị thông báo nếu câu hỏi chưa được chọn -->
+			<!-- Sử dụng ng-if để chỉ hiển thị thông báo khi có câu hỏi bị bỏ sót -->
+			<!-- Hiển thị thông báo khi chọn sai -->
+			<p ng-if="showErrors && !question.isCorrect && question.selectedAnswer"
+				style="font-weight: bold; color: red;">
+				Bạn chọn đáp án sai.
+			</p>
 
-<!-- Hiển thị thông báo khi không chọn đáp án -->
-<p ng-if="showErrors && !question.isCorrect && !question.selectedAnswer" style="font-weight: bold; color: red;">
-    Bạn không chọn đáp án.
-</p>
+			<!-- Hiển thị thông báo khi không chọn đáp án -->
+			<p ng-if="showErrors && !question.isCorrect && !question.selectedAnswer"
+				style="font-weight: bold; color: red;">
+				Bạn không chọn đáp án.
+			</p>
 
 
-        </div>
-        <div class="buttons">
-            <!-- Trong template HTML -->
-            <!-- Button ban đầu sẽ bị vô hiệu hóa -->
-            <button ng-click="checkAnswers(); showErrors = true" ng-show="showNopBai"
-                class="btn btn-success mx-auto d-block text-center mt-2" ng-disabled="isResultChecked">Nộp bài</button>
-            <div class="text-center mt-2">
-                <!--<p ng-if="soCauDung !== undefined">Số câu đúng: {{soCauDung}}</p>
+		</div>
+		<div class="buttons">
+			<!-- Trong template HTML -->
+			<!-- Button ban đầu sẽ bị vô hiệu hóa -->
+			<button ng-click="checkAnswers(); showErrors = true" ng-show="showNopBai"
+				class="btn btn-success mx-auto d-block text-center mt-2" ng-disabled="isResultChecked">Nộp bài</button>
+			<div class="text-center mt-2">
+				<!--<p ng-if="soCauDung !== undefined">Số câu đúng: {{soCauDung}}</p>
                 <p ng-if="soCauSai !== undefined">Số câu sai: {{soCauSai}}</p> -->
-                <!-- Thêm dòng sau trong phần HTML -->
-                <p ng-if="soCauDung !== undefined && soCauSai !== undefined">Kết quả: Số câu đúng: {{soCauDung}}, Số câu sai: {{soCauSai}}</p>
+				<!-- Thêm dòng sau trong phần HTML -->
+				<p ng-if="soCauDung !== undefined && soCauSai !== undefined">Kết quả: Số câu đúng: {{soCauDung}}, Số câu
+					sai: {{soCauSai}}</p>
 
-                <p ng-if="phanTramCauDung !== undefined">Phần trăm câu đúng: {{ phanTramCauDung }}% / 100%</p>
+				<p ng-if="phanTramCauDung !== undefined">Phần trăm câu đúng: {{ phanTramCauDung }}% / 100%</p>
 
 
-                <p class="text-danger"> {{msg}}</p>
-            </div>
-            <button id="next-cauhoi" class="btn btn-success mx-auto d-block text-center mt-2"
-                ng-show="showContinueButton">Tiếp
-                tục</button>
-        </div>
-        <div class="result mt-3" id="result"></div>
-    </div>
+				<p class="text-danger"> {{msg}}</p>
+			</div>
+			<button id="next-cauhoi" class="btn btn-success mx-auto d-block text-center mt-2">Tiếp
+				tục</button>
+		</div>
+		<div class="result mt-3" id="result"></div>
+	</div>
 
-    <!-- Link JS Bootstrap (before closing body tag) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Link JS Bootstrap (before closing body tag) -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
- <!-- Footer Start -->
- <div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5">
-	<div class="row pt-5">
-		<div class="col-lg-7 col-md-12">
-			<div class="row">
-				<div class="col-md-6 mb-5">
-					<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Liên hệ</h5>
-					<p>
-						<i class="fa fa-map-marker-alt mr-2"></i>22 Thường Thạnh, Khu dân
-						cư Hoàng Quân, Q. Cái Răng, TP. Cần Thơ
-					</p>
-					<p>
-						<i class="fa fa-phone-alt mr-2"></i>+012 345 67890
-					</p>
-					<p>
-						<i class="fa fa-envelope mr-2"></i>PolyAcademy@fpt.edu.vn
-					</p>
-					<div class="d-flex justify-content-start mt-4">
-						<a class="btn btn-outline-light btn-square mr-2"th:href="@{https://twitter.com/?lang=vi}"><i class="fab fa-twitter"></i></a>
-						<a class="btn btn-outline-light btn-square mr-2" th:href="@{https://www.facebook.com/PhuongNgyenHong2003/}"><i
-								class="fab fa-facebook-f"></i></a> <a class="btn btn-outline-light btn-square mr-2"
-								th:href="@{https://www.instagram.com/ngphuongfat/}"><i class="fab fa-linkedin-in"></i></a> <a
-							class="btn btn-outline-light btn-square" th:href="@{https://www.instagram.com/ngphuongfat/}"><i class="fab fa-instagram"></i></a>
+	<!-- Footer Start -->
+	<div class="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5">
+		<div class="row pt-5">
+			<div class="col-lg-7 col-md-12">
+				<div class="row">
+					<div class="col-md-6 mb-5">
+						<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Liên hệ</h5>
+						<p>
+							<i class="fa fa-map-marker-alt mr-2"></i>22 Thường Thạnh, Khu dân
+							cư Hoàng Quân, Q. Cái Răng, TP. Cần Thơ
+						</p>
+						<p>
+							<i class="fa fa-phone-alt mr-2"></i>+012 345 67890
+						</p>
+						<p>
+							<i class="fa fa-envelope mr-2"></i>PolyAcademy@fpt.edu.vn
+						</p>
+						<div class="d-flex justify-content-start mt-4">
+							<a class="btn btn-outline-light btn-square mr-2"
+								th:href="@{https://twitter.com/?lang=vi}"><i class="fab fa-twitter"></i></a>
+							<a class="btn btn-outline-light btn-square mr-2"
+								th:href="@{https://www.facebook.com/PhuongNgyenHong2003/}"><i
+									class="fab fa-facebook-f"></i></a> <a class="btn btn-outline-light btn-square mr-2"
+								th:href="@{https://www.instagram.com/ngphuongfat/}"><i
+									class="fab fa-linkedin-in"></i></a> <a class="btn btn-outline-light btn-square"
+								th:href="@{https://www.instagram.com/ngphuongfat/}"><i class="fab fa-instagram"></i></a>
+						</div>
 					</div>
-				</div>
-				<div class="col-md-6 mb-5">
-					<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Khoá học của chúng tôi
-					</h5>
-					<div class="d-flex flex-column justify-content-start">
-						<a class="text-white mb-2" th:href="@{/courseOnline/course}"><i class="fa fa-angle-right mr-2"></i>Thiết kế trang
-							Web</a> <a class="text-white mb-2"th:href="@{/courseOnline/course}"><i class="fa fa-angle-right mr-2"></i>Phát
-							triển phần mềm</a> <a class="text-white mb-2" th:href="@{/courseOnline/course}"><i
-								class="fa fa-angle-right mr-2"></i>Kỹ năng học tập</a> <a class="text-white mb-2"
-								th:href="@{/courseOnline/course}"><i class="fa fa-angle-right mr-2"></i>Pháp luật</a> <a class="text-white"
-								th:href="@{/courseOnline/course}"><i class="fa fa-angle-right mr-2"></i>Tiếng Anh</a>
+					<div class="col-md-6 mb-5">
+						<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">Khoá học của chúng tôi
+						</h5>
+						<div class="d-flex flex-column justify-content-start">
+							<a class="text-white mb-2" th:href="@{/courseOnline/course}"><i
+									class="fa fa-angle-right mr-2"></i>Thiết kế trang
+								Web</a> <a class="text-white mb-2" th:href="@{/courseOnline/course}"><i
+									class="fa fa-angle-right mr-2"></i>Phát
+								triển phần mềm</a> <a class="text-white mb-2" th:href="@{/courseOnline/course}"><i
+									class="fa fa-angle-right mr-2"></i>Kỹ năng học tập</a> <a class="text-white mb-2"
+								th:href="@{/courseOnline/course}"><i class="fa fa-angle-right mr-2"></i>Pháp luật</a> <a
+								class="text-white" th:href="@{/courseOnline/course}"><i
+									class="fa fa-angle-right mr-2"></i>Tiếng Anh</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-lg-5 col-md-12 mb-5">
-			<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">PolyAcademy</h5>
-			<p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp
-				giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh,
-				sinh viên trên cả nước với chất lượng tốt nhất!</p>
-			<div class="w-100">
-				<div class="input-group">
+			<div class="col-lg-5 col-md-12 mb-5">
+				<h5 class="text-primary text-uppercase mb-4" style="letter-spacing: 5px;">PolyAcademy</h5>
+				<p>PolyAcademy - Nền tảng lớp học trực tuyến hàng đầu, cung cấp
+					giải pháp giáo dục toàn diện ngoài trường học cho tất cả học sinh,
+					sinh viên trên cả nước với chất lượng tốt nhất!</p>
+				<div class="w-100">
+					<div class="input-group">
 						<div class="input-group mb-3">
 							<!-- Input field (if applicable) -->
 							<input type="text" class="form-control" placeholder="Hãy gửi Email cho chúng tôi">
-						
+
 							<!-- Append button wrapped in an input-group-append div -->
 							<div class="input-group-append">
 								<a th:href="@{/courseOnline/dangky}" class="btn btn-primary px-4">Đăng ký</a>
 							</div>
 						</div>
-						
-						
+
+
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-	
+
 	<!-- Footer End -->
 
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+	<!-- Back to Top -->
+	<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script th:src="@{/lib/easing/easing.min.js}"></script>
-    <script th:src="@{/lib/owlcarousel/owl.carousel.min.js}"></script>
+	<!-- JavaScript Libraries -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+	<script th:src="@{/lib/easing/easing.min.js}"></script>
+	<script th:src="@{/lib/owlcarousel/owl.carousel.min.js}"></script>
 
-    <!-- Contact Javascript File -->
-    <script th:src="@{/mail/jqBootstrapValidation.min.js}"></script>
-    <script th:src="@{/mail/contact.js}"></script>
+	<!-- Contact Javascript File -->
+	<script th:src="@{/mail/jqBootstrapValidation.min.js}"></script>
+	<script th:src="@{/mail/contact.js}"></script>
 
-    <!-- Template Javascript -->
-    <script th:src="@{/js/main.js}"></script>
-    <script th:src="@{/js/TracNghiem-ctrl.js}"></script>
+	<!-- Template Javascript -->
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/TracNghiem-ctrl.js}"></script>
 
 </body>
 
