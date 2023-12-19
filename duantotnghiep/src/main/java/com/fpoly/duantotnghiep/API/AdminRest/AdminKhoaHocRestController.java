@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.NguoiDung;
+import com.fpoly.duantotnghiep.config.MailService;
 import com.fpoly.duantotnghiep.service.KhoaHocService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,6 +38,7 @@ import java.nio.file.Paths;
 public class AdminKhoaHocRestController {
     @Autowired
     KhoaHocService khoaHocService;
+   
 
     @GetMapping()
     public List<KhoaHoc> getAll() {
@@ -45,6 +47,7 @@ public class AdminKhoaHocRestController {
 
     @GetMapping("/Duyet")
     public List<KhoaHoc> getDuyet() {
+       
         return khoaHocService.findDuyet();
     }
 
@@ -59,6 +62,10 @@ public class AdminKhoaHocRestController {
     @GetMapping("/tim-kenh-khoa-hoc")
     public List<KhoaHoc> getByTenKhoaHoc2(@RequestParam(name = "tenKhoaHoc", required = false)  String tenKhoaHoc) {
         return khoaHocService.findByTenKhoaHoc2(tenKhoaHoc);
+    }
+     @GetMapping("/tim-khoa-hoc-nguoi-dung")
+    public List<KhoaHoc> getByTenKhoaHoc3(@RequestParam(name = "tenKhoaHoc", required = false)  String tenKhoaHoc,@RequestParam(name = "idNguoiDung", required = false)  Integer idNguoiDung) {
+        return khoaHocService.findByTenKhoaHoc3(tenKhoaHoc, idNguoiDung);
     }
     @PostMapping()
     public KhoaHoc create(@RequestParam("hinhAnh") MultipartFile file, @RequestPart("khoaHoc") KhoaHoc khoaHoc,

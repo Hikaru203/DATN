@@ -10,7 +10,7 @@ app.controller('DanhMuc-Ctrl', function ($scope, $http) {
             console.log($scope.danhmuc);
         });
         if (idLoginElement !== null) {
-            $scope.value = $scope.idLogin.value;
+            $scope.value = idLoginElement.value;
 
             $http.get('/rest/admin/NguoiDung/' + $scope.value)
                 .then(function (response) {

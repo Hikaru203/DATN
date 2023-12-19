@@ -1,5 +1,7 @@
 package com.fpoly.duantotnghiep.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fpoly.duantotnghiep.Entity.KhoaHoc;
 import com.fpoly.duantotnghiep.Entity.LoaiKhoaHoc;
 import com.fpoly.duantotnghiep.Entity.NguoiDung;
+import com.fpoly.duantotnghiep.config.MailService;
 import com.fpoly.duantotnghiep.jparepository.KhoaHocRepository;
 import com.fpoly.duantotnghiep.jparepository.LoaiKhoaHocRepository;
 import com.fpoly.duantotnghiep.service.KhoaHocService;
+import com.fpoly.duantotnghiep.service.NguoiDungService;
+
 
 @Service
 public class KhoaHocServiceImpl implements KhoaHocService {
@@ -23,7 +28,10 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 
 	@Autowired
 	LoaiKhoaHocRepository loaiKhoaHocRepository;
-
+	@Autowired
+	MailService mailService;
+	@Autowired
+	NguoiDungService nguoiDungService;
 	@Override
 	public List<KhoaHoc> findAll() {
 		return khoaHocRepository.findAll();
@@ -65,7 +73,11 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 		// TODO Auto-generated method stub
 		return khoaHocRepository.findByTenKhoaHoc2(tenKhoaHoc);
 	}
-	
+	@Override
+	public List<KhoaHoc> findByTenKhoaHoc3(String tenKhoaHoc,Integer idNguoiDung) {
+		// TODO Auto-generated method stub
+		return khoaHocRepository.findByTenKhoaHoc3( tenKhoaHoc, idNguoiDung);
+	}
 
 	@Override
 	public KhoaHoc findById(int id) {
@@ -97,6 +109,7 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 	public KhoaHoc update(KhoaHoc khoaHoc) {
 		// Kiểm tra xem có tồn tại trong cơ sở dữ liệu không
 		KhoaHoc existingBrand = khoaHocRepository.findById(khoaHoc.getId());
+		NguoiDung user = nguoiDungService.findById(existingBrand.getNguoiTao().getId()).get();
 		if (existingBrand != null) {
 			existingBrand.setTenKhoaHoc(khoaHoc.getTenKhoaHoc());
 			existingBrand.setChiPhi(khoaHoc.getChiPhi());
@@ -105,6 +118,21 @@ public class KhoaHocServiceImpl implements KhoaHocService {
 				existingBrand.setHinhAnh(khoaHoc.getHinhAnh());
 			}
 			if (khoaHoc.isDuyet() != existingBrand.isDuyet()) {
+
+				 String email =user.getEmail();
+				String chucMung = existingBrand.getTenKhoaHoc();
+				// Get the current date
+				Date currentDate = new Date();
+
+				// Format the date as needed
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // You can customize the format
+				String formattedDate = dateFormat.format(currentDate);
+				try {
+					mailService.sendEmailDuyet(email,chucMung,formattedDate);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				existingBrand.setDuyet(khoaHoc.isDuyet());
 			}
 			if (khoaHoc.getTrangThai() != existingBrand.getTrangThai()) {

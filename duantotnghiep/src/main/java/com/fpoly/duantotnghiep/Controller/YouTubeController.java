@@ -101,8 +101,8 @@ public class YouTubeController {
                         return "uploademo";
                     }
                 } else {
-
-                    return "redirect:/courseOnline/index";
+                    // Người dùng không có quyền truy cập, trả về mã nguồn JSON
+                return "error";
                 }
             } else {
                 return "redirect:/Admin/User";
