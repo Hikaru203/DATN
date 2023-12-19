@@ -45,5 +45,6 @@ public interface KhoaHocService {
 
 	List<KhoaHoc> findByTenKhoaHoc(String tenKhoaHoc);
 	List<KhoaHoc> findByTenKhoaHoc2(String tenKhoaHoc);
+	List<KhoaHoc> findByTenKhoaHoc3(String tenKhoaHoc, Integer idNguoiDung);
 	
 }

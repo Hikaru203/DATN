@@ -63,6 +63,10 @@ public class AdminKhoaHocRestController {
     public List<KhoaHoc> getByTenKhoaHoc2(@RequestParam(name = "tenKhoaHoc", required = false)  String tenKhoaHoc) {
         return khoaHocService.findByTenKhoaHoc2(tenKhoaHoc);
     }
+     @GetMapping("/tim-khoa-hoc-nguoi-dung")
+    public List<KhoaHoc> getByTenKhoaHoc3(@RequestParam(name = "tenKhoaHoc", required = false)  String tenKhoaHoc,@RequestParam(name = "idNguoiDung", required = false)  Integer idNguoiDung) {
+        return khoaHocService.findByTenKhoaHoc3(tenKhoaHoc, idNguoiDung);
+    }
     @PostMapping()
     public KhoaHoc create(@RequestParam("hinhAnh") MultipartFile file, @RequestPart("khoaHoc") KhoaHoc khoaHoc,
             HttpServletRequest request) throws IOException {

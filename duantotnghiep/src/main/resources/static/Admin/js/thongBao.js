@@ -27,7 +27,7 @@ app.controller("thongBaoCtrl", function ($scope, $http, $window, $interval) {
     getNotifications();
 
     // Tự động cập nhật thông báo sau mỗi khoảng thời gian
-    var pollingInterval = $interval(getNotifications, 1000); // 60 giây
+    var pollingInterval = $interval(getNotifications, 1000); // 1 giây
     // Cập nhật thông báo mà không xóa và gán lại mảng notifications
     function updateNotifications(newNotifications) {
         // Xóa hết dữ liệu đầu trong notifications
@@ -56,10 +56,12 @@ app.controller("thongBaoCtrl", function ($scope, $http, $window, $interval) {
             $http.put(`/rest/admin/NguoiDung/update/${notification.id}`, notification).then(resp => {
                 $scope.notifications.splice($scope.notifications.indexOf(notification), 1);
                 console.log($scope.notifications);
-            });
 
+                // Hiển thị thông báo thành công
+                $scope.showSuccessMessage("Thành công", "Yêu cầu đã được duyệt thành công!");
+            });
         }
-    }
+    };
     // Tính thời gian chênh lệch
     $scope.calculateTimeDifference = function (thoiGianTao) {
         var thoiGianHienTai = new Date();
@@ -87,4 +89,28 @@ app.controller("thongBaoCtrl", function ($scope, $http, $window, $interval) {
             pollingInterval = undefined;
         }
     });
+    $scope.acceptRequestWithConfirmation = function (notification) {
+        // Sử dụng SweetAlert2 để hiển thị thông báo xác nhận
+        Swal.fire({
+            title: 'Xác nhận duyệt yêu cầu',
+            text: 'Bạn có chắc chắn muốn duyệt yêu cầu này?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Duyệt',
+            cancelButtonText: 'Hủy',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Nếu người dùng xác nhận, thực hiện hành động duyệt ở đây
+                $scope.acceptRequest(notification);
+            }
+        });
+    };
+    $scope.showSuccessMessage = function (title, message) {
+        Swal.fire({
+            icon: 'success',
+            title: title,
+            text: message,
+            confirmButtonText: 'Đóng',
+        });
+    };
 });

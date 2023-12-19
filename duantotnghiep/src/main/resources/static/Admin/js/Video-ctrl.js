@@ -88,16 +88,32 @@ app.controller("Video-ctrl", function ($scope, $http, $window) {
 
 
     $scope.delete = function (id) {
-        if (confirm("Bạn có chắc chắn muốn xóa không?")) {
-            $http.delete(`/rest/admin/Videos/${id}`).then(resp => {
-                showNotification(3);
-                $scope.initialize();
-            }).catch(error => {
-                showNotification(7);
-                console.error("Error", error);
+        $http.get(`/rest/admin/Videos/${id}`).then(function (response) {
+            var video = response.data;
+    
+            Swal.fire({
+                title: 'Xác nhận xóa video',
+                text: `Bạn có chắc chắn muốn xóa video không?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Xóa',
+                cancelButtonText: 'Hủy',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $http.delete(`/rest/admin/Videos/${id}`).then(function (resp) {
+                        showNotification(3);
+                        $scope.initialize();
+                    }).catch(function (error) {
+                        showNotification(7);
+                        console.error("Error", error);
+                    });
+                }
             });
-        }
+        }).catch(function (error) {
+            console.error("Error", error);
+        });
     };
+    
 
 
     $scope.initialize = function () {
