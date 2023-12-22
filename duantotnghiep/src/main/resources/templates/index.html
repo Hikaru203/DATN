@@ -79,22 +79,25 @@
 						<i class="fa fa-book-open mr-2"></i>Danh mục khoá học
 					</h5> <i class="fa fa-angle-down text-primary"></i>
 				</a>
-			  <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
-                    <div class="navbar-nav w-100">
-                        <div class="nav-item dropdown"ng-repeat="loai in danhmuc" >
-                            <a href="#" class="nav-link" data-toggle="dropdown"ng-click="showLoai(loai)">{{loai.tenLoaiKhoaHoc}}<i class="fa fa-angle-down float-right mt-1"></i></a>
-                            <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                                <div ng-repeat="khoahoc in khoaHoc" style="color: black;"
+				<nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light"
+					id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9;">
+					<div class="navbar-nav w-100">
+						<div class="nav-item dropdown" ng-repeat="loai in danhmuc">
+							<a href="#" class="nav-link" data-toggle="dropdown"
+								ng-click="showLoai(loai)">{{loai.tenLoaiKhoaHoc}}<i
+									class="fa fa-angle-down float-right mt-1"></i></a>
+							<div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+								<div ng-repeat="khoahoc in khoaHoc" style="color: black;"
 									ng-if="khoahoc.duyet == true && khoahoc.trangThai=='false'">
 									<a href="detail/{{khoahoc.id}}"
 										style="width: 100%; white-space: normal; display: block; color: black;"
 										class="dropdown-item">{{khoahoc.tenKhoaHoc}}</a>
 								</div>
-                            </div>
-                        </div>
-                       
-                    </div>
-                </nav>
+							</div>
+						</div>
+
+					</div>
+				</nav>
 			</div>
 
 			<div class="col-lg-9">
@@ -155,10 +158,14 @@
 							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
 								style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
 							<div class="dropdown-menu">
-								<a th:href="@{/courseOnline/updateAccount}" class="dropdown-item">Cập nhật tài khoản</a>
+								<a th:href="@{/courseOnline/TrangUser}" class="dropdown-item">Trang Cá Nhân</a>
+
+								<a th:href="@{/courseOnline/SettingAccount}" class="dropdown-item">Cập nhật tài
+									khoản</a>
 								<a th:href="@{/Admin/User}" th:if="${session.admin != null}"
 									class="dropdown-item">Admin</a>
 								<a th:href="@{/logoff}" class="dropdown-item">Đăng xuất</a>
+
 							</div>
 						</div>
 					</div>
@@ -270,49 +277,60 @@
 				<!-- Courses Start -->
 				<div class="container-fluid py-5">
 					<div class="container py-5">
-						<div class="row" style="background-color: #F2F1F8; align-items: center; height: 50px; margin-bottom: 20px; border-radius: 5px;">
-							
-								<div class="col-md-7" ><label style="font-weight: bold; color: #000;"><i class="fa fa-sort" aria-hidden="true"></i> Sắp xếp</label>
-									<button style="background: none; border: none; color: rgb(86, 85, 83);" onclick="sortTheoNguoi()">Học nhiều nhất</button>
-									<button style="background: none; border: none;color: rgb(86, 85, 83);" onclick="sortTheoNgay()">Mới nhất</button>
-									<button style="background: none; border: none;color: rgb(86, 85, 83);" onclick="sortTheoGiaTangDan()">Giá thấp đến cao</button>
-									<button style="background: none; border: none;color: rgb(86, 85, 83);" onclick="sortTheoGiaGiamDan()">Giá cao đến thấp</button>
-								</div>	
-								<div class="col-md-4" >
-									<form id="searchForm"  onsubmit="event.preventDefault(); searchCourses();">
-										<input type="text" class="timKiemKhoaHoc" id="keywordInput" placeholder="Tìm kiếm">
-										<button type="submit" class="btnTimKiemKhoaHoc"><i class="fa fa-search" aria-hidden="true"></i></button>
-									</form>
-								</div>
-								
-						</div>	
-							<div class=" text-center md-5">
-								<h3 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khóa học</h3>
-							</div>			
-						
+						<div class="row"
+							style="background-color: #F2F1F8; align-items: center; height: 50px; margin-bottom: 20px; border-radius: 5px;">
+
+							<div class="col-md-7"><label style="font-weight: bold; color: #000;"><i class="fa fa-sort"
+										aria-hidden="true"></i> Sắp xếp</label>
+								<button style="background: none; border: none; color: rgb(86, 85, 83);"
+									onclick="sortTheoNguoi()">Học nhiều nhất</button>
+								<button style="background: none; border: none;color: rgb(86, 85, 83);"
+									onclick="sortTheoNgay()">Mới nhất</button>
+								<button style="background: none; border: none;color: rgb(86, 85, 83);"
+									onclick="sortTheoGiaTangDan()">Giá thấp đến cao</button>
+								<button style="background: none; border: none;color: rgb(86, 85, 83);"
+									onclick="sortTheoGiaGiamDan()">Giá cao đến thấp</button>
+							</div>
+							<div class="col-md-4">
+								<form id="searchForm" onsubmit="event.preventDefault(); searchCourses();">
+									<input type="text" class="timKiemKhoaHoc" id="keywordInput" placeholder="Tìm kiếm">
+									<button type="submit" class="btnTimKiemKhoaHoc"><i class="fa fa-search"
+											aria-hidden="true"></i></button>
+								</form>
+							</div>
+
+						</div>
+						<div class=" text-center md-5">
+							<h3 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khóa học</h3>
+						</div>
+
 						<style>
-							form{
-								
+							form {
+
 								display: flex;
 								align-items: center;
 								margin-top: 0%;
-			
+
 							}
-							.selectgia{
+
+							.selectgia {
 								margin-left: 100%;
 								width: 100px;
-								
+
 							}
+
 							.timKiemKhoaHoc {
 								border: 1px solid #000;
 								border-radius: 5px 0 0 5px;
 								padding: 8px;
 								font-size: 14px;
-								margin-right: 0; /* Đảm bảo không có margin bên phải */
-								outline: none; /* Loại bỏ đường viền khi focus */
+								margin-right: 0;
+								/* Đảm bảo không có margin bên phải */
+								outline: none;
+								/* Loại bỏ đường viền khi focus */
 								width: 350px;
 							}
-					
+
 							.btnTimKiemKhoaHoc {
 								background-color: #ff6600;
 								color: #fff;
@@ -321,87 +339,86 @@
 								padding: 8px 12px;
 								font-size: 14px;
 								cursor: pointer;
-								outline: none; /* Loại bỏ đường viền khi focus */
+								outline: none;
+								/* Loại bỏ đường viền khi focus */
 							}
-					
+
 							/* Hover effect */
 							.btnTimKiemKhoaHoc:hover {
 								background-color: #b33f00;
 								border-color: #b33f00;
 							}
 						</style>
-						</div>	
-						<div id="tte" class="row">
-							<div th:each="item, stat : ${courseOnline}"
-								th:if="${item.trangThai == 'false' and item.duyet == true}"
-								class="col-lg-4 col-md-6 mb-4">
-								<div>
-									<a th:href="@{'/courseOnline/detail/' + ${item.id}}">
-										<div class="rounded overflow-hidden mb-2" style="height: 400px;">
-											<div class="bg-secondary p-4" style="height: 400px;">
-												<div style="text-align: center;">
-													<img class="img-fluid" style="max-height: 200px; max-width: 280px;"
-														th:src="@{|/img/${item.hinhAnh}|}" alt="">
-												</div>
-												<br>
-												<div class="d-flex justify-content-between mb-3">
-													<small class="m-0">
-														<i class="fa fa-users text-primary mr-2"></i>
-														<span th:text="${list[stat.index][0]} + ' Học viên'"></span>
-													</small>
-												</div>
-												<style>
-													.course-name {
-														display: -webkit-box;
-														-webkit-line-clamp: 2;
-														-webkit-box-orient: vertical;
-														overflow: hidden;
-														text-overflow: ellipsis;
-													}
-												</style>
-												<div style="height: 50px;">
-													<a class="h5 course-name"
-														th:href="@{'/courseOnline/detail/' + ${item.id}}"
-														th:text="${item.tenKhoaHoc}"></a>
-												</div>
-												<div class="border-top mt-4 pt-4">
-													<div class="d-flex justify-content-between">
-														<h6 class="m-0">
-															<i class="fa fa-star text-primary mr-2"
-																th:text="${#numbers.formatDecimal(danhGiaList2[stat.index][0], 1, 1)}"></i>
-															<small
-																th:text="'('+${danhGiaList[stat.index][0]}+')'"></small>
-														</h6>
-														<span class="m-0" th:text="${item.chiPhi}" id="price"></span>
-													</div>
+					</div>
+					<div id="tte" class="row">
+						<div th:each="item, stat : ${courseOnline}"
+							th:if="${item.trangThai == 'false' and item.duyet == true}" class="col-lg-4 col-md-6 mb-4">
+							<div>
+								<a th:href="@{'/courseOnline/detail/' + ${item.id}}">
+									<div class="rounded overflow-hidden mb-2" style="height: 400px;">
+										<div class="bg-secondary p-4" style="height: 400px;">
+											<div style="text-align: center;">
+												<img class="img-fluid" style="max-height: 200px; max-width: 280px;"
+													th:src="@{|/img/${item.hinhAnh}|}" alt="">
+											</div>
+											<br>
+											<div class="d-flex justify-content-between mb-3">
+												<small class="m-0">
+													<i class="fa fa-users text-primary mr-2"></i>
+													<span th:text="${list[stat.index][0]} + ' Học viên'"></span>
+												</small>
+											</div>
+											<style>
+												.course-name {
+													display: -webkit-box;
+													-webkit-line-clamp: 2;
+													-webkit-box-orient: vertical;
+													overflow: hidden;
+													text-overflow: ellipsis;
+												}
+											</style>
+											<div style="height: 50px;">
+												<a class="h5 course-name"
+													th:href="@{'/courseOnline/detail/' + ${item.id}}"
+													th:text="${item.tenKhoaHoc}"></a>
+											</div>
+											<div class="border-top mt-4 pt-4">
+												<div class="d-flex justify-content-between">
+													<h6 class="m-0">
+														<i class="fa fa-star text-primary mr-2"
+															th:text="${danhGiaList2[stat.index][0]}"></i>
+														<small th:text="'('+${danhGiaList[stat.index][0]}+')'"></small>
+													</h6>
+													<span class="m-0" th:text="${item.chiPhi}" id="price"></span>
 												</div>
 											</div>
 										</div>
-									</a>
-								</div>
+									</div>
+								</a>
 							</div>
-							<script>
-								var priceElements = document.querySelectorAll("#price");
-								var currencyFormatter = new Intl.NumberFormat("vi-VN", {
-									style: "currency",
-									currency: "VND"
-								});
-								priceElements.forEach(function (element) {
-									var rawPrice = element.textContent.trim();
-									var formattedPrice = currencyFormatter.format(parseFloat(rawPrice));
-									element.textContent = formattedPrice;
-								});
-							</script>
-
-
 						</div>
+						<script>
+							var priceElements = document.querySelectorAll("#price");
+							var currencyFormatter = new Intl.NumberFormat("vi-VN", {
+								style: "currency",
+								currency: "VND"
+							});
+							priceElements.forEach(function (element) {
+								var rawPrice = element.textContent.trim();
+								var formattedPrice = currencyFormatter.format(parseFloat(rawPrice));
+								element.textContent = formattedPrice;
+							});
+						</script>
+
 
 					</div>
-				</div>
-				<!-- Courses End -->
 
+				</div>
 			</div>
+			<!-- Courses End -->
+
 		</div>
+	</div>
 	</div>
 	<!-- Registration Start -->
 	<div class="container-fluid bg-registration py-5" style="margin-bottom: 100px;">
@@ -516,27 +533,27 @@
 				type: "GET",
 				url: "/courseOnline/index",
 				data: { keyword: keyword },
-				success: function(response) {
+				success: function (response) {
 					var newContent = $(response).find("#tte").html();
 					$("#tte").html(newContent);
 					// document.open();
 					// document.write(response);
 				},
-				error: function(error) {
+				error: function (error) {
 					console.log("Error:", error);
 				}
 			});
-			
-		}   
+
+		}
 		function sortTheoNguoi() {
 			$.ajax({
 				type: "GET",
 				url: "/courseOnline/Hot",
-				success: function(response) {
+				success: function (response) {
 					var newContent = $(response).find("#tte").html();
 					$("#tte").html(newContent);
 				},
-				error: function(error) {
+				error: function (error) {
 					console.log("Error:", error);
 				}
 			});
@@ -545,11 +562,11 @@
 			$.ajax({
 				type: "GET",
 				url: "/courseOnline/sapXepTheoNgay",
-				success: function(response) {
+				success: function (response) {
 					var newContent = $(response).find("#tte").html();
 					$("#tte").html(newContent);
 				},
-				error: function(error) {
+				error: function (error) {
 					console.log("Error:", error);
 				}
 			});
@@ -558,11 +575,11 @@
 			$.ajax({
 				type: "GET",
 				url: "/courseOnline/sapXepGiaGiamDan",
-				success: function(response) {
+				success: function (response) {
 					var newContent = $(response).find("#tte").html();
 					$("#tte").html(newContent);
 				},
-				error: function(error) {
+				error: function (error) {
 					console.log("Error:", error);
 				}
 			});
@@ -571,11 +588,11 @@
 			$.ajax({
 				type: "GET",
 				url: "/courseOnline/sapXepGiaTangDan",
-				success: function(response) {
+				success: function (response) {
 					var newContent = $(response).find("#tte").html();
 					$("#tte").html(newContent);
 				},
-				error: function(error) {
+				error: function (error) {
 					console.log("Error:", error);
 				}
 			});
@@ -593,13 +610,13 @@
 
 	<!-- Template Javascript -->
 	<script src="/js/main.js"></script>
-	
+
 	<script>
 		var app = angular.module('myApp', []);
 
 	</script>
-	
+
 	<script th:src="@{/js/loai.js}"></script>
-	
+
 
 </html>

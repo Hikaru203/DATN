@@ -85,33 +85,36 @@ app.controller('detail-controller', function ($scope, $http, $window) {
             var index = $scope.hoc.videoKhoaHoc.findIndex(function (item) {
                 return item.linkVideo === $scope.videoDaXem;
             });
-
-            if (index !== -1 && $scope.videoDaXem != null) {
-                // Lấy linkVideo từ phần tử cuối cùng của slicedArray
-                var linkVideoSlicedArray = $scope.hoc.videoKhoaHoc[index].linkVideo;
-                // Kiểm tra xem linkVideo của video đó có tương đương với tienDoToiDa hay không
-                if (linkVideoSlicedArray === $scope.videoDaXem) {
-                    // Cắt chuỗi từ $scope.hoc.videoKhoaHoc đến linkVideoSlicedArray (tienDoToiDa)
-                    if (Array.isArray($scope.hoc.videoKhoaHoc)) {
-                        $scope.slicedArray = $scope.hoc.videoKhoaHoc.slice(0, index + 1); // Cắt mảng từ vị trí 0 đến index + 1
-
-                        // In ra phần tử đã cắt
-                        console.log($scope.slicedArray);
-
-                        // In ra phần còn lại của mảng sau vị trí index + 1
-                        $scope.remainingArray = $scope.hoc.videoKhoaHoc.slice(index + 1);
-                        console.log($scope.remainingArray);
-                    } else {
-                        console.log("$scope.hoc.videoKhoaHoc không phải là một mảng.");
-                    }
-
-                } else {
-                    console.log("Không tìm thấy linkVideo tương đương với $scope.videoDaXem làm tienDoToiDa.");
-                }
-            } else if ($scope.videoDaXem == null) {
+            if (value == 0) {
                 $scope.slicedArray = [];
             } else {
-                console.log("Không tìm thấy linkVideo tương đương với $scope.videoDaXem trong mảng.");
+                if (index !== -1 && $scope.videoDaXem != null) {
+                    // Lấy linkVideo từ phần tử cuối cùng của slicedArray
+                    var linkVideoSlicedArray = $scope.hoc.videoKhoaHoc[index].linkVideo;
+                    // Kiểm tra xem linkVideo của video đó có tương đương với tienDoToiDa hay không
+                    if (linkVideoSlicedArray === $scope.videoDaXem) {
+                        // Cắt chuỗi từ $scope.hoc.videoKhoaHoc đến linkVideoSlicedArray (tienDoToiDa)
+                        if (Array.isArray($scope.hoc.videoKhoaHoc)) {
+                            $scope.slicedArray = $scope.hoc.videoKhoaHoc.slice(0, index + 1); // Cắt mảng từ vị trí 0 đến index + 1
+
+                            // In ra phần tử đã cắt
+                            console.log($scope.slicedArray);
+
+                            // In ra phần còn lại của mảng sau vị trí index + 1
+                            $scope.remainingArray = $scope.hoc.videoKhoaHoc.slice(index + 1);
+                            console.log($scope.remainingArray);
+                        } else {
+                            console.log("$scope.hoc.videoKhoaHoc không phải là một mảng.");
+                        }
+
+                    } else {
+                        console.log("Không tìm thấy linkVideo tương đương với $scope.videoDaXem làm tienDoToiDa.");
+                    }
+                } else if ($scope.videoDaXem == null || $scope.videoDaXem == 0) {
+                    $scope.slicedArray = [];
+                } else {
+                    console.log("Không tìm thấy linkVideo tương đương với $scope.videoDaXem trong mảng.");
+                }
             }
 
 

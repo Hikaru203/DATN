@@ -162,33 +162,82 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
 
                     $scope.trangThai = "Đã hoàn thành";
 
-                    $http({
-                        method: 'PUT',
-                        url: '/api/tiendokhoahoc/upload/' + value + '/' + idKhoaHoc + '/' + $scope.trangThai
-                    }).then(function (response) {
-                        console.log("Cập nhật thành công");
-                    });
+                    // Tạo các hàm thực hiện các $http request
+                    function updateData(value, idKhoaHoc, trangThai) {
+                        return $http({
+                            method: 'PUT',
+                            url: '/api/tiendokhoahoc/upload/' + value + '/' + idKhoaHoc + '/' + trangThai
+                        });
+                    }
 
+                    function postData(value, idKhoaHoc) {
+                        return $http({
+                            method: 'POST',
+                            url: '/rest/ChungChi',
+                            data: {
+                                id: null,
+                                nguoiDung: {
+                                    id: value
+                                },
+                                khoaHoc: {
+                                    id: idKhoaHoc
+                                },
+                                ngayCap: new Date(),
+                            }
+                        });
+                    }
 
-                    $http({
-                        method: 'POST',
-                        url: '/rest/ChungChi',
-                        data: {
-                            id: null,
-                            nguoiDung: {
-                                id: value
-                            },
-                            khoaHoc: {
-                                id: idKhoaHoc
-                            },
-                            ngayCap: new Date(),
+                    function postRating(value, idKhoaHoc, ratingInput) {
+                        return $http({
+                            method: 'POST',
+                            url: '/api/danhgia',
+                            data: {
+                                nguoiDung: {
+                                    id: value
+                                },
+                                khoaHoc: {
+                                    id: idKhoaHoc
+                                },
+                                soDiemDanhGia: ratingInput,
+                                ngayDanhGia: new Date(),
+                            }
+                        });
+                    }
+
+                    // Gộp các promise của các $http requests lại và chạy chúng cùng lúc
+                    Promise.all([
+                        updateData(value, idKhoaHoc, $scope.trangThai),
+                        $scope.hoc.dangKyKhoaHoc.trangThai !== "Đã hoàn thành" ? postData(value, idKhoaHoc) : Promise.resolve(),
+                        // Điều kiện để quyết định có chạy postData hay không
+                        console.log("Đã cập nhật trạng thái thành công"),
+                    ]).then(function (responses) {
+                        // Xử lý kết quả trả về từ mỗi $http request ở đây (responses[0], responses[1], responses[2])
+                        console.log("Cập nhật thành công", responses[0]);
+                        if (responses[1]) {
+                            console.log(responses[1].data);
                         }
-                    }).then(function (response) {
-                        console.log(response.data);
-                        console.log("Thêm thành công");
-                        window.location.href = '/courseOnline/detail/' + idKhoaHoc; // Ví dụ: chuyển đến trang trắc nghiệm
+
+                        // Tiếp tục với xử lý modal và sự kiện click như cũ
+                        $('#ratingModal').modal('show');
+
+                        $('#confirmRating').on('click', function () {
+                            var ratingInput = document.getElementById('ratingInput').value;
+
+                            postRating(value, idKhoaHoc, ratingInput)
+                                .then(function (response) {
+                                    console.log(response.data);
+                                    console.log("Thêm thành công");
+                                    window.location.href = '/courseOnline/detail/' + idKhoaHoc;
+                                })
+                                .catch(function (error) {
+                                    console.error("Đã xảy ra lỗi khi đánh giá: ", error);
+                                });
+                        });
+                    }).catch(function (error) {
+                        console.error("Đã xảy ra lỗi: ", error);
                     });
-                    window.location.href = '/courseOnline/detail/' + idKhoaHoc; // Ví dụ: chuyển đến trang trắc nghiệm
+
+                    //window.location.href = '/courseOnline/detail/' + idKhoaHoc; // Ví dụ: chuyển đến trang trắc nghiệm
                 }
             } else {
                 console.log("Không tìm thấy idFromSessionStorage trong mảng.");
@@ -202,7 +251,12 @@ app.controller("TracNghiem-ctrl", function ($scope, $http, $window) {
             console.log(response);
         });
     });
-
+    $scope.out = function () {
+        // Sử dụng $uibModalInstance để đóng modal
+        if ($scope.modalInstance) {
+            $scope.modalInstance.dismiss('cancel');
+        }
+    };
     $scope.hasUnansweredQuestions = function () {
         for (const question of $scope.questionAnswerArray) {
             if (question.selectedAnswer === undefined) {
