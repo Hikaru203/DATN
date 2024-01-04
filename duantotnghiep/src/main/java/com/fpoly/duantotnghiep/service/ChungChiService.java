@@ -12,4 +12,6 @@ public interface ChungChiService {
     List<ChungChi> findByNguoiDungId(int idNguoiDung);
 
     List<ChungChi> findByKhoaHocIdAndNguoiDungId(int idKhoaHoc, int idNguoiDung);
+
+    ChungChi save(ChungChi chungChi);
 }

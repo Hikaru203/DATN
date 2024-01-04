@@ -8,25 +8,612 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Video Playlist UI Design Like Udemy | SkillShare</title>
     <link rel="stylesheet" href="/css/styleloadVideo.css">
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-cookies.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/accordion.min.css">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            background-color: #29303b;
+            padding: 15px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            transition: top 0.3s;
+            z-index: 1000;
+            color: white;
+        }
+
+        .navbar a {
+            color: white;
+        }
+
+        .container {
+            justify-content: space-between;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            width: 100%;
+            min-height: 85vh;
+            box-sizing: border-box;
+            padding-top: 70px;
+            /* Add padding to the content to prevent it from being overlapped by the fixed navbar */
+        }
+
+        .main-video {
+            flex: 2;
+            padding-right: 20px;
+        }
+
+        #video-iframe {
+            width: 100%;
+            height: 500px;
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .video-playlist {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            overflow-y: auto;
+            max-height: 500px;
+        }
+
+        .title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .video {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .video img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .video .title {
+            font-size: 16px;
+        }
+
+        .video.active {
+            background-color: #f0f0f0;
+        }
+
+        .video-controls {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+        }
+
+        .video-controls input[type="range"] {
+            width: 80px;
+        }
+
+        .video-controls1 {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+        }
+
+        .video-controls1 input[type="range"] {
+            width: 80px;
+        }
+
+        .video-frame-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .contact {
+            word-wrap: break-word;
+            color: #292929;
+            font-size: 15px;
+            font-size: var(--font-size, 15px);
+            line-height: 2;
+            line-height: var(--line-height, 2);
+
+
+
+        }
+
+        #video-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+
+
+        #full-screen {
+            background-color: #28a745;
+            position: fixed;
+            bottom: 20px;
+            /* Điều chỉnh khoảng cách từ bottom theo ý muốn */
+            left: 20px;
+            /* Điều chỉnh khoảng cách từ right theo ý muốn */
+            z-index: 999;
+            /* Đảm bảo nó hiển thị trên các phần tử khác nằm dưới */
+            border: none;
+            /* Xóa viền nếu cần */
+            /* Các thuộc tính khác tùy thuộc vào ý muốn của bạn */
+        }
+
+        #next-video {
+            background-color: #17a2b8;
+        }
+
+        #prev-video {
+            color: #000;
+        }
+
+        .video[data-disabled="true"] {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .ytp-chrome-top-buttons {
+            display: none !important;
+        }
+
+        #overlay {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        #dialog-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        #dialog-box button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+
+
+        #full-screen {
+            background-color: #28a745;
+        }
+
+        #next-video {
+            background-color: #17a2b8;
+        }
+
+
+
+        .video[data-disabled="true"] {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-video {
+            margin-bottom: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+            }
+
+            .main-video {
+                flex: 1;
+                margin-bottom: 0;
+            }
+
+            .video-playlist {
+                flex: 1;
+                margin-left: 20px;
+            }
+
+            .video-controls {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                bottom: 0px;
+                background-color: rgba(255, 255, 255, 0);
+                padding: 10px;
+                border-radius: 5px;
+                display: none;
+                display: flex;
+                align-items: end;
+                justify-content: space-between;
+            }
+
+            .video-controls1 {
+                position: absolute;
+                bottom: 20px;
+                background-color: rgba(255, 255, 255, 0.759);
+                padding: 10px;
+                border-radius: 5px;
+                display: none;
+            }
+
+            .video-container:hover .video-controls1 {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 50px;
+            }
+
+            #volume-control,
+            #playback-speed,
+            #resolution {
+                margin-right: 10px;
+            }
+
+            #playback-speed {
+                margin-left: 0px;
+            }
+
+            .fa-volume-down::before {
+                content: "\f027";
+            }
+
+            .volume-tooltip {
+                display: none;
+                position: absolute;
+                background-color: #000;
+                color: #fff;
+                padding: 5px;
+                border-radius: 5px;
+                pointer-events: none;
+            }
+        }
+
+        .action-bar {
+            display: flex;
+
+            background-color: #f0f0f0;
+            /* Màu nền */
+            color: white;
+            /* Màu chữ */
+            padding: 10px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        #dialog-box {
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #yes-button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+        }
+
+        #no-button {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+        }
+
+        .video-frame-container {
+            border: #000 1px solid;
+        }
+
+        .text-decoration-none:hover {
+            background-color: #222831;
+        }
+
+        .vongTram {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+            border: #000 3px solid;
+            font-size: 10px;
+        }
+
+        .action-bar.fixed-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            /* Đổi màu nền tùy theo ý muốn */
+            z-index: 999;
+            /* Đảm bảo nó hiển thị trên các phần tử khác nằm dưới */
+        }
+
+        /* Đảm bảo các phần tử hiển thị trên cùng 1 hàng */
+        .out {
+            display: flex;
+            /* Sử dụng Flexbox */
+            align-items: center;
+            /* Canh giữa các phần tử theo chiều dọc */
+        }
+
+        /* Để ngăn cách giữa icon và văn bản */
+        .out i {
+            margin-right: 5px;
+            /* Điều chỉnh khoảng cách giữa icon và văn bản */
+        }
+
+        .custom-select {
+            background-color: rgba(255, 255, 255, 0.455);
+            border: 1px solid #ccc;
+            padding: 8px;
+            /* Điều chỉnh khoảng cách giữa nội dung và viền */
+            border-radius: 4px;
+            /* Bo góc */
+            width: 150px;
+            /* Độ rộng */
+            font-size: 16px;
+            /* Cỡ chữ */
+            color: #333;
+            /* Màu chữ */
+            outline: none;
+            /* Loại bỏ đường viền khi được focus */
+        }
+
+        /* Tùy chỉnh màu khi di chuột qua */
+        .custom-select:hover {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
 </head>
 
-<body ng-app="loadVideo-app" ng-controller="loadVideo-app-ctrl" ng-init="loadvideo()">
-    <main class="container">
+<body ng-app="loadVideo-app" ng-controller="loadVideo-app-ctrl" ng-init="loadvideo()" style="display: block;">
+    <div class="navbar" style="padding-bottom: 10px;">
+        <!-- Your navbar content here -->
 
+        <a th:href="@{/courseOnline/index}" class="text-decoration-none">
+            <div class="out" title="Rời khỏi đây">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                <p style="padding-top: 13px;">Quay lại</p>
+            </div>
+
+        </a>
+        <div class="row">
+            <div class="vongTram">
+                <span class="soPhanTram">{{(countDaHoc / count * 100).toFixed(0)}}</span>%
+            </div>
+            <p class="Header_completed-msg__4yWLU" style="padding-top: 7px; padding-left: 10px; padding-right: 20px;">
+                <strong><span class="Header_num__0cLsk">{{countDaHoc}}</span>/<span
+                        class="Header_num__0cLsk">{{count}}</span></strong> bài học
+            </p>
+
+        </div>
+
+    </div>
+    <main class="container" id="container">
         <section class="main-video">
-            <iframe id="video-iframe" width="888" height="500" src="" frameborder="0" allowfullscreen></iframe>
-            <h3 class="title">Nội dung khóa học.</h3>
-        </section>
 
-        <section class="video-playlist">
-            <h3 class="title">Nội dung khóa học</h3>
-            <p>10 lessons &nbsp; . &nbsp; 50m 48s</p>
+            <div class="video-frame-container video-container" style="color: #000;">
+                <iframe id="video-iframe" width="550" height="315" src="" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+                <div class="video-controls" style="width: 100%;">
+
+                </div>
+                <div class="video-controls1" style="width: 100%; z-index: 999;">
+                    <button title="Dừng" id="pause-video" class="button">
+                        <i id="play-pause-icon" class="fas fa-play"></i>
+                    </button>
+                    <div title="Âm lượng" class="volume-control-container">
+                        <i class="fas fa-volume-up" id="volume-icon"></i>
+                        <input type="range" id="volume-control" min="0" max="100" step="1" value="100">
+                        <span id="volume-percentage" class="volume-tooltip">100%</span>
+                    </div>
+                    <div id="video-info" title="Thời gian"></div>
+                    <select title="Tốc độ" id="playback-speed" class="custom-select">
+                        <option value="1">Bình thường</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
+
+                </div>
+            </div>
+
+        </section>
+        <section class="video-playlist" id="playlist-video">
+            <h3 class="title">Các bài học</h3>
             <div class="videos"></div>
         </section>
+
+
     </main>
-    <script src="/js/scriptLoadVideo.js"></script>
+    <div class="MarkdownParser_wrapper__JYN63" style="--font-size: 1.6rem; --line-height: 2;">
+        <p style="font-weight:bold ; font-size: large;">{{inputElement1}}</p>
+    </div>
+    <div class="action-bar fixed-bottom" style="display: flex; justify-content: center;">
+        <button id="prev-video" class="button" style="margin-right: 10px;"><i class="fas fa-step-backward"
+                style="margin-right: 10px;"></i> Bài trước</button>
+        <button id="next-video" class="button" style="pointer-events: none;">Bài tiếp theo<i class="fas fa-step-forward"
+                style="margin-left: 10px; pointer-events: none;"></i></button>
+
+    </div>
+    <button id="full-screen" title="Phóng to" class="button"><i class="fas fa-expand"></i></button>
+
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let isFullScreen = false;
+            const fullScreenButton = document.getElementById('full-screen');
+            const videoIframe = document.getElementById('video-frame-container');
+            const videoPlaylist = document.getElementById('playlist-video');
+            const container = document.getElementById('container');
+
+            fullScreenButton.addEventListener('click', function () {
+                if (!isFullScreen) {
+                    videoPlaylist.style.display = 'none';
+                    container.style.gridTemplateColumns = '1fr'; // Thay đổi kích thước cột
+                    isFullScreen = true;
+                } else {
+                    videoPlaylist.style.display = 'block';
+                    container.style.gridTemplateColumns = '1.8fr 1.2fr'; // Khôi phục lại kích thước cột ban đầu
+                    isFullScreen = false;
+                }
+            });
+        });
+    </script>
+
+    <div hidden>
+        <ul class="navbar-nav">
+            <li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangnhap">Đăng
+                    nhập</a></li>
+            <li th:if="${session.user} == null" class="nav-item"><a class="nav-link" href="/courseOnline/dangky">Đăng
+                    ký</a>
+            </li>
+        </ul>
+        <div class="nav-item dropdown" th:if="${session.user != null}">
+            <style>
+                /* Tùy chỉnh CSS cho menu dropdown "Tài Khoản" */
+                .dropdown-menu {
+                    position: absolute;
+                    background-color: #ff6600;
+                    /* Màu nền */
+                    border: 1px solid #ff6600;
+                    /* Viền */
+                    width: 200px;
+                    /* Độ rộng */
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    /* Hiệu ứng bóng đổ */
+                }
+
+                .dropdown-item {
+                    color: #fff;
+                    /* Màu chữ */
+                    font-size: 14px;
+                    padding: 10px 20px;
+                }
+            </style>
+            <input type="text" id="idLogin" hidden th:value="${session.user.id}">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                style="font-size: 19px; font-weight: bold," th:text="${session.user.hoTen}"></a>
+            <div class="dropdown-menu">
+                <a href="cart.html" class="dropdown-item">Cập nhật tài khoản</a>
+                <a href="/Admin/User" th:if="${session.admin != null}" class="dropdown-item">Admin</a>
+                <a href="/logoff" class="dropdown-item">Đăng xuất</a>
+            </div>
+        </div>
+        <br>
+        <script src="https://www.youtube.com/iframe_api"></script>
+
+        <script src="/js/scriptLoadVideo.js"></script>
+        <script th:src="@{/js/loai.js}"></script>
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="/lib/easing/easing.min.js"></script>
+        <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+        <!-- Contact Javascript File -->
+        <script src="/mail/jqBootstrapValidation.min.js"></script>
+        <script src="/mail/contact.js"></script>
+        <script type="text/javascript">
+            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+            (function () {
+                var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+                s1.async = true;
+                s1.src = 'https://embed.tawk.to/656a307eff45ca7d4785d6d3/1hgjcqs8o';
+                s1.charset = 'UTF-8';
+                s1.setAttribute('crossorigin', '*');
+                s0.parentNode.insertBefore(s1, s0);
+            })();
+        </script>
 </body>
+
 
 </html>

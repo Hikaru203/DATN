@@ -1,0 +1,213 @@
+<div th:fragment="menutop">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="logo-pro">
+                    <a href="index"><img class="main-logo" th:src="@{/Admin/img/logo/logo.png}" alt="" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-advance-area">
+        <div class="header-top-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="header-top-wraper">
+                            <div class="row">
+                                <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                    <div class="menu-switcher-pro">
+                                        <button type="button" id="sidebarCollapse"
+                                            class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                            <i class="educate-icon educate-nav"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" ng-controller="thongBaoCtrl"
+                                    ng-cloak>
+                                    <div class="header-right-info">
+                                        <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                            <li class="nav-item dropdown">
+                                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                                    class="nav-link dropdown-toggle"><i
+                                                        class="educate-icon educate-message edu-chat-pro"
+                                                        aria-hidden="true"></i><span class="indicator-ms"></span></a>
+                                                <div role="menu"
+                                                    class="author-message-top dropdown-menu animated zoomIn">
+                                                    <div class="message-single-top">
+                                                        <h1>Tin nhắn</h1>
+                                                    </div>
+
+                                                    <ul class="notification-menu">
+                                                        <ul class="notification-menu">
+                                                            <li ng-repeat="notification in notifications "
+                                                                style="width: 100%;"
+                                                                ng-if="notification.nhaSangTao === false && notification.thongBao === true">
+                                                                <a href="#">
+                                                                    <i class="fa"
+                                                                        ng-class="{'fa-users': notification.type === 'user', 'fa-book': notification.type === 'course'}"
+                                                                        aria-hidden="true"></i>
+                                                                    <div class="notification-icon">
+                                                                        <i class="fa"
+                                                                            ng-class="{'fa-users': notification.type === 'user', 'fa-book': notification.type === 'course'}"
+                                                                            aria-hidden="true"></i>
+                                                                    </div>
+                                                                    <div class="notification-content">
+                                                                        <h2>{{ notification.hoTen }}</h2>
+                                                                        <p>Yêu cầu trở thành nhà sáng tạo</p>
+                                                                        <button ng-click="acceptRequestWithConfirmation(notification)">Duyệt</button>
+
+                                                                            <br><br>
+                                                                    </div>
+                                                                    <style>
+                                                                        .notification-content {
+                                                                            background-color: #fff;
+                                                                            border: 1px solid #ddd;
+                                                                           border-radius: 10px;
+                                                                            overflow: hidden;
+                                                                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                                                                            transition: transform 0.3s ease-in-out;
+                                                                            text-align: center;
+                                                                            max-width: 300px;
+                                                                            margin: 20px;
+                                                                        }
+
+                                                                        .notification-content:hover {
+                                                                            transform: translateY(-5px);
+                                                                        }
+
+                                                                        .notification-header {
+                                                                            background-color: #3498db;
+                                                                            color: #fff;
+                                                                            padding: 10px;
+                                                                            border-bottom: 1px solid #ddd;
+                                                                        }
+
+                                                                        .notification-content h2 {
+                                                                            margin: 10px 0;
+                                                                            font-size: 20px;
+                                                                        }
+
+                                                                        .notification-content p {
+                                                                            margin: 10px 0;
+                                                                            font-size: 16px;
+                                                                            color: #555;
+                                                                        }
+
+                                                                        .notification-content button {
+                                                                            background-color: #2ecc71;
+                                                                            color: #fff;
+                                                                            border: none;
+                                                                            padding: 10px 20px;
+                                                                            border-radius: 5px;
+                                                                            cursor: pointer;
+                                                                            transition: background-color 0.3s ease;
+                                                                        }
+
+                                                                        .notification-content button:hover {
+                                                                            background-color: #27ae60;
+                                                                        }
+                                                                    </style>
+                                                                </a>
+                                                            </li>
+
+                                                        </ul>
+
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="nav-item"><a href="#" data-toggle="dropdown" role="button"
+                                                    aria-expanded="false" class="nav-link dropdown-toggle"><i
+                                                        class="educate-icon educate-bell" aria-hidden="true"></i><span
+                                                        class="indicator-nt"></span></a>
+                                                <div role="menu"
+                                                    class="notification-author dropdown-menu animated zoomIn">
+                                                    <div class="notification-single-top">
+                                                        <h1>Thông báo</h1>
+                                                    </div>
+                                                    <style>
+
+                                                    </style>
+                                                    <ul class="notification-menu">
+                                                        <li ng-repeat="notification in notifications  | limitTo:10"
+                                                            style="width: 100%;">
+                                                            <a href="#">
+                                                                <i class="fa"
+                                                                    ng-class="{'fa-user': notification.type === 'user', 'fa-book': notification.type === 'course'}"
+                                                                    aria-hidden="true"></i>
+                                                                <div class="notification-icon">
+                                                                    <i class="fa"
+                                                                        ng-class="{'fa-user': notification.type === 'user', 'fa-book': notification.type === 'course'}"
+                                                                        aria-hidden="true"></i>
+                                                                </div>
+                                                                <div class="notification-content">
+                                                                    <h2 ng-if="notification.type === 'user'">{{
+                                                                        notification.hoTen }}</h2>
+                                                                    <h2 ng-if="notification.type === 'course'">{{
+                                                                        notification.nguoiDung.hoTen }}</h2>
+                                                                    <span class="notification-date"
+                                                                        style="position: unset;">
+                                                                        {{
+                                                                        calculateTimeDifference(notification.thoiGianTao
+                                                                        || notification.ngayDangKy) }}
+                                                                    </span>
+                                                                    <br>
+                                                                    <p ng-if="notification.type === 'user'">Đã đăng ký
+                                                                        thành công tài khoản mới.</p>
+                                                                    <p ng-if="notification.type === 'course'">Đã đăng ký
+                                                                        khóa học "{{ notification.khoaHoc.tenKhoaHoc
+                                                                        }}".</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                                    class="nav-link dropdown-toggle">
+                                                    <img th:if="${session.user.hinhAnh != null}"
+                                                        th:src="@{/Admin/img/product/${session.user.hinhAnh}.jpg}"
+                                                        alt="" />
+                                                    <img th:unless="${session.user.hinhAnh != null}"
+                                                        th:src="@{/img/LogoPLA.png}" alt="Logo" />
+
+                                                    <span class="admin-name" th:text="${session.user.hoTen}"></span>
+                                                    <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
+                                                </a>
+                                                <ul role="menu"
+                                                    class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                    <li><a href="#"><span
+                                                                class="edu-icon edu-home-admin author-log-ic"></span>Cập
+                                                            nhật</a>
+                                                    </li>
+
+                                                    <li><a th:href="@{/courseOnline/index}"><span
+                                                                class="edu-icon edu-money author-log-ic"></span>
+                                                            Giao diện Index</a>
+                                                    </li>
+
+                                                    <li><a th:href="@{/logoff}"><span
+                                                                class="edu-icon edu-locked author-log-ic"></span>Đăng
+                                                            xuất</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

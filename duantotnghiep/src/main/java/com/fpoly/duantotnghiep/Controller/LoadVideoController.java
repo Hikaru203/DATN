@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 class LoadVideoController {
-	@GetMapping("/courseOnline/video")
-    public String loadVideo(Model model) {
-    	
+	@GetMapping("/courseOnline/video/{id}")
+    public String loadVideo(Model model, @PathVariable("id") Long id) {
         return "loadVideo";
     }
 }

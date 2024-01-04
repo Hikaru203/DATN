@@ -1,81 +1,84 @@
-var app = angular.module("myApp", ['ui.bootstrap']);
+app.controller("NguoiDungCtrl", function ($scope, $http) {
+    $scope.nguoiDungList = [];
 
-app.controller("NguoiDung-ctrl", function($scope, $http) {
-	// Initialize the nguoiDungList as an empty array
-	$scope.nguoiDungList = [];
-
-	// Function to fetch nguoiDung data
-	function loadNguoiDung() {
-		$http.get("/rest/NguoiDung").then(function(resp) {
-			$scope.nguoiDungList = resp.data;
-		});
-	}
-
-	// Function to populate input fields when the "Edit" button is clicked
-	$scope.editUser = function(nguoiDung) {
-		$scope.selectedUser = nguoiDung; // Store the selected user data
-	};
-
-	// Call the function to load nguoiDung data initially
-	loadNguoiDung();
-});
-// Function to insert a new user
-$scope.addUser = function() {
-    // Tạo một đối tượng người dùng mới với các thông tin từ form
-    var newUser = {
-        id: $scope.selectedUser.id,
-        hoTen: $scope.selectedUser.hoTen,
-        matKhau: $scope.selectedUser.matKhau,
-        soDienThoai: $scope.selectedUser.soDienThoai,
-        email: $scope.selectedUser.email,
-        chucVu: $scope.selectedUser.role, // Lấy từ dropdown Role
-        hinhAnh: $scope.selectedUser.imageico, // Tên hình ảnh từ input file
-        trangThai: $scope.selectedUser.trangThai === 'Yes' ? true : false // Chuyển đổi giá trị Yes/No thành true/false
+    // Lấy danh sách người dùng
+    $scope.getAllNguoiDung = function () {
+        $http.get("/rest/admin/NguoiDung")
+            .then(function (response) {
+                $scope.nguoiDungList = response.data;
+                // Thêm logic sắp xếp, đặt số thứ tự nếu cần
+            })
+            .catch(function (error) {
+                console.error("Lỗi khi lấy danh sách người dùng: " + error);
+            });
     };
 
- $scope.chooseImage = function() {
-    const imageInput = document.getElementById("fileInput");
-    imageInput.click();
+    // Gọi hàm lấy danh sách người dùng khi trang web được tải
+    $scope.getAllNguoiDung();
+});
 
-    imageInput.addEventListener("change", function() {
-        const selectedImage = imageInput.files[0];
-        // Kiểm tra xem đã chọn tệp ảnh hay chưa
-        if (selectedImage) {
-            // Lưu tên tệp ảnh vào biến selectedFileName
-            $scope.selectedFileName = selectedImage.name;
-        }
-    });
-};
-
-    // Thêm người dùng mới vào danh sách
-    $scope.nguoiDungList.push(newUser);
-
-    // Xóa các thông tin trong form
-    $scope.selectedUser = {};
-};
-
-	$scope.editUser = function() {
-		// Implement the logic for editing a user here
-		// You can use $scope.selectedUser to access the selected user's data
-	};
-	$scope.deleteUser = function() {
-		    var index = $scope.nguoiDungList.indexOf(nguoiDung);
-    if (index !== -1) {
-        $scope.nguoiDungList.splice(index, 1); // Xóa người dùng khỏi danh sách
-    }
-	};
-	// Push the new user object into the nguoiDungList
-
-function chooseImage() {
-  const imageInput = document.getElementById("imageInput");
-  imageInput.click(); // Khi nút "Chọn ảnh" được nhấp, kích hoạt sự kiện click của input[type="file"]
-  
-  // Lắng nghe sự kiện khi người dùng chọn ảnh
-  imageInput.addEventListener("change", function() {
-    const selectedImage = imageInput.files[0]; // Lấy file ảnh được chọn (chỉ lấy 1 file)
-    
-    // Ở đây, bạn có thể xử lý file ảnh được chọn, ví dụ hiển thị nó trên giao diện hoặc thực hiện các thao tác khác.
-    // Ví dụ, hiển thị tên file ảnh lên màn hình:
-    alert(`Bạn đã chọn ảnh: ${selectedImage.name}`);
-  });
+// Hàm để cập nhật giá trị của input ID
+function updateIdInput(id) {
+    var inputElement = document.getElementById('idInput');
+    inputElement.value = id;
 }
+document.addEventListener('DOMContentLoaded', function () {
+    var addAccountBtn = document.getElementById('addAccountBtn');
+    if (addAccountBtn) {
+        addAccountBtn.addEventListener('click', function (event) {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của form
+
+            // Lấy dữ liệu từ các trường nhập và thực hiện các xử lý khác
+            var taiKhoan = document.getElementById('taiKhoanInput').value;
+            var matKhau = document.getElementById('matKhauInput').value;
+            var hoTen = document.getElementById('hoTenInput').value;
+            var email = document.getElementById('emailInput').value;
+            var soDienThoai = document.getElementById('soDienThoaiInput').value;
+            var chucVu = document.getElementById('selectedValueInput').value;
+
+
+            // Gửi dữ liệu lên server (sử dụng AJAX, ví dụ: fetch API)
+            fetch('/rest/admin/NguoiDung/them1', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    taiKhoan: taiKhoan,
+                    matKhau: matKhau,
+                    hoTen: hoTen,
+                    email: email,
+                    soDienThoai: soDienThoai,
+                    chucVu: chucVu,
+                    trangThai: true,
+                    thoiGianTao: new Date(),
+                    xacMinh: true,
+                    thongBao: true,
+                    nhanThongBao: false,
+
+                })
+            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    // Xử lý kết quả từ server, có thể cập nhật giao diện nếu cần
+                    console.log('Thêm tài khoản thành công:', data);
+                })
+                .catch(function (error) {
+                    console.error('Lỗi khi thêm tài khoản:', error);
+                });
+        });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+

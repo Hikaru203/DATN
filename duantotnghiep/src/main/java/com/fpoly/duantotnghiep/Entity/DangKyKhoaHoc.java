@@ -39,9 +39,14 @@ public class DangKyKhoaHoc {
 	private Date ngayDangKy;
 
 	@Column(name = "tien_do")
-    private int tienDo;
+    private String tienDo;
 	
     @Column(name = "trang_thai")
     private String trangThai;
+
+	@Column(name = "tien_do_toi_da")
+    private String tienDoToiDa;
 	// Getters and Setters
+
+
 }

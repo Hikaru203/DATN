@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ import com.fpoly.duantotnghiep.service.VideoService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/Admin/rest/Videos")
+@RequestMapping("/rest/admin/Videos")
 public class AdminVideoRestController {
     @Autowired
     VideoService videoService;
@@ -37,6 +38,16 @@ public class AdminVideoRestController {
     @PostMapping()
     public VideoKhoaHoc add(@RequestBody VideoKhoaHoc videoKhoaHoc) {
         return videoService.save(videoKhoaHoc);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable int id) {
+        videoService.deleteById(id);
+    }
+
+    @GetMapping("/mucLuc/{idMucLuc}")
+    public ArrayList<VideoKhoaHoc> getByMucLuc(@PathVariable int idMucLuc) {
+        return videoService.findByMucHocId(idMucLuc);
     }
 
 }
